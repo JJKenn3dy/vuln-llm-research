@@ -119,6 +119,17 @@ def log(msg: str) -> None:
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
 
+def dump_partial(results: list, output_path: str) -> None:
+    """Atomic partial dump — writes <output>.partial.json next to final path.
+    Safe to call inside loops; overwritable; safe to read while writer is alive.
+    """
+    p = Path(output_path)
+    partial = p.with_suffix(".partial" + p.suffix)
+    tmp = partial.with_suffix(partial.suffix + ".tmp")
+    tmp.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(partial)
+
+
 def call_openrouter(model: str, system: str, user: str, max_tokens: int = 600) -> str:
     from openai import OpenAI
     client = OpenAI(
@@ -266,7 +277,10 @@ def main() -> None:
 
         log(f"  [{i+1}/{len(scaffold)}] {cid}  pass1={solvable}/{verdict_snippet}  pass2={verdict_full}/{taxonomy}")
 
-    Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+        # Partial dump after EVERY case — if killed mid-way, work survives
+        Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+        dump_partial(scaffold[:i + 1], args.output)
+
     Path(args.output).write_text(
         json.dumps(scaffold, ensure_ascii=False, indent=2), encoding="utf-8")
 

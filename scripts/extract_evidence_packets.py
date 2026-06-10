@@ -235,9 +235,15 @@ async def process_all(cases: list[dict], concurrency: int,
     if gh_token:
         headers["Authorization"] = f"token {gh_token}"
     sem = asyncio.Semaphore(concurrency)
-    out: list[dict] = []
+    accumulated: list[dict] = []
+    accumulated_lock = asyncio.Lock()
+    partial_path: Path | None = None
+    if output_path:
+        op = Path(output_path)
+        partial_path = op.with_suffix(".partial" + op.suffix)
+
     async with aiohttp.ClientSession(headers=headers) as session:
-        async def one(case):
+        async def one(case, total):
             md = case["metadata"]
             url = github_raw_url(
                 md.get("project_id"),
@@ -246,7 +252,7 @@ async def process_all(cases: list[dict], concurrency: int,
             )
             content = await fetch_file(session, url, sem) if url else None
             packet, stats = build_packet(case, content)
-            return {
+            result = {
                 "case_id": str(md["case_id"]),
                 "github_raw_url": url,
                 "evidence_packet": packet,
@@ -259,9 +265,20 @@ async def process_all(cases: list[dict], concurrency: int,
                 ),
                 "stats": stats,
             }
-        results = await asyncio.gather(*[one(c) for c in cases])
-        out.extend(results)
-    return out
+            async with accumulated_lock:
+                accumulated.append(result)
+                n = len(accumulated)
+                if partial_path and (n % 5 == 0 or n == total):
+                    tmp = partial_path.with_suffix(partial_path.suffix + ".tmp")
+                    tmp.write_text(
+                        json.dumps(accumulated, ensure_ascii=False, indent=2),
+                        encoding="utf-8")
+                    tmp.replace(partial_path)
+                    print(f"  [{n}/{total}] partial → {partial_path.name}", flush=True)
+            return result
+
+        await asyncio.gather(*[one(c, len(cases)) for c in cases])
+    return accumulated
 
 
 def parse_args() -> argparse.Namespace:
@@ -281,7 +298,7 @@ def main() -> None:
         cases = cases[:args.limit]
     print(f"Cases: {len(cases)}")
 
-    results = asyncio.run(process_all(cases, args.concurrency, args.gh_token))
+    results = asyncio.run(process_all(cases, args.concurrency, args.gh_token, args.output))
 
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     Path(args.output).write_text(

@@ -90,6 +90,30 @@ def log(msg: str) -> None:
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
 
 
+def dump_partial_arms(per_arm: dict, output_path: str) -> None:
+    """Atomic partial dump of per_arm dict into <output>.partial.json.
+    Called every case so killed-mid-probe state is recoverable.
+    """
+    p = Path(output_path)
+    partial = p.with_suffix(".partial" + p.suffix)
+    tmp = partial.with_suffix(partial.suffix + ".tmp")
+    payload = {
+        "meta": {
+            "created_at": datetime.now().isoformat(),
+            "warning": "PARTIAL — probe still running or was killed; not a final result",
+        },
+        "arms_in_progress": {
+            arm_name: {
+                "n_so_far": len(rows),
+                "per_case": rows,
+            }
+            for arm_name, rows in per_arm.items()
+        },
+    }
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    tmp.replace(partial)
+
+
 def parse_verdict(response: str) -> str:
     m = VERDICT_RE.search(response or "")
     if not m:
@@ -316,6 +340,10 @@ def main() -> None:
                 "raw_response": response[:1000],
             })
         log(f"  [{i+1}/{n}] {cid} done")
+
+        # Partial dump after EVERY case — work survives kill
+        Path(args.output).parent.mkdir(parents=True, exist_ok=True)
+        dump_partial_arms(per_arm, args.output)
 
     # === 6th arm: human snippet-blind (no API call) ===
     human_rows = [
