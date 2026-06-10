@@ -1,0 +1,2602 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    $dateStart = Filter::filterInput(INPUT_POST, 'dateStart', FILTER_SANITIZE_SPECIAL_CHARS);\n    $dateEnd = Filter::filterInput(INPUT_POST, 'dateEnd', FILTER_SANITIZE_SPECIAL_CHARS);\n    $question = Filter::filterInput(INPUT_POST, 'question', FILTER_SANITIZE_SPECIAL_CHARS);\n    $recordLang = Filter::filterInput(INPUT_POST, 'lang', FILTER_SANITIZE_SPECIAL_CHARS);\n    $tags = Filter::filterInput(INPUT_POST, 'tags', FILTER_SANITIZE_SPECIAL_CHARS);\n    $active = Filter::filterInput(INPUT_POST, 'active', FILTER_SANITIZE_SPECIAL_CHARS);\n    $sticky = Filter::filterInput(INPUT_POST, 'sticky', FILTER_SANITIZE_SPECIAL_CHARS);\n    $keywords = Filter::filterInput(INPUT_POST, 'keywords', FILTER_SANITIZE_SPECIAL_CHARS);\n    $author = Filter::filterInput(INPUT_POST, 'author', FILTER_SANITIZE_SPECIAL_CHARS);\n    $comment = Filter::filterInput(INPUT_POST, 'comment', FILTER_SANITIZE_SPECIAL_CHARS);\n    $changed = Filter::filterInput(INPUT_POST, 'changed', FILTER_SANITIZE_SPECIAL_CHARS);\n    $date = Filter::filterInput(INPUT_POST, 'date', FILTER_SANITIZE_SPECIAL_CHARS);\n    $notes = Filter::filterInput(INPUT_POST, 'notes', FILTER_SANITIZE_SPECIAL_CHARS);\n    if ('all' === Filter::filterInput(INPUT_POST, 'userpermission', FILTER_SANITIZE_SPECIAL_CHARS)) {\n    if ('all' === Filter::filterInput(INPUT_POST, 'grouppermission', FILTER_SANITIZE_SPECIAL_CHARS)) {\n                    $notifyUser = Filter::filterInput(INPUT_POST, 'notifyUser', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqData['lang'] = Filter::filterInput(INPUT_POST, 'lang', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqData['active'] = Filter::filterInput(INPUT_POST, 'active', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqData['keywords'] = Filter::filterInput(INPUT_POST, 'keywords', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqData['title'] = Filter::filterInput(INPUT_POST, 'thema', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqData['author'] = Filter::filterInput(INPUT_POST, 'author', FILTER_SANITIZE_SPECIAL_CHARS);\n        $faqDa"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-1759",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "765f00510825",
+      "fixed_code_hash": "ed0619ce3e28",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        'lang' => Strings::htmlentities($faqLanguage),\n                $this->xml->text(Strings::htmlentities($data['topic']));"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-1880",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "336d0d63d2b4",
+      "fixed_code_hash": "600baf2128e0",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\nconst urlSchemeRegex = /^([^:]+):/gm;"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-48345",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "740cd5a479de",
+      "fixed_code_hash": "754e52afe8b8",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n            $settings = $_POST['settings'];\n            Symphony::ExtensionManager()->notifyMembers('Save', '/system/preferences/', array('settings' => &$settings, 'errors' => &$this->_errors));"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-8766",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "7fc13b756e15",
+      "fixed_code_hash": "caa393b1533b",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t{\"<>\": \"span\", \"html\": \"${name} (${year})\"}\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n <head>\n\t<title> json2html examples </title>\n\n\t<!-- Add JSON2HTML -->\n\t<script type=\"text/javascript\" src=\"../json2html.js\"></script>\n\t\n </head>\n <body>\n\t<!-- Run the tests -->\n\t<script type=\"text/javascript\" src=\"example.nested.js\"></script>\n\t<script type=\"text/javascript\" src=\"example.shorthand.js\"></script>\n\t<script type=\"text/javascript\" src=\"example.escape.js\"></script>\n </body>\n</html>\n//Copyright (c) 2016 Crystalline Technologies\n\t\t\t\t\t\t//LEGACY support for tag\n\t\t\t\t\t\t//LEGACY support for children\n\n\t\t\t\t\t\t\t\t//Determine what type of object was returned\n\t\t\t\t\t\t\t\tswitch(typeof temp){\n\n\t\t\t\t\t\t\t\t\t//Only returned by json2html.transform or $.json2html calls\n\t\t\t\t\t\t\t\t\tcase 'object':\n\t\t\t\t\t\t\t\t\t\t//make sure this object is a valid json2html response object\n\t\t\t\t\t\t\t\t\t\t// we ignore all other objects (since we don't know how to represent them in html)\n\t\t\t\t\t\t\t\t\t\tif(temp.html !== undefined && temp.events !== undefined) children = json2html._append(children,temp);\n\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t//Not supported\n\t\t\t\t\t\t\t\t\tcase 'function':\n\t\t\t\t\t\t\t\t\tcase 'undefined':\n\t\t\t\t\t\t\t\t\tbreak; \n\n\t\t\t\t\t\t\t\t\t//Append to html\n\t\t\t\t\t\t\t\t\t// string, number, boolean\n\t\t\t\t\t\t\t\t\tdefault:\n\t\t\t\t\t\t\t\t\t\tchildren.html += temp;\n\t\t\t\t\t\t\t\t\tbreak;\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t//Create the html attribute for this element\n  \"version\": \"1.0.1\","
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2018-25053",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "82deca106b8d",
+      "fixed_code_hash": "f13172dc4298",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n            array('title, name, description', 'LSYii_Validators'),\n    <h3><?php eT('Survey settings for group: '); echo '<strong><em>'.$model->title.'</strong></em>'; ?></h3>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2020-11456",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "1ce60bb4b5f9",
+      "fixed_code_hash": "ca73fd8bd91d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            if (stripos($matches[1], 'svg') !== false) {\n                if (stripos($matches[1], ';base64') !== false) {\n                    $svg  = base64_decode($svg);\n                    $type = $matches[1];\n                    $type = $matches[1] . ';base64';"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-5631",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f4654ae980b3",
+      "fixed_code_hash": "32b37eafeb5d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n1.16 2011-03-19 00:00:00\n    url_unescape $part;\nour $VERSION  = '1.16';\nuse Test::More tests => 3;"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2011-1589",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "902de924f7ab",
+      "fixed_code_hash": "8aef40f52e98",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        window.location = window.location.hash.substring(\n            window.location.hash.indexOf(':') + 1\n        );\n        // Localised strings\n        $params = array('lang' => $GLOBALS['lang']);\n        if (isset($GLOBALS['db'])) {\n            $params['db'] = $GLOBALS['db'];\n        }\n                $dynamic_scripts .= \"<script type='text/javascript' src='js/\"\n                    . $value['filename'] . \"'></script>\";\n        return $static_scripts . $dynamic_scripts;\n    public function addFile($filename, $conditional_ie = false)\n            'conditional_ie' => $conditional_ie"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2014-6300",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "35dd316345e8",
+      "fixed_code_hash": "82f481811792",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n## Make sure we don't escape the content since we want HTML to be rendered"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-34464",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "08c1bdb0a683",
+      "fixed_code_hash": "e55531a1e311",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n- Fix XSS issue with href=\"javascript:\" not being removed (#1488613)\n         ($key == 'href' && !preg_match('!^javascript!i', $value)\n           && preg_match('!^([a-z][a-z0-9.+-]+:|//|#).+!i', $value))\n      ) {\n      }\n      }\n      else"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2012-3508",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "1fcc057d38c2",
+      "fixed_code_hash": "97bf0315530a",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n  if (d >= de)\n    return UV_EINVAL;\n  *d++ = '\\0';\n  char c[1];\n  b[0] = 0x7F;\n  ASSERT_EQ(UV_EINVAL, uv__idna_toascii(b, b + 1, c, c + 1));"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2024-24806",
+      "cwe_id": "CWE-918",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "34ee694a31b0",
+      "fixed_code_hash": "bdc375665bef",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    protected static Document createDocumentImpl(String name, String namespaceURI)\n    protected static Document parseDocumentImpl(InputSource inputSource)\n        return new XMLBuilder(createDocumentImpl(name, namespaceURI));\n        return new XMLBuilder(parseDocumentImpl(inputSource));\n        return XMLBuilder.parse(new InputSource(new StringReader(xmlString)));\n        return XMLBuilder.parse(new InputSource(new FileReader(xmlFile)));\n    public static XMLBuilder2 create(String name, String namespaceURI)\n            return new XMLBuilder2(createDocumentImpl(name, namespaceURI));\n        return create(name, null);\n    public static XMLBuilder2 parse(InputSource inputSource)\n            return new XMLBuilder2(parseDocumentImpl(inputSource));\n    public static XMLBuilder2 parse(String xmlString)\n        return XMLBuilder2.parse(new InputSource(new StringReader(xmlString)));\n    public static XMLBuilder2 parse(File xmlFile)\n            return XMLBuilder2.parse(new InputSource(new FileReader(xmlFile)));"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-611 - Improper Restriction of XML External Entity Reference\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2014-125087",
+      "cwe_id": "CWE-611",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "a908db5b37f7",
+      "fixed_code_hash": "039b5005acdb",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t\t\t$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();\n\n\n\t\t\t\t$formatted = $linkRenderer->makeLink( $this->pageTitle, wfMessage( 'datadump-delete-button' )->text(), [], $query );\n\t\t\t\t$this->doDelete( $type, $dump );"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-352 - Cross-Site Request Forgery (CSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-32774",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "8ff4aae0603a",
+      "fixed_code_hash": "9f7ff1eccdf2",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\nvar conf_prefix = \"server-id=\" + random_server_id + \"<br />log-bin=mysql-bin<br />log-error=mysql-bin.err<br />\";\n        $('#rep').html(conf_prefix);\n        $('#rep').html(conf_prefix + conf_ignore + database_list);\n        $('#rep').html(conf_prefix + conf_do + database_list);\n    $('#rep').html(conf_prefix);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2012-1190",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "9508e70cff17",
+      "fixed_code_hash": "4acd9141854a",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n  // machinery for graph generation, constant propgation, and constant\n        arg_ann = eval(arg_ann_str, {}, EvalEnv(rcb))  # type: ignore[arg-type] # noqa: P204\n        ret_ann = eval(ret_ann_str, {}, EvalEnv(rcb))  # type: ignore[arg-type] # noqa: P204"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-94 - Improper Control of Generation of Code ('Code Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-45907",
+      "cwe_id": "CWE-94",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "91b045b45703",
+      "fixed_code_hash": "ceab3f7a3e5b",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            expr = None\n                expr = \"('\" + node.args[0].s + \"')\"\n                    values.append(str(arg.n))\n                expr = \"(\" + \", \".join(values) + \")\"\n            if expr:\n                self.current_value = eval(node.func.id + expr)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-94 - Improper Control of Generation of Code ('Code Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2018-8097",
+      "cwe_id": "CWE-94",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "28f4b3af7ef0",
+      "fixed_code_hash": "20a1eefbb25d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        /// <summary>\n        /// Validates the headers/cookies passed in for the request\n        /// </summary>\n        /// <param name=\"requestHeaders\"></param>\n        /// <param name=\"failedReason\"></param>\n        /// <returns></returns>\n        public static bool ValidateHeaders(HttpRequestHeaders requestHeaders, out string failedReason)\n\n            var cookieToken = requestHeaders\n                .GetCookies()\n                .Select(c => c[CsrfValidationCookieName])\n                .FirstOrDefault();\n\n            if (ValidateTokens(cookieToken.Value, headerToken) == false)\n            "
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-352 - Cross-Site Request Forgery (CSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-8814",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f67d5612efa4",
+      "fixed_code_hash": "4ecabcf009b7",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t$fieldmap[$col] = $impfields[$val];\n\t\t\t\t$record[$fieldmap[$col]] = trim($val);\n\t\t$fieldmap[$col] = $impfields[$Tools->convert_encoding_to_UTF8($xls->val($row,$col,$sheet))];\n\t\t\t$record++;\n\t\t\t\t$record[$fieldmap[$col]] = trim($Tools->convert_encoding_to_UTF8($xls->val($row,$col,$sheet)));\n\n?>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-3845",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "9e7d3eabd969",
+      "fixed_code_hash": "23ef9830e208",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        public async Task<IActionResult> ReadLogFile(string logFileName, CancellationToken token)\n            var logFile = Path.Combine(string.IsNullOrEmpty(Ombi.Helpers.StartupSingleton.Instance.StoragePath) ? _hosting.ContentRootPath : Helpers.StartupSingleton.Instance.StoragePath, \"Logs\", logFileName);\n            using (var fs = new FileStream(logFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))\n            using (StreamReader reader = new StreamReader(fs))\n        public IActionResult Download(string logFileName, CancellationToken token)\n            var logFile = Path.Combine(string.IsNullOrEmpty(Ombi.Helpers.StartupSingleton.Instance.StoragePath) ? _hosting.ContentRootPath : Helpers.StartupSingleton.Instance.StoragePath, \"Logs\", logFileName);\n            using (var fs = new FileStream(logFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))\n            using (StreamReader reader = new StreamReader(fs))"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-32322",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "19475ca2bca7",
+      "fixed_code_hash": "12195a3b4f88",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        ToolBox::i18nLog()->warning('login-user-not-found', ['%nick%' => $nick]);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-2066",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "92a9b0202b58",
+      "fixed_code_hash": "6be35320901c",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n\t\tvar results = JSON.parse(result);\n\t\tresultDiv.innerText = results.message;\n        var results = JSON.parse(result);\n\t\tresultDiv.innerText = results.message;"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2021-4303",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "005e681e10ed",
+      "fixed_code_hash": "b8597a60c277",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n    $strip_url = stripslashes( $url );\n    $strip_title = stripslashes( $title );\n            $return['url']     = array( 'keyword' => $newkeyword, 'shorturl' => yourls_link($newkeyword), 'url' => $strip_url, 'display_url' => yourls_trim_long_string( $strip_url ), 'title' => $strip_title, 'display_title' => yourls_trim_long_string( $strip_title ) );\n            $return['message'] = /* //translators: \"Error updating http://someurl/ (Shorturl: http://sho.rt/blah)\" */ yourls_s( 'Error updating %s (Short URL: %s)', yourls_trim_long_string( $strip_url ), $keyword ) ;"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-3785",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "b7eb65145e3c",
+      "fixed_code_hash": "1700f45ca2d6",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n- ❗ Turned feature name validation check to a hard error. The warning was\n  added in Rust 1.49. These extended characters aren't allowed on crates.io, so\n  this should only impact users of other registries, or people who don't publish\n  to a registry."
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-40030",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "3a9414af66cf",
+      "fixed_code_hash": "0211c9c99fc1",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t$suffix = strrchr($_FILES[\"file\"][\"name\"],\".\");\n\t$org_name = $timestring . $suffix;\n\t$img_name = $timestring.\"_img.jpg\";\n\t$tmb_name = $timestring.\"_tmb.jpg\";\n\tif(move_uploaded_file($tmp_name, \"$uploads_dir/$org_name\")) {\n\t\tcreate_thumbs($uploads_dir,$org_name,$img_name, $max_width,$max_height,90);\n\t\tcreate_thumbs($uploads_dir,$img_name,$tmb_name, $max_width_tmb,$max_height_tmb,80);\n\t\tunlink(\"$uploads_dir/$org_name\");\n\t\tprint ('Uploaded');\n  $b = $original_width / $original_height;\n        <h5 class=\"modal-title\">Upload into {post_id}</h5>\n          <span aria-hidden=\"true\">&times;</span>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-434 - Unrestricted Upload of File with Dangerous Type\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-3745",
+      "cwe_id": "CWE-434",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "e5c7ea0b8943",
+      "fixed_code_hash": "ba9f39b21b1d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        if ($request->isMethod('post') and !empty($input)) {"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-2777",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "0d44c79e15dc",
+      "fixed_code_hash": "59d9d6fb721a",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n                    $comments[$i]['comment_body'] = $item['comment_body']; // mw()->format->autolink($item['comment_body']);\n                        <div class=\"js-comment-body-text\"><?php print $comment['comment_body']; ?></div>\n                            <textarea name=\"comment_body\" class=\"form-control\"><?php print $comment['comment_body']; ?></textarea>\n\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-0282",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "87877e11cb1c",
+      "fixed_code_hash": "c63c8db7347a",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        try {            \n            }            "
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-611 - Improper Restriction of XML External Entity Reference\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-7326",
+      "cwe_id": "CWE-611",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "19c31ac55907",
+      "fixed_code_hash": "01a48901dd07",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    sudo mysqladmin --defaults-file=/etc/mysql/debian.cnf create gotestdb\n    sudo mysql --defaults-file=/etc/mysql/debian.cnf -e \"GRANT ALL PRIVILEGES  ON gotestdb.*  TO 'go_user'@'localhost' IDENTIFIED BY 'mypassword'  WITH GRANT OPTION;\"\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'create table posts (title varchar(64) default null, start date default null);'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"hello\",\"2015-01-01\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"more\",\"2015-01-03\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"end\",\"2015-01-23\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -B -e 'select * from posts;'\n. output in tables\n/* no Credentials management needed\nfunc getCredentials(request *http.Request) (userName string, password string) {\n\tif cookie, err := request.Cookie(\"Credentials\"); err == nil {\n\t\tif err = cookieHandler.Decode(\"Credentials\", cookie.Value, &cookieValue); err == nil {\n\treturn userName, password\nfunc setCredentials(userName string, pw string, w http.ResponseWriter) {\n\tif encoded, err := cookieHandler.Encode(\"Credentials\", value); err == nil {\n\t\t\tName:  \"Credentials\",\n\t\tName:   \"Credentials\",\n\t\tsetCredentials(user, pass, w)\n   <label for=\"user\">User name</label><input type=\"text\" id=\"user\" name=\"user\">\n   <label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\">\nfunc dsn(user string, pw string, db string) string {\n * turn into generic functions\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tstatement, err := conn.Prepare(\"select * from ?\")\n\trows, err := statement.Query(table)\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tstatement, err := co"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-10044",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "d7a92775509d",
+      "fixed_code_hash": "af3584803842",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t$placeholder = __( 'What is your conversation about?', 'supportflow' );\n\t\techo '<h4>' . __( 'Subject', 'supportflow' ) . '</h4>';\n\t\techo '<input type=\"text\" id=\"subject\" name=\"post_title\" class=\"sf_autosave\" placeholder=\"' . $placeholder . '\" value=\"' . get_the_title() . '\" autocomplete=\"off\" />';\n\t\techo '<p class=\"description\">' . __( 'Please describe what this ticket is about in several words', 'supportflow' ) . '</p>';"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2016-10969",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "05b515b6abcf",
+      "fixed_code_hash": "0ddcd313fc89",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n                        {{ ExpandedForm.staticText('description', '<a href=\"'~route('transactions.show', journal.id)~'\">'~journal.description~'</a>') }}"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2019-14667",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f0667a199401",
+      "fixed_code_hash": "bcbe6357b725",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        return $this->doModifyLimitQuery($query, $limit, $offset);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-43608",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "99d8c6682abc",
+      "fixed_code_hash": "b60a13fee902",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    scratch = newscratch = malloc(2 * UPLOAD_BUFSIZE);\n  DEBUGASSERT(UPLOAD_BUFSIZE >= nread);"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2018-0500",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "81c9df36afc7",
+      "fixed_code_hash": "f6a5035ec51e",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    ctx->commaNeeded[++ctx->depth] = false;\n    if(ctx->depth > UA_JSON_ENCODING_MAX_RECURSION)\n    if(ctx->depth > UA_JSON_ENCODING_MAX_RECURSION)\n    if(ctx->depth > UA_JSON_ENCODING_MAX_RECURSION)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2020-36429",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "8150c83c4b89",
+      "fixed_code_hash": "aa21bc386c3f",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n\t\t\t$seoname = save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data, $_GET['page']);\n\t\t\t$seoname = save_page($title, $_POST['content'], $_POST['hidden'], $_POST['sub_page'], $_POST['description'], $_POST['keywords'], $module_additional_data);\n\t\tif (!copy($_FILES['filefile']['tmp_name'], 'files/'.$_FILES['filefile']['name']))\n\t\t\tif (strcasecmp(substr($_FILES['filefile']['name'], -3),'php') == 0){\n\t\t\t\tif (!rename('files/'.$_FILES['filefile']['name'], 'files/'.$_FILES['filefile']['name'].'.txt')){\n\t\t\t\tchmod('files/'.$_FILES['filefile']['name'].'.txt', 0775);\n\t\t\t\tchmod('files/'.$_FILES['filefile']['name'], 0775);\n\t\t\t\t\t<strong><?php echo $lang['files']['name']; ?></strong> <?php echo $_FILES['filefile']['name']; ?>\n\t\t\t\t\t<strong><?php echo $lang['files']['size']; ?></strong> <?php echo $_FILES['filefile']['size'].' '.$lang['images']['bytes']; ?>\n\t\t\t\t\t<strong><?php echo $lang['files']['type']; ?></strong> <?php echo $_FILES['filefile']['type']; ?>\n\t\tif (!copy($_FILES['imagefile']['tmp_name'], 'images/'.$_FILES['imagefile']['name']))\n\t\t\t\t\t<strong><?php echo $lang['images']['name']; ?></strong> <?php echo $_FILES['imagefile']['name']; ?>\n\t\t\t\t\t<strong><?php echo $lang['images']['size']; ?></strong> <?php echo $_FILES['imagefile']['size'].' '.$lang['images']['bytes']; ?>\n\t\t\t\t\t<strong><?php echo $lang['images']['type']; ?></strong> <?php echo $_FILES['imagefile']['type']; ?>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2018-11330",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "711f6d8776cc",
+      "fixed_code_hash": "8209c3a64c7e",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t<header v-if=\"title\" v-html=\"title\"></header>\n\t\t<div class=\"body\" v-if=\"text\" v-html=\"text\"></div>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-39169",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "4006c30c7f1b",
+      "fixed_code_hash": "5313d3734244",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        $html .= '<td>' . $type . '<bdo dir=\"ltr\"></bdo></td>';"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2014-8958",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c3d15bf860b1",
+      "fixed_code_hash": "d455f2ce23f4",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            {{ error|trans([],'admin') }}"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-37280",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "59f182fa097b",
+      "fixed_code_hash": "48a3e8f9b856",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\tattrs = malloc(sizeof(TEE_Attribute) * attr_count);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2019-1010296",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "e8a4fb6bd1a4",
+      "fixed_code_hash": "6d138a36f647",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n\t\t$r = '<div class=\"title gallery_div\">'.htmlentities($this->stack_name).'</div>';\n\t\treturn 'javascript:openNewGal(\\''.htmlentities($this->stack_name).'\\');';\nvar root = \"<?php echo htmlentities($root); ?>\";"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2012-4396",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "099906c94caf",
+      "fixed_code_hash": "fbc417e77188",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPython\n\nCode:\n- Nothing changed yet.\n\n        'z3c.table',\nimport os.path\nimport Missing\nfrom Acquisition import aq_base\nfrom Products.CMFCore.utils import getToolByName\nfrom zope.i18nmessageid import MessageFactory\nimport z3c.table.table\nimport z3c.table.column\nfrom Products.CMFCore.WorkflowCore import WorkflowException\nfrom collective.dms.basecontent import _\n                principals.append(user.getProperty('fullname', None) or user.getId())\n                    principals.append(group.getProperty('title', None) or group.getId())\n        if isinstance(title, unicode):\n            return title\n        else:\n            return unicode(title, 'utf-8', 'ignore')\n        content = super(IconColumn, self).getLinkContent(item)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-4495",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "070076442eb9",
+      "fixed_code_hash": "9fb323f02684",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    script_safe_runner(parse_set.js_runtime, parse_set.js_context, [&](qjs::Context &ctx)\n        if(!x.Script.empty())\n        if(!x.Script.empty())\n        if(ext.sort_script.size())\n    else if(startsWith(rule, \"script:\"))\n    //std::cerr<<\"Reading preference settings...\"<<std::endl;\n    writeLog(0, \"Reading preference settings...\", LOG_LEVEL_INFO);\n        //std::cerr<<\"Unable to load preference settings. Reason: \"<<ini.GetLastError()<<\"\\n\";\n        writeLog(0, \"Unable to load preference settings. Reason: \" + ini.GetLastError(), LOG_LEVEL_FATAL);\n    //std::cerr<<\"Read preference settings completed.\"<<std::endl;\n    writeLog(0, \"Read preference settings completed.\", LOG_LEVEL_INFO);\n    int logLevel = LOG_LEVEL_INFO;"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-434 - Unrestricted Upload of File with Dangerous Type\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-28927",
+      "cwe_id": "CWE-434",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "d199b84a98b8",
+      "fixed_code_hash": "e8a758fd2ab5",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n  reactionCodepoint: { type: String, optional: false },"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-31779",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c837b753e9c1",
+      "fixed_code_hash": "8b61167271ea",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPython\n\nCode:\n\n\n@pytest.mark.parametrize(\"env_value\", [\"1\", \"true\", \"True\", \"TRUE\"])\ndef test_redirects_enabled_if_env_var_set(monkeypatch, env_value):\n    monkeypatch.setenv(\"MLFLOW_ALLOW_HTTP_REDIRECTS\", env_value)\n\n    with mock.patch(\"requests.Session.request\") as mock_request:\n        mock_request.return_value.status_code = 302\n        mock_request.return_value.text = \"mock response\"\n\n        response = request_utils.cloud_storage_http_request(\n            \"GET\",\n            \"http://localhost:5000\",\n        )\n\n        assert response.text == \"mock response\"\n        mock_request.assert_called_once_with(\n            \"GET\",\n            \"http://localhost:5000\",\n            allow_redirects=True,\n            timeout=None,\n        )\n\n\n@pytest.mark.parametrize(\"env_value\", [\"0\", \"false\", \"False\", \"FALSE\"])\ndef test_redirect_kwarg_overrides_env_value_false(monkeypatch, env_value):\n    monkeypatch.setenv(\"MLFLOW_ALLOW_HTTP_REDIRECTS\", env_value)\n\n    with mock.patch(\"requests.Session.request\") as mock_request:\n        mock_request.return_value.status_code = 302\n        mock_request.return_value.text = \"mock response\"\n\n        response = request_utils.cloud_storage_http_request(\n            \"GET\", \"http://localhost:5000\", allow_redirects=True\n        )\n\n        assert response.text == \"mock response\"\n        mock_request.assert_called_once_with(\n            \"GET\",\n            \"http://localhost:5000\",\n            allow_redirects=True,\n            timeout=None,\n        )\n\n\n@pytest.mark.parametrize(\"env_value\", [\"1\", \"true\", \"True\", \"TRUE\"])\ndef test_redirect_kwarg_overrides_env_value_true(monkeypatch, env_value):\n    monkeypatch.setenv(\"MLFLOW_ALLOW_HTTP_REDIRECTS\", env_value)\n\n    with mock.patch(\"requests.Session.request\") as mock_request:\n        mock_request.return_value.status_code = 302\n        mock_request.return_value.text = \"mock response\"\n\n        response = request_utils.cloud_storage_http_request(\n            \"GET\", \"http://localhost:5000\", allow_redirects=False\n        )\n\n  "
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-6974",
+      "cwe_id": "CWE-918",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "192ac161e529",
+      "fixed_code_hash": "e822ba6ea468",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n.. warning::\n\n  The inet HTTP server is not enabled by default.  If you choose to enable it,\n  please read the following security warning.  The inet HTTP server is intended\n  for use within a trusted environment only.  It should only be bound to localhost\n  or only accessible from within an isolated, trusted network.  The inet HTTP server\n  does not support any form of encryption.  The inet HTTP server does not use\n  authentication by default (see the ``username=`` and ``password=`` options).\n  The inet HTTP server can be controlled remotely from :program:`supervisorctl`.\n  It also serves a web interface that allows subprocesses to be started or stopped,\n  and subprocess logs to be viewed.  **Never expose the inet HTTP server to the\n  public internet.**\n\n  in the machine, use ``:9001`` or ``*:9001``.  Please read the security\n  warning above.\n;\n; Security Warning:\n;  The inet HTTP server is not enabled by default.  The inet HTTP server is\n;  enabled by uncommenting the [inet_http_server] section below.  The inet\n;  HTTP server is intended for use within a trusted environment only.  It\n;  should only be bound to localhost or only accessible from within an\n;  isolated, trusted network.  The inet HTTP server does not support any\n;  form of encryption.  The inet HTTP server does not use authentication\n;  by default (see the username= and password= options to add authentication).\n;  Never expose the inet HTTP server to the public internet."
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2019-12105",
+      "cwe_id": "CWE-306",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "ec9f4d211b55",
+      "fixed_code_hash": "caac0ef304dd",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    tree = ElementTree.fromstring(xml_string)\n    element_tree = ElementTree.fromstring(xml_string)\n    envelope = ElementTree.fromstring(text)\n    envelope = ElementTree.fromstring(text)\n        envelope = ElementTree.fromstring(text)\n        envelope = ElementTree.fromstring(text)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-611 - Improper Restriction of XML External Entity Reference\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2016-10127",
+      "cwe_id": "CWE-611",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "b1bd74e300a2",
+      "fixed_code_hash": "5bd9c8c71d65",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            $ids"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-1064",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "3456919727e2",
+      "fixed_code_hash": "8813b244ca20",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n-10.79638,24.49606,309.91,1.12,1.05,2022-09-18,1217,A,44,6.1NRT,280.24,5.39,D\n-9.74588,30.47191,321.49,3.06,1.66,2022-09-18,1217,A,34,6.1NRT,293.58,55.6,D\n-11.05945,21.94743,315.19,1.01,1,2022-09-18,1217,A,37,6.1NRT,286.66,6.62,D\n-11.05565,21.90956,321.4,1.01,1,2022-09-18,1217,A,72,6.1NRT,293.02,10,D\n-10.19575,27.39318,331.65,1.73,1.29,2022-09-18,1217,A,62,6.1NRT,304.75,40.74,D\n-10.19597,27.40251,332.52,1.74,1.29,2022-09-18,1217,A,82,6.1NRT,306.8,40.99,D\n-10.51074,25.36373,312.82,1.25,1.11,2022-09-18,1217,A,55,6.1NRT,276.04,12.96,D\n-10.63926,24.31576,318.58,1.1,1.05,2022-09-18,1217,A,77,6.1NRT,280.92,14.8,D\n-10.32202,26.24572,332.57,1.43,1.18,2022-09-18,1217,A,83,6.1NRT,294.58,38.44,D\n-9.82689,29.11238,321.41,2.39,1.49,2022-09-18,1217,A,44,6.1NRT,293.59,32.45,D\n-11.13015,20.53419,321.83,1.1,1.05,2022-09-18,1217,A,40,6.1NRT,299.12,11.29,D\n-9.81916,29.10574,320.99,2.39,1.49,2022-09-18,1217,A,32,6.1NRT,295.04,32.83,D\n-10.4167,25.11684,316.75,1.21,1.09,2022-09-18,1217,A,48,6.1NRT,285.67,12.75,D\n-11.24293,19.35087,310.3,1.28,1.12,2022-09-18,1217,A,26,6.1NRT,286.51,9.85,D\n-11.08815,20.2804,341.65,1.13,1.06,2022-09-18,1217,A,91,6.1NRT,298.02,43.75,D\n-10.83725,22.02312,324.98,1,1,2022-09-18,1217,A,79,6.1NRT,284.62,17.8,D\n-10.95002,21.21986,324.3,1.04,1.02,2022-09-18,1217,A,0,6.1NRT,286.21,15.55,D\n-10.97098,20.87551,317.7,1.07,1.03,2022-09-18,1217,A,63,6.1NRT,288.58,11.05,D\n-11.05767,20.1112,328.83,1.15,1.07,2022-09-18,1217,A,83,6.1NRT,296.25,23.25,D\n-9.886,27.8874,322.65,1.91,1.35,2022-09-18,1217,A,63,6.1NRT,292.53,31.27,D\n-10.90777,20.74196,314.06,1.08,1.04,2022-09-18,1217,A,22,6.1NRT,291.18,8.1,D\n-10.69203,22.00798,323.56,1,1,2022-09-18,1217,A,0,6.1NRT,278.52,14.78,D\n-9.86158,27.32897,323.16,1.74,1.29,2022-09-18,1217,A,74,6.1NRT,295.79,29.39,D\n-10.83092,20.75076,317.55,1.08,1.04,2022-09-18,1217,A,41,6.1NRT,289.61,10,D\n-10.83225,20.74106,319.89,1.08,1.04,2022-09-18,1217,A,68,6.1NRT,287.04,12.53,D\n-9.85048,27.33612,321.75,1.74,1.29,2022-09-18,1217,A,40,6.1NRT,294.94,22.25,D"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-4614",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c4bd40e18a78",
+      "fixed_code_hash": "372cda8f3306",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n## 8.12.7 (Unreleased)\n            return send_file(file_path, as_attachment=True)\n        return send_file(path_file, mimetype='image/jpeg')"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-41185",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "7f7026d2495a",
+      "fixed_code_hash": "513b43f483d6",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        // %s section\n        return sprintf($this->prepare(self::SECTION_CALL, $level), $id, $method, $id, $filters, $key);\n        // %s inverted section\n        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $id, $method, $id, $filters, $this->walk($nodes, $level));"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-94 - Improper Control of Generation of Code ('Code Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-0323",
+      "cwe_id": "CWE-94",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "6a7f83ecdae9",
+      "fixed_code_hash": "a21dbcba8685",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            || $secretKey != Mage::getSingleton('adminhtml/url')->getSecretKey()) {"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-352 - Cross-Site Request Forgery (CSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2020-15151",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f334abe8b83e",
+      "fixed_code_hash": "db4cad35db7d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\t\n\t\n\t\n\t\n\t\n\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t\t\n\t\t\n\t\t\n\t\t\n        \n        $result=$menu->fetch($_POST['menuId']);\n            $menu->titre=$_POST['titre'];\n            $menu->leftmenu=$_POST['leftmenu'];\n            $menu->url=$_POST['url'];\n            $menu->langs=$_POST['langs'];\n            $menu->position=$_POST['position'];\n            $menu->enabled=$_POST['enabled'];\n            $menu->perms=$_POST['perms'];\n            $menu->target=$_POST['target'];\n            $menu->user=$_POST['user'];\n            if (is_numeric($_POST['menuIdParent']))\n            \t$menu->fk_menu=$_POST['menuIdParent'];\n    \t       \tif ($_POST['type'] == 'top') $menu->fk_menu=0;\n        $_GET[\"menuId\"] = $_POST['menuId'];\n    if (! empty($_POST['menuId']) && ! is_numeric($_POST['menuId']))\n\t    $tmp=explode('&',$_POST['menuId']);\n    if (! $error && empty($_POST['menuId']) && $_POST['type'] == 'left')\n        $menu->menu_handler=preg_replace('/_menu$/','',$_POST['menu_handler']);\n        $menu->type=$_POST['type'];\n        $menu->titre=$_POST['titre'];\n        $menu->url=$_POST['url'];\n        $menu->langs=$_POST['langs'];\n        $menu->position=$_POST['position'];\n        $menu->enabled=$_POST['enabled'];\n        $menu->perms=$_POST['perms'];\n        $menu->target=$_POST['target'];"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2017-14238",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "1163d92765ea",
+      "fixed_code_hash": "07a2b8ccb4ca",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPython\n\nCode:\n- Cabinets app: Escape cabinet labels to avoid possible exploit of\n  cross site scripting. Thanks to Lokesh (@lokesh1095) for the report\n  and proposed solutions. Closes GitLab issue #495.\nfrom django.utils.html import format_html, format_html_join\n\n    result.append(format_html('\"text\": \"{}\",', node.label))"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2018-16406",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "06d923672e23",
+      "fixed_code_hash": "8527aabae9c7",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\tif sessionVer.LessThan(git.MustParseVersion(\"0.0.5\")) {\nconst APP_VER = \"0.5.6.1104 Beta\"\n\tsess.And(\"lower_name like ?\", \"%\"+opt.Keyword+\"%\").Find(&repos)\n\terr = x.Limit(opt.Limit).Where(\"type=0\").And(\"lower_name like ?\", \"%\"+opt.Keyword+\"%\").Find(&us)\n0.5.6.1104 Beta"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2014-8682",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "fc9c70e5a941",
+      "fixed_code_hash": "2dae2b0b54f7",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t\t\t$where .= \" AND {$wpdb->posts}.post_type IN ('\" . join( \"', '\", array_map( 'esc_sql', $in_search_post_types ) ) . \"')\";\n\t\t\t$where .= \" AND {$wpdb->posts}.post_type IN ('\" . join(\"', '\", esc_sql( $post_type ) ) . \"')\";\n\t\t\t$where .= $wpdb->prepare( \" AND {$wpdb->posts}.post_type = %s\", $post_type );\n$wp_version = '4.8-alpha-39952';"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2017-5611",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "25cd183d9d84",
+      "fixed_code_hash": "bb49277cb747",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n<h1 style=\"font-size:110%;font-family:Arial, sans-serif;\"><%= error %></h1>\n<h1>Failed Jobs <%= \"on '#{params[:queue]}'\" if params[:queue] %> <%= \"with class '#{params[:class]}'\" if params[:class] %></h1>\n  <input type=\"submit\" name=\"\" value=\"Clear <%= params[:queue] ? \"'#{params[:queue]}'\" : 'Failed' %> Jobs\" class=\"confirmSubmission\" />\n  <input type=\"submit\" name=\"\" value=\"Retry <%= params[:queue] ? \"'#{params[:queue]}'\" : 'Failed' %> Jobs\" class=\"confirmSubmission\" />\n  <h1>Key \"<%= key %>\" is a <%= resque.redis.type key %></h1>\n  <h1>Pending jobs on <span class='hl'><%= h current_queue %></span></h1>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-50725",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "853743c67956",
+      "fixed_code_hash": "3f2869676925",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            \"prNumber\": 14,\n            \"prNumber\": 16,\n            \"prNumber\": 7,\n            \"prNumber\": 8,\n            \"prNumber\": 9,"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2021-39179",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "fe24914a3266",
+      "fixed_code_hash": "ed467433694a",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\tcase 3:\t*op++ |= (v);\t   break;\t\\\n\t\t\t\twhile (n-- > 0 && npixels < imagewidth)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-8784",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "3c8c700743f6",
+      "fixed_code_hash": "0fb790704b0b",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\nVersion: 1.4.2\ncopyright (c) 2013-2014 WebAware Pty Ltd (email : support@webaware.com.au)\ndefine('GFDPSPXPAY_PLUGIN_VERSION', '1.4.2');\n\t\t\t$settings_link = sprintf('<a href=\"%s\">Settings</a>', admin_url('admin.php?page=gf_settings&subview=DPS+PxPay'));\n\t\t\t$links[] = '<a href=\"http://wordpress.org/support/plugin/gravity-forms-dps-pxpay\">' . __('Get help') . '</a>';\n\t\t\t$links[] = '<a href=\"http://wordpress.org/plugins/gravity-forms-dps-pxpay/\">' . __('Rating') . '</a>';\n\t\t$feedsURL = 'edit.php?post_type=' . GFDPSPXPAY_TYPE_FEED;\n\t\techo \"<a href=\\\"$feedsURL\\\">Click to return to list</a>.\\n\";\n\t\t\t\t$actions['entries'] = sprintf('<a href=\"%s\" title=\"%s\">%s</a>',\n\t\t\t\t\tadd_query_arg(array('page' => 'gf_entries', 'id' => $feed->FormID), admin_url('admin.php')), 'View Entries', 'Entries');\n\t\t\t$this->isValid = ('1' === ((string) $xml['valid']));\n\t\t\t$this->paymentURL = (string) $xml->URI;\n\t\t\tthrow new GFDpsPxPayException('Error parsing DPS PxPay generate response: ' . $e->getMessage());\n\t\t// if response is \"invalid\", throw error with message given in URI field\n\t\t\tthrow new GFDpsPxPayException('Error from DPS PxPay generate response: ' . $this->paymentURL);\n\t\tif ($this->paymentURL) {\n\t\t\t// NB: GF handles redirect via JavaScript if headers already sent, or AJAX\n\t\t\t$confirmation = array('redirect' => $this->paymentURL);\n\t\t\tself::log_debug('Payment Express request valid, redirecting...');\n\n\t\t\t$this->paymentURL = false;\n\t\t}\n\n\t\telseif ($this->errorMessage) {\n\t\t\t$this->errorMessage = false;\n\t\t\t\t\t\t\twp_redirect($feed->UrlFail);\n\t\t\t\t\twp_redirect(add_query_arg(array(self::PXPAY_RETURN => base64_encode($query)), $lead['source_url']));\n\t\t\tthrow new GFDpsPxPayException('Error parsing DPS PxPay result request: ' . $e->getMessage());\n* [Download](http://wordpress.org/plugins/gravity-forms-dps-pxpay/)\n* [Documentation](http://wordpress.org/plugins/gravity-forms-dps-pxpay/faq/)\n* [Support](http://wordpress.org/support/plugin/gravity-forms-dps-pxpay)\nTested up to: 4.2\nStable tag: 1.4.2\n* creation "
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2015-10117",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "56fbc08a6005",
+      "fixed_code_hash": "4e927c543906",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n\t$credentials['hostname'] = defined('FTP_HOST') ? FTP_HOST : (!empty($_POST['hostname']) ? wp_unslash( $_POST['hostname'] ) : $credentials['hostname']);\n\t$credentials['username'] = defined('FTP_USER') ? FTP_USER : (!empty($_POST['username']) ? wp_unslash( $_POST['username'] ) : $credentials['username']);\n\t$credentials['password'] = defined('FTP_PASS') ? FTP_PASS : (!empty($_POST['password']) ? wp_unslash( $_POST['password'] ) : '');\n\t$credentials['public_key'] = defined('FTP_PUBKEY') ? FTP_PUBKEY : (!empty($_POST['public_key']) ? wp_unslash( $_POST['public_key'] ) : '');\n\t$credentials['private_key'] = defined('FTP_PRIKEY') ? FTP_PRIKEY : (!empty($_POST['private_key']) ? wp_unslash( $_POST['private_key'] ) : '');\n\t} elseif ( ! empty( $_POST['connection_type'] ) ) {\n\t\t$credentials['connection_type'] = wp_unslash( $_POST['connection_type'] );\n\tif ( isset( $_POST[ $field ] ) )\n\t\techo '<input type=\"hidden\" name=\"' . esc_attr( $field ) . '\" value=\"' . esc_attr( wp_unslash( $_POST[ $field ] ) ) . '\" />';\n!function(a,b,c){var d=a(document);b=b||{},b.updates={},b.updates.ajaxNonce=c.ajax_nonce,b.updates.l10n=c.l10n,b.updates.searchTerm=\"\",b.updates.shouldRequestFilesystemCredentials=!1,b.updates.filesystemCredentials={ftp:{host:\"\",username:\"\",password:\"\",connectionType:\"\"},ssh:{publicKey:\"\",privateKey:\"\"},available:!1},b.updates.ajaxLocked=!1,b.updates.adminNotice=b.template(\"wp-updates-admin-notice\"),b.updates.queue=[],b.updates.$elToReturnFocusToFromCredentialsModal=void 0,b.updates.addAdminNotice=function(c){var e,f=a(c.selector);delete c.selector,e=b.updates.adminNotice(c),f.length||(f=a(\"#\"+c.id)),f.length?f.replaceWith(e):a(\".wrap\").find(\"> h1\").after(e),d.trigger(\"wp-updates-notice-added\")},b.updates.ajax=function(c,d){var e={};return b.updates.ajaxLocked?(b.updates.queue.push({action:c,data:d}),a.Deferred()):(b.updates.ajaxLocked=!0,d.success&&(e.success=d.success,delete d.success),d.error&&(e.error=d.error,delete d.error),e.data=_.extend(d,{action:c,_ajax_nonce:b.up"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-352 - Cross-Site Request Forgery (CSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2017-9064",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f52b758b0937",
+      "fixed_code_hash": "a0a4fa0f6782",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t})\n\t\tif err != nil {\n\t\t\treturn echo.NewHTTPError(http.StatusInternalServerError, \"Failed to find memo\").SetInternal(err)\n\t\t}\n\t\tif memo.CreatorID != userID {\n\t\t\treturn echo.NewHTTPError(http.StatusUnauthorized, \"Unauthorized\")\n\t\t}\n\n\t\tmemoResourceDelete := &api.MemoResourceDelete{\n\t\t\tMemoID:     &memoID,\n\t\t\tResourceID: &resourceID,\n\t\t}\n\t\tif err := s.Store.DeleteMemoResource(ctx, memoResourceDelete); err != nil {\n\t\t\treturn echo.NewHTTPError(http.StatusInternalServerError, \"Failed to fetch resource list\").SetInternal(err)\n\t\t}\n\n\t\treturn c.JSON(http.StatusOK, true)\n\t})\n\t\t\tCreatorID: userID,\n\t\tc.Response().Writer.Header().Set(echo.HeaderContentSecurityPolicy, \"default-src 'self'\")\n\t\t\tID: &resourceID,\n\t\tresource, err := s.Store.FindResource(ctx, resourceFind)\n\t\tif err != nil {\n\t\tif resource.CreatorID != userID {\n\t\t\treturn echo.NewHTTPError(http.StatusUnauthorized, \"Unauthorized\")\n\t\t}\n\t\tresource.ID = resourceID\n\t\tresource, err = s.Store.PatchResource(ctx, resourcePatch)\n\t\tif resource.CreatorID != userID {\n\t\t\treturn echo.NewHTTPError(http.StatusUnauthorized, \"Unauthorized\")\n\t\tshortcutCreate := &api.ShortcutCreate{}\n\t\tshortcutCreate.CreatorID = userID\n\t\tuserID, ok := c.Get(getUserIDContextKey()).(int)\n\t\tif !ok {\n\t\t\treturn echo.NewHTTPError(http.StatusUnauthorized, \"Missing user in session\")\n\t\t}\n\t\tshortcutFind := &api.ShortcutFind{\n\t\t\tID: &shortcutID,\n\t\t}\n\t\tshortcut, err := s.Store.FindShortcut(ctx, shortcutFind)\n\t\tif err != nil {\n\t\t\treturn echo.NewHTTPError(http.StatusInternalServerError, \"Failed to find shortcut\").SetInternal(err)\n\t\t}\n\t\tif shortcut.CreatorID != userID {\n\t\t\treturn echo.NewHTTPError(http.StatusUnauthorized, \"Unauthorized\")\n\t\t}\n\n\t\tshortcutPatch.ID = shortcutID\n\t\tshortcut, err = s.Store.PatchShortcut(ctx, shortcutPatch)\n\t\tuserID, ok := c.Get(getUserIDContextKey()).(int)\n\t\tif !ok {\n\t\t\treturn echo.NewHTTPError(http.StatusBadRequest, \"Missing user id to find shortcut\")\n\t\t}\n\t\tshortcutFind := &api.ShortcutFind{\n\t\t\tCreatorID: &userID,\n\t\tuserID, ok := c.Get(getUserIDC"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2022-4804",
+      "cwe_id": "CWE-285",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "a4d458f297cc",
+      "fixed_code_hash": "eb2d447ec4c9",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n\t\t\t// $strPicnikUrl is the URL that we use to launch Picnik.\n\t\t\t$strPicnikUrl = \"http://www.picnik.com/service\";\t\n\t\t\t// $aPicnikParams collects together all the params we'll give Picnik.  Start with an API key\n\t\t\t$aPicnikParams['_apikey'] = $website->picnik_api_key;\n\t\t\t// tell Picnik where to send the exported image\n\t\t\t$aPicnikParams['_export'] = NAVIGATE_URL.'/navigate_upload.php?wid='.$website->id.'&engine=picnik&id='.$_REQUEST['id'].'&engine=picnik&session_id='.session_id();\n\t\t\t// give the export button a title\n\t\t\t$aPicnikParams['_export_title'] = t(34, 'Save');\n\t\t\t// turn on the close button, and tell it to come back here\n\t\t\t//$aPicnikParams['_close_target'] = $strRoot;\n\t\t\t// send in the previous \"king\" image in case the user feels like decorating it\n\t\t\t$aPicnikParams['_import'] = NAVIGATE_DOWNLOAD.'?wid='.$website->id.'&id='.$_REQUEST['id'].'&disposition=attachment&sid='.session_id();\t\n\t\t\t// tell Picnik to redirect the user to the following URL after the HTTP POST instead of just redirecting to _export\n\t\t\t$aPicnikParams['_redirect'] = NAVIGATE_DOWNLOAD.'?wid='.$website->id.'&id='.$_REQUEST['id'].'&disposition=inline&ts='.core_time(); //'javascript: return false;';\n\t\t\n\t\t\t// tell Picnik our name.  It'll use it in a few places as appropriate\n\t\t\t$aPicnikParams['_host_name'] = 'Navigate';\n\t\t\t// turn off the \"Save &amp; Share\" tab so users don't get confused\n\t\t\t$aPicnikParams['_exclude'] = \"out\";\n\t\t\n\t\t\techo '<html><head></head><body>';\n\t\t\n\t\t\techo '<form id=\"picnik_form\" method=\"POST\" action=\"'.$strPicnikUrl.'\" style=\" visibility: hidden; \">';\n\t\t\t\n\t\t\t// put all the API parameters into the form as hidden inputs\n\t\t\tforeach( $aPicnikParams as $key => $value ) {\n\t\t\t\techo \"<input type='hidden' name='$key' value='$value'/>\\n\";\n\t\t\t}\n\t\t\t\n\t\t\t//echo \"<input type='text' name='address' value='Your Majesty'/>\\n\";\n\t\t\techo \"<input type='submit' value='Picnik'/>\\n\";\n\t\t\techo \"</form>\";\n\t\t\techo '<script language=\"javascript\" type=\"text/javascript\">\n\t\t\t\t\tdocument.forms[0].submit();\n\t\t\t\t"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2018-17553",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "fb40e1bb086a",
+      "fixed_code_hash": "b57ffa5032f4",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n\t\t\t$query .= '`id_md5`=?';\n\t\t\t$query .= '`id`=?';\n\t\t$stmt = Store::$pdo->prepare($query . ';');\n\t\t$stmt->bindParam(1, $id);\n\t\t$stmt->execute();\n\t\t$result = $stmt->fetchAll(PDO::FETCH_CLASS, ucfirst($table));\n\t\t\n\t\t\t$query .= '`' . $key . '`=? ' . $combination . ' ';\n\t\t$stmt = Store::$pdo->prepare($query . ';');\n\t\tforeach(array_values($columns) as $i=>$value)\n\t\t\t$stmt->bindParam($i+1, $value);\n\t\t$stmt->execute();\n\t\treturn $stmt->fetchAll(PDO::FETCH_CLASS, ucfirst($table));\n\t\t$query = 'INSERT INTO `wuersch`.`' . $table . '` (';\n\t\t$query .= '`' . implode('`, `', array_keys($data)) . '`) VALUES (';\n\t\tfor($i=0; $i<count($data); $i++){\n\t\t\t$query .= '?, ';\n\t\t}\n\t\t$query = substr($query, 0, -2) . ');';\n\t\t$stmt = Store::$pdo->prepare($query);\n\t\tforeach(array_values($data) as $i=>$value){\n\t\t\t$stmt->bindParam($i+1, $value);\n\t\t\n\t\t$result = $stmt->execute();\n\t\t$query = 'UPDATE `wuersch`.`' . $table . '` SET ';\n\t\t\t$query .= '`' . $name . '`=?, ';\n\t\t$query = substr($query, 0, -2);\n\t\t\t$query .= ' WHERE `id_md5`=?;';\n\t\t\t$query .= ' WHERE `id`=?;';\n\t\t$stmt = Store::$pdo->prepare($query);\n\t\tforeach(array_values($data) as $i=>$value)\n\t\t\t$stmt->bindParam($i+1, $value);\n\t\t$stmt->bindParam(count($data)+1, $id);\n\t\treturn $stmt->execute();"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2015-10066",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "af347899f5e2",
+      "fixed_code_hash": "e567b5454b98",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n        if (isset($_POST['submit']) && check_admin_referer('aui_settings')) {\n                    static::$_options[$field] = esc_attr($_POST[$field]);\n                        <?php echo wp_nonce_field('aui_settings'); ?>\n                                    <input type=\"text\" name=\"base_url\" value=\"<?php echo esc_attr(self::getOption('base_url')); ?>\" class=\"regular-text\" dir=\"ltr\" />\n                                    <input type=\"text\" name=\"image_name\" value=\"<?php echo esc_attr(self::getOption('image_name')); ?>\" class=\"regular-text\" dir=\"ltr\" />\n                                    <input type=\"text\" name=\"alt_name\" value=\"<?php echo esc_attr(self::getOption('alt_name')); ?>\" class=\"regular-text\" dir=\"ltr\" />\n                                        <input name=\"max_width\" type=\"number\" step=\"5\" min=\"0\" id=\"max_width\" placeholder=\"600\" class=\"small-text\" value=\"<?php echo esc_attr(self::getOption('max_width')); ?>\" <?php echo !$editor_supports ? 'disabled' : '' ?>>\n                                        <input name=\"max_height\" type=\"number\" step=\"5\" min=\"0\" id=\"max_height\" placeholder=\"400\" class=\"small-text\" value=\"<?php echo esc_attr(self::getOption('max_height')); ?>\" <?php echo !$editor_supports ? 'disabled' : '' ?>>\n                                                <input type=\"checkbox\" name=\"exclude_post_types[]\" value=\"<?php echo esc_attr($post_type) ?>\" <?php echo is_array($excludePostTypes) && in_array($post_type, $excludePostTypes, true) ? 'checked' : ''; ?>> <?php echo esc_attr($post_type) ?>\n                                    <p><textarea name=\"exclude_urls\" rows=\"10\" cols=\"50\" id=\"exclude_urls\" class=\"large-text code\" placeholder=\"https://irani.im\"><?php echo esc_textarea(self::getOption('exclude_urls')); ?></textarea></p>"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2022-4633",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "84037ba5c282",
+      "fixed_code_hash": "0dc4a1b3ee08",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n\n        $guard->setFailureCallable(function ($request, $response, $next) {\n            Analog::log(\n                'CSRF check has failed',\n                Analog::CRITICAL\n            );\n            throw new \\RuntimeException(_T('Failed CSRF check!'));\n        });\n\n        return $guard;\n    }\n);\n\n$app->add(new \\Galette\\Middleware\\SmartyCsrf($app->getContainer()));\n$app->add($app->getContainer()->get('csrf'));\n<?php\n\n/* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */\n\n/**\n * Galette CSRF middleware\n *\n * PHP version 5\n *\n * Copyright © 2021 The Galette Team\n *\n * This file is part of Galette (http://galette.tuxfamily.org).\n *\n * Galette is free software: you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation, either version 3 of the License, or\n * (at your option) any later version.\n *\n * Galette is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n *  GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with Galette. If not, see <http://www.gnu.org/licenses/>.\n *\n * @category  Core\n * @package   Galette\n *\n * @author    Johan Cwiklinski <johan@x-tnd.be>\n * @copyright 2021 The Galette Team\n * @license   http://www.gnu.org/licenses/gpl-3.0.html GPL License 3.0 or (at your option) any later version\n * @link      http://galette.tuxfamily.org\n * @since     Available since 0.9.6dev - 2021-11-08\n */\n\nnamespace Galette\\Middleware;\n\nuse Psr\\Http\\Message\\ServerRequestInterface as Request;\nuse Psr\\Http\\Message\\ResponseInterface as Response;\nuse Analog\\Analog;\nuse DI\\Container;\n\n/**\n * Galette CSRF middleware"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2021-41260",
+      "cwe_id": "CWE-352",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c10a20970aa8",
+      "fixed_code_hash": "c2ef6a420f3f",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\nif (isset($_REQUEST['fid']) && isset($_GET['w']) && isset($_GET['h'])) {"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2018-25094",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "9f76296eb7c2",
+      "fixed_code_hash": "62e88f2bcb42",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n      $services.localization.render('core.create.template.allowedspace.inline', [$templateProvider, $allowedSpaces.get(0)])\n      $services.localization.render('core.create.template.allowedspaces.inline', [$templateProvider, $allowedSpaces.toString()])"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-45134",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "2cdfba237b7e",
+      "fixed_code_hash": "0371f6029ad3",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPython\n\nCode:\n\n        # Then cookie is not persistent\n        self.assertNotIn('expires', self.cookies[0][1])\n        self.assertNotIn('Max-Age', self.cookies[0][1])\n    def test_login_persistent(self):\n        # Given a user authenticated with persistent\n        self.getPage('/logout/')\n        self.assertStatus(303)\n        self.getPage(\n            '/login/', method='POST', body={'login': self.USERNAME, 'password': self.PASSWORD, 'persistent': '1'}\n        )\n        self.assertStatus(303)\n        # Then a persistent cookie is return\n        self.assertIn('expires', self.cookies[0][1])\n        self.assertIn('Max-Age', self.cookies[0][1])\n        # Then a session is created with persistent flag\n        session = DbSession(id=self.session_id)\n        session.load()\n        self.assertTrue(session['login_persistent'])\n        # Then session timeout is 30 days in future\n        self.assertAlmostEqual(session.timeout, 43200, delta=2)\n\n        '--rate-limit',\n        metavar='LIMIT',\n        type=int,\n        default=20,\n        help='maximum number of requests per hour that can be made on sensitive endpoints. When this limit is reached, an HTTP 429 message is returned to the user or the user is logged out. This security measure is used to limit brute force attacks on the login page and the RESTful API.',\n        '--session-idle-timeout',\n        help='This timeout defines the amount of time a session will remain active in case there is no activity in the session. User Session will be revoke after this period of inactivity, unless the user selected \"remember me\". Default 5 minutes.',\n        default=5,\n        '--session-absolute-timeout',\n        metavar='MINUTES',\n        help='This timeout defines the maximum amount of time a session can be active. After this period, user is forced to (re)authenticate, unless the user selected \"remember me\". Default 20 minutes.',\n    )\n\n    parser.add(\n        '--session-persistent-timeout',\n        metavar='MINUTES',\n        help='This timeout d"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2022-4018",
+      "cwe_id": "CWE-306",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "d2e390648a4e",
+      "fixed_code_hash": "2ae2c2e5edd1",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        if($strAction != \"\") {\n        $strAction = $this->getAction();\n\n        $this->setAction($this->getParam(\"action\"));\n        if($this->getAction() == \"\") {\n            $this->setAction(\"list\");\n        $this->strAction = htmlspecialchars(trim($strAction), ENT_QUOTES, \"UTF-8\", false);"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2015-0917",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "9ba47e32b4ed",
+      "fixed_code_hash": "edde6c95d2ce",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n## 9.4.4 - 2020-10-19\n\n### Fixed\n- Escape inline attributes [#1313](https://github.com/orchidsoftware/platform/pull/1313)\n\n    public const VERSION = '9.4.4';\n        $attributes = collect($this->getAttributes())\n            ->filter(function ($value, $attribute) use ($allow) {\n                return Str::is($allow, $attribute);\n            })->toArray();\n        return (new ComponentAttributeBag())\n            ->merge($attributes);\n\n    public function testEscapeAttributes(): void\n    {\n        $input = (string) Input::make('name')->value('valueQuote\"');\n\n        $this->assertStringContainsString('value=\"valueQuote&quot;\"', $input);\n    }\n\n    public function testRemoveBooleanAttributes(): void\n    {\n        $input = (string) Input::make('name')->required(false);\n\n        $this->assertStringNotContainsString('required', $input);\n    }"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2020-15263",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "705d118f3d35",
+      "fixed_code_hash": "ead1a92bfc42",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        // Accents seems to cause issues in some conditions\n        // See https://jira.xwiki.org/browse/XWIKI-14692\n        String cleanedOfficeFileName = StringUtils.stripAccents(officeFileName);\n        Map<String, InputStream> inputStreams = new HashMap<String, InputStream>();\n        inputStreams.put(cleanedOfficeFileName, officeFileStream);\n        String outputFileName = StringUtils.substringBeforeLast(cleanedOfficeFileName, \".\") + \".html\";\n                this.officeServer.getConverter().convertDocument(inputStreams, cleanedOfficeFileName, outputFileName);\n        Document xhtmlDoc = this.cleanAndCreateFile(reference, filterStyles, officeConverterResult);\n        Set<File> artifacts = this.handleArtifacts(xhtmlDoc, officeConverterResult);\n        OfficeConverterResult officeConverterResult) throws OfficeImporterException\n    private Set<File> handleArtifacts(Document xhtmlDoc, OfficeConverterResult officeConverterResult)\n        throws OfficeImporterException\n        Set<File> artifacts = new HashSet<>(officeConverterResult.getAllFiles());\n        artifacts.remove(officeConverterResult.getOutputFile());\n            File outputDirectory = officeConverterResult.getOutputDirectory();\n                File outputFile = new File(outputDirectory, embeddedImage.getKey());\n                try (FileOutputStream fos = new FileOutputStream(outputFile)) {\n                    IOUtils.write(embeddedImage.getValue(), fos);\n                } catch (IOException e) {\n                    throw new OfficeImporterException(\n                        String.format(\"Error when writing embedded image file [%s]\", outputFile.getAbsolutePath()), e);\n                }\n                artifacts.add(outputFile);\n            this.inputDir = new File(this.rootDir, \"input\");\n                this.inputFile = new File(this.inputDir, StringUtils.stripAccents(inputFileName));\n                this.outputFile = new File(this.outputDir, StringUtils.stripAccents(outputFileName));\n                filte"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-37913",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "0342410904e6",
+      "fixed_code_hash": "b5252f1cd6c6",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\twhile (1) {\n\tif (parser->line_buffer[parser->line_pos]=='#') {\n\t\tparser->line_size = parser->line_pos;\n\telse if ((parser->line_buffer[parser->line_pos]=='/') && (parser->line_buffer[parser->line_pos+1]=='/') ) parser->line_size = parser->line_pos;\n\t\tif (!gf_gzeof(parser->gz_in)) gf_bt_check_line(parser);\n\t\telse parser->done = 1;\n\telse if (!parser->done && (parser->line_size == parser->line_pos)) gf_bt_check_line(parser);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-4756",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "44e169139eb3",
+      "fixed_code_hash": "9570958b54d8",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\nconst {\n  setupLogoUploads,\n  setupPfpUploads,\n} = require(\"../utils/files/multer\");"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-918 - Server-Side Request Forgery (SSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2024-0759",
+      "cwe_id": "CWE-918",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "dd5fd0e25446",
+      "fixed_code_hash": "71216f68622f",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t$t_question_title = sprintf( lang_get( 'actiongroup_menu_update_field' ), lang_get_defaulted( $t_custom_field_def['name'] ) );"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2020-25830",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "933fd2bc9b2f",
+      "fixed_code_hash": "60d637947f06",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n/* Returns a ushort from a little-endian serialized value */\nstatic unsigned short get_tga_ushort(const unsigned char *data)\n    return data[0] | (data[1] << 8);\n    /*cmap_index = get_tga_ushort(&tga[3]);*/\n    cmap_len = get_tga_ushort(&tga[5]);\n    x_origin = get_tga_ushort(&tga[8]);\n    y_origin = get_tga_ushort(&tga[10]);\n    image_w = get_tga_ushort(&tga[12]);\n    image_h = get_tga_ushort(&tga[14]);\n    /* If the declared file size is > 10 MB, check that the file is big */\n    /* enough to avoid excessive memory allocations */\n    if (image_height != 0 && image_width > 10000000 / image_height / numcomps) {\n        char ch;\n        OPJ_UINT64 expected_file_size =\n            (OPJ_UINT64)image_width * image_height * numcomps;\n        long curpos = ftell(f);\n        if (expected_file_size > (OPJ_UINT64)INT_MAX) {\n            expected_file_size = (OPJ_UINT64)INT_MAX;\n        }\n        fseek(f, (long)expected_file_size - 1, SEEK_SET);\n        if (fread(&ch, 1, 1, f) != 1) {\n            fclose(f);\n            return NULL;\n        }\n        fseek(f, curpos, SEEK_SET);\n    }"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2017-14040",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "1019753e91a6",
+      "fixed_code_hash": "538f23993390",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n            $output .= sprintf('%s', $item['content']);\n    public function getLatestData($showArchive = false, $active = true, $forceConfLimit = false): array"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-2998",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "3f4e8806b15e",
+      "fixed_code_hash": "98801003f6b5",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    tree = ElementTree.fromstring(xml_string)\n    element_tree = ElementTree.fromstring(xml_string)\n    envelope = ElementTree.fromstring(text)\n    envelope = ElementTree.fromstring(text)\n        envelope = ElementTree.fromstring(text)\n        envelope = ElementTree.fromstring(text)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-611 - Improper Restriction of XML External Entity Reference\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2016-10149",
+      "cwe_id": "CWE-611",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "b1bd74e300a2",
+      "fixed_code_hash": "5bd9c8c71d65",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        public const string AssemblyVersion = \"21.12.21.2\";\n\t\telse { // ISO Date 2007-12-31T23:59:59Z                                     \n\t\t}\n\t\t// not yet possible as we still return new type() JSON\n\t\t//\t\tif (!(!(/[^,:{}\\[\\]0-9.\\-+Eaeflnr-u \\n\\r\\t]/.test(\n\t\t//\t\ttext.replace(/\"(\\\\.|[^\"\\\\])*\"/g, '')))  ))\n\t\t//\t\t\tthrow new Error(\"Invalid characters in JSON parse string.\");                 \n\t\tvar regEx = /(\\\"\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}.*?\\\")|(\\\"\\\\\\/Date\\(.*?\\)\\\\\\/\")/g;\n\t\ttext = text.replace(regEx, this.regExDate);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-502 - Deserialization of Untrusted Data\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2021-43853",
+      "cwe_id": "CWE-502",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c075904d14de",
+      "fixed_code_hash": "b78dfc62065d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    private final Set<String> secureClassMethods = new HashSet<>();\n        this.secureClassMethods.add(\"getname\");\n        this.secureClassMethods.add(\"getName\");\n        this.secureClassMethods.add(\"getsimpleName\");\n        this.secureClassMethods.add(\"getSimpleName\");\n        this.secureClassMethods.add(\"isarray\");\n        this.secureClassMethods.add(\"isArray\");\n        this.secureClassMethods.add(\"isassignablefrom\");\n        this.secureClassMethods.add(\"isAssignableFrom\");\n        this.secureClassMethods.add(\"isenum\");\n        this.secureClassMethods.add(\"isEnum\");\n        this.secureClassMethods.add(\"isinstance\");\n        this.secureClassMethods.add(\"isInstance\");\n        this.secureClassMethods.add(\"isinterface\");\n        this.secureClassMethods.add(\"isInterface\");\n        this.secureClassMethods.add(\"islocalClass\");\n        this.secureClassMethods.add(\"isLocalClass\");\n        this.secureClassMethods.add(\"ismemberclass\");\n        this.secureClassMethods.add(\"isMemberClass\");\n        this.secureClassMethods.add(\"isprimitive\");\n        this.secureClassMethods.add(\"isPrimitive\");\n        this.secureClassMethods.add(\"issynthetic\");\n        this.secureClassMethods.add(\"isSynthetic\");\n        this.secureClassMethods.add(\"getEnumConstants\");\n        // TODO: add more when needed\n        if (Class.class.isAssignableFrom(clazz) && methodName != null && this.secureClassMethods.contains(methodName)) {\n            return true;\n        } else {\n            return super.checkObjectExecutePermission(clazz, methodName);"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-22 - Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-24897",
+      "cwe_id": "CWE-22",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "aa5b11be404f",
+      "fixed_code_hash": "38372fa7f349",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\treturn str_replace('\"', '&quot;', $str);\n            echo $this->attributes[\"value\"];"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2012-10005",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c53174dfc92c",
+      "fixed_code_hash": "caccff02afd1",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n            if (!\\is_string($data['user']) || !\\is_string($data['password'])) {\n                return ['success' => false, 'error' => 'Pre-condition failed'];\n            }\n\n            if (!\\is_string($token)) {\n                return false;\n            }\n\n            $user = [\n                'md5email' => md5($user['email']),\n                'user' => $user['name'],\n                'name' => $user['user'],\n            ];\n            if (!\\is_string($token)) {\n                return false;\n            }"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2020-35847",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "1109a0754ac2",
+      "fixed_code_hash": "c0ab7e002e75",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n/*\t$OpenBSD: smtp_session.c,v 1.421 2020/01/08 00:05:38 gilles Exp $\t*/\n\tif (!valid_localpart(maddr->user) ||\n\t    !valid_domainpart(maddr->domain)) {\n\t\t/* accept empty return-path in MAIL FROM, required for bounces */\n\t\tif (mailfrom && maddr->user[0] == '\\0' && maddr->domain[0] == '\\0')\n\t\t\treturn (1);\n\t\t/* no user-part, reject */\n\t\tif (maddr->user[0] == '\\0')\n\t\t\treturn (0);\n\n\t\t/* no domain, local user */\n\t\tif (maddr->domain[0] == '\\0') {\n\t\t\t(void)strlcpy(maddr->domain, domain,\n\t\t\t    sizeof(maddr->domain));\n\t\t\treturn (1);\n\t\t}"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-78 - Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2020-7247",
+      "cwe_id": "CWE-78",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f1cdfe43be58",
+      "fixed_code_hash": "266a2399d0ee",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\nenv = Environment(loader=FileSystemLoader('templates'),\n        template = env.get_template('generate_new.html')\n                \n            template = env.get_template('error.html')\n            template = env.get_template('manage_new.html')\n            template = env.get_template('manage.html')\n            template = env.get_template('manage.html')\n            template = env.get_template('manage.html')\n        template = env.get_template('legal.html')"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-22475",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "523dfd97e9eb",
+      "fixed_code_hash": "75b99c842bc3",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n\t\t\t$gen = '<meta name=\"generator\" content=\"WordPress ' . esc_attr( get_bloginfo( 'version' ) ) . '\">';\n\t\t\t$gen = '<meta name=\"generator\" content=\"WordPress ' . esc_attr( get_bloginfo( 'version' ) ) . '\" />';\n\t\t\t$gen = '<generator uri=\"https://wordpress.org/\" version=\"' . esc_attr( get_bloginfo_rss( 'version' ) ) . '\">WordPress</generator>';\n\t\t\t$gen = '<generator>' . esc_url_raw( 'https://wordpress.org/?v=' . get_bloginfo_rss( 'version' ) ) . '</generator>';\n\t\t\t$gen = '<admin:generatorAgent rdf:resource=\"' . esc_url_raw( 'https://wordpress.org/?v=' . get_bloginfo_rss( 'version' ) ) . '\" />';\n\t\t\t$gen = '<!-- generator=\"WordPress/' . esc_attr( get_bloginfo( 'version' ) ) . '\" -->';\n\t\t\t$gen = '<!-- generator=\"WordPress/' . esc_attr( get_bloginfo_rss( 'version' ) ) . '\" created=\"' . date( 'Y-m-d H:i' ) . '\" -->';\n$wp_version = '5.0-alpha-42893';"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2018-10102",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "877b8839c105",
+      "fixed_code_hash": "13f704433f74",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            dst = bytes_data_ptr(dst)\n            src = bytes_data_ptr(src)\n\n            ret.append(copy_bytes(dst, src, len_, max_bytes))\n        # write the length word\n        store_length = STORE(dst, len(src.args))\n        ann = None\n        if src.annotation is not None:\n            ann = f\"len({src.annotation})\"\n        store_length = IRnode.from_list(store_length, annotation=ann)\n        ret.append(store_length)\n\n            ret.append(STORE(dst, count))\n\n            ret.append(STORE(darray_node, [\"add\", len_, 1]))"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-31146",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "fe1361d44856",
+      "fixed_code_hash": "3f939f931852",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    @NotBlank(groups = {AddGroup.class}, message = \"手机号不能为空！\")\n    @Pattern(groups = {AddGroup.class}, regexp = \"^1[3|4|5|6|7|8|9][0-9]{9}$\", message = \"手机号格式不正确！\")\n    @Null(groups = {UpdateGroup.class})\n    @NotBlank(groups = {AddGroup.class}, message = \"密码不能为空！\")\n    @Pattern(groups = {\n        UpdateGroup.class}, regexp = \"[\\u4E00-\\u9FA5A-Za-z0-9_]{1,20}\", message = \"昵称格式不正确！\")\n    @Pattern(groups = {\n        UpdateGroup.class}, regexp = \"^/localPic/\\\\d{4}/\\\\d{2}/\\\\d{2}/[A-Za-z0-9]+\\\\.(jpg|jpeg|swf|gif|png|JPG|JPEG|SWF|GIF|PNG)$\", message = \"只能上传图片格式的文件！\")\n    @Min(value = 0, groups = {UpdateGroup.class})\n    @Max(value = 1, groups = {UpdateGroup.class})\n    @Null(groups = {AddGroup.class, UpdateGroup.class})\n    @Null(groups = {AddGroup.class, UpdateGroup.class})\n    @Null(groups = {AddGroup.class, UpdateGroup.class})\n    @Null(groups = {AddGroup.class, UpdateGroup.class})"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-7166",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "b883d19e8a5c",
+      "fixed_code_hash": "9b12da3899d9",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n\t\tc.Response().Writer.Header().Set(\"Content-Type\", resource.Type)\n\te.Use(middleware.Secure())\nvar Version = \"0.9.1\"\nvar DevVersion = \"0.9.1\"\n\n          * Only the public memo supports."
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-0110",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "d527d94b2c33",
+      "fixed_code_hash": "7b8980b2f200",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n                <td class=\"grabable\"><?php echo functions::escape_html($_POST['filters'][$key]['attribute_group_name']); ?></td>\n                <td><?php echo functions::escape_html($_POST['attributes'][$key]['group_name']); ?></td>\n                <td><?php echo functions::escape_html($_POST['attributes'][$key]['value_name']); ?></td>\n                <td><?php echo functions::escape_html($_POST['attributes'][$key]['custom_value']); ?></td>\n                    <?php echo functions::escape_html($_POST['options_stock'][$key]['name'][language::$selected['code']]); ?></td>\n            <td><?php echo functions::form_draw_hidden_field('zones['. $key .'][id]', true); ?><?php echo functions::escape_html($_POST['zones'][$key]['id']); ?></td>\n            <td><?php echo functions::form_draw_hidden_field('zones['. $key .'][id]', true); ?><?php echo functions::escape_html($_POST['zones'][$key]['id']); ?></td>\n            <td><?php echo functions::form_draw_hidden_field('zones['. $key .'][country_code]', true); ?> <?php echo functions::escape_html(reference::country($_POST['zones'][$key]['country_code'])->name); ?></td>\n            <td><?php echo functions::form_draw_hidden_field('zones['. $key .'][zone_code]', true); ?> <?php echo !empty($_POST['zones'][$key]['zone_code']) ? functions::escape_html(reference::country($_POST['zones'][$key]['country_code'])->zones[$_POST['zones'][$key]['zone_code']]['name']) : '-- '.language::translate('title_all_zones', 'All Zones') .' --'; ?></td>\n            <td><?php echo functions::form_draw_hidden_field('zones['. $key .'][city]', true); ?> <?php echo !empty($_POST['zones'][$key]['city']) ? functions::escape_html($_POST['zones'][$key]['city']) : '-- '.language::translate('title_all_cities', 'All Cities') .' --'; ?></td>\n                <div class=\"text\"><?php echo nl2br(functions::escape_html($_POST['comments'][$key]['text'])); ?></div>\n                  <?php echo !empty($_POST['items'][$key]['product_id']) ? '<a href=\"'. document::href_link"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2022-27168",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "feb62475a40f",
+      "fixed_code_hash": "223eddb9d6d9",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        if(not os.path.exists(directory)):\n            return []\n        files = []\n        for root, _, filenames in os.walk(directory):\n            for filename in filenames:\n                file_relative_path = os.path.relpath(root, directory)\n                if file_relative_path == '.': file_relative_path = ''\n                file_path = os.path.join(file_relative_path, filename)\n                print(\"file_path\",file_path)\n                try:\n                    with open(os.path.join(root, filename), 'r') as file:\n                        print(\"File:\", filename)\n                        files.append({\n                            \"file\": file_path,\n                            \"code\": file.read()\n                        })\n                except Exception as e:\n                    print(f\"Error reading file {filename}: {e}\")\n        return files\n    if (value == null){\n    if (messageInput.trim() !== \"\" && isSending) {\n      emitMessage(\"user-message\", { \n        message: messageInput,\n      \n      if(data['type'] == 'time') {\n       \n      <div class=\"px-1 rounded-md text-xs\">\n        Model Inference: <span class=\"text-orange-600\">{inference_time} sec</span>\n      </div>\n<div class=\"expandable-input relative\">\n  <textarea\n    id=\"message-input\"\n    class=\"w-full p-4 font-medium focus:text-foreground rounded-xl outline-none h-28 pr-20 bg-secondary\n    {$isSending ? 'cursor-not-allowed' : ''}\"   \n    placeholder=\"Type your message...\"\n    disabled={$isSending}\n    bind:value={messageInput}\n    on:input={setTokenSize}\n    on:keydown={(e) => {\n      if (e.key === \"Enter\" && !e.shiftKey) {\n        e.preventDefault();\n        handleSendMessage();\n        document.querySelector('.token-count').textContent = 0;\n      }\n    }}\n  ></textarea>\n  <button \n    on:click={handleSendMessage}\n    disabled={$isSending}\n    class=\"absolute text-secondary bg-primary p-2 right-4 bottom-6 rounded-full\n  >\n  {@html Icons.CornerDownLeft} \n  </button>\n  <p class=\"absolute text-tertiar"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2024-5711",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "2564dff7bbd8",
+      "fixed_code_hash": "c8e15cdae25d",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPython\n\nCode:\n          next unless value\n\n          value =\n            if value.is_a?(Array)\n              value.map { |val| Rumble.html_escape(val) }.join(\" \")\n            elsif value == true\n              name\n            else\n              Rumble.html_escape(value)\n            end\n\n          res << \" #{name}=\\\"#{value.gsub('\"'.freeze, '&quot;'.freeze)}\\\"\"\n      <div data-modal=\"true\" data-safe=\"&quot;&quot;&quot;\" data-unsafe=\"&quot;&amp;quot;&quot;\">\n      </div>\n    HTML\n\n    assert_rumble str do\n      div data: { modal: true, safe: '\"&quot;\"'.html_safe, unsafe: '\"&quot;\"' }\n    end\n  end\n\n  def test_array_attrs\n    str = <<-HTML\n      <div class=\"hello &quot;uns&amp;amp;fe&quot; &quot;w&amp;rld&quot;\">\n      </div>\n      div class: [\"hello\", '\"uns&amp;fe\"', '\"w&amp;rld\"'.html_safe]"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2017-20159",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "f320ebeb08e0",
+      "fixed_code_hash": "33c437c14dad",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n        var html = '<div class=\"btn-group tag mb-2 mr-1 btn-tag-id-'+id+'\" role=\"group\">' +\n<div class=\"js-admin-tags mt-3\"></div>"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-3245",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "e6e9fb644966",
+      "fixed_code_hash": "deb6227167e6",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n                                } else {\n                                    $im = '<img src=\"'.Url::thumb('assets/images/noimage.png', 'large').'\" class=\"img-responsive\">';\n                                }\n                                echo '\n                                    <a href=\"'.Url::post($post[0]->id).\"\\\">\n                                    <div class=\\\"horizontal-list\\\">\n                                        {$im}\n                                    </div>\n                                    <div class=\\\"\\\">\n                                        <h4 >{$title}</h4>\n                                    </div>\n                                    </a>\n                                \";\n                                unset($post[0]);\n                            } ?>\n                            </div>\n                            <div class=\"col-sm-8\">\n                            <ul class=\"list-unstyled\">\n                                foreach ($post as $p => $v) {\n                                    <li>\n                                    <h5><a href=\"'.Url::post($v->id).'\">'.$v->title.'</a></h5>\n                                    </li>\n                                    ';\n                                } ?> \n                            </ul>\n                            \n                        \n                    echo '<div class=\"row\"><div class=\"col-md-12\">'.Gneex::opt('adsense').'</div></div><hr />';\n                    \n                    <div class=\"col-sm-6\">\n                        <?php\n                        $cat = $gneex['panel_2'];\n                        $post = Posts::getPostCat($cat, 6); ?>\n                        \n                            <h3 class=\"panel-title\"><?=Categories::name($cat); ?></h3>\n                                    <?php\n                                    if (!isset($post['error'])) {\n                                        $content = Posts::content($post[0]->content);\n                                    "
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-89 - Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2017-5345",
+      "cwe_id": "CWE-89",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "c249a1a83eb8",
+      "fixed_code_hash": "b42fcd7ed73c",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n * Special function to remove the 'javascript' strings (case insensitive) for when including a variable within a html link\nfunction javascriptStringRemove(?string $text): string\n    $returnText = str_ireplace('javascript', '', $text ?? '');\n\n    if (javascriptStringCheck($returnText)) {\n        $returnText = javascriptStringRemove($returnText);\n    }\n\n    return $returnText;\n}\n\n/**\n * Special function to check if 'javascript' string (case insensitive) is in a variable within a html link\n */\nfunction javascriptStringCheck(?string $text): bool\n{\n    if (stripos($text ?? '', 'javascript') === false) {\n        return false;\n    } else {\n        return true;\n    }"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2023-2566",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "4cd43535ce0a",
+      "fixed_code_hash": "24411a6824c7",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n    private $config;\n    private $recordsByTagName = [];\n            $title = Strings::htmlspecialchars($taggingName, ENT_QUOTES, 'utf-8');\n            $oLink->itemTitle = $taggingName;\n            $oLink->text = $taggingName;"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-2427",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "2606007f04de",
+      "fixed_code_hash": "ad653d792169",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        $ignoreforums = \" AND t.fid NOT IN(\" . htmlspecialchars($mybb->settings['recentthread_forumskip']) . \") \";"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2019-25093",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "09b46be44c0c",
+      "fixed_code_hash": "f88e445cd30f",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n            if ip.startswith(\"127.\") or ip.startswith('::ffff:7f') or ip == \"::1\":\n        img = requests.get(url, timeout=(10, 200))      # ToDo: Error Handling"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-918 - Server-Side Request Forgery (SSRF)\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2022-0767",
+      "cwe_id": "CWE-918",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "8bbd5830a160",
+      "fixed_code_hash": "59636531ab3e",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nJavaScript\n\nCode:\n          pass `serializer: nil` in your configuration.\n\n          The :marshalling option will be removed for redis-store 2.0.\n        )\n      end\n\n      @serializer = options.key?(:serializer) ? options[:serializer] : Marshal\n\n      unless options[:marshalling].nil?\n        @serializer = options[:marshalling] ? Marshal : nil\n      end\n\n        extend Serialization unless @serializer.nil?\n        options[:raw] = case\n                        when options.key?(:serializer)\n                          options[:serializer].nil?\n                        when options.key?(:marshalling)\n                          !options[:marshalling]\n                        else\n                          false\n                        end\n          # Serialization gets extended before Namespace does, so we need to pass options further\n          if singleton_class.ancestors.include? Serialization\n    module Serialization\n          yield marshal?(options) ? @serializer.dump(val) : val\n          unmarshal?(val, options) ? @serializer.load(val) : val\nrequire 'json'\n      it \"disables serialization\" do\n        store = Redis::Store::Factory.create :serializer => nil\n        store.instance_variable_get(:@serializer).must_be_nil\n      it \"configures pluggable serialization backend\" do\n        store = Redis::Store::Factory.create :serializer => JSON\n        store.instance_variable_get(:@serializer).must_equal(JSON)\n        store.instance_variable_get(:@options)[:raw].must_equal(false)\n      end\n\n      describe 'with stdout disabled' do\n        before do\n          @original_stderr = $stderr\n          @original_stdout = $stdout\n\n          $stderr = Tempfile.new('stderr')\n          $stdout = Tempfile.new('stdout')\n        end\n\n        it \"disables marshalling and provides deprecation warning\" do\n          store = Redis::Store::Factory.create :marshalling => false\n          store.instance_variable_get(:@serializer).must_be_nil\n          store.instance_variable_get(:@options)[:raw].must_equal(true)\n      "
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: No vulnerability detected.\nReason: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "safe",
+      "cve_id": "CVE-2017-1000248",
+      "cwe_id": "CWE-502",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "88a6e606fac2",
+      "fixed_code_hash": "628760cf3453",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n        <div class='clearfix'></div>\n        <ul class='tags'>\n            {% for tag in tags.object_list %}\n            <li>\n                {{ macros.tag_widget(\n                            tag=tag.name,\n                            html_tag='div',\n                            truncate_long_tag=True,\n                            extra_content='<span class=\"tag-number\">&#215; ' ~\n                                            tag.used_count|intcomma ~ '</span>'\n                    )\n                }}\n            </li>\n            {% endfor %}\n        </ul>\n        <div class=\"clean\"></div>\n        <div class=\"pager\">\n            {{macros.paginator(paginator_context)}}\n        </div>\n    {% endif %}\n{% else %}\n    <div class=\"clearfix\"></div>\n    {% if not tags %}\n        <span>{% trans %}Nothing found{% endtrans %}</span>\n    {% endif %}\n    {{ macros.tag_cloud(tags=tags, font_sizes=font_size, search_state=search_state) }}\n{% endif %}\n\n            <h1 class=\"section-title\">{% trans %}Tags, matching \"{{ stag }}\"{% endtrans %}</h1>\n                href=\"{% url tags %}?sort=name\"\n                href=\"{% url tags %}?sort=used\"\n        value=\"{{ query|default_if_none('') }}\" \n    sortby = request.GET.get('sort', 'used')\n        page = int(request.GET.get('page', '1'))\n    query = request.GET.get('query', '').strip()\n        query_params['name__icontains': query]\n    return render(request, 'tags.html', data)"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2014-2235",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "ff27d7a24e67",
+      "fixed_code_hash": "96f6f7ebcf7c",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nGeneric\n\nCode:\n                     (strlen(aPassPhrase) <= OT_COMMISSIONING_PASSPHRASE_MAX_SIZE),"
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-787 - Out-of-bounds Write\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2019-20791",
+      "cwe_id": "CWE-787",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "09a0f0862848",
+      "fixed_code_hash": "48de236f81dd",
+      "split_group": ""
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a secure code analysis assistant. Decide whether the given code contains a security vulnerability. If a vulnerability is present, output a structured security report. If the code is safe, state that no vulnerability was detected. Output only plain text, no markdown."
+      },
+      {
+        "role": "user",
+        "content": "Analyze the following code for security vulnerabilities.\n\nIf vulnerable, output exactly these 4 fields in this exact order:\nType:\nCause:\nVerificationSteps:\nFix:\n\nIf safe, output exactly:\nVerdict: No vulnerability detected.\nReason: <one short sentence why>\n\nLanguage/Context:\nPHP\n\nCode:\n                    $('#warningModal-input').val()\n                                <input type='text' class='form-control form-control-sm' id='default_session_expiration_time' value='<?php echo $SETTINGS['default_session_expiration_time'] ?? '60'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='proxy_port' value='<?php echo $SETTINGS['proxy_port'] ?? '60'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='pwd_maximum_length' value='<?php echo $SETTINGS['pwd_maximum_length'] ?? '60'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='pw_life_duration' value='<?php echo $SETTINGS['pw_life_duration'] ?? '5'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='nb_bad_authentication' value='<?php echo $SETTINGS['nb_bad_authentication'] ?? '0'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='delay_item_edition' value='<?php echo $SETTINGS['delay_item_edition'] ?? '9'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='otv_expiration_period' value='<?php echo $SETTINGS['otv_expiration_period'] ?? '7'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='max_last_items' value='<?php echo isset($SETTINGS['max_last_items']) === true ? $SETTINGS['max_last_items'] : '7'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='password_overview_delay' value='<?php echo isset($SETTINGS['password_overview_delay']) === true ? $SETTINGS['password_overview_delay'] : '4'; ?>'>\n                                <input type='text' class='form-control form-control-sm' id='clipboard_life_duration' value='<?php echo isset($SETTINGS['clipboard_life_duration']) === true ? $SETTINGS['clipboard_life_duration'] : '30'; ?>'>\n            "
+      },
+      {
+        "role": "assistant",
+        "content": "Type: CWE-79 - Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')\nCause: N/A\nVerificationSteps: N/A\nFix: N/A"
+      }
+    ],
+    "metadata": {
+      "label": "vulnerable",
+      "cve_id": "CVE-2023-3565",
+      "cwe_id": "CWE-79",
+      "repo": "",
+      "file_path": "",
+      "vuln_code_hash": "aa38e4fbf3ff",
+      "fixed_code_hash": "9f06bf74a3cd",
+      "split_group": ""
+    }
+  }
+]

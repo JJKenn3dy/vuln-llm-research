@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual envs
+.venv/
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets (NEVER commit)
+password
+*.pem
+*.ppk
+*.key
+.env.local
+hf_token
+runpod_key
+
+# Logs and run artifacts
+*.log
+wandb/
+runs/
+outputs/
+checkpoints/
+qlora_output_*/
+*.safetensors
+adapter_model.bin
+
+# Large datasets (live on HuggingFace)
+data/train/v7lite*.json
+data/train/v6*.json
+data/eval/*_400.json
+data/eval/*_300.json
+data/full_outputs/
+
+# DOCX/PDF (ВКР, not research code)
+*.docx
+*.pdf
+*.gif
+*_overview*.png
+chart_*.png
+_audit_*.png
+_check_*.png
+
+# Cluster artifacts (cHARISMa-specific)
+_charisma*.py
+_ssh_socks_proxy.py
+*.sbatch
+
+# Build outputs
+build/
+dist/
+*.tar.gz
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local config
+config.local.toml
