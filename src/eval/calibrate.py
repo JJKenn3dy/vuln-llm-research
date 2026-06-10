@@ -81,7 +81,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--test-file", required=True, help="TEST logprobs JSON")
     p.add_argument("--mode", choices=["standard", "honest"], default="standard")
     p.add_argument("--metric", default="balanced_accuracy",
-                   choices=["balanced_accuracy", "f1", "precision", "recall"])
+                   choices=["balanced_accuracy", "f1", "precision", "recall", "mcc"])
     p.add_argument("--train-projects-file", default=None,
                    help="JSON list of train project_ids (required for honest mode)")
     p.add_argument("--output", required=True, help="Where to write the calibration result JSON")

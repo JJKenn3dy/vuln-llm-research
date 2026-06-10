@@ -40,6 +40,8 @@ def derived_metrics(c: dict) -> dict:
     recall = dr
     f1 = (2 * precision * recall) / (precision + recall) if (precision + recall) else 0.0
     bal_acc = 0.5 * (dr + (1.0 - far))
+    mcc_denom = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
+    mcc = ((tp * tn) - (fp * fn)) / mcc_denom if mcc_denom > 0 else 0.0
     return {
         "detection_rate": dr,
         "false_alarm_rate": far,
@@ -47,6 +49,7 @@ def derived_metrics(c: dict) -> dict:
         "recall": recall,
         "f1": f1,
         "balanced_accuracy": bal_acc,
+        "mcc": mcc,
     }
 
 
