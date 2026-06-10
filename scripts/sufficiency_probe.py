@@ -77,10 +77,11 @@ Reasoning: <one short paragraph>
 
 API_ARMS = [
     ("a_triage_snippet_sonnet", "triage_snippet", "anthropic/claude-sonnet-4.5", "openrouter"),
-    ("a_triage_snippet_gemini", "triage_snippet", "google/gemini-2.5-pro", "openrouter"),
     ("aprime_neutral_snippet_sonnet", "neutral_snippet", "anthropic/claude-sonnet-4.5", "openrouter"),
     ("b_triage_evidence_sonnet", "triage_evidence", "anthropic/claude-sonnet-4.5", "openrouter"),
-    ("b_triage_evidence_gemini", "triage_evidence", "google/gemini-2.5-pro", "openrouter"),
+    # Gemini arms skipped to stay within OpenRouter $5 budget; smoke-10 already
+    # showed single-call Gemini 2.5 Pro is paranoid (BA=0.30) — adding more
+    # would not change conclusions and would overrun budget. Re-add later.
 ]
 HUMAN_ARM_NAME = "h_human_snippet_blind"
 
@@ -382,7 +383,7 @@ def main() -> None:
 
     # Headline table
     print("\n=== SUFFICIENCY PROBE ===")
-    print(f"{'arm':<38} {'n':>3} {'BA':>6} {'BA 95% CI':<14} {'MCC':>+7} {'MCC 95% CI':<16} pf")
+    print(f"{'arm':<38} {'n':>3} {'BA':>6} {'BA 95% CI':<14} {'MCC':>7} {'MCC 95% CI':<16} pf")
     for arm_name, res in results["arms"].items():
         ba_ci = res.get("ba_ci95") or [0, 0]
         mcc_ci = res.get("mcc_ci95") or [0, 0]
