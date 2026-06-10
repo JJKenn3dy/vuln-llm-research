@@ -2,70 +2,113 @@
 
 ## Elevator pitch
 
-> A GitHub App that reviews every Pull Request and flags real security vulnerabilities with CWE attribution and clear reasoning. Built on a fine-tuned 7B specialist model that beats GPT-4o on SAST triage and runs on a single GPU for $0.0001 per finding. No 91% false-positive noise, no data leaving your perimeter, $9 per developer per month.
+> A lightweight SAST triage engine that plugs into Semgrep, Snyk, CodeQL and
+> GitLab Security, then filters false positives using a fine-tuned 7B specialist
+> model. Built for teams that want AI triage without sending code to frontier
+> APIs.
+
+We do **not** replace your scanner. We cut the noise that comes after it.
+
+## Positioning
+
+### What v8 is
+
+- A **triage-only layer** on top of any existing SAST scanner
+- Input: SARIF / JSON findings from the scanner the customer already runs
+- Output: same findings re-labelled as TRUE_POSITIVE or FALSE_POSITIVE with
+  evidence (real CWE, reasoning, suggested fix), filtered down to the ones
+  worth a human's attention
+- Deployment: GitHub App (cloud) or on-prem specialist model for regulated /
+  air-gapped environments
+
+### What v8 is NOT
+
+- ❌ "Another AI-SAST" or full AppSec platform (that zone is owned by ZeroPath,
+  Aikido, Cycode, Black Duck Signal)
+- ❌ A replacement for Snyk or Semgrep
+- ❌ An autofix / remediation tool (Mobb, Pixee, GitLab Duo, GitHub Autofix
+  already do that, and we should not pick a war with them)
+- ❌ A generic code review bot (GitHub Copilot Code Review and Cursor own that
+  surface)
+
+See [COMPETITIVE_LANDSCAPE.md](COMPETITIVE_LANDSCAPE.md) for full battle-cards.
 
 ## Why now
 
-Every modern SAST tool (Snyk, Checkmarx, Veracode, Semgrep, GitHub CodeQL) produces enormous alert volumes. Industry benchmarks for 2025-2026:
+Industry data for 2025-2026:
 
-- OX Security 2026 Application Security Benchmark: 865,398 alerts per enterprise per year, **0.092% critical**.
-- Ghost Security: scanned public GitHub with traditional SAST tools, **91% false positives**.
-- Average triage time per false positive: 15-30 minutes of developer time.
+- OX Security 2026 Application Security Benchmark: 865 398 alerts per
+  enterprise per year. After exploitability/reachability analysis only 0.092%
+  were critical.
+- Ghost Security scan of public GitHub: 91% false positives across traditional
+  SAST tools.
+- Triaging a single false positive takes 15-30 min of developer time.
 
-This pain is driving a new wave of AI-SAST startups, all of which use general-purpose LLMs (GPT-4o, Claude) as the reasoning engine:
+This pain is driving the AI-SAST stack to grow:
 
-- ZeroPath ($1,000/mo + $60/dev), Corgea, Cycode, Pixee, Black Duck Signal (Dec 2025)
-- GitLab 18.10 AI-native triage, GitHub Security Lab Taskflow Agent, Datadog Bits AI
+- ZeroPath, Pixee, Cycode, Aikido, Black Duck Signal (Dec 2025) on the suite
+  side
+- GitLab Duo, GitHub Copilot Autofix, Mobb on the remediation side
+- All of them use frontier LLMs (GPT-4o, Claude Sonnet) as the reasoner
 
-**No one has shipped a specialist fine-tuned vulnerability detection model.** Academic precedents (Detect Llama on smart contracts, Wang et al. 2026 SAST replacement) show specialist 7B can beat GPT-4 at 100x lower cost. We have the technology and the data to be that specialist.
+We measured frontier on our own SAST triage benchmark (100 stratified
+TP/FP cases from CVEFixes + CrossVul, project-stratified split):
+
+| Frontier model | F1 | BalAcc | Behaviour |
+|---|---|---|---|
+| GPT-4o (2024-11) | 0.479 | 0.500 | random |
+| GPT-5-chat-latest | 0.395 | 0.540 | barely above random |
+| GPT-4.1 | 0.416 | 0.550 | barely above random |
+| o3-mini (reasoning) | 0.267 | 0.552 | conservative, misses 84% of bugs |
+| Claude Sonnet 4.5 | 0.598 | 0.610 | best frontier, marginal signal |
+| Llama 3.3 70B | 0.469 | 0.570 | conservative |
+| DeepSeek-Chat | 0.265 | 0.500 | random |
+
+**Nobody at frontier scale solves this task well.** That is the window we
+target.
 
 ## Differentiation
 
-| Dimension | General LLM SAST | Traditional SAST | Our v8 |
+| Dimension | Frontier-LLM AI-SAST | Traditional SAST | Our v8 |
 |---|---|---|---|
-| Cost per finding | $0.01-0.05 (API) | sunk cost | $0.0001 (our GPU) |
+| Cost per finding | $0.012-0.05 (API) | sunk cost | $0.0001 (own GPU) |
 | Latency | 5-10 sec | seconds | 200 ms |
 | Data exposure | sent to OpenAI/Anthropic | none | none (on-prem) |
-| False-positive rate | 30-50% (better than rules) | 60-91% | target < 10% |
-| CWE explanations | yes | usually no | yes |
-| Setup complexity | API key | days | one click GitHub App |
+| Scanner agnostic | varies | n/a | yes (SARIF-first) |
+| Replaces existing tools | sometimes claimed | n/a | no, sits on top |
 
 ## Monetization
 
 | Plan | Price | Target |
 |---|---|---|
-| **Free** | $0 | OSS projects, individual devs. Virality through GitHub Marketplace badges. |
-| **Team** | $9/dev/mo | Startups 5-50 people. Main recurring revenue. |
-| **Pro** | $19/dev/mo | Mid-market 50-300. Extended CWE coverage, priority support. |
-| **Enterprise on-prem** | from $30k/year | Banks, government, fintech. Our model on their infra. |
-| **One-shot audit** | $500-2,000 per repo | Pentest firms. Second-opinion tool. |
+| Free | $0 | OSS projects, individual developers. Virality through GitHub Marketplace. |
+| Team | $9/dev/mo | Startups 5-50 people. Main recurring revenue. |
+| Pro | $19/dev/mo | Mid-market 50-300. Extended CWE coverage, priority support. |
+| Enterprise on-prem | from $30k/year | Banks, government, fintech. Our model on their infrastructure. |
+| One-shot audit | $500-2000 per repo | Pentest firms. Second-opinion tool. |
 
-Unit economics: one L40S pod ($0.86/hour, ~$620/month) handles inference for ~50 mid-sized repos. Four to five Team customers per pod break even. At 100 customers we are at ~$18,000 MRR with one pod.
+Unit economics: one L40S pod ($0.86/h, ~$620/mo) handles inference for ~50
+mid-sized repos. Four to five Team customers per pod break even. At 100
+customers we are at roughly $18k MRR with one pod.
 
 ## Go-to-market wedge
 
 Cold outreach with a finished report on the prospect's own public repo.
 
-> "We ran your `companyname/api-gateway` through our model and found 3 real RCE vulnerabilities your current Snyk missed. Here are the findings, the explanations, and the fix PRs ready to merge. Want them?"
+> "We ran your `companyname/api-gateway` through our triage model. Your
+> existing Snyk found 200 issues; we say 5 are real and the other 195 are
+> noise. Here are the 5, including 2 that look exploitable from the network."
 
-This converts much higher than pitch decks. Mobb and Corgea do this and it works. CISOs see a real bug in their own code and they respond.
+This converts much higher than pitch decks. Mobb and Corgea do exactly this.
 
-## Path to first revenue
+## Open questions and risks
 
-```
-Months 1-2: v8 triage model trained, beats GPT-4o on SastBench, public leaderboard entry.
-Month 3:    GitHub App MVP, free for everyone, 50-100 installs via Marketplace.
-Months 3-4: 5-10 paying customers via outbound "we looked at your repo" pitch.
-Month 6:    $5-10k MRR. Product-market fit validation.
-Month 12:   $30-50k MRR + first enterprise on-prem deal.
-```
-
-Realistic for a solo founder or duo. Not a unicorn track. A path to $200-500k ARR in 12-18 months with disciplined execution.
-
-## Open questions to resolve before launch
-
-1. **Distribution**: GitHub App + GitLab integration first? Bitbucket?
-2. **Self-serve vs sales-led**: free tier for OSS only, or for individuals up to N repos?
-3. **Russian market specifically**: do we go FSTEC-certified for the on-prem deal, or stay international?
-4. **Brand and trust**: open-source the lite model on day one, sell hosted/enterprise on top?
-5. **Naming**: TBD. Working names: `Vrai`, `Sentry7`, `LintLLM`, `RealVuln`.
+1. **Final v8 number must be honest.** A weak BalAcc on a full project-stratified
+   test breaks the entire thesis. Pitch waits for the number.
+2. **Distribution**: GitHub App + GitLab integration first. Bitbucket later if
+   demand.
+3. **Self-serve vs sales-led**: free tier for OSS only, or for individuals up
+   to N repos?
+4. **Russian market specifically**: FSTEC-certified for on-prem deals or stay
+   international?
+5. **Naming**: TBD. Working names: Vrai, Sentry7, LintLLM, RealVuln.

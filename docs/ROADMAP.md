@@ -1,88 +1,115 @@
 # Roadmap
 
-Working in 4-week sprints. Each sprint produces a concrete artifact and a go/no-go decision.
+Sprints are short, every sprint produces a concrete artefact and a decision
+gate. Calibrated to AI-paired solo founder pace.
 
-## Sprint 0 (week 1-2): Setup and reproducibility
+## Where we are (2026-06-10)
 
-**Goal**: stable working environment, v5b reproduced from scratch.
+- ✅ Repo, HF, RunPod infra ready
+- ✅ v5b detector reproduced on RunPod (F1=0.921 on CVEFixes-100)
+- ✅ Triage dataset built from CVEFixes + CrossVul (2879 pairs)
+- ✅ 7 frontier baselines on triage_100 (best: Claude Sonnet 4.5, BA=0.610)
+- ✅ v8 trained on the triage dataset
+- ❌ **v8 eval on triage_100: BA=0.51 (random)**
+- ✅ Root cause diagnosed: training data lacked real pre-fix / post-fix pairs
+  (only 20 CVEs overlapped between vuln and safe sets); FP reasoning template
+  leaked surface bias
 
-- [x] Inventory and migrate research code from cHARISMa-era `f:/diplom/` into clean repo
-- [ ] Create private GitHub repo, push initial commit
-- [ ] Create private HuggingFace adapter repo and dataset repo
-- [ ] Set up RunPod persistent volume + template (see `infra/runpod_template.md`)
-- [ ] Reproduce v5b on RunPod L40S, confirm F1 ≈ 0.86 (within ±0.005)
-- [ ] Upload v5b reproduction adapter to HF
+This is a methodologically correct failure, not a dead end. The fix is
+documented and budgeted.
 
-**Decision gate**: F1 reproduces within tolerance -> proceed to Sprint 1. Otherwise debug pipeline.
+## Sprint 1 (next 1-3 days): D2A migration
 
-## Sprint 1 (week 3-4): SastBench baseline
+**Goal**: rebuild the training data on top of the IBM **D2A** dataset
+(arxiv 2102.07995) which is purpose-built on differential before/after fix
+analysis. This solves the root cause of v8's failure.
 
-**Goal**: first cell of the comparison table that sells the product.
+- [ ] Pull D2A from https://github.com/IBM/D2A (~7 GB)
+- [ ] Inspect schema, write `prepare_d2a_triage.py`
+- [ ] Build v8.2 train/val/test with real pre/post pairs, project-stratified
+- [ ] Train v8.2 (~$0.75, 1.5 h on A6000)
+- [ ] Eval on triage_100 + full 573-case test
+- [ ] Update README + RESULTS_v8.md with the new number
 
-- [ ] Download SastBench from arxiv supplementary or HF mirror
-- [ ] Inspect schema, write `prepare_sastbench.py` to render train/val/test in our format
-- [ ] Run v5b on SastBench as zero-shot baseline (no triage fine-tune yet)
-- [ ] Run GPT-4o, Claude Sonnet 4.5, Qwen-Coder-32B on SastBench via API
-- [ ] Produce first comparison table: F1, BalAcc, cost-per-finding, latency
+**Decision gate**: v8.2 BalAcc >= 0.65 on triage_100 -> proceed to Sprint 2.
+Lower -> diagnose, consider evidence packet enrichment.
 
-**Decision gate**: if specialist baseline is competitive (within 10% F1 of GPT-4o), proceed to fine-tune. If far off, diagnose first.
+**Budget**: ~$10 (compute + storage + small API for sanity checks)
 
-## Sprint 2 (week 5-6): v8 triage fine-tune
+## Sprint 2 (1-2 weeks after v8.2 works): SARIF and evidence packet
 
-**Goal**: a model that beats GPT-4o on SastBench by clear margin.
+**Goal**: turn the model into something that consumes real scanner output.
 
-- [ ] Project-stratified split on SastBench training set
-- [ ] Generate teacher reasoning (GPT-4o `Reasoning:` and `SuggestedFix:`) for train examples — budget ~$50
-- [ ] Train `train_v8_triage.py` with default config (r=16, 2 epochs, lr=1e-4)
-- [ ] Eval, calibrate via threshold sweep, document
-- [ ] Two-stage variant: stage-2 FP-filter adapter
-- [ ] Final v8 candidate vs all baselines table
+- [ ] Define the SARIF input format we accept (Semgrep, CodeQL, Snyk Code
+      profiles)
+- [ ] Define the evidence packet schema (rule id, CWE, source/sink, sanitizer
+      flag, line range, diff context)
+- [ ] Update the triage prompt to include this packet (closer to ZeroFalse
+      arxiv 2510.02534 setup)
+- [ ] Retrain v8.3 on SARIF-style inputs from the same D2A base
+- [ ] Eval against v8.2 on the same eval set
 
-**Decision gate**: v8 beats GPT-4o by ≥5% F1 -> ship MVP. If only at parity, ablate (more data, two-stage, larger LoRA, then 14B).
+**Decision gate**: v8.3 with evidence packet beats v8.2 by at least +0.05
+BalAcc, or matches it with clearer reasoning.
 
-## Sprint 3 (week 7-8): Distribution MVP
+**Budget**: ~$15
+
+## Sprint 3 (3-5 days after Sprint 2): GitHub App MVP
 
 **Goal**: real users on real codebases.
 
-- [ ] GitHub App skeleton (Node or Python): receive PR webhook, run v8 on changed code, post comments
-- [ ] Self-hosted inference server (vLLM on RunPod)
-- [ ] Landing page (one page, "review your PRs for security bugs")
-- [ ] Free tier with rate limits
-- [ ] Onboard first 5 friendly testers from network
+- [ ] FastAPI app, receives GitHub PR webhook
+- [ ] Runs Semgrep on changed files
+- [ ] Triages each finding through v8.3 inference (vLLM on RunPod)
+- [ ] Posts review comments grouped by file with TP / explanation / suggested
+      fix
+- [ ] Free tier for OSS, manual onboarding for first paid testers
+- [ ] Landing page, one screen
+- [ ] Stripe billing skeleton
 
-**Decision gate**: at least 3 testers say "this is useful" -> launch on GitHub Marketplace. Otherwise iterate on UX/quality.
+**Decision gate**: at least 3 OSS projects accept the app and leave it
+running for a week -> ready for cold outreach.
 
-## Sprint 4 (week 9-12): First revenue
+**Budget**: ~$50 + maybe $20 for hosting/domain
 
-**Goal**: first paying customer, validation of pricing.
+## Sprint 4 (2-4 weeks after Sprint 3): first paid customers
 
-- [ ] GitHub Marketplace listing
-- [ ] Pricing: Free / Team $9 / Pro $19 (see PRODUCT.md)
-- [ ] Cold outreach to 50 startups (CTO direct message with finding-report on their public repo)
-- [ ] Implement Stripe billing
-- [ ] Aim: 5 paying Team customers ($45-225 MRR per customer)
+- [ ] Generate 30-50 OSS report PDFs ("we found these real bugs in your repo")
+      using `triage_oss_repo.py`
+- [ ] Cold outreach to 50 startups (CTO direct message + report attached)
+- [ ] Goal: 3-5 paying Team customers at $9/dev/mo, ~$300-1000 MRR
 
-**Decision gate**: ≥3 paying customers -> double down on outbound. <3 -> investigate value-prop messaging.
+**Budget**: low-cost outbound, primarily time
 
 ## Beyond month 3
 
 | Track | Trigger |
 |---|---|
-| Scale model to 14B | When 7B caps on triage F1 at ≤0.85 after distillation + two-stage |
-| GitLab integration | When 30% of inbound asks for it |
-| Russian on-prem deal | When first enterprise lead requests FSTEC certification |
-| Smart contract niche | If web SAST track stalls, pivot to Solidity using Detect Llama precedent |
-| Publication (Cyber-AI / CSNet) | After v8 results are clear, parallel to GTM (does not delay revenue) |
+| Scale to 14B model | Only after 7B caps out on triage at BA <= 0.75 with all data and evidence-packet improvements |
+| GitLab integration | When >= 30% of inbound asks for it |
+| Russian on-prem (FSTEC) | When the first regulated enterprise lead surfaces |
+| Smart contract niche | Only as a pivot if the web SAST track stalls |
+| Defensive arxiv paper | After v8.3 results are clear; arxiv only, no journal cycle |
 
 ## Budget envelope (months 1-3)
 
 | Item | Cost |
 |---|---|
 | RunPod persistent volume | $7/mo |
-| Compute for experiments (~100 GPU-hours on L40S) | $86 |
-| OpenAI/Anthropic API for distillation + baselines | $100-200 |
-| HuggingFace Pro (if needed for private datasets) | $0 (free is fine for now) |
+| Compute (~100 GPU-hours on A6000) | $50 |
+| OpenAI/Anthropic/OpenRouter for baselines and distillation | $50 |
+| Storage and HF | $0 |
 | Domain + landing page hosting | $20 |
-| **Total months 1-3** | **~$300-500** |
+| **Total months 1-3** | **~$300** |
 
-This is the realistic operating budget for the research/MVP phase. No external funding required.
+This is the realistic operating budget for the research/MVP phase. No external
+funding required.
+
+## What is NOT on the roadmap (deliberate decisions)
+
+- ❌ Patents (low value in AI software, costly, slow)
+- ❌ Autofix (immediate war with Mobb/Pixee/GitLab/GitHub Autofix)
+- ❌ Generic code review (Cursor/Copilot already own this)
+- ❌ Full ASPM platform (ZeroPath/Aikido already own this)
+- ❌ SOC 2 / FSTEC certification before first paying customer (premature
+      complexity)

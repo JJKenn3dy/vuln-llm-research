@@ -1,6 +1,33 @@
-# Lessons from v5 through v7lite_r8
+# Lessons from v5 through v8
 
-Negative results and methodology corrections from the BSc thesis cycle. Each lesson is load-bearing for the v8 design.
+Negative results and methodology corrections from the BSc thesis cycle and the
+first commercial iteration. Each lesson is load-bearing for the next design.
+
+## Lesson 0: v8 failed because there were no real pre-fix / post-fix pairs in the source data
+
+The single most important lesson from the first session. The v8 training set
+was built from v7lite which itself was built from v5b detection data. The "safe"
+samples were never the **post-fix versions of the vulnerable samples** — they
+were unrelated independent safe code from different CVEs. Only 20 of 707 CVEs
+in v5b actually had both vuln and safe representations, and even those were
+not paired by file path.
+
+Consequences:
+- The triage task collapsed to detection: claimed_cwe always equalled real_cwe,
+  the only thing that varied was the code itself.
+- Training data presented two visually different distributions (vuln-style code,
+  safe-style code) and a clean stylistic difference in the assistant reasoning
+  (templated single sentence for FP, rich varied text for TP). The model
+  learned the **surface stylistic discriminator**, not the semantic
+  pre-fix / post-fix comparison.
+- v8 zero-shot eval on triage_100 produced BA=0.510 with a logprob gap of
+  0.007 between real TPs and real FPs. No internal signal at all.
+
+**Implication for v8.2**: switch the training data to a source that gives real
+differential before/after fix pairs. IBM **D2A** (arxiv 2102.07995) is built
+exactly for this. We do not need to manually rebuild from CVEFixes raw.
+
+## Lesson 1: Train loss low does not mean good model
 
 ## Lesson 1: Train loss low does not mean good model
 
