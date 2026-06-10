@@ -162,6 +162,12 @@ def run_api(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
     if args.api == "openai":
         from openai import OpenAI
         client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+    elif args.api == "openrouter":
+        from openai import OpenAI
+        client = OpenAI(
+            api_key=os.environ["OPENROUTER_API_KEY"],
+            base_url="https://openrouter.ai/api/v1",
+        )
     elif args.api == "anthropic":
         from anthropic import Anthropic
         client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
@@ -172,7 +178,7 @@ def run_api(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
     for i, ex in enumerate(cases):
         messages = ex["messages"][:2]
         try:
-            if args.api == "openai":
+            if args.api in ("openai", "openrouter"):
                 resp = client.chat.completions.create(
                     model=args.model,
                     messages=messages,
@@ -229,7 +235,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--base-model", default="Qwen/Qwen2.5-Coder-7B-Instruct")
     p.add_argument("--adapter-dir", default=None)
     # api
-    p.add_argument("--api", choices=["openai", "anthropic"], default="openai")
+    p.add_argument("--api", choices=["openai", "openrouter", "anthropic"], default="openai")
     p.add_argument("--model", default="gpt-4o-2024-11-20")
     return p.parse_args()
 
