@@ -139,7 +139,13 @@ def build_triage_pairs(detection_data: list[dict], seed: int) -> list[dict]:
         real_label = md["label"]
         real_cwe = md.get("cwe_id", "CWE-?")
         cve_id = md.get("cve_id", "")
+        # project_id resolution order: repo (CVEFixes), cve_id, file_pair_id prefix
+        # (CrossVul uses "<project_idx>_<file_idx>" so we strip the file suffix)
         project_id = md.get("repo") or cve_id
+        if not project_id and md.get("file_pair_id"):
+            project_id = md["file_pair_id"].split("_")[0]
+        if not project_id:
+            project_id = f"unknown_{cve_id}_{md.get('vuln_code_hash', '')[:8]}"
 
         # Detection-style assistant message has Cause: and Fix: fields. Reuse them
         # for the triage reasoning so we keep the model's grounded knowledge.
