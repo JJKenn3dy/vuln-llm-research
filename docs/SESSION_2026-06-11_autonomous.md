@@ -130,18 +130,83 @@ Codex implements its watcher symmetrically, the convention closes.
 
 Within $5 OpenRouter top-up + $0.66 pod tick. No budget overrun.
 
-## What's next (when Zakhar wakes)
+## Gate resolved from labeling alone — probe killed mid-way
 
-The probe outcome resolves the gate (see `project_v8_3_plan.md` decision tree).
-Most likely outcomes given v8.2's per-CWE pattern:
+**Zakhar caught me auto-piloting** the sufficiency probe after labeling had already
+revealed the gate answer. Captured as new feedback memory:
+`feedback_meta_check_between_experiments.md`.
 
-- **If (a) ≈ (b) ≈ 0.6+, v8.2 stays at 0.1**: data sufficiency confirmed, our
-  artifact-overfit hypothesis confirmed. v8.3 multi-source + LOSO is the right
-  cure.
-- **If (a) random, (b) jumps**: evidence packet was the missing piece. Sprint
-  2 becomes prerequisite. Tree-sitter MVP needed for production.
-- **If both random**: snippet alone is insufficient AND evidence packet
-  insufficient too — implies the task may need actual ReAct (multi-turn
-  with tool calls). Repositions pitch.
+### What labeling told us
 
-(This section is filled in after probe completes, before pod is terminated.)
+Sonnet 4.5 as researcher proxy on 50 cases (balanced 25 TP + 25 FP):
+
+| Pass | Verdict distribution | Solvable from snippet |
+|---|---|---|
+| Pass 1 (snippet only) | 36 TP / 14 FP  vs gt 25/25 | 37 yes / 13 no |
+| Pass 2 (+ evidence packet) | 37 TP / 13 FP | n/a |
+| Δ (evidence effect) | +1 case | n/a |
+
+**One-line read**: evidence packet moved Sonnet's verdict on exactly 1 case
+out of 50. Frontier paranoid in single-call setup independent of context.
+
+### Implied branch (project_v8_3_plan.md decision tree)
+
+**Branch 3 — snippet sufficient, structural artifact**. Evidence:
+- Sonnet self-reports 37/50 cases as "solvable from snippet" (74%)
+- Evidence packet has zero effect on Sonnet's verdict shift
+- Sonnet still paranoid (36-37 TP vs 25 ground truth = 45% over-call rate)
+- v8.2 has the same paranoia pattern PLUS distribution memorisation
+  (per-CWE analysis showed signal only on CWE-79)
+
+### v8.3 implications
+
+**Multi-source mix + LOSO remains right cure.** Evidence packet is NOT the
+binding constraint. Specifically:
+
+1. **Sprint 2 (evidence packet / SARIF input format) is DEMOTED** from "pre-v8.3
+   prerequisite if probe says so" to "post-v8.3 product feature when needed".
+   It doesn't move frontier; unlikely to move our 7B specialist.
+
+2. **Anti-paranoia training is HIGH PRIORITY** for v8.3. v8.2 paranoia (FAR=77%
+   on SastBench) is the same paranoia frontier has. The mix design must include
+   harder negative examples that force the model to learn restraint.
+
+3. **CWE coverage expansion stays mandatory** — v8.2 has signal only on CWE-79
+   (the only one we trained heavily). 5-7 new CWEs in v8.3 mix.
+
+4. **CVE-ID dedup gate before LOSO** as planned. No change.
+
+5. **Project-stratification for SastBench eval slicing**: WeGIA = 33% of our
+   258 local cases; if we don't slice by project, headline numbers are dominated
+   by this one repo. v8.3 evaluation must report per-project, not just per-CWE.
+
+## Budget burn
+
+| Item | Actual |
+|---|---|
+| Temp A40 pod (~1.5h, terminated 02:08) | ~$0.66 |
+| Frontier baselines smoke (Sonnet + Gemini × 10 each) | ~$0.30 |
+| Model-proxy labeling (Sonnet × 50 × 2 passes) | ~$1.30 |
+| Sufficiency probe (killed mid-way, ~108 calls of 150) | ~$1.40 |
+| **Total estimate** | **~$3.66** |
+
+Within $5 OpenRouter top-up. Probe kill saved ~$0.60 of remaining $0.80 budget,
+but more importantly captured the lesson: don't auto-pilot through pipeline
+after intermediate answer is clear.
+
+## Mailbox infrastructure committed
+
+`coordination/POLICY.md` + `scripts/mailbox_listen.ps1` ready for Codex side.
+When Zakhar configures Codex's symmetric watcher, the convention closes.
+
+## Memory updates this session
+
+- `feedback_meta_check_between_experiments.md` (new) — caught from Zakhar's
+  comment about probe auto-pilot
+- `feedback_smoke_before_full_experiment.md` (new) — per the $5 top-up rule
+- `feedback_labeling_protocol.md` (existing, applied during model-proxy work)
+- `project_v8_3_plan.md` (existing) — Branch 3 verdict from probe-equivalent
+  labeling stage; multi-source mix confirmed as right next step
+- `project_v8_2_calibration_done.md` (existing) — gap p_tp=0.058 finding
+- `reference_workspace_runpod.md` (existing) — network volume swap pattern
+  used successfully (deploy temp A40, mount volume, work, terminate)
