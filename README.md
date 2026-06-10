@@ -2,15 +2,46 @@
 
 Fine-tuned 7B LLM for software vulnerability detection and SAST triage. Built on top of Qwen2.5-Coder-7B-Instruct with LoRA adapters.
 
-## What this is
+## Current state (10.06.2026)
 
-A research codebase plus the start of a commercial product. Current state:
+Building a commercial SAST triage product. Pivot from academic detection (v5b
+defended in BSc thesis) to triage filtering of existing SAST tool findings.
 
-- **v5b** (defended in BSc thesis, May 2026): F1 = 0.859 on CVEFixes-100 in-domain. Beats GPT-4o, Claude Sonnet 4.5, DeepSeek R1, Qwen-Coder-32B on the same eval set. Out-of-domain on CrossVul: F1 = 0.10 (narrow specialist).
-- **v6b / v7lite_r8**: out-of-domain experiments, capped at BalAcc ≈ 0.526 on honest project-split.
-- **v8 (in progress)**: pivot to **SAST false-positive triage** — a higher-leverage task with clearer commercial value.
+**Latest benchmark on triage_100 (50 TP + 50 FP, stratified from v7lite test set):**
 
-For the why and where-we-go, see [docs/PRODUCT.md](docs/PRODUCT.md), [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/ROADMAP.md](docs/ROADMAP.md), and [docs/HISTORY.md](docs/HISTORY.md).
+| Model | F1 | BalAcc | MCC | Notes |
+|---|---|---|---|---|
+| GPT-4o (2024-11-20) | 0.479 | 0.500 | 0.00 | random |
+| Llama 3.3 70B Instruct | 0.469 | 0.570 | 0.15 | slight signal |
+| DeepSeek-Chat | 0.265 | 0.500 | 0.00 | conservative, random |
+| **v8 (target)** | **>0.65** | **>0.65** | **>0.30** | specialist 7B + LoRA |
+
+Headline finding: **frontier LLMs perform at random on our SAST triage task.**
+This is the open window for a specialist.
+
+## Historical context
+
+- **v5b** (defended May 2026): F1 = 0.859 on CVEFixes-100 in-domain detection,
+  beats GPT-4o, Claude Sonnet 4.5, DeepSeek R1, Qwen-Coder-32B on the same set.
+  Now reproduced on RunPod and pushed to HF as `JJKennedy/vuln-llm-adapters/v5b_repro`.
+- **v6b / v7lite_r8**: out-of-domain experiments, capped at BalAcc ≈ 0.526 on
+  honest project-stratified split. The lessons from those failures shape v8's
+  design (see HISTORY.md).
+- **v8** (in progress): SAST triage, training on 2879 TP/FP pairs from
+  CVEFixes + CrossVul, project-stratified split.
+
+## Why this is commercial
+
+Industry data: average enterprise sees 865k SAST alerts/year, **91% false positive**,
+15-30 min triage time per false alert. Existing AI-SAST startups (Corgea, ZeroPath,
+Cycode, Black Duck Signal) all use frontier LLMs as the reasoner — which we just
+showed are at random on this task. Specialist 7B at $0.0001/finding vs $0.05 API
+is a 500x cost edge, plus on-prem option for regulated industries.
+
+For the why and where-we-go, see [docs/PRODUCT.md](docs/PRODUCT.md),
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/ROADMAP.md](docs/ROADMAP.md),
+[docs/HISTORY.md](docs/HISTORY.md), and the per-session log at
+[docs/SESSION_2026-06-10.md](docs/SESSION_2026-06-10.md).
 
 ## Repo layout
 
