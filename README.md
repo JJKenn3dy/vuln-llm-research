@@ -9,15 +9,22 @@ defended in BSc thesis) to triage filtering of existing SAST tool findings.
 
 **Latest benchmark on triage_100 (50 TP + 50 FP, stratified from v7lite test set):**
 
-| Model | F1 | BalAcc | MCC | Notes |
-|---|---|---|---|---|
-| GPT-4o (2024-11-20) | 0.479 | 0.500 | 0.00 | random |
-| Llama 3.3 70B Instruct | 0.469 | 0.570 | 0.15 | slight signal |
-| DeepSeek-Chat | 0.265 | 0.500 | 0.00 | conservative, random |
-| **v8 (target)** | **>0.65** | **>0.65** | **>0.30** | specialist 7B + LoRA |
+| Model | N | TP | FN | TN | FP | DR | FAR | F1 | BalAcc | MCC | Behaviour |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| GPT-4o (2024-11-20) | 100 | 23 | 27 | 27 | 23 | 46.0% | 46.0% | 0.479 | 0.500 | 0.00 | random |
+| Llama 3.3 70B Instruct | 100 | 19 | 31 | 38 | 12 | 38.0% | 24.0% | 0.469 | 0.570 | 0.15 | slight signal, conservative |
+| DeepSeek-Chat | 100 | 9 | 41 | 41 | 9 | 18.0% | 18.0% | 0.265 | 0.500 | 0.00 | very conservative, random |
+| v5b zero-shot (detector) | 100 | 38 | 12 | 11 | 39 | 76.0% | 78.0% | 0.598 | 0.490 | -0.02 | paranoia (says TP on everything) |
+| **v8 triage (target)** | 100 | – | – | – | – | – | – | **>0.65** | **>0.65** | **>0.30** | specialist 7B + LoRA |
 
-Headline finding: **frontier LLMs perform at random on our SAST triage task.**
-This is the open window for a specialist.
+Headline findings:
+
+1. **Frontier LLMs perform at random on SAST triage** (BalAcc ≈ 0.50).
+2. **The v5b detector, used zero-shot for triage, goes into paranoia mode** —
+   high apparent F1 but random BalAcc because it just calls everything TP.
+3. **Both failure modes leave room for a specialist**: a model trained
+   specifically on the triage TP/FP task with project-stratified data should
+   clear BA = 0.65 comfortably.
 
 ## Historical context
 
