@@ -9,7 +9,7 @@
 
 set -e
 
-HF_REPO="${HF_DATA_REPO:-zyakuba/vuln-llm-datasets}"
+HF_REPO="${HF_DATA_REPO:-JJKennedy/vuln-llm-datasets}"
 DATA_DIR="${DATA_DIR:-/workspace/data/hf}"
 
 mkdir -p "$DATA_DIR"

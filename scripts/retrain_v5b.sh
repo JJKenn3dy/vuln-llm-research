@@ -12,7 +12,7 @@ set -e
 
 REPO_DIR="${REPO_DIR:-/workspace/vuln-llm-research}"
 ADAPTER_OUT="${ADAPTER_OUT:-/workspace/adapters/v5b_repro}"
-HF_REPO="${HF_ADAPTERS_REPO:-zyakuba/vuln-llm-adapters}"
+HF_REPO="${HF_ADAPTERS_REPO:-JJKennedy/vuln-llm-adapters}"
 
 cd "$REPO_DIR"
 

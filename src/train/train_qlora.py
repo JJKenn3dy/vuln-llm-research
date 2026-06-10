@@ -12,7 +12,7 @@ Example (reproduce v5b baseline):
         --output-dir /workspace/adapters/v5b_repro \\
         --base-model Qwen/Qwen2.5-Coder-7B-Instruct \\
         --epochs 3 --lora-r 16 --lora-alpha 32 --lr 1.5e-4 \\
-        --hf-repo zyakuba/vuln-llm-adapters --hf-subfolder v5b_repro
+        --hf-repo JJKennedy/vuln-llm-adapters --hf-subfolder v5b_repro
 """
 from __future__ import annotations
 

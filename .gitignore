@@ -32,7 +32,10 @@ password
 *.key
 .env.local
 hf_token
+.hf_token
 runpod_key
+.runpod_key
+.git_token
 
 # Logs and run artifacts
 *.log

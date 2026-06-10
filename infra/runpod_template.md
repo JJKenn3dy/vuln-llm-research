@@ -30,9 +30,9 @@ docker push zyakuba/vuln-llm:latest
 | Name | Value | Notes |
 |---|---|---|
 | `HF_TOKEN` | hf_xxx | HuggingFace write-access token |
-| `GIT_REPO_URL` | https://x-access-token:GHTOKEN@github.com/zyakuba/vuln-llm-research.git | Use a fine-grained GitHub PAT |
-| `HF_ADAPTERS_REPO` | zyakuba/vuln-llm-adapters | Private HF repo with LoRA weights |
-| `HF_DATA_REPO` | zyakuba/vuln-llm-datasets | Private HF dataset repo |
+| `GIT_REPO_URL` | git@github.com:JJKenn3dy/vuln-llm-research.git | SSH (add deploy key on first pod) or use HTTPS with PAT |
+| `HF_ADAPTERS_REPO` | JJKennedy/vuln-llm-adapters | Private HF repo with LoRA weights |
+| `HF_DATA_REPO` | JJKennedy/vuln-llm-datasets | Private HF dataset repo |
 | `WANDB_API_KEY` | xxx | Optional, for training logs |
 | `OPENAI_API_KEY` | sk-xxx | For GPT-4o distillation / baselines |
 | `ANTHROPIC_API_KEY` | sk-xxx | For Claude baselines |

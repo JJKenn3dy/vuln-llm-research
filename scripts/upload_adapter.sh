@@ -6,7 +6,7 @@ set -e
 
 ADAPTER_DIR="$1"
 SUBFOLDER="${2:-$(basename $ADAPTER_DIR)}"
-HF_REPO="${HF_ADAPTERS_REPO:-zyakuba/vuln-llm-adapters}"
+HF_REPO="${HF_ADAPTERS_REPO:-JJKennedy/vuln-llm-adapters}"
 
 if [ -z "$ADAPTER_DIR" ]; then
     echo "Usage: $0 <adapter_dir> [subfolder_name]"
