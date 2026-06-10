@@ -1,0 +1,92 @@
+{
+  "created_at": "2026-06-10T22:47:05.436381+00:00",
+  "input": {
+    "val": "data/eval/sastbench_v01_val558.json",
+    "val_n": 558,
+    "val_verdict_dist": {
+      "FALSE_POSITIVE": 486,
+      "TRUE_POSITIVE": 72
+    },
+    "test": "data/eval/sastbench_v01_subset250.json",
+    "raw_sastbench": "/workspace/data/sastbench/sastbench.json",
+    "seed": 42
+  },
+  "carve_order": [
+    "1. exam_a (proportional stratification, locks first)",
+    "2. hand_label (balanced; from post-exam pool, NOT from full val)",
+    "3. working_remainder (the rest)",
+    "4. exam_b (independent of val; from raw SastBench if available)"
+  ],
+  "outputs": {
+    "exam_a_in_scope_300.json": {
+      "n": 300,
+      "sampling": "proportional stratification on verdict (mirrors val ~13% TP rate)",
+      "verdict_dist": {
+        "FALSE_POSITIVE": 261,
+        "TRUE_POSITIVE": 39
+      },
+      "purpose": "LOCKED in-scope final eval for v8.3",
+      "contamination": "ONE threshold-sweep aggregate decision (val MCC=0.151 at thr=0.77, made 2026-06-11 in /workspace/runs/v8_2_calib/calibrated.json). No per-case inspection by researcher.",
+      "lock_policy": "Never load from any diagnostic / sweep / analysis script before v8.3 final.",
+      "after_first_load": "becomes 'dirty', treat as val for v8.4 onward"
+    },
+    "hand_label_scaffold.json": {
+      "n": 50,
+      "sampling": "balanced (25 per verdict class)",
+      "verdict_dist": {
+        "FALSE_POSITIVE": 25,
+        "TRUE_POSITIVE": 25
+      },
+      "purpose": "two-pass manual labeling + sufficiency probe input + judge calibration",
+      "contamination": "FULL — researcher reads every case, NOT pristine for any future eval",
+      "labeling_protocol": "see EVIDENCE_PACKET_PROTOCOL.md and the per-case scaffold fields"
+    },
+    "hand_label_cases.json": {
+      "n": 50,
+      "purpose": "full triage chat-format cases for probe arms (a)/(a')/(b)"
+    },
+    "val_working_remainder.json": {
+      "n": 208,
+      "verdict_dist": {
+        "FALSE_POSITIVE": 200,
+        "TRUE_POSITIVE": 8
+      },
+      "purpose": "free-use diagnostics, judge calibration, slicing"
+    },
+    "exam_b_finding_ids.json": {
+      "status": "selected",
+      "counts": {
+        "web_lang_nonweb_cwe": 1476,
+        "nonweb_lang_web_cwe": 123
+      },
+      "purpose": "OUT-OF-SCOPE adjacent-zone exam (two axes of generalisation)",
+      "lock_policy": "same as exam_a; never load until v8.3 final"
+    },
+    "EVIDENCE_PACKET_PROTOCOL.md": {
+      "purpose": "mechanical extraction protocol for the (b) arm of sufficiency probe; avoid oracle bias from researcher seeing the answer first"
+    }
+  },
+  "fp_cause_taxonomy_choices": [
+    "sanitization_upstream",
+    "test_code",
+    "dead_code",
+    "framework_protection",
+    "pattern_mismatch",
+    "modernized_code",
+    "mislabel",
+    "other"
+  ],
+  "researcher_discipline": {
+    "before_v8_3_final": [
+      "hand_label_*.json: read freely",
+      "val_working_remainder.json: read freely",
+      "exam_a_in_scope_300.json: DO NOT LOAD",
+      "exam_b_*.json: DO NOT LOAD"
+    ],
+    "at_v8_3_final": [
+      "ONE eval pass on exam_a + exam_b through v8_3_final_exam.py",
+      "Report numbers verbatim, no per-case re-inspection",
+      "Both files become 'dirty' afterwards"
+    ]
+  }
+}
