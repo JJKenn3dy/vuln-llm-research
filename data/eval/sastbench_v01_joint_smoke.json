@@ -1,0 +1,872 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-798\nClaimed severity: MEDIUM\nFile: docs/docs/_static/js/algolia.js\nLines: 8-18\n\nCode:\n/**\n * Skipped minification because the original files appears to be already minified.\n * Original file: /npm/@docsearch/js@3.6.1/dist/umd/index.js\n *\n * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files\n */\n/*! @docsearch/js 3.6.1 | MIT License | © Algolia, Inc. and contributors | https://docsearch.algolia.com */\n!function(e,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=t():\"function\"==typeof define&&define.amd?define(t):(e=e||self).docsearch=t()}(this,(function(){\"use strict\";function e(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function t(t){for(var n=1;n<arguments.length;n++){var o=null!=arguments[n]?arguments[n]:{};n%2?e(Object(o),!0).forEach((function(e){r(t,e,o[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(o)):e(Object(o)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(o,e))}))}return t}function n(e){return n=\"function\"==typeof Symbol&&\"symbol\"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&\"function\"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?\"symbol\":typeof e},n(e)}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function o(){return o=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},o.apply(this,arguments)}function i(e,t){if(null==e)return{};var n,r,o=function(e,t){if(null==e)return{};var n,r,o={},i=Object.keys(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||Object.prototype.propertyIsEnumerable.call(e,n)&&(o[n]=e[n])}return o}function c(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var n=null==e?null:\"undefined\"!=typeof Symbol&&e[Symbol.iterator]||e[\"@@iterator\"];if(null==n)return;var r,o,i=[],c=!0,a=!1;try{for(n=n.call(e);!(c=(r=n.next()).done)&&(i.push(r.value),!t||i.length!==t);c=!0);}catch(e){a=!0,o=e}finally{try{c||null==n.return||n.return()}finally{if(a)throw o}}return i}(e,t)||u(e,t)||function(){throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\")}()}function a(e){return function(e){if(Array.isArray(e))return l(e)}(e)||function(e){if(\"undefined\"!=typeof Symbol&&null!=e[Symbol.iterator]||null!=e[\"@@iterator\"])return Array.from(e)}(e)||u(e)||function(){throw new TypeError(\"Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\")}()}function u(e,t){if(e){if(\"string\"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return\"Object\"===n&&e.constructor&&(n=e.constructor.name),\"Map\"===n||\"Set\"===n?Array.from(e):\"Arguments\"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?l(e,t):void 0}}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var s,f,p,m,d,v={},h=[],y=/acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;function _(e,t){for(var n in t)e[n]=t[n];return e}function b(e){var t=e.parentNode;t&&t.removeChild(e)}function g(e,t,n){var r,o,i,c=arguments,a={};for(i in t)\"key\"==i?r=t[i]:\"ref\"==i?o=t[i]:a[i]=t[i];if(arguments.length>3)for(n=[n],i=3;i<arguments.length;i++)n.push(c[i]);if(null!=n&&(a.children=n),\"function\"==typeof e&&null!=e.defaultProps)for(i in e.defaultProps)void 0===a[i]&&(a[i]=e.defaultProps[i]);return S(e,a,r,o,null)}function S(e,t,n,r,o){var i={type:e,props:t,key:n,ref:r,__k:nul\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-798 (Use of Hard-coded Credentials).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "4ab43c37:CWE-798:false_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-798",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "docs/docs/_static/js/algolia.js",
+      "line_range": "8-18",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Use of Hard-coded Credentials"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: llama-index-integrations/readers/llama-index-readers-file/llama_index/readers/file/xml/base.py\nLines: 12-34\n\nCode:\nimport xml.etree.ElementTree as ET\nfrom pathlib import Path\nfrom typing import Dict, List, Optional\n\nfrom llama_index.core.readers.base import BaseReader\nfrom llama_index.core.schema import Document\n\n\ndef _get_leaf_nodes_up_to_level(root: ET.Element, level: int) -> List[ET.Element]:\n    \"\"\"Get collection of nodes up to certain level including leaf nodes.\n\n    Args:\n        root (ET.Element): XML Root Element\n        level (int): Levels to traverse in the tree\n\n    Returns:\n        List[ET.Element]: List of target nodes\n    \"\"\"\n\n    def traverse(current_node, current_level):\n        if len(current_node) == 0 or level == current_level:\n            # Keep leaf nodes and target level nodes\n            nodes.append(current_node)\n        elif current_level < level:\n            # Move to the next level\n            for child in current_node:\n                traverse(child, current_level + 1)\n\n    nodes = []\n    traverse(root, 0)\n    return nodes\n\n\nclass XMLReader(BaseReader):\n    \"\"\"XML reader.\n\n    Reads XML documents with options to help suss out relationships between nodes.\n\n    Args:\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-611 (Improper Restriction of XML External Entity Reference).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "2c00a1df:CWE-611:false_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-611",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "llama-index-integrations/readers/llama-index-readers-file/llama_index/readers/file/xml/base.py",
+      "line_range": "12-34",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Restriction of XML External Entity Reference"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: nbgrader/preprocessors/instantiatetests.py\nLines: 1-434\n\nCode:\nimport os\nimport yaml\nimport jinja2 as j2\nimport re\nfrom .. import utils\nfrom traitlets import Bool, List, Integer, Unicode, Dict, Callable\nfrom textwrap import dedent\nimport asyncio\nimport inspect\nimport hashlib\nimport typing as t\nfrom nbformat import NotebookNode\nfrom queue import Empty\nimport datetime\nfrom typing import Optional\nfrom nbclient.exceptions import (\n    CellControlSignal,\n    CellExecutionComplete,\n    CellExecutionError,\n    CellTimeoutError,\n    DeadKernelError,\n)\nfrom . import NbGraderPreprocessor\nfrom jupyter_client.manager import start_new_kernel\n\ntry:\n    from time import monotonic  # Py 3\nexcept ImportError:\n    from time import time as monotonic  # Py 2\n\n#########################################################################################\nclass InstantiateTests(NbGraderPreprocessor):\n    tests = None\n\n    autotest_filename = Unicode(\n        \"autotests.yml\",\n        help=\"The filename where automatic testing code is stored\"\n    ).tag(config=True)\n\n    autotest_delimiter = Unicode(\n        \"AUTOTEST\",\n        help=\"The delimiter prior to snippets to be autotested\"\n    ).tag(config=True)\n\n    hashed_delimiter = Unicode(\n        \"HASHED\",\n        help=\"The delimiter prior to an autotest block if snippet results should be protected by a hash function\"\n    ).tag(config=True)\n\n    use_salt = Bool(\n        True,\n        help=\"Whether to add a salt to digested answers\"\n    ).tag(config=True)\n\n    enforce_metadata = Bool(\n        True,\n        help=dedent(\n            \"\"\"\n            Whether or not to complain if cells containing autotest delimiters\n            are not marked as grade cells. WARNING: disabling this will potentially cause\n            things to break if you are using the full nbgrader pipeline. ONLY\n            disable this option if you are only ever planning to use nbgrader\n            assign.\n            \"\"\"\n        )\n    ).tag(config=True)\n\n    comment_strs = Dict(\n        key_trait=Unicode(),\n        value_trait=Unicode(),\n        default_value={\n            'ir': '#',\n            'python': '#',\n            'python3': '#'\n        },\n        help=dedent(\n            \"\"\"\n            A dictionary mapping each Jupyter kernel's name to the comment string for that kernel.\n            For an example, one of the entries in this dictionary is \"python\" : \"#\", because # is the comment\n            character in python.\n            \"\"\"\n        )\n    ).tag(config=True)\n\n    sanitizers = Dict(\n        key_trait=Unicode(),\n        value_trait=Callable(),\n        default_value={\n            'ir': lambda s: re.sub(r'\\[\\d+\\]\\s+', '', s).strip('\"').strip(\"'\"),\n            'python': lambda s: s.strip('\"').strip(\"'\"),\n            'python3': lambda s: s.strip('\"').strip(\"'\")\n        },\n        help=dedent(\n            \"\"\"\n            A dictionary mapping each Jupyter kernel's name to the function that is used to\n            sanitize the output from the kernel within InstantiateTests.\n            \"\"\"\n        )\n    ).tag(config=True)\n\n    sanitizer = None\n    kernel_name = None\n    kc = None\n    execute_result = None\n\n    def preprocess(self, nb, resources):\n        # avoid starting the kernel at all/processing the notebook if there are no autotest delimiters\n        for index, cell in enumerate(nb.cells):\n            # look for an autotest delimiter in this cell's source; if we find one, process this notebook\n            # short-circuit ignore non-code cells\n            if (cell.cell_type == 'code') and (self.autotest_delimiter in cell.source):\n                # get the kernel name from the notebook\n                kernel_name = nb.metadata.get(\"kernelspec\", {}).get(\"name\", \"\")\n                if kernel_name not in self.comment_strs:\n                    raise ValueError(f\"Kernel {kernel_name} has not been specified in InstantiateTests.comment_strs\")\n                if kernel_name not in self.sanitizers:\n                    raise ValueError(f\"Kernel {kernel_name} has not been specified in InstantiateTests.sanitize\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "895aa7dd:CWE-79:false_positive",
+      "project_id": "https://github.com/jupyter/nbgrader",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "nbgrader/preprocessors/instantiatetests.py",
+      "line_range": "1-434",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: llama-index-integrations/readers/llama-index-readers-file/llama_index/readers/file/xml/base.py\nLines: 12-36\n\nCode:\nimport xml.etree.ElementTree as ET\nfrom pathlib import Path\nfrom typing import Dict, List, Optional\n\nfrom llama_index.core.readers.base import BaseReader\nfrom llama_index.core.schema import Document\n\n\ndef _get_leaf_nodes_up_to_level(root: ET.Element, level: int) -> List[ET.Element]:\n    \"\"\"\n    Get collection of nodes up to certain level including leaf nodes.\n\n    Args:\n        root (ET.Element): XML Root Element\n        level (int): Levels to traverse in the tree\n\n    Returns:\n        List[ET.Element]: List of target nodes\n\n    \"\"\"\n\n    def traverse(current_node, current_level):\n        if len(current_node) == 0 or level == current_level:\n            # Keep leaf nodes and target level nodes\n            nodes.append(current_node)\n        elif current_level < level:\n            # Move to the next level\n            for child in current_node:\n                traverse(child, current_level + 1)\n\n    nodes = []\n    traverse(root, 0)\n    return nodes\n\n\nclass XMLReader(BaseReader):\n    \"\"\"\n    XML reader.\n\n    Reads XML documents with options to help suss out relationships between nodes.\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-611 (Improper Restriction of XML External Entity Reference).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "1359a530:CWE-611:false_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-611",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "llama-index-integrations/readers/llama-index-readers-file/llama_index/readers/file/xml/base.py",
+      "line_range": "12-36",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Restriction of XML External Entity Reference"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: mobsf/MobSF/views/helpers.py\nLines: 102-135\n\nCode:\n        return (self.file_type in settings.IPA_MIME\n                and self.file_name_lower.endswith('.ipa'))\n\n    def is_appx(self):\n        return (self.file_type in settings.APPX_MIME\n                and self.file_name_lower.endswith('.appx'))\n\n\ndef request_method(methods):\n    \"\"\"\n    Request Method Checks.\n\n    :param methods http method\n    need django HttpRequest\n    \"\"\"\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n\n            if (not isinstance(methods, list)\n                    and not isinstance(methods, tuple)):\n                raise ValueError(\n                    'the parameter methods is not a list or tuple')\n\n            methods_upper = [m.upper() for m in methods]\n            for method in methods_upper:\n                if method not in ALLOW_METHODS:\n                    raise ValueError('This method is not allowed')\n\n            request = None\n            for arg in args:\n                if isinstance(arg, HttpRequest):\n                    request = arg\n            if request is None:\n                raise ValueError('Request object not found')\n\n            if request.method not in methods_upper:\n                return HttpResponseNotAllowed(methods_upper)\n\n            return func(*args, **kwargs)\n        return wrapper\n    return decorator\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "50643467:CWE-79:false_positive",
+      "project_id": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "mobsf/MobSF/views/helpers.py",
+      "line_range": "102-135",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: app/javascript/mastodon/service_worker/web_push_locales.js\nLines: 1-44\n\nCode:\n/* eslint-disable import/no-commonjs --\n   We need to use CommonJS here as its imported into a preval file (`emoji_compressed.js`) */\n\n/* @preval */\n\nconst fs   = require('fs');\nconst path = require('path');\n\nconst { defineMessages } = require('react-intl');\n\nconst messages = defineMessages({\n  mentioned_you: { id: 'notification.mentioned_you', defaultMessage: '{name} mentioned you' },\n});\n\nconst filtered  = {};\nconst filenames = fs.readdirSync(path.resolve(__dirname, '../locales'));\n\nfilenames.forEach(filename => {\n  if (!filename.match(/\\.json$/)) return;\n\n  const content = fs.readFileSync(path.resolve(__dirname, `../locales/${filename}`), 'utf-8');\n  const full    = JSON.parse(content);\n  const locale  = filename.split('.')[0];\n\n  filtered[locale] = {\n    'notification.favourite': full['notification.favourite'] || '',\n    'notification.follow': full['notification.follow'] || '',\n    'notification.follow_request': full['notification.follow_request'] || '',\n    'notification.mention': full[messages.mentioned_you.id] || '',\n    'notification.reblog': full['notification.reblog'] || '',\n    'notification.poll': full['notification.poll'] || '',\n    'notification.status': full['notification.status'] || '',\n    'notification.update': full['notification.update'] || '',\n    'notification.admin.sign_up': full['notification.admin.sign_up'] || '',\n\n    'status.show_more': full['status.show_more'] || '',\n    'status.reblog': full['status.reblog'] || '',\n    'status.favourite': full['status.favourite'] || '',\n\n    'notifications.group': full['notifications.group'] || '',\n  };\n});\n\nmodule.exports = JSON.parse(JSON.stringify(filtered));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "06f879ce:CWE-22:false_positive",
+      "project_id": "https://github.com/mastodon/mastodon",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "app/javascript/mastodon/service_worker/web_push_locales.js",
+      "line_range": "1-44",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: llama-index-cli/llama_index/cli/rag/base.py\nLines: 153-175\n\nCode:\n            }\n        )\n        query_pipeline.add_link(\"query\", \"retriever\")\n        query_pipeline.add_link(\"retriever\", \"summarizer\", dest_key=\"nodes\")\n        query_pipeline.add_link(\"query\", \"summarizer\", dest_key=\"query_str\")\n        return query_pipeline\n\n    @field_validator(\"chat_engine\", mode=\"before\")\n    def chat_engine_from_query_pipeline(\n        cls, chat_engine: Any, values: Dict[str, Any]\n    ) -> Optional[CondenseQuestionChatEngine]:\n        \"\"\"\n        If chat_engine is not provided, create one from query_pipeline.\n        \"\"\"\n        if chat_engine is not None:\n            return chat_engine\n\n        if values.get(\"query_pipeline\", None) is None:\n            values[\"query_pipeline\"] = cls.query_pipeline_from_ingestion_pipeline(\n                query_pipeline=None, values=values\n            )\n\n        query_pipeline = cast(QueryPipeline, values[\"query_pipeline\"])\n        if query_pipeline is None:\n            return None\n        query_engine = QueryPipelineQueryEngine(query_pipeline=query_pipeline)  # type: ignore\n        verbose = cast(bool, values[\"verbose\"])\n        llm = cast(LLM, values[\"llm\"])\n        return CondenseQuestionChatEngine.from_defaults(\n            query_engine=query_engine, llm=llm, verbose=verbose\n        )\n\n    async def handle_cli(\n        self,\n        files: Optional[List[str]] = None,\n        question: Optional[str] = None,\n        chat: bool = False,\n        verbose: bool = False,\n        clear: bool = False,\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-78 (Improper Neutralization of Special Elements used in an OS Command ('OS Command I).\nRealCWE: CWE-78\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "2c00a1df:CWE-78:true_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "toml",
+      "tool": "semgrep",
+      "file_path": "llama-index-cli/llama_index/cli/rag/base.py",
+      "line_range": "153-175",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: src/runtime/components/MDCRenderer.vue\nLines: 161-272\n\nCode:\n      return defaultSlot.default()\n    }\n  }\n})\n\n/**\n * Render a markdown node\n */\nfunction _renderNode(node: MDCNode, h: CreateElement, options: MDCRenderOptions, keyInParent: string): VNode {\n  const { documentMeta, parentScope, resolveComponent } = options\n  /**\n   * Render Text node\n   */\n  if (node.type === 'text') {\n    return h(Text, node.value)\n  }\n\n  if (node.type === 'comment') {\n    return h(Comment, null, node.value)\n  }\n\n  const originalTag = node.tag!\n  // `_ignoreMap` is an special prop to disables tag-mapper\n  const renderTag: string = findMappedTag(node as MDCElement, documentMeta.tags)\n\n  if (node.tag === 'binding') {\n    return renderBinding(node, h, documentMeta, parentScope)\n  }\n\n  const _resolveComponent = isUnresolvableTag(renderTag) ? (component: unknown) => component : resolveComponent\n\n  // Prevent script execution by converting script tags to pre tags\n  // This code will excute only when prose components are disabled, otherwise the script will be handled by ProseScript component\n  if (renderTag === 'script') {\n    return h(\n      'pre',\n      { class: 'script-to-pre' },\n      '<' + 'script' + '>\\n' + nodeTextContent(node) + '\\n<' + '/script' + '>'\n    )\n  }\n\n  const component = _resolveComponent(renderTag)\n  if (typeof component === 'object') {\n    component.tag = originalTag\n  }\n\n  const props = propsToData(node, documentMeta)\n  if (keyInParent) {\n    props.key = keyInParent\n  }\n\n  return h(\n    component as any,\n    props,\n    _renderSlots(\n      node,\n      h,\n      {\n        documentMeta,\n        parentScope: { ...parentScope, ...props },\n        resolveComponent: _resolveComponent\n      })\n  )\n}\n/**\n * Create slots from `node` template children.\n */\nfunction _renderSlots(node: MDCNode, h: CreateElement, options: MDCRenderOptions): Record<string, () => VNode[]> {\n  const { documentMeta, parentScope, resolveComponent } = options\n  const children: MDCNode[] = (node as MDCElement).children || []\n\n  const slotNodes: Record<string, { props?: Record<string, any>, children: MDCNode[] }> = children.reduce((data, node) => {\n    if (!isTemplate(node)) {\n      data[DEFAULT_SLOT].children.push(node)\n      return data\n    }\n\n    const slotName = getSlotName(node)\n    data[slotName] = data[slotName] || { props: {}, children: [] }\n    if (node.type === 'element') {\n      data[slotName].props = node.props\n      // Append children to slot\n      data[slotName].children.push(...(node.children || []))\n    }\n\n    return data\n  }, {\n    [DEFAULT_SLOT]: { props: {}, children: [] }\n  } as Record<string, { props?: Record<string, any>, children: MDCNode[] }>)\n\n  const slots = Object.entries(slotNodes).reduce((slots, [name, { props, children }]) => {\n    if (!children.length) {\n      return slots\n    }\n\n    slots[name] = (data = {}) => {\n      const scopedProps = pick(data, Object.keys(props || {}))\n      let vNodes = children.map((child, index) => {\n        return _renderNode(\n          child,\n          h,\n          {\n            documentMeta,\n            parentScope: { ...parentScope, ...scopedProps },\n            resolveComponent\n          },\n          String((child as MDCElement).props?.key || index)\n        )\n      })\n\n      if (props?.unwrap) {\n        vNodes = flatUnwrap(vNodes, props.unwrap) as VNode[]\n      }\n      return mergeTextNodes(vNodes)\n    }\n\n    return slots\n  }, {} as Record<string, (data?: Record<string, any>) => VNode[]>)\n\n  return slots\n}\n\nfunction renderBinding(node: MDCElement, h: CreateElement, documentMeta: MDCData, parentScope: any = {}): VNode {\n  const data = {\n    ...documentMeta.runtimeData,\n    ...parentScope,\n    $document: documentMeta,\n    $doc: documentMeta\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "f555abf1:CWE-79:true_positive",
+      "project_id": "https://github.com/nuxt-modules/mdc",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "typescript",
+      "tool": "semgrep",
+      "file_path": "src/runtime/components/MDCRenderer.vue",
+      "line_range": "161-272",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: admin/create-new-changelog.php\nLines: 5-89\n\nCode:\n<?php\n\ndeclare(strict_types=1);\n\nfunction replace_file_content(string $path, string $pattern, string $replace): void\n{\n    $file   = file_get_contents($path);\n    $output = preg_replace($pattern, $replace, $file);\n    file_put_contents($path, $output);\n}\n\n// Main.\nchdir(__DIR__ . '/..');\n\nif ($argc !== 3) {\n    echo \"Usage: php {$argv[0]} <current_version> <new_version>\" . PHP_EOL;\n    echo \"E.g.,: php {$argv[0]} 4.4.3 4.4.4\" . PHP_EOL;\n\n    exit(1);\n}\n\n// Gets version number from argument.\n$versionCurrent      = $argv[1]; // e.g., '4.4.3'\n$versionCurrentParts = explode('.', $versionCurrent);\n$minorCurrent        = $versionCurrentParts[0] . '.' . $versionCurrentParts[1];\n$version             = $argv[2]; // e.g., '4.4.4'\n$versionParts        = explode('.', $version);\n$minor               = $versionParts[0] . '.' . $versionParts[1];\n$isMinorUpdate       = ($minorCurrent !== $minor);\n\n// Creates a branch for release.\nif (! $isMinorUpdate) {\n    system('git switch develop');\n}\nsystem('git switch -c docs-changelog-' . $version);\nsystem('git switch docs-changelog-' . $version);\n\n// Copy changelog\n$changelog      = \"./user_guide_src/source/changelogs/v{$version}.rst\";\n$changelogIndex = './user_guide_src/source/changelogs/index.rst';\nif ($isMinorUpdate) {\n    copy('./admin/next-changelog-minor.rst', $changelog);\n} else {\n    copy('./admin/next-changelog-patch.rst', $changelog);\n}\n// Add changelog to index.rst.\nreplace_file_content(\n    $changelogIndex,\n    '/\\.\\. toctree::\\n    :titlesonly:\\n/u',\n    \".. toctree::\\n    :titlesonly:\\n\\n    v{$version}\",\n);\n// Replace {version}\n$length    = mb_strlen(\"Version {$version}\");\n$underline = str_repeat('#', $length);\nreplace_file_content(\n    $changelog,\n    '/#################\\nVersion {version}\\n#################/u',\n    \"{$underline}\\nVersion {$version}\\n{$underline}\",\n);\nreplace_file_content(\n    $changelog,\n    '/{version}/u',\n    \"{$version}\",\n);\n\n// Copy upgrading\n$versionWithoutDots = str_replace('.', '', $version);\n$upgrading          = \"./user_guide_src/source/installation/upgrade_{$versionWithoutDots}.rst\";\n$upgradingIndex     = './user_guide_src/source/installation/upgrading.rst';\ncopy('./admin/next-upgrading-guide.rst', $upgrading);\n// Add upgrading to upgrading.rst.\nreplace_file_content(\n    $upgradingIndex,\n    '/    backward_compatibility_notes\\n/u',\n    \"    backward_compatibility_notes\\n\\n    upgrade_{$versionWithoutDots}\",\n);\n// Replace {version}\n$length    = mb_strlen(\"Upgrading from {$versionCurrent} to {$version}\");\n$underline = str_repeat('#', $length);\nreplace_file_content(\n    $upgrading,\n    '/##############################\\nUpgrading from {version} to {version}\\n##############################/u',\n    \"{$underline}\\nUpgrading from {$versionCurrent} to {$version}\\n{$underline}\",\n);\n\n// Commits\nsystem(\"git add {$changelog} {$changelogIndex}\");\nsystem(\"git add {$upgrading} {$upgradingIndex}\");\nsystem('git commit -m \"docs: add changelog and upgrade for v' . $version . '\"');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-94 (Improper Control of Generation of Code ('Code Injection')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "90edae6b:CWE-94:false_positive",
+      "project_id": "https://github.com/codeigniter4/CodeIgniter4",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "admin/create-new-changelog.php",
+      "line_range": "5-89",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: llama-index-core/llama_index/core/utilities/sql_wrapper.py\nLines: 1-248\n\nCode:\n\"\"\"SQL wrapper around SQLDatabase in langchain.\"\"\"\n\nfrom typing import Any, Dict, Iterable, List, Optional, Tuple\n\nfrom sqlalchemy import MetaData, create_engine, insert, inspect, text\nfrom sqlalchemy.engine import Engine\nfrom sqlalchemy.exc import OperationalError, ProgrammingError\n\n\nclass SQLDatabase:\n    \"\"\"\n    SQL Database.\n\n    This class provides a wrapper around the SQLAlchemy engine to interact with a SQL\n    database.\n    It provides methods to execute SQL commands, insert data into tables, and retrieve\n    information about the database schema.\n    It also supports optional features such as including or excluding specific tables,\n    sampling rows for table info,\n    including indexes in table info, and supporting views.\n\n    Based on langchain SQLDatabase.\n    https://github.com/langchain-ai/langchain/blob/e355606b1100097665207ca259de6dc548d44c78/libs/langchain/langchain/utilities/sql_database.py#L39\n\n    Args:\n        engine (Engine): The SQLAlchemy engine instance to use for database operations.\n        schema (Optional[str]): The name of the schema to use, if any.\n        metadata (Optional[MetaData]): The metadata instance to use, if any.\n        ignore_tables (Optional[List[str]]): List of table names to ignore. If set,\n            include_tables must be None.\n        include_tables (Optional[List[str]]): List of table names to include. If set,\n            ignore_tables must be None.\n        sample_rows_in_table_info (int): The number of sample rows to include in table\n            info.\n        indexes_in_table_info (bool): Whether to include indexes in table info.\n        custom_table_info (Optional[dict]): Custom table info to use.\n        view_support (bool): Whether to support views.\n        max_string_length (int): The maximum string length to use.\n\n    \"\"\"\n\n    def __init__(\n        self,\n        engine: Engine,\n        schema: Optional[str] = None,\n        metadata: Optional[MetaData] = None,\n        ignore_tables: Optional[List[str]] = None,\n        include_tables: Optional[List[str]] = None,\n        sample_rows_in_table_info: int = 3,\n        indexes_in_table_info: bool = False,\n        custom_table_info: Optional[dict] = None,\n        view_support: bool = False,\n        max_string_length: int = 300,\n    ):\n        \"\"\"Create engine from database URI.\"\"\"\n        self._engine = engine\n        self._schema = schema\n        if include_tables and ignore_tables:\n            raise ValueError(\"Cannot specify both include_tables and ignore_tables\")\n\n        self._inspector = inspect(self._engine)\n\n        # including view support by adding the views as well as tables to the all\n        # tables list if view_support is True\n        self._all_tables = set(\n            self._inspector.get_table_names(schema=schema)\n            + (self._inspector.get_view_names(schema=schema) if view_support else [])\n        )\n\n        self._include_tables = set(include_tables) if include_tables else set()\n        if self._include_tables:\n            missing_tables = self._include_tables - self._all_tables\n            if missing_tables:\n                raise ValueError(\n                    f\"include_tables {missing_tables} not found in database\"\n                )\n        self._ignore_tables = set(ignore_tables) if ignore_tables else set()\n        if self._ignore_tables:\n            missing_tables = self._ignore_tables - self._all_tables\n            if missing_tables:\n                raise ValueError(\n                    f\"ignore_tables {missing_tables} not found in database\"\n                )\n        usable_tables = self.get_usable_table_names()\n        self._usable_tables = set(usable_tables) if usable_tables else self._all_tables\n\n        if not isinstance(sample_rows_in_table_info, int):\n            raise TypeError(\"sample_rows_in_table_info must be an integer\")\n\n        self._sample_rows_in_table_info = sample_rows_in_table_info\n        self._indexes_in_table_info = indexes_in_table_info\n\n        self._custom_table_info = cust\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "4ab43c37:CWE-89:false_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "llama-index-core/llama_index/core/utilities/sql_wrapper.py",
+      "line_range": "1-248",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: includes/ComposerScriptsHelper.php\nLines: 192-216\n\nCode:\n                }\n            }\n        } catch (\\Throwable $th) {\n        }\n\n        return false;\n    }\n\n    private static function deleteFolder($path)\n    {\n        $file2ignore = ['.', '..'];\n        if (is_link($path)) {\n            return unlink($path) !== false;\n        } else {\n            if ($res = opendir($path)) {\n                $continue = true;\n                while (($file = readdir($res)) !== false && $continue) {\n                    if (!in_array($file, $file2ignore)) {\n                        $continue = self::delete($path . '/' . $file);\n                    }\n                }\n                closedir($res);\n            }\n            if ($continue) {\n                return rmdir($path) !== false;\n            } else {\n                return false;\n            }\n        }\n\n        return false;\n    }\n\n    private static function delete($path)\n    {\n        if (empty($path)) {\n            return false;\n        }\n        if (is_file($path)) {\n            if (unlink($path)) {\n                return true;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8355e20b:CWE-22:false_positive",
+      "project_id": "https://github.com/YesWiki/yeswiki",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "includes/ComposerScriptsHelper.php",
+      "line_range": "192-216",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: app/Http/Controllers/SecurePathController.php\nLines: 34-67\n\nCode:\n\n/**\n * Controller responsible for serving files securely.\n */\nclass SecurePathController extends Controller\n{\n\tuse HasUrlGenerator;\n\n\tpublic function __invoke(Request $request, ?string $path)\n\t{\n\t\t// First we verify that the request has not expired.\n\t\tif (!self::shouldNotUseSignedUrl() && !$this->signatureHasNotExpired($request)) {\n\t\t\tthrow new SignatureExpiredException();\n\t\t}\n\n\t\t// Then we verify that the request has a valid signature.\n\t\tif (!self::shouldNotUseSignedUrl() && !$request->hasValidSignature()) {\n\t\t\tLog::error('Invalid signature for secure path request. Verify that the url generated for the image match.', [\n\t\t\t\t'candidate url' => $this->getUrl($request),\n\t\t\t]);\n\t\t\tthrow new InvalidSignatureException();\n\t\t}\n\n\t\tif (is_null($path)) {\n\t\t\tthrow new WrongPathException();\n\t\t}\n\n\t\tif (Configs::getValueAsBool('secure_image_link_enabled')) {\n\t\t\ttry {\n\t\t\t\t$path = Crypt::decryptString($path);\n\t\t\t} catch (DecryptException) {\n\t\t\t\tthrow new InvalidPayloadException();\n\t\t\t}\n\t\t}\n\n\t\t$file = Storage::disk(StorageDiskType::LOCAL->value)->path($path);\n\t\tif (!file_exists($file)) {\n\t\t\tthrow new WrongPathException();\n\t\t}\n\n\t\treturn response()->file($file);\n\t}\n\n\tprivate function getUrl(Request $request): string\n\t{\n\t\t$ignore_query = ['signature'];\n\n\t\t$query_string = '';\n\t\t$query_string = (new Collection(explode('&', (string) $request->server->get('QUERY_STRING'))))\n\t\t\t->reject(fn ($parameter) => in_array(\\Str::before($parameter, '='), $ignore_query, true))\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: CWE-22\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "0709f5d9:CWE-22:true_positive",
+      "project_id": "https://github.com/LycheeOrg/Lychee",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "app/Http/Controllers/SecurePathController.php",
+      "line_range": "34-67",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: kernel/model/export.go\nLines: 1-3261\n\nCode:\n// SiYuan - Refactor your thinking\n// Copyright (c) 2020-present, b3log.org\n//\n// This program is free software: you can redistribute it and/or modify\n// it under the terms of the GNU Affero General Public License as published by\n// the Free Software Foundation, either version 3 of the License, or\n// (at your option) any later version.\n//\n// This program is distributed in the hope that it will be useful,\n// but WITHOUT ANY WARRANTY; without even the implied warranty of\n// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n// GNU Affero General Public License for more details.\n//\n// You should have received a copy of the GNU Affero General Public License\n// along with this program.  If not, see <https://www.gnu.org/licenses/>.\n\npackage model\n\nimport (\n\t\"bytes\"\n\t\"crypto/sha1\"\n\t\"encoding/csv\"\n\t\"errors\"\n\t\"fmt\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"os\"\n\t\"os/exec\"\n\t\"path\"\n\t\"path/filepath\"\n\t\"sort\"\n\t\"strconv\"\n\t\"strings\"\n\t\"time\"\n\t\"unicode/utf8\"\n\n\t\"github.com/88250/go-humanize\"\n\t\"github.com/88250/gulu\"\n\t\"github.com/88250/lute/ast\"\n\t\"github.com/88250/lute/editor\"\n\t\"github.com/88250/lute/html\"\n\t\"github.com/88250/lute/lex\"\n\t\"github.com/88250/lute/parse\"\n\t\"github.com/88250/lute/render\"\n\t\"github.com/emirpasic/gods/sets/hashset\"\n\t\"github.com/emirpasic/gods/stacks/linkedliststack\"\n\t\"github.com/imroc/req/v3\"\n\t\"github.com/pdfcpu/pdfcpu/pkg/api\"\n\t\"github.com/pdfcpu/pdfcpu/pkg/font\"\n\t\"github.com/pdfcpu/pdfcpu/pkg/pdfcpu\"\n\t\"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/model\"\n\t\"github.com/pdfcpu/pdfcpu/pkg/pdfcpu/types\"\n\t\"github.com/siyuan-note/filelock\"\n\t\"github.com/siyuan-note/httpclient\"\n\t\"github.com/siyuan-note/logging\"\n\t\"github.com/siyuan-note/riff\"\n\t\"github.com/siyuan-note/siyuan/kernel/av\"\n\t\"github.com/siyuan-note/siyuan/kernel/filesys\"\n\t\"github.com/siyuan-note/siyuan/kernel/sql\"\n\t\"github.com/siyuan-note/siyuan/kernel/treenode\"\n\t\"github.com/siyuan-note/siyuan/kernel/util\"\n)\n\nfunc ExportAv2CSV(avID, blockID string) (zipPath string, err error) {\n\t// Database block supports export as CSV https://github.com/siyuan-note/siyuan/issues/10072\n\n\tattrView, err := av.ParseAttributeView(avID)\n\tif err != nil {\n\t\treturn\n\t}\n\n\tnode, _, err := getNodeByBlockID(nil, blockID)\n\tif nil == node {\n\t\treturn\n\t}\n\tviewID := node.IALAttr(av.NodeAttrView)\n\tview, err := attrView.GetCurrentView(viewID)\n\tif err != nil {\n\t\treturn\n\t}\n\n\tname := util.FilterFileName(getAttrViewName(attrView))\n\ttable := sql.RenderAttributeViewTable(attrView, view, \"\")\n\n\t// 遵循视图过滤和排序规则 Use filtering and sorting of current view settings when exporting database blocks https://github.com/siyuan-note/siyuan/issues/10474\n\ttable.FilterRows(attrView)\n\ttable.SortRows(attrView)\n\n\texportFolder := filepath.Join(util.TempDir, \"export\", \"csv\", name)\n\tif err = os.MkdirAll(exportFolder, 0755); err != nil {\n\t\tlogging.LogErrorf(\"mkdir [%s] failed: %s\", exportFolder, err)\n\t\treturn\n\t}\n\tcsvPath := filepath.Join(exportFolder, name+\".csv\")\n\n\tf, err := os.OpenFile(csvPath, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)\n\tif err != nil {\n\t\tlogging.LogErrorf(\"open [%s] failed: %s\", csvPath, err)\n\t\treturn\n\t}\n\n\tif _, err = f.WriteString(\"\\xEF\\xBB\\xBF\"); err != nil { // 写入 UTF-8 BOM，避免使用 Microsoft Excel 打开乱码\n\t\tlogging.LogErrorf(\"write UTF-8 BOM to [%s] failed: %s\", csvPath, err)\n\t\tf.Close()\n\t\treturn\n\t}\n\n\twriter := csv.NewWriter(f)\n\tvar header []string\n\tfor _, col := range table.Columns {\n\t\theader = append(header, col.Name)\n\t}\n\tif err = writer.Write(header); err != nil {\n\t\tlogging.LogErrorf(\"write csv header [%s] failed: %s\", header, err)\n\t\tf.Close()\n\t\treturn\n\t}\n\n\trowNum := 1\n\tfor _, row := range table.Rows {\n\t\tvar rowVal []string\n\t\tfor _, cell := range row.Cells {\n\t\t\tvar val string\n\t\t\tif nil != cell.Value {\n\t\t\t\tif av.KeyTypeDate == cell.Value.Type {\n\t\t\t\t\tif nil != cell.Value.Date {\n\t\t\t\t\t\tcell.Value.Date = av.NewFormattedValueDate(cell.Value.Date.Content, cell.Value.Date.Content2, av.DateFormatNone, cell.Value.Date.IsNotTime, cell.Value.Date.HasEndDate)\n\t\t\t\t\t}\n\t\t\t\t} else if av.KeyTypeCreated == cell.Value.Type {\n\t\t\t\t\tif nil != cell.Value.Create\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-94 (Improper Control of Generation of Code ('Code Injection')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "98819ca4:CWE-94:false_positive",
+      "project_id": "https://github.com/siyuan-note/siyuan",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "go",
+      "tool": "semgrep",
+      "file_path": "kernel/model/export.go",
+      "line_range": "1-3261",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: scripts/dnp3-gen/dnp3-gen.py\nLines: 234-243\n\nCode:\n    type_map = {\n        \"uint8\": \"uint8_t\",\n    }\n    if datatype in type_map:\n        return type_map[datatype]\n    else:\n        raise Exception(\"Unknown datatype: %s\" % (datatype))\n\ndef generate(template, filename, context):\n    print(\"Generating %s.\" % (filename))\n    try:\n        env = jinja2.Environment(trim_blocks=True)\n        output = env.from_string(template).render(context)\n        with open(filename, \"w\") as fileobj:\n            fileobj.write(output)\n    except Exception as err:\n        print(\"Failed to generate %s: %s\" % (filename, err))\n        sys.exit(1)\n\ndef raise_helper(msg):\n    raise Exception(msg)\n\ndef gen_object_structs(context):\n    \"\"\" Generate structs for all the define DNP3 objects. \"\"\"\n\n    template = \"\"\"\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "d32a39ca:CWE-79:false_positive",
+      "project_id": "https://github.com/OISF/suricata",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "scripts/dnp3-gen/dnp3-gen.py",
+      "line_range": "234-243",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js\nLines: 2-2\n\nCode:\n// %LEAVE_UNMINIFIED% %REMOVE_LINE%\nvar hljs=new function(){function k(v){return v.replace(/&/gm,\"&amp;\").replace(/</gm,\"&lt;\").replace(/>/gm,\"&gt;\")}function t(v){return v.nodeName.toLowerCase()}function i(w,x){var v=w&&w.exec(x);return v&&v.index==0}function d(v){return Array.prototype.map.call(v.childNodes,function(w){if(w.nodeType==3){return b.useBR?w.nodeValue.replace(/\\n/g,\"\"):w.nodeValue}if(t(w)==\"br\"){return\"\\n\"}return d(w)}).join(\"\")}function r(w){var v=(w.className+\" \"+(w.parentNode?w.parentNode.className:\"\")).split(/\\s+/);v=v.map(function(x){return x.replace(/^language-/,\"\")});return v.filter(function(x){return j(x)||x==\"no-highlight\"})[0]}function o(x,y){var v={};for(var w in x){v[w]=x[w]}if(y){for(var w in y){v[w]=y[w]}}return v}function u(x){var v=[];(function w(y,z){for(var A=y.firstChild;A;A=A.nextSibling){if(A.nodeType==3){z+=A.nodeValue.length}else{if(t(A)==\"br\"){z+=1}else{if(A.nodeType==1){v.push({event:\"start\",offset:z,node:A});z=w(A,z);v.push({event:\"stop\",offset:z,node:A})}}}}return z})(x,0);return v}function q(w,y,C){var x=0;var F=\"\";var z=[];function B(){if(!w.length||!y.length){return w.length?w:y}if(w[0].offset!=y[0].offset){return(w[0].offset<y[0].offset)?w:y}return y[0].event==\"start\"?w:y}function A(H){function G(I){return\" \"+I.nodeName+'=\"'+k(I.value)+'\"'}F+=\"<\"+t(H)+Array.prototype.map.call(H.attributes,G).join(\"\")+\">\"}function E(G){F+=\"</\"+t(G)+\">\"}function v(G){(G.event==\"start\"?A:E)(G.node)}while(w.length||y.length){var D=B();F+=k(C.substr(x,D[0].offset-x));x=D[0].offset;if(D==w){z.reverse().forEach(E);do{v(D.splice(0,1)[0]);D=B()}while(D==w&&D.length&&D[0].offset==x);z.reverse().forEach(A)}else{if(D[0].event==\"start\"){z.push(D[0].node)}else{z.pop()}v(D.splice(0,1)[0])}}return F+k(C.substr(x))}function m(y){function v(z){return(z&&z.source)||z}function w(A,z){return RegExp(v(A),\"m\"+(y.cI?\"i\":\"\")+(z?\"g\":\"\"))}function x(D,C){if(D.compiled){return}D.compiled=true;D.k=D.k||D.bK;if(D.k){var z={};function E(G,F){if(y.cI){F=F.toLowerCase()}F.split(\" \").forEach(function(H){var I=H.split(\"|\");z[I[0]]=[G,I[1]?Number(I[1]):1]})}if(typeof D.k==\"string\"){E(\"keyword\",D.k)}else{Object.keys(D.k).forEach(function(F){E(F,D.k[F])})}D.k=z}D.lR=w(D.l||/\\b[A-Za-z0-9_]+\\b/,true);if(C){if(D.bK){D.b=D.bK.split(\" \").join(\"|\")}if(!D.b){D.b=/\\B|\\b/}D.bR=w(D.b);if(!D.e&&!D.eW){D.e=/\\B|\\b/}if(D.e){D.eR=w(D.e)}D.tE=v(D.e)||\"\";if(D.eW&&C.tE){D.tE+=(D.e?\"|\":\"\")+C.tE}}if(D.i){D.iR=w(D.i)}if(D.r===undefined){D.r=1}if(!D.c){D.c=[]}var B=[];D.c.forEach(function(F){if(F.v){F.v.forEach(function(G){B.push(o(F,G))})}else{B.push(F==\"self\"?D:F)}});D.c=B;D.c.forEach(function(F){x(F,D)});if(D.starts){x(D.starts,C)}var A=D.c.map(function(F){return F.bK?\"\\\\.?\\\\b(\"+F.b+\")\\\\b\\\\.?\":F.b}).concat([D.tE]).concat([D.i]).map(v).filter(Boolean);D.t=A.length?w(A.join(\"|\"),true):{exec:function(F){return null}};D.continuation={}}x(y)}function c(S,L,J,R){function v(U,V){for(var T=0;T<V.c.length;T++){if(i(V.c[T].bR,U)){return V.c[T]}}}function z(U,T){if(i(U.eR,T)){return U}if(U.eW){return z(U.parent,T)}}function A(T,U){return !J&&i(U.iR,T)}function E(V,T){var U=M.cI?T[0].toLowerCase():T[0];return V.k.hasOwnProperty(U)&&V.k[U]}function w(Z,X,W,V){var T=V?\"\":b.classPrefix,U='<span class=\"'+T,Y=W?\"\":\"</span>\";U+=Z+'\">';return U+X+Y}function N(){var U=k(C);if(!I.k){return U}var T=\"\";var X=0;I.lR.lastIndex=0;var V=I.lR.exec(U);while(V){T+=U.substr(X,V.index-X);var W=E(I,V);if(W){H+=W[1];T+=w(W[0],V[0])}else{T+=V[0]}X=I.lR.lastIndex;V=I.lR.exec(U)}return T+U.substr(X)}function F(){if(I.sL&&!f[I.sL]){return k(C)}var T=I.sL?c(I.sL,C,true,I.continuation.top):g(C);if(I.r>0){H+=T.r}if(I.subLanguageMode==\"continuous\"){I.continuation.top=T.top}return w(T.language,T.value,false,true)}function Q(){return I.sL!==undefined?F():N()}function P(V,U){var T=V.cN?w(V.cN,\"\",true):\"\";if(V.rB){D+=T;C=\"\"}else{if(V.eB){D+=k(U)+T;C=\"\"}else{D+=T;C=U}}I=Object.create(V,{parent:{value:I}})}function G(T,X){C+=T;if(X===undefined){D+=Q();return 0}var V=v(X,I);if(V){D+=Q();P(V,X);return V.\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "c49ceae7:CWE-79:false_positive",
+      "project_id": "https://github.com/Combodo/iTop",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "js/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js",
+      "line_range": "2-2",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: deepdiff/serialization.py\nLines: 374-394\n\nCode:\n\nclass _RestrictedPickler(pickle.Pickler):\n    def persistent_id(self, obj):\n        if obj is NONE_TYPE:  # NOQA\n            return \"<<NoneType>>\"\n        return None\n\n\ndef pickle_dump(obj, file_obj=None, protocol=4):\n    \"\"\"\n    **pickle_dump**\n    Dumps the obj into pickled content.\n\n    **Parameters**\n\n    obj : Any python object\n\n    file_obj : (Optional) A file object to dump the contents into\n\n    **Returns**\n\n    If file_obj is passed the return value will be None. It will write the object's pickle contents into the file.\n    However if no file_obj is passed, then it will return the pickle serialization of the obj in the form of bytes.\n    \"\"\"\n    file_obj_passed = bool(file_obj)\n    file_obj = file_obj or io.BytesIO()\n    _RestrictedPickler(file_obj, protocol=protocol, fix_imports=False).dump(obj)\n    if not file_obj_passed:\n        return file_obj.getvalue()\n\n\ndef pickle_load(content=None, file_obj=None, safe_to_import=None):\n    \"\"\"\n    **pickle_load**\n    Load the pickled content. content should be a bytes object.\n\n    **Parameters**\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-502 (Deserialization of Untrusted Data).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "b639fece:CWE-502:false_positive",
+      "project_id": "https://github.com/seperman/deepdiff",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "deepdiff/serialization.py",
+      "line_range": "374-394",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Deserialization of Untrusted Data"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: html/relatorios/Relatorio_item.php\nLines: 20-31\n\nCode:\n    private $periodo; // Array('inicio' => data de inicio, 'fim' => data de fim)\n    private $almoxarifado;\n    private $query;\n    private $mostrarZerado;\n    private $DDL_cmd;\n\n    // Constructor\n\n    public function __construct($relat, $o_d, $t, $resp, $p, $a, $z=false){\n        $this\n            ->setRelatorio($relat)\n            ->setOrigem($o_d)\n            ->setDestino($o_d)\n            ->setTipo($t)\n            ->setResponsavel($resp)\n            ->setPeriodo($p)\n            ->setAlmoxarifado($a)\n            ->setMostrarZerado($z)\n        ;\n    }\n\n    // Metodos\n\n    public function hasValue(){\n        return ($this->getOrigem()\n        || $this->getTipo()\n        || $this->getResponsavel()\n        || $this->getPeriodo()['inicio']\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: CWE-89\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "7a885d2d:CWE-89:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/relatorios/Relatorio_item.php",
+      "line_range": "20-31",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: controle/getProdutosPorAlmox.php\nLines: 1-15\n\nCode:\n<?php\n    require_once('../dao/Conexao.php');\n    require_once('../classes/Produto.php');\n    require_once('../config.php');\n    $almox = $_REQUEST['almox'];\n    $conexao = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n    $produtos = array();\n    if($conexao){\n        $query = mysqli_query($conexao, \"SELECT produto.id_produto, produto.codigo, produto.descricao, estoque.qtd, produto.preco FROM produto, estoque WHERE produto.id_produto=estoque.id_produto AND estoque.qtd>0 AND estoque.id_almoxarifado=$almox\");\n        while($resultado = mysqli_fetch_array($query)){\n            $produtos[] = $resultado; \n        }\n        echo(json_encode($produtos));\n    }else echo false;\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "f2cdf788:CWE-89:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "controle/getProdutosPorAlmox.php",
+      "line_range": "1-15",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: client/src/views/email/fields/body.js\nLines: 189-234\n\nCode:\n    }\n\n    /**\n     * @private\n     * @param {string} contents\n     * @param {boolean} [isEdit=false]\n     * @return {string}\n     */\n    processQuotePart(contents, isEdit) {\n        const container = document.createElement('div');\n        container.innerHTML = contents;\n\n        let selector = `:scope > [data-quote-start=\"true\"]`;\n\n        if (!isEdit) {\n            selector +=\n                ', :scope > blockquote:last-child' +\n                ', :scope > div:last-child > blockquote:last-child';\n        }\n\n        let element = container.querySelector(selector);\n\n        if (!element) {\n            return contents;\n        }\n\n        container.querySelectorAll('style, link[ref=\"stylesheet\"]').forEach(element => {\n            element.parentElement.removeChild(element);\n        });\n\n        this.replyPart = '';\n        /** @type {HTMLElement[]} */\n        const removeList = [];\n\n        while (element) {\n            this.replyPart += element.outerHTML;\n\n            removeList.push(element);\n            element = element.nextElementSibling;\n        }\n\n        removeList.forEach(element => element.parentElement.removeChild(element));\n\n        if (isEdit) {\n            this.element.appendChild(this.createShowQuotePartButton());\n        }\n\n        return container.innerHTML;\n    }\n\n    /**\n     * @private\n     * @return {HTMLAnchorElement}\n     */\n    createShowQuotePartButton() {\n        const a = this.showQuoteButtonElement = document.createElement('a');\n\n        a.setAttribute('role', 'button');\n        a.innerHTML = '...';\n        a.classList.add('show-quote-button', 'btn', 'btn-default', 'btn-sm');\n        a.addEventListener('click', () => this.showQuotePart());\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "0ae0365e:CWE-79:false_positive",
+      "project_id": "https://github.com/espocrm/espocrm",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "client/src/views/email/fields/body.js",
+      "line_range": "189-234",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: html/atendido/Cadastro_Atendido.php\nLines: 1-632\n\nCode:\n<?php\nrequire_once \"../personalizacao_display.php\";\nrequire_once \"../../classes/Atendido.php\";\nsession_start();\nif (!isset($_SESSION['usuario'])) {\n\theader(\"Location: ../index.php\");\n}\n\n$config_path = \"config.php\";\nif (file_exists($config_path)) {\n\trequire_once($config_path);\n} else {\n\twhile (true) {\n\t\t$config_path = \"../\" . $config_path;\n\t\tif (file_exists($config_path)) break;\n\t}\n\trequire_once($config_path);\n}\n\n\nif (!isset($_SESSION['usuario'])) {\n\theader(\"Location: \" . WWW . \"index.php\");\n}\n\n$conexao = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n$id_pessoa = $_SESSION['id_pessoa'];\n$stmt = mysqli_prepare($conexao, \"SELECT * FROM funcionario WHERE id_pessoa=?\");\nmysqli_stmt_bind_param($stmt, 'i', $id_pessoa);\nmysqli_stmt_execute($stmt);\n$resultado = mysqli_stmt_get_result($stmt);\nif (!is_null($resultado)) {\n\t$id_cargo = mysqli_fetch_array($resultado);\n\tif (!is_null($id_cargo)) {\n\t\t$id_cargo = $id_cargo['id_cargo'];\n\t}\n\t$stmt = mysqli_prepare($conexao, \"SELECT * FROM permissao WHERE id_cargo=? and id_recurso=12\");\n\tmysqli_stmt_bind_param($stmt, 'i', $id_cargo);\n\tmysqli_stmt_execute($stmt);\n\t$resultado = mysqli_stmt_get_result($stmt);\n\tif (!is_bool($resultado) and mysqli_num_rows($resultado)) {\n\t\t$permissao = mysqli_fetch_array($resultado);\n\t\tif ($permissao['id_acao'] < 7) {\n\t\t\t$msg = \"Você não tem as permissões necessárias para essa página.\";\n\t\t\theader(\"Location: \" . WWW . \"html/home.php?msg_c=$msg\");\n\t\t}\n\t\t$permissao = $permissao['id_acao'];\n\t} else {\n\t\t$permissao = 1;\n\t\t$msg = \"Você não tem as permissões necessárias para essa página.\";\n\t\theader(\"Location: \" . WWW . \"html/home.php?msg_c=$msg\");\n\t}\n} else {\n\t$permissao = 1;\n\t$msg = \"Você não tem as permissões necessárias para essa página.\";\n\theader(\"Location: \" . WWW . \"html/home.php?msg_c=$msg\");\n}\n\n$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n$intTipo = $mysqli->query(\"SELECT * FROM atendido_tipo\");\n$intStatus = $mysqli->query(\"SELECT * FROM atendido_status\");\n\n$cpf = $_GET['cpf'];\n\n$dataNascimentoMaxima = Atendido::getDataNascimentoMaxima();\n$dataNascimentoMinima = Atendido::getDataNascimentoMinima();\n\n?>\n<!doctype html>\n<html class=\"fixed\">\n\n<head>\n\n\t<!-- Basic -->\n\t<meta charset=\"UTF-8\">\n\n\t<title>Cadastro de Atendido</title>\n\n\t<!-- Mobile Metas -->\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\n\n\t<!-- Web Fonts  -->\n\t<link href=\"http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light\" rel=\"stylesheet\" type=\"text/css\">\n\n\t<!-- Vendor CSS -->\n\t<link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap/css/bootstrap.css\" />\n\t<link rel=\"stylesheet\" href=\"../../assets/vendor/font-awesome/css/font-awesome.css\" />\n\t<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v6.1.1/css/all.css\">\n\t<link rel=\"stylesheet\" href=\"../../assets/vendor/magnific-popup/magnific-popup.css\" />\n\t<link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap-datepicker/css/datepicker3.css\" />\n\t<link rel=\"icon\" href=\"<?php display_campo(\"Logo\", 'file'); ?>\" type=\"image/x-icon\">\n\n\t<!-- Theme CSS -->\n\t<link rel=\"stylesheet\" href=\"../../assets/stylesheets/theme.css\" />\n\n\t<!-- Skin CSS -->\n\t<link rel=\"stylesheet\" href=\"../../assets/stylesheets/skins/default.css\" />\n\n\t<!-- Theme Custom CSS -->\n\t<link rel=\"stylesheet\" href=\"../../assets/stylesheets/theme-custom.css\">\n\n\t<!-- Head Libs -->\n\t<script src=\"../../assets/vendor/modernizr/modernizr.js\"></script>\n\n\t<!-- Vendor -->\n\t<script src=\"../../assets/vendor/jquery/jquery.min.js\"></script>\n\t<script src=\"../../assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js\"></script>\n\t<script src=\"../../assets/vendor/bootstrap/js/bootstrap.js\"></script>\n\t<script src=\"../../assets/vendor/nanoscroller/nanoscroller.js\"></script>\n\t<script src=\"../../assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js\"></script>\n\t<script src=\"../../assets/vendor/magnific-popup/magnific-popup.js\"></script>\n\t<script src=\"../../assets/vendor/jquery\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "420b88e7:CWE-79:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/atendido/Cadastro_Atendido.php",
+      "line_range": "1-632",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: tools/bazar/actions/BazarListeAction.php\nLines: 20-234\n\nCode:\nclass BazarListeAction extends YesWikiAction\n{\n    protected const BAZARCARTO_TEMPLATES = ['map', 'gogomap', 'gogocarto', 'map-and-table']; // liste des templates sans .twig ni .tpl.html\n    protected const BAZARTABLE_TEMPLATES = ['table', 'map-and-table']; // liste des templates sans .twig ni .tpl.html\n    protected const CALENDRIER_TEMPLATES = ['calendar']; // liste des templates sans .twig ni .tpl.html\n\n    protected $debug;\n\n    public function formatArguments($arg)\n    {\n        $entryManager = $this->getService(EntryManager::class);\n\n        // ICONS FIELD\n        $iconField = $_GET['iconfield'] ?? $arg['iconfield'] ?? null;\n\n        // ICONS\n        $icon = $_GET['icon'] ?? $arg['icon'] ?? null;\n        $iconAlreadyDefined = ($icon == $this->params->get('baz_marker_icon') || is_array($icon));\n        if (!$iconAlreadyDefined) {\n            if (!empty($icon)) {\n                try {\n                    $tabparam = $entryManager->getMultipleParameters($icon, ',', '=');\n                    if (count($tabparam) > 0 && !empty($iconField)) {\n                        // on inverse cle et valeur, pour pouvoir les reprendre facilement dans la carto\n                        foreach ($tabparam as $key => $data) {\n                            $tabparam[$data] = $key;\n                        }\n                        $icon = $tabparam;\n                    } else {\n                        $icon = trim(array_values($tabparam)[0]);\n                    }\n                } catch (ParsingMultipleException $th) {\n                    throw new Exception('action bazarliste : le paramètre icon est mal rempli.<br />Il doit être de la forme icon=\"nomIcone1=valeur1, nomIcone2=valeur2\"<br/>(' . $th->getMessage() . ')');\n                }\n            } else {\n                $icon = $this->params->get('baz_marker_icon');\n            }\n        }\n\n        // COLORS FIELD\n        $colorField = $_GET['colorfield'] ?? $arg['colorfield'] ?? null;\n\n        // COLORS\n        $color = $_GET['color'] ?? $arg['color'] ?? null;\n        $colorAlreadyDefined = ($color == $this->params->get('baz_marker_color') || is_array($color));\n        if (!$colorAlreadyDefined) {\n            if (!empty($color)) {\n                try {\n                    $tabparam = $entryManager->getMultipleParameters($color, ',', '=');\n                    if (count($tabparam) > 0 && !empty($colorField)) {\n                        // on inverse cle et valeur, pour pouvoir les reprendre facilement dans la carto\n                        foreach ($tabparam as $key => $data) {\n                            $tabparam[$data] = $key;\n                        }\n                        $color = $tabparam;\n                    } else {\n                        $color = trim(array_values($tabparam)[0]);\n                    }\n                } catch (ParsingMultipleException $th) {\n                    throw new Exception('action bazarliste : le paramètre color est mal rempli.<br />Il doit être de la forme color=\"couleur1=valeur1, couleur2=valeur2\"<br/>(' . $th->getMessage() . ')');\n                }\n            } else {\n                $color = $this->params->get('baz_marker_color');\n            }\n        }\n\n        $template = $_GET['template'] ?? $arg['template'] ?? null;\n\n        // Dynamic templates\n        $dynamic = $this->formatBoolean($arg, false, 'dynamic');\n\n        if (isset($arg['displayfields']) && is_array($arg['displayfields'])) { // with bazarcarto this method is run twice\n            $displayFields = $arg['displayfields'];\n        } else {\n            $displayFields = [];\n            foreach (explode(',', $arg['displayfields'] ?? '') as $field) {\n                $values = explode('=', $field);\n                if (count($values) == 2) {\n                    $displayFields[$values[0]] = $values[1];\n                }\n            }\n        }\n\n        if (in_array($template, ['list', 'card', 'map-and-table', 'table', 'timeline'])) {\n            $dynamic = true;\n        }\n        if ($dynamic && $temp\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "e2603176:CWE-79:true_positive",
+      "project_id": "https://github.com/YesWiki/yeswiki",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "tools/bazar/actions/BazarListeAction.php",
+      "line_range": "20-234",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: dao/pet/adicionar_cor.php\nLines: 1-10\n\nCode:\n<?php\nrequire_once'../Conexao.php';\n$pdo = Conexao::connect();\n// $cargo = $_POST[\"nome_docfuncional\"];\n$cor = $_POST[\"cor\"];\n\n$sql = \"INSERT INTO pet_cor(descricao) values('\" .$cor .\"')\";\n$pdo->query($sql);\n\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: CWE-89\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "1739e158:CWE-89:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "dao/pet/adicionar_cor.php",
+      "line_range": "1-10",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: cmd/incus-agent/dev_incus.go\nLines: 1-348\n\nCode:\npackage main\n\nimport (\n\t\"fmt\"\n\t\"net\"\n\t\"net/http\"\n\t\"net/url\"\n\t\"os\"\n\t\"path/filepath\"\n\t\"strings\"\n\t\"time\"\n\n\t\"github.com/gorilla/mux\"\n\n\tincus \"github.com/lxc/incus/v6/client\"\n\t\"github.com/lxc/incus/v6/internal/server/daemon\"\n\t\"github.com/lxc/incus/v6/internal/server/device/config\"\n\tlocalUtil \"github.com/lxc/incus/v6/internal/server/util\"\n\tapi \"github.com/lxc/incus/v6/shared/api/guest\"\n\t\"github.com/lxc/incus/v6/shared/logger\"\n\t\"github.com/lxc/incus/v6/shared/util\"\n)\n\n// DevIncusServer creates an http.Server capable of handling requests against the\n// /dev/incus Unix socket endpoint created inside VMs.\nfunc devIncusServer(d *Daemon) *http.Server {\n\treturn &http.Server{\n\t\tHandler: devIncusAPI(d),\n\t}\n}\n\ntype devIncusHandler struct {\n\tpath string\n\n\t/*\n\t * This API will have to be changed slightly when we decide to support\n\t * websocket events upgrading, but since we don't have events on the\n\t * server side right now either, I went the simple route to avoid\n\t * needless noise.\n\t */\n\tf func(d *Daemon, w http.ResponseWriter, r *http.Request) *devIncusResponse\n}\n\nfunc getVsockClient(d *Daemon) (incus.InstanceServer, error) {\n\t// Try connecting to the host.\n\tclient, err := getClient(d.serverCID, int(d.serverPort), d.serverCertificate)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\n\tserver, err := incus.ConnectIncusHTTP(nil, client)\n\tif err != nil {\n\t\treturn nil, err\n\t}\n\n\treturn server, nil\n}\n\nvar DevIncusConfigGet = devIncusHandler{\"/1.0/config\", func(d *Daemon, w http.ResponseWriter, r *http.Request) *devIncusResponse {\n\tclient, err := getVsockClient(d)\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed connecting to the host over vsock: %w\", err))\n\t}\n\n\tdefer client.Disconnect()\n\n\tresp, _, err := client.RawQuery(\"GET\", \"/1.0/config\", nil, \"\")\n\tif err != nil {\n\t\treturn smartResponse(err)\n\t}\n\n\tvar config []string\n\n\terr = resp.MetadataAsStruct(&config)\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed parsing response from host: %w\", err))\n\t}\n\n\tfiltered := []string{}\n\tfor _, k := range config {\n\t\tif strings.HasPrefix(k, \"/1.0/config/user.\") || strings.HasPrefix(k, \"/1.0/config/cloud-init.\") {\n\t\t\tfiltered = append(filtered, k)\n\t\t}\n\t}\n\treturn okResponse(filtered, \"json\")\n}}\n\nvar DevIncusConfigKeyGet = devIncusHandler{\"/1.0/config/{key}\", func(d *Daemon, w http.ResponseWriter, r *http.Request) *devIncusResponse {\n\tkey, err := url.PathUnescape(mux.Vars(r)[\"key\"])\n\tif err != nil {\n\t\treturn &devIncusResponse{\"bad request\", http.StatusBadRequest, \"raw\"}\n\t}\n\n\tif !strings.HasPrefix(key, \"user.\") && !strings.HasPrefix(key, \"cloud-init.\") {\n\t\treturn &devIncusResponse{\"not authorized\", http.StatusForbidden, \"raw\"}\n\t}\n\n\tclient, err := getVsockClient(d)\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed connecting to host over vsock: %w\", err))\n\t}\n\n\tdefer client.Disconnect()\n\n\tresp, _, err := client.RawQuery(\"GET\", fmt.Sprintf(\"/1.0/config/%s\", key), nil, \"\")\n\tif err != nil {\n\t\treturn smartResponse(err)\n\t}\n\n\tvar value string\n\n\terr = resp.MetadataAsStruct(&value)\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed parsing response from host: %w\", err))\n\t}\n\n\treturn okResponse(value, \"raw\")\n}}\n\nvar DevIncusMetadataGet = devIncusHandler{\"/1.0/meta-data\", func(d *Daemon, w http.ResponseWriter, r *http.Request) *devIncusResponse {\n\tvar client incus.InstanceServer\n\tvar err error\n\n\tfor range 10 {\n\t\tclient, err = getVsockClient(d)\n\t\tif err == nil {\n\t\t\tbreak\n\t\t}\n\n\t\ttime.Sleep(500 * time.Millisecond)\n\t}\n\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed connecting to host over vsock: %w\", err))\n\t}\n\n\tdefer client.Disconnect()\n\n\tresp, _, err := client.RawQuery(\"GET\", \"/1.0/meta-data\", nil, \"\")\n\tif err != nil {\n\t\treturn smartResponse(err)\n\t}\n\n\tvar metaData string\n\n\terr = resp.MetadataAsStruct(&metaData)\n\tif err != nil {\n\t\treturn smartResponse(fmt.Errorf(\"Failed parsing response from host: %w\", err))\n\t}\n\n\treturn okResponse(metaData, \"raw\")\n}}\n\nvar devIncusEventsGet = devIncusHandler{\"/1.0/events\", func(d *Daemon, w http.ResponseWriter, r *\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "c2b310d3:CWE-79:false_positive",
+      "project_id": "https://github.com/lxc/incus",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "go",
+      "tool": "semgrep",
+      "file_path": "cmd/incus-agent/dev_incus.go",
+      "line_range": "1-348",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: src/public/mathfield-element.ts\nLines: 786-798\n\nCode:\n    this._plonkSound = value;\n  }\n\n  /** @internal */\n  private static audioBuffers: { [key: string]: AudioBuffer } = {};\n  /** @internal */\n  private static _audioContext: AudioContext;\n  /** @internal */\n  private static get audioContext(): AudioContext {\n    if (!this._audioContext) this._audioContext = new AudioContext();\n    return this._audioContext;\n  }\n\n  /**\n   * Support for [Trusted Type](https://w3c.github.io/webappsec-trusted-types/dist/spec/).\n   *\n   * This optional function will be called before a string of HTML is\n   * injected in the DOM, allowing that string to be sanitized\n   * according to a policy defined by the host.\n   */\n  static createHTML: (html: string) => any = (x) => x;\n  // @todo https://github.com/microsoft/TypeScript/issues/30024\n\n  /**\n   * Indicates which speech engine to use for speech output.\n   *\n   * Use `local` to use the OS-specific TTS engine.\n   *\n   * Use `amazon` for Amazon Text-to-Speech cloud API. You must include the\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "4f34e3c2:CWE-79:true_positive",
+      "project_id": "https://github.com/arnog/mathlive",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "typescript",
+      "tool": "semgrep",
+      "file_path": "src/public/mathfield-element.ts",
+      "line_range": "786-798",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: html/saude/adicionar_alergia.php\nLines: 1-31\n\nCode:\n<?php\nrequire_once '../../dao/Conexao.php';\n\n$alergiaNome = $_POST[\"nome\"];\n$alergiaNome = trim($alergiaNome);\nif(!$alergiaNome){\n\techo 'O nome de uma alergia não pode ser vazio!';\n\texit(400);\n}\n\n$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n$ultima_alergia = $mysqli->query(\"SELECT * FROM saude_tabelacid WHERE CID LIKE 'T78.4.%' ORDER BY CAST(SUBSTRING_INDEX(CID, '.', -1) AS UNSIGNED) DESC LIMIT 1\");\n\nif ($ultima_alergia->num_rows > 0) {\n\t$row = $ultima_alergia->fetch_assoc();\n\t$divided_row = explode(\".\", $row[\"CID\"]);\n\t$row_number = end($divided_row);\n\t$row_number += 1;\n\t$alergia_CID = \"T78.4.\" . $row_number;\n} else $alergia_CID = \"T78.4.0\";\n\ntry {\n\t$pdo = Conexao::connect();\n\t$sql = \"INSERT into saude_tabelacid(CID, descricao) values(:alergiaCid, :alergiaNome)\";\n\t$stmt = $pdo->prepare($sql);\n\t$stmt->bindParam(':alergiaCid', $alergia_CID);\n\t$stmt->bindParam(':alergiaNome', $alergiaNome);\n\t$stmt->execute();\n} catch (PDOException $e) {\n\techo 'Erro ao adicionar nova alergia: ' . $e->getMessage();\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8eb446f1:CWE-79:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/saude/adicionar_alergia.php",
+      "line_range": "1-31",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: controle/getProdutosPorAlmox.php\nLines: 1-15\n\nCode:\n<?php\n    require_once('../dao/Conexao.php');\n    require_once('../classes/Produto.php');\n    require_once('../config.php');\n    $almox = $_REQUEST['almox'];\n    $conexao = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n    $produtos = array();\n    if($conexao){\n        $query = mysqli_query($conexao, \"SELECT produto.id_produto, produto.codigo, produto.descricao, estoque.qtd, produto.preco FROM produto, estoque WHERE produto.id_produto=estoque.id_produto AND estoque.qtd>0 AND estoque.id_almoxarifado=$almox\");\n        while($resultado = mysqli_fetch_array($query)){\n            $produtos[] = $resultado; \n        }\n        echo(json_encode($produtos));\n    }else echo false;\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8eb446f1:CWE-89:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "controle/getProdutosPorAlmox.php",
+      "line_range": "1-15",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: tools/lrama/lib/lrama/output.rb\nLines: 19-33\n\nCode:\n\n    attr_reader :grammar_file_path, :context, :grammar, :error_recovery, :include_header\n\n    def_delegators \"@context\", :yyfinal, :yylast, :yyntokens, :yynnts, :yynrules, :yynstates,\n                               :yymaxutok, :yypact_ninf, :yytable_ninf\n\n    def_delegators \"@grammar\", :eof_symbol, :error_symbol, :undef_symbol, :accept_symbol\n\n    def initialize(\n      out:, output_file_path:, template_name:, grammar_file_path:,\n      context:, grammar:, header_out: nil, header_file_path: nil, error_recovery: false\n    )\n      @out = out\n      @output_file_path = output_file_path\n      @template_name = template_name\n      @grammar_file_path = grammar_file_path\n      @header_out = header_out\n      @header_file_path = header_file_path\n      @context = context\n      @grammar = grammar\n      @error_recovery = error_recovery\n      @include_header = header_file_path ? header_file_path.sub(\"./\", \"\") : nil\n    end\n\n    if ERB.instance_method(:initialize).parameters.last.first == :key\n      def self.erb(input)\n        ERB.new(input, trim_mode: '-')\n      end\n    else\n      def self.erb(input)\n        ERB.new(input, nil, '-')\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8c2ea232:CWE-79:false_positive",
+      "project_id": "https://github.com/mruby/mruby",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "ruby",
+      "tool": "semgrep",
+      "file_path": "tools/lrama/lib/lrama/output.rb",
+      "line_range": "19-33",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: html/atendido/familiar_listar_um.php\nLines: 1-37\n\nCode:\n<?php\n\nsession_start();\nif (!isset($_SESSION[\"usuario\"])) {\n    header(\"Location: ../../index.php\");\n}\n\n// Verifica Permissão do Usuário\nrequire_once '../permissao/permissao.php';\npermissao($_SESSION['id_pessoa'], 11, 7);\n\n\nrequire_once \"../../dao/Conexao.php\";\n\n$id_dependente = trim($_POST[\"id_dependente\"]);\n\nif(!$id_dependente || !is_numeric($id_dependente)){\n    http_response_code(400);\n    exit('Erro, o id fornecido para um familiar não é válido.');\n}\n\ntry {\n    $pdo = Conexao::connect();\n    $dependente = $pdo->query(\"SELECT *, ap.parentesco AS parentesco\nFROM atendido_familiares af\nLEFT JOIN pessoa p ON p.id_pessoa = af.pessoa_id_pessoa\nLEFT JOIN atendido_parentesco ap ON ap.idatendido_parentesco = af.atendido_parentesco_idatendido_parentesco\nWHERE af.idatendido_familiares= $id_dependente;\");\n    $dependente = $dependente->fetchAll(PDO::FETCH_ASSOC)[0];\n    $dependente = json_encode($dependente);\n    http_response_code(200);\n    echo $dependente;\n} catch (PDOException $e) {\n    http_response_code(500);\n    $msgErro = 'Erro ao listar familiar: ' . $e->getMessage();\n    echo json_encode(['erro' => $msgErro]);\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-89 (Improper Neutralization of Special Elements used in an SQL Command ('SQL Injecti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "cb7f5e2b:CWE-89:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/atendido/familiar_listar_um.php",
+      "line_range": "1-37",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: html/configuracao/atualizacao.php\nLines: 41-100\n\nCode:\n        if (PHP_OS != 'Linux'){\n            return false;\n        }\n        $log[0] = autosaveBD();\n        $log[1] = backupSite();\n        return !$log[0] && !$log[1];\n    }\n\n    function gitPull() {\n        $output = array();\n        exec(\"git -C \".ROOT.\" pull 2>&1\", $output);\n        return $output;\n    }\n\n    \n    $output = gitPull();\n    if (DEBUG) {\n        var_dump(\"git -C \".ROOT.\" pull 2>&1\", $output);\n        die();\n    }\n    if ($output) {\n        if (sizeof($output) == 1){\n            if ($output[0] == 'Already up to date.'){\n                header(\"Location: $redirect?msg=success&sccs=O sistema já está atualizado!\");\n            }else{\n                header(\"Location: $redirect?msg=error&err=Houve um erro ao executar o comando git -C \".ROOT.\" pull\");\n            }\n        }elseif (sizeof($output) != 0) {\n            $log = \"Status da atualização: \\n\";\n            foreach ($output as $value){\n                $log = $log . $value . \"\\n\";\n            }\n            $_SESSION['log'] = $log;\n            if (tempBackup()){\n\n                // Ultima release disponível\n                $last_release = intval(file_get_contents(\"https://www.wegia.org/software/release\"));\n                // Release instalada\n                $local_release = intval(file_get_contents(\"../../.release\"));\n\n                $outdated = \"\";\n\n                if ($local_release < $last_release){\n                    require \"./geral/msg.php\";\n                    setSessionMsg(\"O sistema possui atualizações disponíveis\", \"warn\");\n                    $outdated = \" (desatualizado)\";\n                }\n                setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');\n                date_default_timezone_set('America/Sao_Paulo');\n                $_SESSION['local_release'] = strftime('%A, %d de %B de %Y, às %H:%M', intval(file_get_contents(\"../.release\"))) . $outdated;\n\n                \n\n\n                // header(\"Location: ./configuracao_geral.php?msg=success&sccs=Backup realizado e Atualização concluída!&log=\".base64_encode($log));\n                header(\"Location: $redirect?tipo=success&mensagem=Backup realizado e Atualização concluída!\");\n                \n            }else{\n                // header(\"Location: ./configuracao_geral.php?msg=warning&warn=Atualização concluída, mas houve um erro ao realizar o backup (Sistema compatível: Linux, Seu Sistema: \".PHP_OS.\")!&log=\".base64_encode($log));\n                header(\"Location: $redirect?tipo=warning&mensagem=Atualização concluída, mas houve um erro ao realizar os backups!\");\n            }\n        }\n    } else {\n        // header(\"Location: ./configuracao_geral.php?msg=error&err=Houve um erro ao executar o comando git -C \".ROOT.\" pull\");\n        header(\"Location: $redirect?tipo=error&mensagem=Houve um erro ao executar o comando git -C \".ROOT.\" pull\");\n    }\n\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-94 (Improper Control of Generation of Code ('Code Injection')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "cdb8e846:CWE-94:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/configuracao/atualizacao.php",
+      "line_range": "41-100",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: handlers/page/svg.php\nLines: 1-16\n\nCode:\n<?php\n\n// Mime type pour le SVG\nheader('Content-type: image/svg+xml');\n\nif (isset($_GET['svg'])) {\n    $svg = $_GET['svg'];\n} else {\n    $svg = 'reseaupagecourante';\n}\nif (preg_match('/^[a-z0-9]*$/', $svg)) {\n    $url = 'handlers/page/svg/' . $svg . '.php';\n    if (is_file($url)) {\n        include $url;\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-918 (Server-Side Request Forgery (SSRF)).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "9edbd9a5:CWE-918:false_positive",
+      "project_id": "https://github.com/YesWiki/yeswiki",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "handlers/page/svg.php",
+      "line_range": "1-16",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+    }
+  }
+]

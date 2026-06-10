@@ -25,7 +25,8 @@
       "file_path": "classes/Cache.php",
       "line_range": "50-70",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "782080f7c68abc8ab870bcd19ec909ef0bea0e7b"
     }
   },
   {
@@ -54,7 +55,8 @@
       "file_path": "applicationset/utils/utils.go",
       "line_range": "1-528",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "e4311d830926aba78d6ae1f69d4572df261fba91"
     }
   },
   {
@@ -83,7 +85,8 @@
       "file_path": "system/Debug/Toolbar/Views/toolbar.js",
       "line_range": "770-800",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "90edae6b01e8023248c2716f99307b35c07e0565"
     }
   },
   {
@@ -112,7 +115,8 @@
       "file_path": "classes/Cache.php",
       "line_range": "50-70",
       "source": "sastbench_v01",
-      "vulnerability_name": "Deserialization of Untrusted Data"
+      "vulnerability_name": "Deserialization of Untrusted Data",
+      "commit_hash": "f3b1cd90e33b790b6b2049c69d22c6d50fe965a1"
     }
   },
   {
@@ -141,7 +145,8 @@
       "file_path": "html/contribuicao/controller/control.php",
       "line_range": "1-60",
       "source": "sastbench_v01",
-      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)",
+      "commit_hash": "adfba44e28b555db7847a597aec949df97608d3a"
     }
   },
   {
@@ -170,7 +175,8 @@
       "file_path": "app/src/asset/anno.ts",
       "line_range": "771-818",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "98819ca4c780ab0064a255aa1df0c42c065707ef"
     }
   },
   {
@@ -199,7 +205,8 @@
       "file_path": "para-server/src/main/java/com/erudika/para/server/security/filters/PasswordlessAuthFilter.java",
       "line_range": "73-105",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "d0ef6f9a749178049bb232de99a4c187c0dc4173"
     }
   },
   {
@@ -228,7 +235,8 @@
       "file_path": "classes/Cache.php",
       "line_range": "50-70",
       "source": "sastbench_v01",
-      "vulnerability_name": "Deserialization of Untrusted Data"
+      "vulnerability_name": "Deserialization of Untrusted Data",
+      "commit_hash": "0da687b7b9ebb3bf64c43fc0ba556eb654ebd583"
     }
   },
   {
@@ -257,7 +265,8 @@
       "file_path": "includes/i18n.inc.php",
       "line_range": "134-262",
       "source": "sastbench_v01",
-      "vulnerability_name": "Deserialization of Untrusted Data"
+      "vulnerability_name": "Deserialization of Untrusted Data",
+      "commit_hash": "9edbd9a52e8995a9b5d2bb32c05c1158a609a640"
     }
   },
   {
@@ -286,7 +295,8 @@
       "file_path": "controle/getProdutosPorAlmox.php",
       "line_range": "1-15",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "8eb446f132ceba002559da2fd8745386096d494e"
     }
   },
   {
@@ -315,7 +325,8 @@
       "file_path": "includes/entities/ConfigurationFile.php",
       "line_range": "60-82",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "107d43056adebaa0c731230f9fd010898e88f3f5"
     }
   },
   {
@@ -344,7 +355,8 @@
       "file_path": "docs/docs/_static/js/algolia.js",
       "line_range": "8-18",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "08199826ac3c4c69e7691d993eaa4c0f6e6e14b7"
     }
   },
   {
@@ -373,7 +385,8 @@
       "file_path": "blueprints/testing/oidc-conformance.yaml",
       "line_range": "1-122",
       "source": "sastbench_v01",
-      "vulnerability_name": "Use of Hard-coded Credentials"
+      "vulnerability_name": "Use of Hard-coded Credentials",
+      "commit_hash": "c0c2d2ad3c314e9f1ac8f6aa405db4f49762cb91"
     }
   },
   {
@@ -402,7 +415,8 @@
       "file_path": ".github/workflows/announcements.yml",
       "line_range": "1-27",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "493c6e68ac4a21ca3f8d7a06a94e61c6a443faab"
     }
   },
   {
@@ -431,7 +445,8 @@
       "file_path": "extension.php",
       "line_range": "1-86",
       "source": "sastbench_v01",
-      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)",
+      "commit_hash": "0ae0365ee5a1bc567e12788e1ce2f57ad84fb363"
     }
   },
   {
@@ -460,7 +475,8 @@
       "file_path": "backend/pkgs/labelmaker/labelmaker.go",
       "line_range": "1-325",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')",
+      "commit_hash": "b311a5c9ed1225b2fc92a205a8825724ad7f2632"
     }
   },
   {
@@ -489,7 +505,8 @@
       "file_path": "tools/server/public_simplechat/simplechat.js",
       "line_range": "177-204",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "ffd59e7d18a76459d5c31ba97073c7c9d73cb752"
     }
   },
   {
@@ -518,7 +535,8 @@
       "file_path": "html/contribuicao/controller/control.php",
       "line_range": "1-61",
       "source": "sastbench_v01",
-      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)",
+      "commit_hash": "4afb9a06a73ba92d23e507d4d040a4013248d143"
     }
   },
   {
@@ -547,7 +565,8 @@
       "file_path": "mobsf/DynamicAnalyzer/views/android/operations.py",
       "line_range": "102-124",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "cecec6e96d802e8058682a15046fda389b90ac40"
     }
   },
   {
@@ -576,7 +595,8 @@
       "file_path": "assets/javascripts/theme.js",
       "line_range": "2526-2553",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "e8476168171de2f3e047ed92bbc264c981b416b1"
     }
   },
   {
@@ -605,7 +625,8 @@
       "file_path": "packages/api/src/main.js",
       "line_range": "47-54",
       "source": "sastbench_v01",
-      "vulnerability_name": "Cross-Site Request Forgery (CSRF)"
+      "vulnerability_name": "Cross-Site Request Forgery (CSRF)",
+      "commit_hash": "c34f2d4da71dfc0ba9250eece4b4586d2be68bf9"
     }
   },
   {
@@ -634,7 +655,8 @@
       "file_path": "crazy_functions/Social_Helper.py",
       "line_range": "86-85",
       "source": "sastbench_v01",
-      "vulnerability_name": "Deserialization of Untrusted Data"
+      "vulnerability_name": "Deserialization of Untrusted Data",
+      "commit_hash": "2aefef26db62efd0b684f3c3f35c77432e54afff"
     }
   },
   {
@@ -663,7 +685,8 @@
       "file_path": "html/configuracao/atualizacao.php",
       "line_range": "41-100",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')",
+      "commit_hash": "0af67dd5139cc4c918cfa33efcd6d93d57e7e9a7"
     }
   },
   {
@@ -692,7 +715,8 @@
       "file_path": "llama-index-core/llama_index/core/objects/base_node_mapping.py",
       "line_range": "1-176",
       "source": "sastbench_v01",
-      "vulnerability_name": "Deserialization of Untrusted Data"
+      "vulnerability_name": "Deserialization of Untrusted Data",
+      "commit_hash": "cc77ed70ad8b0e07b7803c1afcb988aa84b26644"
     }
   },
   {
@@ -721,7 +745,8 @@
       "file_path": "application/Espo/Core/Utils/Database/Schema/SchemaManager.php",
       "line_range": "190-215",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "0ae0365ee5a1bc567e12788e1ce2f57ad84fb363"
     }
   },
   {
@@ -750,7 +775,8 @@
       "file_path": "upload/includes/classes/upload.class.php",
       "line_range": "949-1031",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "fd093b886a451cba0f43ae893c208a232deefaa6"
     }
   },
   {
@@ -779,7 +805,8 @@
       "file_path": "html/funcionario/dependente_remover.php",
       "line_range": "1-34",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "e8476168171de2f3e047ed92bbc264c981b416b1"
     }
   },
   {
@@ -808,7 +835,8 @@
       "file_path": "Filelist",
       "line_range": "1-1175",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "3f9d2378bd70748fc59e02a402422269bd096492"
     }
   },
   {
@@ -837,7 +865,8 @@
       "file_path": "mobsf/StaticAnalyzer/views/common/firebase.py",
       "line_range": "80-110",
       "source": "sastbench_v01",
-      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)",
+      "commit_hash": "506434670a7d4a5f3235663f8bcc6387a2ba58e8"
     }
   },
   {
@@ -866,7 +895,8 @@
       "file_path": "html/socio/sistema/controller/controla_xlsx.php",
       "line_range": "1-30",
       "source": "sastbench_v01",
-      "vulnerability_name": "Unrestricted Upload of File with Dangerous Type"
+      "vulnerability_name": "Unrestricted Upload of File with Dangerous Type",
+      "commit_hash": "f2cdf788d655e9643dc8d1474ea1b90fc91e69a3"
     }
   },
   {
@@ -895,7 +925,8 @@
       "file_path": "conda_build/convert.py",
       "line_range": "126-138",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "569f1e49128cd33deb7629efc80a01fe555bab00"
     }
   },
   {
@@ -924,7 +955,8 @@
       "file_path": "dao/adicionar_status_atendido.php",
       "line_range": "1-19",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "adfba44e28b555db7847a597aec949df97608d3a"
     }
   },
   {
@@ -953,7 +985,8 @@
       "file_path": "app/Http/Controllers/SecurePathController.php",
       "line_range": "34-67",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "0709f5d984d4df77fc5e23a29a0231437e684e99"
     }
   },
   {
@@ -982,7 +1015,8 @@
       "file_path": "llama-index-cli/llama_index/cli/rag/base.py",
       "line_range": "153-175",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "2c00a1dfc71ec513353aa10159d980b68c3c7e70"
     }
   },
   {
@@ -1011,7 +1045,8 @@
       "file_path": "dao/adicionar_situacao.php",
       "line_range": "1-19",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "f35910cb8b9205a6f038ef1e8b3413ea8eee850b"
     }
   },
   {
@@ -1040,7 +1075,8 @@
       "file_path": "handlers/page/deletepage.php",
       "line_range": "1-134",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "0dac9e2fb2a5e69f13a3c9f761ecae6ed9676206"
     }
   },
   {
@@ -1069,7 +1105,8 @@
       "file_path": "persistence/artist_repository.go",
       "line_range": "131-133",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "175964b17a8bdd092e59b91d99cd81b61506b837"
     }
   },
   {
@@ -1098,7 +1135,8 @@
       "file_path": "src/controllers/UpdaterController.php",
       "line_range": "100-123",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')",
+      "commit_hash": "ecf189137d9b6f3b45dd0b842a865ba26be1dc04"
     }
   },
   {
@@ -1127,7 +1165,8 @@
       "file_path": "controle/pet/MedicamentoControle.php",
       "line_range": "14-25",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "4afb9a06a73ba92d23e507d4d040a4013248d143"
     }
   },
   {
@@ -1156,7 +1195,8 @@
       "file_path": "html/geral/cargos.php",
       "line_range": "1-305",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "58c309f3eb389028ea6b23ab822244678814c369"
     }
   },
   {
@@ -1185,7 +1225,8 @@
       "file_path": "controle/QuadroHorarioControle.php",
       "line_range": "45-69",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "09affa8ae0dc5f385907137302f7e3d4636147b0"
     }
   },
   {
@@ -1214,7 +1255,8 @@
       "file_path": "html/atendido/Cadastro_Atendido.php",
       "line_range": "1-632",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "420b88e7aceed53c42e9eff7d21beee8465f93b8"
     }
   },
   {
@@ -1243,7 +1285,8 @@
       "file_path": "obfx_modules/elementor-extra-widgets/widgets/elementor/pricing-table.php",
       "line_range": "1015-1139",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "c9ba7b0821bbceb73098302cd37ef7ec45f5c8e9"
     }
   },
   {
@@ -1272,7 +1315,8 @@
       "file_path": "mobsf/MobSF/forms.py",
       "line_range": "48-52",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "cecec6e96d802e8058682a15046fda389b90ac40"
     }
   },
   {
@@ -1301,7 +1345,8 @@
       "file_path": "llama-index-core/llama_index/core/agent/workflow/react_agent.py",
       "line_range": "31-33",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "cc77ed70ad8b0e07b7803c1afcb988aa84b26644"
     }
   },
   {
@@ -1330,7 +1375,8 @@
       "file_path": "html/funcionario/profile_dependente.php",
       "line_range": "1-808",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "82c410b72e68d61539a246f873fe0bb49a2109c6"
     }
   },
   {
@@ -1359,7 +1405,8 @@
       "file_path": "controle/QuadroHorarioControle.php",
       "line_range": "45-58",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "8a37021417d9c55e61392b3cc52baa3c73102bab"
     }
   },
   {
@@ -1388,7 +1435,8 @@
       "file_path": "submit.php",
       "line_range": "426-462",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "59fde61626ccc449ecbc8a8d6113036885c3ba35"
     }
   },
   {
@@ -1417,7 +1465,8 @@
       "file_path": "modules/ext.shortDescription.js",
       "line_range": "1-9",
       "source": "sastbench_v01",
-      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "e84c25f8c8cb1af953a8dd92fa0efee6c90fabc4"
     }
   },
   {
@@ -1446,7 +1495,8 @@
       "file_path": "backend/src/file/file.service.ts",
       "line_range": "20-24",
       "source": "sastbench_v01",
-      "vulnerability_name": "Unrestricted Upload of File with Dangerous Type"
+      "vulnerability_name": "Unrestricted Upload of File with Dangerous Type",
+      "commit_hash": "6cf5c66fe2eda1e0a525edf7440d047fe2f0e35b"
     }
   }
 ]

