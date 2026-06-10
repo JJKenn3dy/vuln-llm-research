@@ -179,13 +179,20 @@ def run_api(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
         messages = ex["messages"][:2]
         try:
             if args.api in ("openai", "openrouter"):
-                resp = client.chat.completions.create(
-                    model=args.model,
-                    messages=messages,
-                    temperature=0.0,
-                    max_tokens=args.max_new_tokens,
-                )
-                response = resp.choices[0].message.content
+                is_reasoning = args.model.startswith(("o1", "o3", "o4"))
+                kwargs = {
+                    "model": args.model,
+                    "messages": messages,
+                }
+                if is_reasoning:
+                    # o-series: no temperature, use max_completion_tokens
+                    # and budget more tokens for hidden reasoning
+                    kwargs["max_completion_tokens"] = max(args.max_new_tokens, 1500)
+                else:
+                    kwargs["temperature"] = 0.0
+                    kwargs["max_tokens"] = args.max_new_tokens
+                resp = client.chat.completions.create(**kwargs)
+                response = resp.choices[0].message.content or ""
             else:
                 resp = client.messages.create(
                     model=args.model,
