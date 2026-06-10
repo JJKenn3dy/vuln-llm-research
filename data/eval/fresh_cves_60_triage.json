@@ -1,0 +1,1622 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-01>\nLines: see snippet\n\nCode:\nasync def search_orders(conn, user_query: str):\n    # FastAPI endpoint handler, called from /api/orders/search?q=...\n    sql = f\"SELECT id, total FROM orders WHERE description LIKE '%{user_query}%' ORDER BY created_at DESC LIMIT 50\"\n    rows = await conn.fetch(sql)\n    return [{\"id\": r[\"id\"], \"total\": float(r[\"total\"])} for r in rows]\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-89 vulnerability.\nRealCWE: CWE-89\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-01",
+      "project_id": "CVE-2024-FRESH-01",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-01-fix>\nLines: see snippet\n\nCode:\nasync def search_orders(conn, user_query: str):\n    # FastAPI endpoint handler, called from /api/orders/search?q=...\n    pattern = f\"%{user_query}%\"\n    sql = \"SELECT id, total FROM orders WHERE description LIKE $1 ORDER BY created_at DESC LIMIT 50\"\n    rows = await conn.fetch(sql, pattern)\n    return [{\"id\": r[\"id\"], \"total\": float(r[\"total\"])} for r in rows]\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-89 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-01-fix",
+      "project_id": "CVE-2024-FRESH-01",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-02>\nLines: see snippet\n\nCode:\n<?php\n// /search.php — WordPress-like plugin search handler\nrequire_once('wp-load.php');\n$term = isset($_GET['q']) ? $_GET['q'] : '';\n$results = run_search($term);\necho \"<h2>Results for: \" . $term . \"</h2>\";\necho \"<ul>\";\nforeach ($results as $r) {\n    echo \"<li>\" . esc_html($r['title']) . \"</li>\";\n}\necho \"</ul>\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-79 vulnerability.\nRealCWE: CWE-79\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-02",
+      "project_id": "CVE-2024-FRESH-02",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-02-fix>\nLines: see snippet\n\nCode:\n<?php\nrequire_once('wp-load.php');\n$term = isset($_GET['q']) ? sanitize_text_field(wp_unslash($_GET['q'])) : '';\n$results = run_search($term);\necho \"<h2>Results for: \" . esc_html($term) . \"</h2>\";\necho \"<ul>\";\nforeach ($results as $r) {\n    echo \"<li>\" . esc_html($r['title']) . \"</li>\";\n}\necho \"</ul>\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-79 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-02-fix",
+      "project_id": "CVE-2024-FRESH-02",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-03>\nLines: see snippet\n\nCode:\nimport requests\nfrom flask import Flask, request, jsonify\n\napp = Flask(__name__)\n\n@app.route(\"/api/fetch-preview\", methods=[\"POST\"])\ndef fetch_preview():\n    url = request.json.get(\"url\")\n    if not url:\n        return jsonify({\"error\": \"url required\"}), 400\n    try:\n        r = requests.get(url, timeout=5)\n        return jsonify({\"status\": r.status_code, \"body\": r.text[:1000]})\n    except Exception as e:\n        return jsonify({\"error\": str(e)}), 500\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability.\nRealCWE: CWE-918\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-03",
+      "project_id": "CVE-2024-FRESH-03",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-03-fix>\nLines: see snippet\n\nCode:\nimport ipaddress, socket\nimport requests\nfrom urllib.parse import urlparse\nfrom flask import Flask, request, jsonify\n\napp = Flask(__name__)\nALLOWED_SCHEMES = {\"http\", \"https\"}\n\ndef is_safe_url(url: str) -> bool:\n    p = urlparse(url)\n    if p.scheme not in ALLOWED_SCHEMES or not p.hostname:\n        return False\n    try:\n        ip = ipaddress.ip_address(socket.gethostbyname(p.hostname))\n    except (socket.gaierror, ValueError):\n        return False\n    return not (ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved)\n\n@app.route(\"/api/fetch-preview\", methods=[\"POST\"])\ndef fetch_preview():\n    url = request.json.get(\"url\", \"\")\n    if not is_safe_url(url):\n        return jsonify({\"error\": \"url not allowed\"}), 400\n    r = requests.get(url, timeout=5, allow_redirects=False)\n    return jsonify({\"status\": r.status_code, \"body\": r.text[:1000]})\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-918 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-03-fix",
+      "project_id": "CVE-2024-FRESH-03",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-04>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst fs = require('fs');\nconst path = require('path');\nconst app = express();\n\napp.get('/api/template/:name', (req, res) => {\n  const filename = req.params.name;\n  const filepath = path.join(__dirname, 'templates', filename);\n  fs.readFile(filepath, 'utf8', (err, data) => {\n    if (err) return res.status(404).send('not found');\n    res.type('text/html').send(data);\n  });\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability.\nRealCWE: CWE-22\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-04",
+      "project_id": "CVE-2024-FRESH-04",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-04-fix>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst fs = require('fs');\nconst path = require('path');\nconst app = express();\nconst TEMPLATES_DIR = path.resolve(__dirname, 'templates');\n\napp.get('/api/template/:name', (req, res) => {\n  const safeName = path.basename(req.params.name);\n  const filepath = path.resolve(TEMPLATES_DIR, safeName);\n  if (!filepath.startsWith(TEMPLATES_DIR + path.sep)) {\n    return res.status(400).send('invalid path');\n  }\n  fs.readFile(filepath, 'utf8', (err, data) => {\n    if (err) return res.status(404).send('not found');\n    res.type('text/html').send(data);\n  });\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-22 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-04-fix",
+      "project_id": "CVE-2024-FRESH-04",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-05>\nLines: see snippet\n\nCode:\nimport subprocess\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route(\"/api/ping\")\ndef ping_host():\n    host = request.args.get(\"host\", \"localhost\")\n    result = subprocess.check_output(f\"ping -c 2 {host}\", shell=True, stderr=subprocess.STDOUT, timeout=10)\n    return result.decode(\"utf-8\", errors=\"replace\")\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability.\nRealCWE: CWE-78\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-05",
+      "project_id": "CVE-2024-FRESH-05",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-05-fix>\nLines: see snippet\n\nCode:\nimport re, subprocess\nfrom flask import Flask, request, abort\n\napp = Flask(__name__)\nHOST_RE = re.compile(r\"^[a-zA-Z0-9.\\-]{1,253}$\")\n\n@app.route(\"/api/ping\")\ndef ping_host():\n    host = request.args.get(\"host\", \"localhost\")\n    if not HOST_RE.match(host):\n        abort(400)\n    result = subprocess.check_output(\n        [\"ping\", \"-c\", \"2\", \"--\", host],\n        stderr=subprocess.STDOUT,\n        timeout=10,\n    )\n    return result.decode(\"utf-8\", errors=\"replace\")\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-78 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-05-fix",
+      "project_id": "CVE-2024-FRESH-05",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-06>\nLines: see snippet\n\nCode:\nimport base64, pickle\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route(\"/api/session/restore\", methods=[\"POST\"])\ndef restore_session():\n    blob = request.cookies.get(\"session_state\")\n    if not blob:\n        return {\"error\": \"no session\"}, 400\n    raw = base64.b64decode(blob)\n    state = pickle.loads(raw)\n    return {\"username\": state.get(\"user\"), \"role\": state.get(\"role\")}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-502 vulnerability.\nRealCWE: CWE-502\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-06",
+      "project_id": "CVE-2024-FRESH-06",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-06-fix>\nLines: see snippet\n\nCode:\nimport hmac, hashlib, json, os\nfrom flask import Flask, request\n\napp = Flask(__name__)\nSECRET = os.environ[\"SESSION_SECRET\"].encode()\n\n@app.route(\"/api/session/restore\", methods=[\"POST\"])\ndef restore_session():\n    blob = request.cookies.get(\"session_state\", \"\")\n    try:\n        payload, sig = blob.rsplit(\".\", 1)\n    except ValueError:\n        return {\"error\": \"bad cookie\"}, 400\n    expected = hmac.new(SECRET, payload.encode(), hashlib.sha256).hexdigest()\n    if not hmac.compare_digest(expected, sig):\n        return {\"error\": \"bad signature\"}, 400\n    state = json.loads(payload)\n    return {\"username\": state.get(\"user\"), \"role\": state.get(\"role\")}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-502 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-06-fix",
+      "project_id": "CVE-2024-FRESH-06",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-07>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nrequire_once('db.php');\n\nif (!isset($_SESSION['admin_id'])) { http_response_code(403); exit; }\n\nif ($_SERVER['REQUEST_METHOD'] === 'POST') {\n    $new_email = trim($_POST['email']);\n    $admin_id  = $_SESSION['admin_id'];\n    $stmt = $pdo->prepare(\"UPDATE admins SET email = ? WHERE id = ?\");\n    $stmt->execute([$new_email, $admin_id]);\n    echo \"Email updated.\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-352 vulnerability.\nRealCWE: CWE-352\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-07",
+      "project_id": "CVE-2024-FRESH-07",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-07-fix>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nrequire_once('db.php');\n\nif (!isset($_SESSION['admin_id'])) { http_response_code(403); exit; }\n\nif ($_SERVER['REQUEST_METHOD'] === 'POST') {\n    $token = $_POST['csrf_token'] ?? '';\n    if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {\n        http_response_code(403);\n        exit('csrf check failed');\n    }\n    $new_email = trim($_POST['email']);\n    $admin_id  = $_SESSION['admin_id'];\n    $stmt = $pdo->prepare(\"UPDATE admins SET email = ? WHERE id = ?\");\n    $stmt->execute([$new_email, $admin_id]);\n    echo \"Email updated.\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-352 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-07-fix",
+      "project_id": "CVE-2024-FRESH-07",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-08>\nLines: see snippet\n\nCode:\nfrom lxml import etree\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route(\"/api/import-xml\", methods=[\"POST\"])\ndef import_xml():\n    raw = request.get_data()\n    parser = etree.XMLParser(resolve_entities=True, no_network=False)\n    root = etree.fromstring(raw, parser)\n    items = [e.text for e in root.findall(\".//item\")]\n    return {\"items\": items}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-611 vulnerability.\nRealCWE: CWE-611\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-08",
+      "project_id": "CVE-2024-FRESH-08",
+      "claimed_cwe": "CWE-611",
+      "real_cwe": "CWE-611",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-08-fix>\nLines: see snippet\n\nCode:\nfrom lxml import etree\nfrom flask import Flask, request\n\napp = Flask(__name__)\n\n@app.route(\"/api/import-xml\", methods=[\"POST\"])\ndef import_xml():\n    raw = request.get_data()\n    parser = etree.XMLParser(\n        resolve_entities=False,\n        no_network=True,\n        load_dtd=False,\n        dtd_validation=False,\n    )\n    root = etree.fromstring(raw, parser)\n    items = [e.text for e in root.findall(\".//item\")]\n    return {\"items\": items}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-611 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-08-fix",
+      "project_id": "CVE-2024-FRESH-08",
+      "claimed_cwe": "CWE-611",
+      "real_cwe": "CWE-611",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-09>\nLines: see snippet\n\nCode:\nfrom flask import Flask, request, jsonify\n\napp = Flask(__name__)\n\n@app.route(\"/api/calc\")\ndef calc():\n    expr = request.args.get(\"expr\", \"0\")\n    result = eval(expr, {\"__builtins__\": {}}, {\"abs\": abs, \"min\": min, \"max\": max})\n    return jsonify({\"result\": result})\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-94 vulnerability.\nRealCWE: CWE-94\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-09",
+      "project_id": "CVE-2024-FRESH-09",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-09-fix>\nLines: see snippet\n\nCode:\nimport ast, operator as op\nfrom flask import Flask, request, jsonify\n\napp = Flask(__name__)\nOPS = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul, ast.Div: op.truediv,\n       ast.Mod: op.mod, ast.Pow: op.pow, ast.USub: op.neg}\n\ndef safe_eval(node):\n    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):\n        return node.value\n    if isinstance(node, ast.BinOp) and type(node.op) in OPS:\n        return OPS[type(node.op)](safe_eval(node.left), safe_eval(node.right))\n    if isinstance(node, ast.UnaryOp) and type(node.op) in OPS:\n        return OPS[type(node.op)](safe_eval(node.operand))\n    raise ValueError(\"disallowed expression\")\n\n@app.route(\"/api/calc\")\ndef calc():\n    expr = request.args.get(\"expr\", \"0\")\n    tree = ast.parse(expr, mode=\"eval\")\n    return jsonify({\"result\": safe_eval(tree.body)})\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-94 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-09-fix",
+      "project_id": "CVE-2024-FRESH-09",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-10>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nif (!isset($_SESSION['user_id'])) { http_response_code(401); exit; }\n\n$uid = (int)$_SESSION['user_id'];\n$f = $_FILES['avatar'];\n\nif ($f['error'] !== UPLOAD_ERR_OK) { echo \"upload failed\"; exit; }\n\n$dest = __DIR__ . \"/public/avatars/user_{$uid}_\" . $f['name'];\nif (move_uploaded_file($f['tmp_name'], $dest)) {\n    echo \"ok: /avatars/user_{$uid}_\" . $f['name'];\n} else {\n    echo \"save failed\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-434 vulnerability.\nRealCWE: CWE-434\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-10",
+      "project_id": "CVE-2024-FRESH-10",
+      "claimed_cwe": "CWE-434",
+      "real_cwe": "CWE-434",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-10-fix>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nif (!isset($_SESSION['user_id'])) { http_response_code(401); exit; }\n\n$uid = (int)$_SESSION['user_id'];\n$f = $_FILES['avatar'];\n\nif ($f['error'] !== UPLOAD_ERR_OK) { echo \"upload failed\"; exit; }\nif ($f['size'] > 2 * 1024 * 1024) { echo \"too large\"; exit; }\n\n$mime = mime_content_type($f['tmp_name']);\n$allowed = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];\nif (!isset($allowed[$mime])) { echo \"bad type\"; exit; }\n\n$ext = $allowed[$mime];\n$safe_name = \"user_{$uid}.\" . $ext;\n$dest = __DIR__ . \"/public/avatars/\" . $safe_name;\nif (move_uploaded_file($f['tmp_name'], $dest)) {\n    echo \"ok: /avatars/\" . $safe_name;\n} else {\n    echo \"save failed\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-434 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-10-fix",
+      "project_id": "CVE-2024-FRESH-10",
+      "claimed_cwe": "CWE-434",
+      "real_cwe": "CWE-434",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-11>\nLines: see snippet\n\nCode:\n<?php\n// Laravel controller: ProfileController.php\nnamespace App\\Http\\Controllers;\nuse Illuminate\\Http\\Request;\n\nclass ProfileController extends Controller {\n    public function show(Request $request) {\n        $bio = $request->input('bio', '');\n        return view('profile.show', ['bio' => $bio]);\n    }\n}\n\n// resources/views/profile/show.blade.php\n// <div class=\"bio\">{!! $bio !!}</div>\n// Renders user-supplied HTML to the page.\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-79 vulnerability.\nRealCWE: CWE-79\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-11",
+      "project_id": "CVE-2024-FRESH-11",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-11-fix>\nLines: see snippet\n\nCode:\n<?php\nnamespace App\\Http\\Controllers;\nuse Illuminate\\Http\\Request;\n\nclass ProfileController extends Controller {\n    public function show(Request $request) {\n        $bio = strip_tags($request->input('bio', ''), '<p><br><strong><em>');\n        return view('profile.show', ['bio' => e($bio)]);\n    }\n}\n// resources/views/profile/show.blade.php\n// <div class=\"bio\">{{ $bio }}</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-79 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-11-fix",
+      "project_id": "CVE-2024-FRESH-11",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-12>\nLines: see snippet\n\nCode:\n<?php\n// WordPress plugin: get-by-author.php\nglobal $wpdb;\n$author = isset($_GET['author']) ? $_GET['author'] : 'admin';\n$sql = \"SELECT ID, post_title, post_date FROM {$wpdb->posts}\n        WHERE post_author = (SELECT ID FROM {$wpdb->users} WHERE user_login = '$author')\n        AND post_status = 'publish' ORDER BY post_date DESC LIMIT 20\";\n$posts = $wpdb->get_results($sql);\nforeach ($posts as $p) {\n    echo \"<li>\" . esc_html($p->post_title) . \"</li>\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-89 vulnerability.\nRealCWE: CWE-89\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-12",
+      "project_id": "CVE-2024-FRESH-12",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-12-fix>\nLines: see snippet\n\nCode:\n<?php\nglobal $wpdb;\n$author = isset($_GET['author']) ? sanitize_user(wp_unslash($_GET['author'])) : 'admin';\n$sql = $wpdb->prepare(\n    \"SELECT ID, post_title, post_date FROM {$wpdb->posts}\n     WHERE post_author = (SELECT ID FROM {$wpdb->users} WHERE user_login = %s)\n     AND post_status = 'publish' ORDER BY post_date DESC LIMIT 20\",\n    $author\n);\n$posts = $wpdb->get_results($sql);\nforeach ($posts as $p) {\n    echo \"<li>\" . esc_html($p->post_title) . \"</li>\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-89 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-12-fix",
+      "project_id": "CVE-2024-FRESH-12",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-13>\nLines: see snippet\n\nCode:\n<?php\n// /index.php — page router for a legacy CMS\n$page = $_GET['page'] ?? 'home';\n$file = __DIR__ . \"/pages/\" . $page . \".php\";\nif (file_exists($file)) {\n    include $file;\n} else {\n    include __DIR__ . \"/pages/home.php\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability.\nRealCWE: CWE-22\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-13",
+      "project_id": "CVE-2024-FRESH-13",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-13-fix>\nLines: see snippet\n\nCode:\n<?php\n$page = $_GET['page'] ?? 'home';\n$allowed = ['home', 'about', 'contact', 'services', 'blog'];\nif (!in_array($page, $allowed, true)) {\n    $page = 'home';\n}\ninclude __DIR__ . \"/pages/\" . $page . \".php\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-22 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-13-fix",
+      "project_id": "CVE-2024-FRESH-13",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-14>\nLines: see snippet\n\nCode:\n<?php\n// /admin/network-tools.php — admin diagnostics panel\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\nif ($_SERVER['REQUEST_METHOD'] === 'POST') {\n    $target = trim($_POST['target']);\n    $output = shell_exec(\"traceroute -n \" . $target . \" 2>&1\");\n    echo \"<pre>\" . htmlspecialchars($output) . \"</pre>\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability.\nRealCWE: CWE-78\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-14",
+      "project_id": "CVE-2024-FRESH-14",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-14-fix>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\nif ($_SERVER['REQUEST_METHOD'] === 'POST') {\n    $target = trim($_POST['target']);\n    if (!filter_var($target, FILTER_VALIDATE_IP) &&\n        !preg_match('/^[a-zA-Z0-9.\\-]{1,253}$/', $target)) {\n        http_response_code(400); exit('bad target');\n    }\n    $cmd = 'traceroute -n ' . escapeshellarg($target) . ' 2>&1';\n    $output = shell_exec($cmd);\n    echo \"<pre>\" . htmlspecialchars($output) . \"</pre>\";\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-78 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-14-fix",
+      "project_id": "CVE-2024-FRESH-14",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-15>\nLines: see snippet\n\nCode:\n<?php\n// /api/webhook-test.php — admin: test outbound webhook\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\n$url = $_POST['url'] ?? '';\n$ch = curl_init($url);\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);\ncurl_setopt($ch, CURLOPT_TIMEOUT, 5);\n$body = curl_exec($ch);\n$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);\ncurl_close($ch);\necho json_encode(['status' => $code, 'body' => substr($body, 0, 1024)]);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability.\nRealCWE: CWE-918\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-15",
+      "project_id": "CVE-2024-FRESH-15",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-15-fix>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\n$url = $_POST['url'] ?? '';\n$p = parse_url($url);\nif (!$p || !in_array($p['scheme'] ?? '', ['http', 'https'], true)) {\n    http_response_code(400); exit('bad scheme');\n}\n$ip = gethostbyname($p['host'] ?? '');\n$packed = inet_pton($ip);\nif ($packed === false || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {\n    http_response_code(400); exit('blocked ip');\n}\n$ch = curl_init($url);\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);\ncurl_setopt($ch, CURLOPT_TIMEOUT, 5);\n$body = curl_exec($ch);\n$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);\ncurl_close($ch);\necho json_encode(['status' => $code, 'body' => substr($body, 0, 1024)]);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-918 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-15-fix",
+      "project_id": "CVE-2024-FRESH-15",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-16>\nLines: see snippet\n\nCode:\n<?php\n// /cart/load.php — restore shopping cart from cookie\nif (isset($_COOKIE['cart_state'])) {\n    $raw = base64_decode($_COOKIE['cart_state']);\n    $cart = unserialize($raw);\n    if (is_array($cart)) {\n        $_SESSION['cart'] = $cart;\n        echo json_encode(['items' => count($cart)]);\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-502 vulnerability.\nRealCWE: CWE-502\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-16",
+      "project_id": "CVE-2024-FRESH-16",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-16-fix>\nLines: see snippet\n\nCode:\n<?php\nif (isset($_COOKIE['cart_state'])) {\n    $raw = base64_decode($_COOKIE['cart_state'], true);\n    if ($raw === false) { exit('bad cookie'); }\n    $cart = json_decode($raw, true);\n    if (is_array($cart)) {\n        $clean = [];\n        foreach ($cart as $item) {\n            if (isset($item['sku'], $item['qty'])\n                && is_string($item['sku'])\n                && is_int($item['qty']) && $item['qty'] > 0) {\n                $clean[] = ['sku' => $item['sku'], 'qty' => $item['qty']];\n            }\n        }\n        $_SESSION['cart'] = $clean;\n        echo json_encode(['items' => count($clean)]);\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-502 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-16-fix",
+      "project_id": "CVE-2024-FRESH-16",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-17>\nLines: see snippet\n\nCode:\n<?php\n// src/Controller/AccountController.php (Symfony 6)\nnamespace App\\Controller;\nuse Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController;\nuse Symfony\\Component\\HttpFoundation\\Request;\nuse Symfony\\Component\\Routing\\Annotation\\Route;\n\nclass AccountController extends AbstractController {\n    #[Route('/account/delete', methods: ['POST'])]\n    public function delete(Request $request): \\Symfony\\Component\\HttpFoundation\\Response {\n        $user = $this->getUser();\n        if (!$user) { return $this->redirectToRoute('login'); }\n        $this->userService->delete($user);\n        return $this->redirectToRoute('home');\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-352 vulnerability.\nRealCWE: CWE-352\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-17",
+      "project_id": "CVE-2024-FRESH-17",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-17-fix>\nLines: see snippet\n\nCode:\n<?php\nnamespace App\\Controller;\nuse Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController;\nuse Symfony\\Component\\HttpFoundation\\Request;\nuse Symfony\\Component\\Routing\\Annotation\\Route;\n\nclass AccountController extends AbstractController {\n    #[Route('/account/delete', methods: ['POST'])]\n    public function delete(Request $request): \\Symfony\\Component\\HttpFoundation\\Response {\n        $user = $this->getUser();\n        if (!$user) { return $this->redirectToRoute('login'); }\n        $token = $request->request->get('_token', '');\n        if (!$this->isCsrfTokenValid('delete-account', $token)) {\n            throw $this->createAccessDeniedException();\n        }\n        $this->userService->delete($user);\n        return $this->redirectToRoute('home');\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-352 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-17-fix",
+      "project_id": "CVE-2024-FRESH-17",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-18>\nLines: see snippet\n\nCode:\n<?php\n// /admin/install-plugin.php — admin uploads ZIP plugin\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\n$f = $_FILES['plugin'];\n$blocked = ['php', 'phtml', 'phps', 'pl', 'py'];\n$ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));\nif (in_array($ext, $blocked, true)) {\n    exit('blocked extension');\n}\n$dest = __DIR__ . '/plugins/' . basename($f['name']);\nmove_uploaded_file($f['tmp_name'], $dest);\necho 'ok: ' . htmlspecialchars($f['name']);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-434 vulnerability.\nRealCWE: CWE-434\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-18",
+      "project_id": "CVE-2024-FRESH-18",
+      "claimed_cwe": "CWE-434",
+      "real_cwe": "CWE-434",
+      "verdict": "TRUE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-18-fix>\nLines: see snippet\n\nCode:\n<?php\nsession_start();\nif (empty($_SESSION['is_admin'])) { http_response_code(403); exit; }\n\n$f = $_FILES['plugin'];\nif ($f['error'] !== UPLOAD_ERR_OK) { exit('upload failed'); }\nif ($f['size'] > 10 * 1024 * 1024) { exit('too large'); }\n$mime = mime_content_type($f['tmp_name']);\nif ($mime !== 'application/zip') { exit('only ZIP allowed'); }\n$safe_name = bin2hex(random_bytes(8)) . '.zip';\n$dest = __DIR__ . '/plugins/' . $safe_name;\nmove_uploaded_file($f['tmp_name'], $dest);\necho 'ok: ' . $safe_name;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-434 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-18-fix",
+      "project_id": "CVE-2024-FRESH-18",
+      "claimed_cwe": "CWE-434",
+      "real_cwe": "CWE-434",
+      "verdict": "FALSE_POSITIVE",
+      "language": "PHP",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-19>\nLines: see snippet\n\nCode:\nfrom django.db import connection\nfrom django.http import JsonResponse\n\ndef reports_by_status(request):\n    # GET /api/reports?status=open\n    status = request.GET.get(\"status\", \"open\")\n    with connection.cursor() as cur:\n        cur.execute(f\"SELECT id, title FROM reports WHERE status = '{status}' ORDER BY created_at DESC LIMIT 100\")\n        rows = cur.fetchall()\n    return JsonResponse({\"reports\": [{\"id\": r[0], \"title\": r[1]} for r in rows]})\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-89 vulnerability.\nRealCWE: CWE-89\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-19",
+      "project_id": "CVE-2024-FRESH-19",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-19-fix>\nLines: see snippet\n\nCode:\nfrom django.db import connection\nfrom django.http import JsonResponse\n\nALLOWED_STATUSES = {\"open\", \"closed\", \"in_review\", \"rejected\"}\n\ndef reports_by_status(request):\n    status = request.GET.get(\"status\", \"open\")\n    if status not in ALLOWED_STATUSES:\n        return JsonResponse({\"error\": \"bad status\"}, status=400)\n    with connection.cursor() as cur:\n        cur.execute(\n            \"SELECT id, title FROM reports WHERE status = %s ORDER BY created_at DESC LIMIT 100\",\n            [status],\n        )\n        rows = cur.fetchall()\n    return JsonResponse({\"reports\": [{\"id\": r[0], \"title\": r[1]} for r in rows]})\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-89 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-19-fix",
+      "project_id": "CVE-2024-FRESH-19",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-20>\nLines: see snippet\n\nCode:\nfrom flask import Flask, request, render_template_string\n\napp = Flask(__name__)\n\n# /comment/preview - preview user-submitted comment HTML\nTPL = \"\"\"\n<div class=\"comment\">\n    <strong>{{ author }}</strong>\n    <div class=\"body\">{{ body|safe }}</div>\n</div>\n\"\"\"\n\n@app.route(\"/comment/preview\")\ndef preview():\n    author = request.args.get(\"author\", \"anon\")\n    body = request.args.get(\"body\", \"\")\n    return render_template_string(TPL, author=author, body=body)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-79 vulnerability.\nRealCWE: CWE-79\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-20",
+      "project_id": "CVE-2024-FRESH-20",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-20-fix>\nLines: see snippet\n\nCode:\nimport bleach\nfrom flask import Flask, request, render_template_string\n\napp = Flask(__name__)\nALLOWED_TAGS = [\"p\", \"br\", \"strong\", \"em\", \"a\"]\nALLOWED_ATTRS = {\"a\": [\"href\", \"title\"]}\n\nTPL = \"\"\"\n<div class=\"comment\">\n    <strong>{{ author }}</strong>\n    <div class=\"body\">{{ body|safe }}</div>\n</div>\n\"\"\"\n\n@app.route(\"/comment/preview\")\ndef preview():\n    author = request.args.get(\"author\", \"anon\")\n    body_raw = request.args.get(\"body\", \"\")\n    body = bleach.clean(body_raw, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS, strip=True)\n    return render_template_string(TPL, author=author, body=body)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-79 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-20-fix",
+      "project_id": "CVE-2024-FRESH-20",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-21>\nLines: see snippet\n\nCode:\nimport yaml\nfrom fastapi import FastAPI, UploadFile\n\napp = FastAPI()\n\n@app.post(\"/api/config/upload\")\nasync def upload_config(f: UploadFile):\n    content = await f.read()\n    config = yaml.load(content, Loader=yaml.FullLoader)\n    return {\"keys\": list(config.keys())}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-502 vulnerability.\nRealCWE: CWE-502\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-21",
+      "project_id": "CVE-2024-FRESH-21",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-21-fix>\nLines: see snippet\n\nCode:\nimport yaml\nfrom fastapi import FastAPI, UploadFile, HTTPException\n\napp = FastAPI()\n\n@app.post(\"/api/config/upload\")\nasync def upload_config(f: UploadFile):\n    content = await f.read()\n    try:\n        config = yaml.safe_load(content)\n    except yaml.YAMLError:\n        raise HTTPException(400, \"invalid yaml\")\n    if not isinstance(config, dict):\n        raise HTTPException(400, \"must be mapping\")\n    return {\"keys\": list(config.keys())}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-502 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-21-fix",
+      "project_id": "CVE-2024-FRESH-21",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "CWE-502",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-22>\nLines: see snippet\n\nCode:\nfrom fastapi import FastAPI\n\napp = FastAPI()\n\n@app.post(\"/api/script/run\")\ndef run_user_script(script: str):\n    # Internal automation tool: lets ops paste a Python snippet\n    ns = {\"__builtins__\": __builtins__}\n    exec(script, ns)\n    return {\"vars\": [k for k in ns if not k.startswith(\"__\")]}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-94 vulnerability.\nRealCWE: CWE-94\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-22",
+      "project_id": "CVE-2024-FRESH-22",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-22-fix>\nLines: see snippet\n\nCode:\nfrom fastapi import FastAPI, HTTPException\n\napp = FastAPI()\n\n# Replaced exec() with a small DSL: only declarative key=value statements.\nimport re\nLINE_RE = re.compile(r\"^([a-zA-Z_]\\w{0,30})\\s*=\\s*([\\-]?\\d+(?:\\.\\d+)?|\\\"[\\w\\s]{0,200}\\\")$\")\n\n@app.post(\"/api/script/run\")\ndef run_user_script(script: str):\n    vars_ = {}\n    for ln in script.splitlines():\n        ln = ln.strip()\n        if not ln or ln.startswith(\"#\"):\n            continue\n        m = LINE_RE.match(ln)\n        if not m:\n            raise HTTPException(400, f\"bad line: {ln[:50]}\")\n        k, v = m.group(1), m.group(2)\n        vars_[k] = v.strip('\"') if v.startswith('\"') else float(v) if \".\" in v else int(v)\n    return {\"vars\": list(vars_.keys())}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-94 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-22-fix",
+      "project_id": "CVE-2024-FRESH-22",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-23>\nLines: see snippet\n\nCode:\nimport tarfile\nfrom fastapi import FastAPI, UploadFile\n\napp = FastAPI()\n\n@app.post(\"/api/backup/restore\")\nasync def restore_backup(f: UploadFile):\n    # Extract user-uploaded backup tarball into ./restore/\n    raw = await f.read()\n    with open(\"upload.tar.gz\", \"wb\") as out:\n        out.write(raw)\n    with tarfile.open(\"upload.tar.gz\", \"r:gz\") as tar:\n        tar.extractall(\"./restore\")\n    return {\"ok\": True}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-22 vulnerability.\nRealCWE: CWE-22\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-23",
+      "project_id": "CVE-2024-FRESH-23",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-23-fix>\nLines: see snippet\n\nCode:\nimport os, tarfile\nfrom fastapi import FastAPI, UploadFile, HTTPException\n\napp = FastAPI()\nRESTORE_DIR = os.path.abspath(\"./restore\")\n\ndef _safe_path(member_name: str) -> bool:\n    target = os.path.abspath(os.path.join(RESTORE_DIR, member_name))\n    return target.startswith(RESTORE_DIR + os.sep)\n\n@app.post(\"/api/backup/restore\")\nasync def restore_backup(f: UploadFile):\n    raw = await f.read()\n    with open(\"upload.tar.gz\", \"wb\") as out:\n        out.write(raw)\n    with tarfile.open(\"upload.tar.gz\", \"r:gz\") as tar:\n        for m in tar.getmembers():\n            if m.issym() or m.islnk() or not _safe_path(m.name):\n                raise HTTPException(400, f\"unsafe entry: {m.name}\")\n        tar.extractall(RESTORE_DIR)\n    return {\"ok\": True}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-22 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-23-fix",
+      "project_id": "CVE-2024-FRESH-23",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-798\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-24>\nLines: see snippet\n\nCode:\nimport requests\n\n# api_client.py — internal billing API integration\nBILLING_API = \"https://billing-internal.acme.local/v2\"\nAPI_KEY = \"ak_live_3xqV5d8c2nP7yB4kRfE6tZ9wJmQ1aH0sT\"\n\ndef charge_customer(customer_id: str, amount_cents: int) -> dict:\n    r = requests.post(\n        f\"{BILLING_API}/charges\",\n        json={\"customer\": customer_id, \"amount\": amount_cents},\n        headers={\"Authorization\": f\"Bearer {API_KEY}\"},\n        timeout=10,\n    )\n    r.raise_for_status()\n    return r.json()\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-798 vulnerability.\nRealCWE: CWE-798\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-24",
+      "project_id": "CVE-2024-FRESH-24",
+      "claimed_cwe": "CWE-798",
+      "real_cwe": "CWE-798",
+      "verdict": "TRUE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-798\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-24-fix>\nLines: see snippet\n\nCode:\nimport os, requests\n\nBILLING_API = os.environ[\"BILLING_API_URL\"]\nAPI_KEY = os.environ[\"BILLING_API_KEY\"]\n\ndef charge_customer(customer_id: str, amount_cents: int) -> dict:\n    r = requests.post(\n        f\"{BILLING_API}/charges\",\n        json={\"customer\": customer_id, \"amount\": amount_cents},\n        headers={\"Authorization\": f\"Bearer {API_KEY}\"},\n        timeout=10,\n    )\n    r.raise_for_status()\n    return r.json()\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-798 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-24-fix",
+      "project_id": "CVE-2024-FRESH-24",
+      "claimed_cwe": "CWE-798",
+      "real_cwe": "CWE-798",
+      "verdict": "FALSE_POSITIVE",
+      "language": "Python",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-25>\nLines: see snippet\n\nCode:\nconst mysql = require('mysql2/promise');\nconst express = require('express');\nconst app = express();\n\nconst pool = mysql.createPool({ host: 'localhost', user: 'app', database: 'shop' });\n\napp.get('/api/products', async (req, res) => {\n  const category = req.query.category || 'all';\n  const [rows] = await pool.query(\n    `SELECT id, name, price FROM products WHERE category = '${category}' AND active = 1 LIMIT 50`\n  );\n  res.json(rows);\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-89 vulnerability.\nRealCWE: CWE-89\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-25",
+      "project_id": "CVE-2024-FRESH-25",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-25-fix>\nLines: see snippet\n\nCode:\nconst mysql = require('mysql2/promise');\nconst express = require('express');\nconst app = express();\nconst pool = mysql.createPool({ host: 'localhost', user: 'app', database: 'shop' });\n\napp.get('/api/products', async (req, res) => {\n  const category = req.query.category || 'all';\n  const [rows] = await pool.query(\n    'SELECT id, name, price FROM products WHERE category = ? AND active = 1 LIMIT 50',\n    [category]\n  );\n  res.json(rows);\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-89 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-25-fix",
+      "project_id": "CVE-2024-FRESH-25",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-26>\nLines: see snippet\n\nCode:\n// public/js/notifications.js — frontend handler\nasync function showNotification() {\n  const params = new URLSearchParams(window.location.search);\n  const message = params.get('msg') || '';\n  const banner = document.getElementById('notification-banner');\n  banner.innerHTML = `<span class=\"ico\">!</span> ${message}`;\n  banner.style.display = 'block';\n}\ndocument.addEventListener('DOMContentLoaded', showNotification);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-79 vulnerability.\nRealCWE: CWE-79\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-26",
+      "project_id": "CVE-2024-FRESH-26",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-26-fix>\nLines: see snippet\n\nCode:\nasync function showNotification() {\n  const params = new URLSearchParams(window.location.search);\n  const message = params.get('msg') || '';\n  const banner = document.getElementById('notification-banner');\n  banner.replaceChildren();\n  const ico = document.createElement('span');\n  ico.className = 'ico';\n  ico.textContent = '!';\n  banner.appendChild(ico);\n  banner.appendChild(document.createTextNode(' ' + message));\n  banner.style.display = 'block';\n}\ndocument.addEventListener('DOMContentLoaded', showNotification);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-79 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-26-fix",
+      "project_id": "CVE-2024-FRESH-26",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-27>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst { exec } = require('child_process');\nconst app = express();\n\n// /api/dns/lookup?host=example.com\napp.get('/api/dns/lookup', (req, res) => {\n  const host = req.query.host;\n  exec(`dig +short ${host}`, { timeout: 5000 }, (err, stdout, stderr) => {\n    if (err) return res.status(500).send(stderr);\n    res.type('text/plain').send(stdout);\n  });\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-78 vulnerability.\nRealCWE: CWE-78\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-27",
+      "project_id": "CVE-2024-FRESH-27",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-27-fix>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst { execFile } = require('child_process');\nconst app = express();\nconst HOST_RE = /^[a-zA-Z0-9.\\-]{1,253}$/;\n\napp.get('/api/dns/lookup', (req, res) => {\n  const host = req.query.host || '';\n  if (!HOST_RE.test(host)) return res.status(400).send('bad host');\n  execFile('dig', ['+short', '--', host], { timeout: 5000 }, (err, stdout, stderr) => {\n    if (err) return res.status(500).send(stderr);\n    res.type('text/plain').send(stdout);\n  });\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-78 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-27-fix",
+      "project_id": "CVE-2024-FRESH-27",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-28>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst axios = require('axios');\nconst app = express();\napp.use(express.json());\n\n// POST /api/proxy { url: \"...\" }\napp.post('/api/proxy', async (req, res) => {\n  try {\n    const r = await axios.get(req.body.url, { timeout: 5000, maxRedirects: 5 });\n    res.status(r.status).send(typeof r.data === 'string' ? r.data : JSON.stringify(r.data));\n  } catch (e) {\n    res.status(502).send(String(e));\n  }\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-918 vulnerability.\nRealCWE: CWE-918\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-28",
+      "project_id": "CVE-2024-FRESH-28",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-28-fix>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst axios = require('axios');\nconst dns = require('dns').promises;\nconst net = require('net');\nconst { URL } = require('url');\nconst app = express();\napp.use(express.json());\n\nfunction isPrivate(ip) {\n  const f = ip.split('.').map(Number);\n  if (f.length !== 4) return true;\n  return f[0] === 10 || f[0] === 127 || (f[0] === 172 && f[1] >= 16 && f[1] <= 31)\n      || (f[0] === 192 && f[1] === 168) || f[0] === 169 || f[0] === 0 || f[0] >= 224;\n}\n\napp.post('/api/proxy', async (req, res) => {\n  try {\n    const u = new URL(req.body.url);\n    if (!['http:', 'https:'].includes(u.protocol)) return res.status(400).send('bad scheme');\n    const { address } = await dns.lookup(u.hostname);\n    if (!net.isIPv4(address) || isPrivate(address)) return res.status(400).send('blocked');\n    const r = await axios.get(u.toString(), { timeout: 5000, maxRedirects: 0 });\n    res.status(r.status).send(typeof r.data === 'string' ? r.data : JSON.stringify(r.data));\n  } catch (e) {\n    res.status(502).send(String(e));\n  }\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-918 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-28-fix",
+      "project_id": "CVE-2024-FRESH-28",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-29>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst vm = require('vm');\nconst app = express();\napp.use(express.json());\n\n// Internal scripting endpoint for admin macros\napp.post('/api/macro/run', (req, res) => {\n  const code = req.body.code || '';\n  const sandbox = { result: null, Math, Date };\n  vm.runInNewContext(code, sandbox, { timeout: 1000 });\n  res.json({ result: sandbox.result });\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-94 vulnerability.\nRealCWE: CWE-94\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-29",
+      "project_id": "CVE-2024-FRESH-29",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-29-fix>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst app = express();\napp.use(express.json());\n\n// Restricted whitelist: only \"result = <number expression>\"\nconst EXPR_RE = /^result\\s*=\\s*([0-9+\\-*/().\\s]{1,200})$/;\n\napp.post('/api/macro/run', (req, res) => {\n  const code = (req.body.code || '').trim();\n  const m = EXPR_RE.exec(code);\n  if (!m) return res.status(400).json({ error: 'only numeric expressions allowed' });\n  try {\n    const result = Function('\"use strict\"; return (' + m[1] + ');')();\n    if (typeof result !== 'number' || !isFinite(result)) {\n      return res.status(400).json({ error: 'non-numeric result' });\n    }\n    res.json({ result });\n  } catch {\n    res.status(400).json({ error: 'parse error' });\n  }\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-94 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-29-fix",
+      "project_id": "CVE-2024-FRESH-29",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-30>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst cookieParser = require('cookie-parser');\nconst session = require('express-session');\nconst app = express();\napp.use(cookieParser());\napp.use(express.urlencoded({ extended: true }));\napp.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));\n\n// /account/email — change account email\napp.post('/account/email', (req, res) => {\n  if (!req.session.userId) return res.status(401).send('login required');\n  const newEmail = req.body.email;\n  db.run('UPDATE users SET email = ? WHERE id = ?', [newEmail, req.session.userId]);\n  res.send('ok');\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code does contain a CWE-352 vulnerability.\nRealCWE: CWE-352\nSuggestedFix: Refer to the fixed counterpart in the pair.\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-30",
+      "project_id": "CVE-2024-FRESH-30",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "TRUE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: <CVE-2024-FRESH-30-fix>\nLines: see snippet\n\nCode:\nconst express = require('express');\nconst cookieParser = require('cookie-parser');\nconst session = require('express-session');\nconst csrf = require('csurf');\nconst app = express();\napp.use(cookieParser());\napp.use(express.urlencoded({ extended: true }));\napp.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: false }));\nconst csrfProtect = csrf({ cookie: false });\n\napp.post('/account/email', csrfProtect, (req, res) => {\n  if (!req.session.userId) return res.status(401).send('login required');\n  const newEmail = req.body.email;\n  db.run('UPDATE users SET email = ? WHERE id = ?', [newEmail, req.session.userId]);\n  res.send('ok');\n});\n\napp.listen(3000);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code is the post-fix counterpart of the matching pre-fix sample. The CWE-352 vulnerability has been remediated.\nRealCWE: N/A\nSuggestedFix: N/A\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-FRESH-30-fix",
+      "project_id": "CVE-2024-FRESH-30",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "CWE-352",
+      "verdict": "FALSE_POSITIVE",
+      "language": "JavaScript",
+      "tool": "semgrep",
+      "source": "fresh_cves_60",
+      "post_pretrain_cutoff": true
+    }
+  }
+]

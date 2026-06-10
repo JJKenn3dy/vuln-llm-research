@@ -155,7 +155,28 @@ def run_local(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
         results.append(_make_record(ex, response, i, len(cases)))
         if (i + 1) % 20 == 0:
             log(f"  [{i+1}/{len(cases)}]")
+            _dump_partial(results, args)
     return results
+
+
+def _dump_partial(results: list[dict], args: argparse.Namespace) -> None:
+    """Write a running snapshot so external watchers can peek mid-eval."""
+    try:
+        pairs = [(r["true_verdict"], r["predicted_verdict"]) for r in results]
+        c = confusion(pairs)
+        d = derived(c)
+        partial = {
+            "n_so_far": len(results),
+            **c,
+            **d,
+            "parse_fail_rate": c["PARSE_FAIL"] / len(results) if results else 0.0,
+        }
+        Path(args.metrics).parent.mkdir(parents=True, exist_ok=True)
+        tmp = Path(args.metrics).with_suffix(".partial.json.tmp")
+        tmp.write_text(json.dumps(partial, ensure_ascii=False, indent=2), encoding="utf-8")
+        tmp.replace(Path(args.metrics).with_suffix(".partial.json"))
+    except Exception as e:
+        log(f"  (partial dump failed: {e})")
 
 
 def run_api(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
@@ -179,14 +200,14 @@ def run_api(args: argparse.Namespace, cases: list[dict]) -> list[dict]:
         messages = ex["messages"][:2]
         try:
             if args.api in ("openai", "openrouter"):
-                is_reasoning = args.model.startswith(("o1", "o3", "o4"))
+                # GPT-5+ and o-series require max_completion_tokens; o-series and
+                # gpt-5* also reject custom temperature (only default 1.0 allowed).
+                is_new_openai = args.model.startswith(("o1", "o3", "o4", "o5", "gpt-5", "gpt-6"))
                 kwargs = {
                     "model": args.model,
                     "messages": messages,
                 }
-                if is_reasoning:
-                    # o-series: no temperature, use max_completion_tokens
-                    # and budget more tokens for hidden reasoning
+                if is_new_openai:
                     kwargs["max_completion_tokens"] = max(args.max_new_tokens, 1500)
                 else:
                     kwargs["temperature"] = 0.0

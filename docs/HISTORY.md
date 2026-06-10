@@ -93,6 +93,74 @@ A 95% Wilson interval on 100 binary decisions is roughly ±6 percentage points. 
 
 **Implication for v8**: keep checkpoints every 0.5 epoch minimum during training. Storage is cheap. Delete after the post-hoc analysis is done, not before.
 
+## Lesson 9: Smoke (no API cost) BEFORE pay (with teacher)
+
+The v8.2 cycle wasted ~$2.30 on two preps where the FP-source logic was wrong:
+post-fix and "mixed" both used `fixed_code`, both produced TP/FP length ratio
+1.78. Each prep was $1.16, 45 minutes wall-clock, and the shortcut was visible
+in 30 seconds of statistical analysis without a single API call.
+
+We later wrote `simulate_misclass.py` — a 50-line script that loads CVEFixes
+and computes TP/FP length distributions for various FP-source strategies. It
+showed misclass=0.93 ratio vs post-fix=1.78 with zero API spend.
+
+**Implication**: before any prep that uses a teacher LLM, run a zero-cost
+sanity check on the structure of the proposed data. If the structure is
+broken (length distribution, source overlap, label imbalance) you find it
+in seconds, not in 45 minutes.
+
+## Lesson 10: 14B does not solve overfit on small data
+
+User raised mid-session: "shouldn't we upgrade to 14B to fit more examples?"
+Wrong intuition. LoRA fine-tuning freezes the base model and trains an
+adapter (~40M params for r=16). Going to 14B doesn't change the LoRA capacity.
+It does increase the cost and the base-model knowledge, but the bottleneck on
+v8.2 is the **ratio** of trainable params to training pairs (22000:1), not
+the size of the frozen base.
+
+**Implication**: when overfitting is the failure mode, **smaller LoRA r**
+(8 or 4) and **more training data** beat bigger base models. 14B is only
+worth it when 7B has clearly plateaued on in-domain quality at scale, which
+v5b (F1=0.86) and v8.2 (test_balanced BA=0.82) haven't shown.
+
+## Lesson 11: One shortcut killed → next shortcut appears
+
+After per-pair length matching (TP/FP ratio = 1.03), shortcut MLP F1 went
+from 0.69 to 0.85 because the truncation added "// ... truncated for length
+normalisation" as a marker that 75% of FP examples got and only 11% of TP
+got. We had unwittingly invented a new feature.
+
+**Implication**: shortcut elimination is iterative. After every distribution
+fix, re-run shortcut_check. Any marker, header, EOF token, or padding added
+to one class becomes a learnable feature.
+
+## Lesson 12: Distribution of FP types matters more than total FP count
+
+v8.2 on test_balanced (mixed 80% misclass + 20% post-fix): BA 0.82.
+v8.2 on fresh_cves_60 (100% post-fix): BA 0.47.
+v8.2 on SastBench-250 (mostly Semgrep pattern-mismatches): MCC 0.10.
+
+The model learned the dominant FP type and failed when given a different one.
+A model that scores 0.82 on one FP distribution and 0.47 on another isn't a
+0.65-average model — it is two separate classifiers with the same name.
+
+**Implication for v8.3**: train on a deliberately mixed FP distribution that
+matches the *operational* mix the model will see. 50% post-fix + 50% misclass
+is a safer prior. Better: source FPs from multiple SAST tools (Semgrep,
+CodeQL, Bandit) to capture different "scanner mistakes".
+
+## Lesson 13: Internal benchmarks have home advantage — external is the real test
+
+v8.2 looked great on test_balanced (BA 0.82 vs frontier 0.50-0.61) but matched
+Sonnet 4.5 on SastBench (MCC 0.10 vs 0.11). The first number is too optimistic
+for pitch decks — it measures how well we fit our own data. The second number
+is the real product-market signal.
+
+**Implication for v8.X going forward**: any time we report headline numbers,
+attach the external SastBench MCC alongside. If the gap between in-domain
+and SastBench is more than ~0.15 BA, we're overfitting and the pitch is
+fragile.
+
 ## Summary table
 
 | # | Lesson | v8 design impact |
@@ -105,3 +173,8 @@ A 95% Wilson interval on 100 binary decisions is roughly ±6 percentage points. 
 | 6 | F1 alone is misleading on balanced eval | Always report BalAcc and prediction distribution |
 | 7 | 100-example eval has wide CI | Aim for 500-1000 for real claims |
 | 8 | Aggressive checkpoint pruning hurts later analysis | Keep intermediate checkpoints |
+| 9 | Free sanity-check beats paid teacher run | Statistical simulation before any API spend |
+| 10 | 14B does not solve overfit on 1.8k pairs | Lower LoRA r + more data, not bigger base |
+| 11 | Shortcut elimination is iterative | Re-run shortcut_check after any fix |
+| 12 | FP distribution mix matters more than total FP count | 50/50 post-fix + misclass baseline |
+| 13 | Internal benchmark has home advantage | Always attach SastBench MCC to headline |
