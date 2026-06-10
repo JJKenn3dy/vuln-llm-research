@@ -24,8 +24,8 @@ from pathlib import Path
 import torch
 from datasets import Dataset
 from peft import LoraConfig, get_peft_model
-from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
-from trl import SFTTrainer
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from trl import SFTTrainer, SFTConfig
 
 
 def load_data(path: str) -> Dataset:
@@ -110,7 +110,7 @@ def main() -> None:
     val_ds = load_data(args.val_file)
     print(f"   Train: {len(train_ds)} | Val: {len(val_ds)}")
 
-    targs = TrainingArguments(
+    targs = SFTConfig(
         output_dir=args.output_dir,
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.batch_size,
@@ -129,6 +129,8 @@ def main() -> None:
         gradient_checkpointing=True,
         dataloader_pin_memory=False,
         seed=args.seed,
+        dataset_text_field="text",
+        max_seq_length=args.max_seq_length,
     )
 
     trainer = SFTTrainer(
@@ -136,9 +138,7 @@ def main() -> None:
         args=targs,
         train_dataset=train_ds,
         eval_dataset=val_ds,
-        dataset_text_field="text",
-        max_seq_length=args.max_seq_length,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
     )
 
     print("==> Starting training")
