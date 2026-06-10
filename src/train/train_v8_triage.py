@@ -1,61 +1,90 @@
-"""Skeleton: v8 triage fine-tune.
+"""v8 triage fine-tune launcher.
 
-The triage task differs from v5-v7lite detection task:
-  - Input: code + existing SAST finding (with claimed CWE)
-  - Output: TP/FP verdict + reasoning + real CWE + suggested fix
+Thin wrapper around train_qlora.py with v8-appropriate defaults baked in:
+  - 2 epochs (lesson from v7lite: 3 epochs caused memorization on 4k pairs)
+  - lr 1e-4 (lower than v5b's 1.5e-4 to encourage generalization)
+  - max_seq_length 2048 (triage prompts are longer than detection)
 
-Architecture choices to validate empirically:
-  1. Single-stage: directly predict TP/FP from code + finding
-  2. Two-stage: stage1 detects vuln, stage2 with different prompt re-checks
-     (motivated by Datadog's LLM-as-FP-filter: 92% -> 6.3% FP on OWASP)
+If you just want to run with defaults:
 
-Differences from train_qlora.py:
-  - Larger LoRA r (24-32) since we predict more structured output
-  - Smaller LR to avoid memorization (lesson from v7lite)
-  - Strict project-level split (no random split — see HISTORY.md)
-  - Multi-task loss: TP/FP + CWE + severity (configurable)
+    bash scripts/train_v8.sh
 
-Status: SKELETON. Use train_qlora.py as canonical baseline first, swap in
-triage data + triage prompt once prepare_sastbench.py is implemented.
+To override anything, pass through to train_qlora directly:
+
+    python -m src.train.train_qlora --train-file ... --lora-r 8 ...
+
+See [docs/ARCHITECTURE.md](../../docs/ARCHITECTURE.md) for the rationale.
 """
 from __future__ import annotations
 
 import argparse
+import sys
 
-# Re-use the train_qlora entry point with sensible defaults for triage.
-# Once we have data, this becomes a thin wrapper that calls train_qlora.main
-# with triage-tuned hyperparameters.
+
+V8_DEFAULTS = {
+    "epochs": 2.0,
+    "lora_r": 16,
+    "lora_alpha": 32,
+    "lr": 1.0e-4,
+    "max_seq_length": 2048,
+    "batch_size": 1,
+    "grad_accum": 8,
+    "save_steps": 50,
+    "save_total_limit": 5,
+    "warmup_ratio": 0.05,
+    "report_to": "none",
+}
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="v8 triage fine-tune (SastBench)")
-    p.add_argument("--train-file", required=True,
-                   help="Output of prepare_sastbench.py with triage examples")
-    p.add_argument("--val-file", required=True)
-    p.add_argument("--output-dir", required=True)
-    p.add_argument("--base-model", default="Qwen/Qwen2.5-Coder-7B-Instruct")
-    p.add_argument("--epochs", type=float, default=2.0,
-                   help="2 epochs default, lesson from v7lite (3 caused memorization)")
-    p.add_argument("--lora-r", type=int, default=16,
-                   help="r=8 if memorization, r=24 if structured output needs more capacity")
-    p.add_argument("--lora-alpha", type=int, default=32)
-    p.add_argument("--lr", type=float, default=1.0e-4,
-                   help="Lower than v5b (1.5e-4) to encourage generalization")
-    p.add_argument("--max-seq-length", type=int, default=2048,
-                   help="Longer than detection because triage output is larger")
-    p.add_argument("--two-stage", action="store_true",
-                   help="If set, train second-stage FP-filter as separate adapter")
+    p = argparse.ArgumentParser(description="v8 triage fine-tune (delegates to train_qlora)")
+    p.add_argument("--train-file", default="data/train/triage_v8_from_v7lite/triage_train.json")
+    p.add_argument("--val-file", default="data/train/triage_v8_from_v7lite/triage_val.json")
+    p.add_argument("--output-dir", default="/workspace/adapters/v8_first")
+    p.add_argument("--base-model", default="/workspace/models/qwen2.5-coder-7b-instruct")
+    p.add_argument("--epochs", type=float, default=V8_DEFAULTS["epochs"])
+    p.add_argument("--lora-r", type=int, default=V8_DEFAULTS["lora_r"])
+    p.add_argument("--lora-alpha", type=int, default=V8_DEFAULTS["lora_alpha"])
+    p.add_argument("--lr", type=float, default=V8_DEFAULTS["lr"])
+    p.add_argument("--max-seq-length", type=int, default=V8_DEFAULTS["max_seq_length"])
+    p.add_argument("--hf-repo", default="JJKennedy/vuln-llm-adapters")
+    p.add_argument("--hf-subfolder", default="v8_first")
+    p.add_argument("--no-upload", action="store_true",
+                   help="Skip pushing the trained adapter to HuggingFace")
     return p.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    raise NotImplementedError(
-        "v8-triage training pipeline not yet implemented. "
-        "Next steps: (1) implement prepare_sastbench.py, (2) run train_qlora.py "
-        "with --train-file <triage train> to validate end-to-end, "
-        "(3) optimize hyperparameters from there."
-    )
+
+    forwarded = [
+        "train_qlora",
+        "--train-file", args.train_file,
+        "--val-file", args.val_file,
+        "--output-dir", args.output_dir,
+        "--base-model", args.base_model,
+        "--epochs", str(args.epochs),
+        "--lora-r", str(args.lora_r),
+        "--lora-alpha", str(args.lora_alpha),
+        "--lr", str(args.lr),
+        "--max-seq-length", str(args.max_seq_length),
+        "--batch-size", str(V8_DEFAULTS["batch_size"]),
+        "--grad-accum", str(V8_DEFAULTS["grad_accum"]),
+        "--save-steps", str(V8_DEFAULTS["save_steps"]),
+        "--save-total-limit", str(V8_DEFAULTS["save_total_limit"]),
+        "--warmup-ratio", str(V8_DEFAULTS["warmup_ratio"]),
+        "--report-to", V8_DEFAULTS["report_to"],
+    ]
+    if not args.no_upload and args.hf_repo:
+        forwarded += [
+            "--hf-repo", args.hf_repo,
+            "--hf-subfolder", args.hf_subfolder,
+        ]
+
+    sys.argv = forwarded
+
+    from src.train.train_qlora import main as train_qlora_main
+    train_qlora_main()
 
 
 if __name__ == "__main__":
