@@ -45,7 +45,8 @@ python -m src.train.train_qlora \
     --save-steps 50 \
     --save-total-limit 8 \
     --base-model "$WORKSPACE/models/qwen2.5-coder-7b-instruct" \
-    --upload-to-hf "JJKennedy/vuln-llm-adapters/$ADAPTER_NAME"
+    --hf-repo "JJKennedy/vuln-llm-adapters" \
+    --hf-subfolder "$ADAPTER_NAME"
 
 # Immediate eval on SastBench-250 for quick read on the dedup effect
 python -m src.eval.run_triage_eval \
