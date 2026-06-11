@@ -1,0 +1,385 @@
+{
+  "input": "runs/v8_3_0_logprobs_sastbench250.json",
+  "by": "language",
+  "baseline_default_thr_0.5_mcc": 0.20004754508142977,
+  "overall_cluster_cv_mcc_mean": 0.044708966431366085,
+  "overall_cluster_cv_mcc_median": 0.053121271525973054,
+  "overall_picks_per_fold": [
+    {
+      "fold": 0,
+      "threshold": 0.6,
+      "flip": false,
+      "test_mcc": 0.053121271525973054,
+      "n_train": 206,
+      "n_test": 44
+    },
+    {
+      "fold": 1,
+      "threshold": 0.5,
+      "flip": false,
+      "test_mcc": 0.19126929342693508,
+      "n_train": 152,
+      "n_test": 98
+    },
+    {
+      "fold": 2,
+      "threshold": 0.6,
+      "flip": false,
+      "test_mcc": -0.10286889997472794,
+      "n_train": 228,
+      "n_test": 22
+    },
+    {
+      "fold": 3,
+      "threshold": 0.6,
+      "flip": false,
+      "test_mcc": -0.06705664989726873,
+      "n_train": 215,
+      "n_test": 35
+    },
+    {
+      "fold": 4,
+      "threshold": 0.6,
+      "flip": false,
+      "test_mcc": 0.14907981707591894,
+      "n_train": 199,
+      "n_test": 51
+    }
+  ],
+  "per_slice": {
+    "typescript": {
+      "n": 14,
+      "n_tp": 2,
+      "n_fp": 12,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 11,
+          "n_test": 3
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 12,
+          "n_test": 2
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 12,
+          "n_test": 2
+        },
+        {
+          "fold": 3,
+          "threshold": 0.45,
+          "flip": true,
+          "test_mcc": -0.3333333333333333,
+          "n_train": 10,
+          "n_test": 4
+        },
+        {
+          "fold": 4,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 11,
+          "n_test": 3
+        }
+      ],
+      "mean_mcc": -0.06666666666666667,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "javascript": {
+      "n": 38,
+      "n_tp": 2,
+      "n_fp": 36,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.45,
+          "flip": true,
+          "test_mcc": -0.3535533905932738,
+          "n_train": 31,
+          "n_test": 7
+        },
+        {
+          "fold": 1,
+          "threshold": 0.4,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 31,
+          "n_test": 7
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 25,
+          "n_test": 13
+        },
+        {
+          "fold": 3,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": -0.4082482904638631,
+          "n_train": 33,
+          "n_test": 5
+        },
+        {
+          "fold": 4,
+          "threshold": 0.4,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 32,
+          "n_test": 6
+        }
+      ],
+      "mean_mcc": -0.15236033621142736,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "php": {
+      "n": 118,
+      "n_tp": 23,
+      "n_fp": 95,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": -0.07692307692307693,
+          "n_train": 104,
+          "n_test": 14
+        },
+        {
+          "fold": 1,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 112,
+          "n_test": 6
+        },
+        {
+          "fold": 2,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": -0.2581988897471611,
+          "n_train": 111,
+          "n_test": 7
+        },
+        {
+          "fold": 3,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 111,
+          "n_test": 7
+        },
+        {
+          "fold": 4,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.2242914979757085,
+          "n_train": 34,
+          "n_test": 84
+        }
+      ],
+      "mean_mcc": -0.022166093738905907,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "python": {
+      "n": 43,
+      "n_tp": 3,
+      "n_fp": 40,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 38,
+          "n_test": 5
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 39,
+          "n_test": 4
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.6900655593423543,
+          "n_train": 21,
+          "n_test": 22
+        },
+        {
+          "fold": 3,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.6546536707079772,
+          "n_train": 35,
+          "n_test": 8
+        },
+        {
+          "fold": 4,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 39,
+          "n_test": 4
+        }
+      ],
+      "mean_mcc": 0.26894384601006627,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "other": {
+      "n": 8,
+      "n_tp": 1,
+      "n_fp": 7,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 5,
+          "n_test": 3
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 7,
+          "n_test": 1
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 6,
+          "n_test": 2
+        },
+        {
+          "fold": 4,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 7,
+          "n_test": 1
+        }
+      ],
+      "mean_mcc": 0.0,
+      "median_mcc": 0.0,
+      "n_valid_folds": 4
+    },
+    "go": {
+      "n": 18,
+      "n_tp": 3,
+      "n_fp": 15,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": -0.5,
+          "n_train": 15,
+          "n_test": 3
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 15,
+          "n_test": 3
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 16,
+          "n_test": 2
+        },
+        {
+          "fold": 3,
+          "threshold": 0.65,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 15,
+          "n_test": 3
+        },
+        {
+          "fold": 4,
+          "threshold": 0.65,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 11,
+          "n_test": 7
+        }
+      ],
+      "mean_mcc": -0.1,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "ruby": {
+      "n": 10,
+      "n_tp": 1,
+      "n_fp": 9,
+      "fold_picks": [
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 7,
+          "n_test": 3
+        },
+        {
+          "fold": 2,
+          "threshold": 0.45,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 7,
+          "n_test": 3
+        },
+        {
+          "fold": 3,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 9,
+          "n_test": 1
+        },
+        {
+          "fold": 4,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 9,
+          "n_test": 1
+        }
+      ],
+      "mean_mcc": 0.0,
+      "median_mcc": 0.0,
+      "n_valid_folds": 4
+    }
+  }
+}

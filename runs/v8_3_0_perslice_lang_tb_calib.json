@@ -1,0 +1,101 @@
+{
+  "input": "runs/v8_3_0_logprobs_testbalanced.json",
+  "by": "language",
+  "baseline_default_thr_0.5_mcc": 0.4207251934459175,
+  "overall_cluster_cv_mcc_mean": 0.34199247609300426,
+  "overall_cluster_cv_mcc_median": 0.3289758474798845,
+  "overall_picks_per_fold": [
+    {
+      "fold": 0,
+      "threshold": 0.35,
+      "flip": false,
+      "test_mcc": 0.4131969352706687,
+      "n_train": 200,
+      "n_test": 48
+    },
+    {
+      "fold": 1,
+      "threshold": 0.55,
+      "flip": false,
+      "test_mcc": 0.3289758474798845,
+      "n_train": 216,
+      "n_test": 32
+    },
+    {
+      "fold": 2,
+      "threshold": 0.55,
+      "flip": false,
+      "test_mcc": 0.2335496832484569,
+      "n_train": 222,
+      "n_test": 26
+    },
+    {
+      "fold": 3,
+      "threshold": 0.5,
+      "flip": false,
+      "test_mcc": 0.3012272125737919,
+      "n_train": 134,
+      "n_test": 114
+    },
+    {
+      "fold": 4,
+      "threshold": 0.45,
+      "flip": false,
+      "test_mcc": 0.43301270189221935,
+      "n_train": 220,
+      "n_test": 28
+    }
+  ],
+  "per_slice": {
+    "other": {
+      "n": 248,
+      "n_tp": 124,
+      "n_fp": 124,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.35,
+          "flip": false,
+          "test_mcc": 0.4131969352706687,
+          "n_train": 200,
+          "n_test": 48
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.3289758474798845,
+          "n_train": 216,
+          "n_test": 32
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.2335496832484569,
+          "n_train": 222,
+          "n_test": 26
+        },
+        {
+          "fold": 3,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.3012272125737919,
+          "n_train": 134,
+          "n_test": 114
+        },
+        {
+          "fold": 4,
+          "threshold": 0.45,
+          "flip": false,
+          "test_mcc": 0.43301270189221935,
+          "n_train": 220,
+          "n_test": 28
+        }
+      ],
+      "mean_mcc": 0.34199247609300426,
+      "median_mcc": 0.3289758474798845,
+      "n_valid_folds": 5
+    }
+  }
+}
