@@ -1,0 +1,252 @@
+{
+  "hl_732b80e4": {
+    "original_case_id": "782080f7:CWE-22:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_3a644b7b": {
+    "original_case_id": "e4311d83:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_101797df": {
+    "original_case_id": "90edae6b:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_5d63cd05": {
+    "original_case_id": "f3b1cd90:CWE-502:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_dc646bc3": {
+    "original_case_id": "adfba44e:CWE-918:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_719a35e2": {
+    "original_case_id": "98819ca4:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_1274e46c": {
+    "original_case_id": "d0ef6f9a:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_c33b8c0e": {
+    "original_case_id": "0da687b7:CWE-502:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_6f977993": {
+    "original_case_id": "9edbd9a5:CWE-502:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_3ccbdbd0": {
+    "original_case_id": "8eb446f1:CWE-89:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_ade528f7": {
+    "original_case_id": "107d4305:CWE-78:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_77287151": {
+    "original_case_id": "08199826:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_3e558f73": {
+    "original_case_id": "c0c2d2ad:CWE-798:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_6bb6d3c5": {
+    "original_case_id": "493c6e68:CWE-78:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_69b52fec": {
+    "original_case_id": "0ae0365e:CWE-918:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_2a6db63e": {
+    "original_case_id": "b311a5c9:CWE-94:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_b3ebd1a1": {
+    "original_case_id": "ffd59e7d:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_26fe5947": {
+    "original_case_id": "4afb9a06:CWE-918:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_b85eb412": {
+    "original_case_id": "cecec6e9:CWE-78:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_692ef694": {
+    "original_case_id": "e8476168:CWE-79:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_0b468ba4": {
+    "original_case_id": "c34f2d4d:CWE-352:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_1e5879ea": {
+    "original_case_id": "2aefef26:CWE-502:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_5052348d": {
+    "original_case_id": "0af67dd5:CWE-94:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_643e1a6d": {
+    "original_case_id": "cc77ed70:CWE-502:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_394f844a": {
+    "original_case_id": "0ae0365e:CWE-89:false_positive",
+    "ground_truth_verdict": "FALSE_POSITIVE",
+    "ground_truth_real_cwe": "N/A"
+  },
+  "hl_e585513e": {
+    "original_case_id": "fd093b88:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_d8bf2f32": {
+    "original_case_id": "e8476168:CWE-89:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-89"
+  },
+  "hl_d52700b2": {
+    "original_case_id": "3f9d2378:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_63c1b6ab": {
+    "original_case_id": "50643467:CWE-918:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-918"
+  },
+  "hl_30301e83": {
+    "original_case_id": "f2cdf788:CWE-434:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-434"
+  },
+  "hl_dea086eb": {
+    "original_case_id": "569f1e49:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_7da4e72c": {
+    "original_case_id": "adfba44e:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_18490c29": {
+    "original_case_id": "0709f5d9:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_eb2d5c83": {
+    "original_case_id": "2c00a1df:CWE-78:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-78"
+  },
+  "hl_13335fed": {
+    "original_case_id": "f35910cb:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_31ca201e": {
+    "original_case_id": "0dac9e2f:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_d1d93314": {
+    "original_case_id": "175964b1:CWE-89:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-89"
+  },
+  "hl_87679fb8": {
+    "original_case_id": "ecf18913:CWE-94:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-94"
+  },
+  "hl_817fb77a": {
+    "original_case_id": "4afb9a06:CWE-89:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-89"
+  },
+  "hl_9aeba255": {
+    "original_case_id": "58c309f3:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_91f24c5f": {
+    "original_case_id": "09affa8a:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_f77d97e7": {
+    "original_case_id": "420b88e7:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_1b2869c9": {
+    "original_case_id": "c9ba7b08:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_38c0ddf4": {
+    "original_case_id": "cecec6e9:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_db31f162": {
+    "original_case_id": "cc77ed70:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_b5c350bb": {
+    "original_case_id": "82c410b7:CWE-89:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-89"
+  },
+  "hl_8c6d6673": {
+    "original_case_id": "8a370214:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_e5e434bc": {
+    "original_case_id": "59fde616:CWE-22:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-22"
+  },
+  "hl_d83a649a": {
+    "original_case_id": "e84c25f8:CWE-79:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-79"
+  },
+  "hl_4b969175": {
+    "original_case_id": "6cf5c66f:CWE-434:true_positive",
+    "ground_truth_verdict": "TRUE_POSITIVE",
+    "ground_truth_real_cwe": "CWE-434"
+  }
+}

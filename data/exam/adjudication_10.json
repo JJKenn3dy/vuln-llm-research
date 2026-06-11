@@ -1,0 +1,262 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: controle/getProdutosPorAlmox.php\nLines: 1-15\n\nCode:\n<?php\n    require_once('../dao/Conexao.php');\n    require_once('../classes/Produto.php');\n    require_once('../config.php');\n    $almox = $_REQUEST['almox'];\n    $conexao = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);\n    $produtos = array();\n    if($conexao){\n        $query = mysqli_query($conexao, \"SELECT produto.id_produto, produto.codigo, produto.descricao, estoque.qtd, produto.preco FROM produto, estoque WHERE produto.id_produto=estoque.id_produto AND estoque.qtd>0 AND estoque.id_almoxarifado=$almox\");\n        while($resultado = mysqli_fetch_array($query)){\n            $produtos[] = $resultado; \n        }\n        echo(json_encode($produtos));\n    }else echo false;\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8eb446f1:CWE-89:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "controle/getProdutosPorAlmox.php",
+      "line_range": "1-15",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "8eb446f132ceba002559da2fd8745386096d494e"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: .github/workflows/announcements.yml\nLines: 1-27\n\nCode:\nname: Notify Discord on PR Merge with Specific Tag\n\non:\n  pull_request:\n    types:\n      - closed\n\njobs:\n  notify-discord:\n    if: github.event.pull_request.merged == true\n    runs-on: ubuntu-latest\n\n    steps:\n      - name: Send Notification to Discord\n        if: contains(github.event.issue.labels.*.name, 'Breaking-Change')\n        env:\n          DISCORD_WEBHOOK_URL: \"${{ secrets.DISCORD_WEBHOOK_URL_ANNOUNCEMENT }}\"\n        run: |\n          PR_TITLE=\"${{ github.event.pull_request.title }}\"\n          PR_MESSAGE=\"${{ github.event.pull_request.body }}\"\n          PR_URL=\"${{ github.event.pull_request.html_url }}\"\n\n          curl -X POST -H \"Content-Type: application/json\" \\\n          -d \"{\n            \\\"content\\\": \\\":rotating_light: A breaking change pull request has been merged! :rotating_light: \\n\\n**Title**: $PR_TITLE\\n[View PR]($PR_URL)\\n\\n$PR_MESSAGE\\\"\n          }\" \\\n          $DISCORD_WEBHOOK_URL\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "493c6e68:CWE-78:false_positive",
+      "project_id": "https://github.com/librenms/librenms",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": ".github/workflows/announcements.yml",
+      "line_range": "1-27",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "493c6e68ac4a21ca3f8d7a06a94e61c6a443faab"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: Filelist\nLines: 1-1175\n\nCode:\n# List of distributed Vim files.\n# Used by Makefile.\n\n# Source files for all source archives.\nSRC_ALL =\t\\\n\t\t.cirrus.yml \\\n\t\t.gitattributes \\\n\t\t.git-blame-ignore-revs \\\n\t\t.github/MAINTAINERS \\\n\t\t.github/ISSUE_TEMPLATE/bug_report.yml \\\n\t\t.github/ISSUE_TEMPLATE/feature_request.md \\\n\t\t.github/workflows/ci.yml \\\n\t\t.github/workflows/codeql-analysis.yml \\\n\t\t.github/workflows/coverity.yml \\\n\t\t.github/actions/test_artifacts/action.yml \\\n\t\t.github/dependabot.yml \\\n\t\t.gitignore \\\n\t\t.hgignore \\\n\t\t.appveyor.yml \\\n\t\t.clang-format \\\n\t\t.codecov.yml \\\n\t\t.editorconfig \\\n\t\tci/appveyor.bat \\\n\t\tci/config.mk*.sed \\\n\t\tci/if_ver*.vim \\\n\t\tci/if_feat_check.vim \\\n\t\tci/setup-xvfb.sh \\\n\t\tci/setup-sway.sh \\\n\t\tci/remove_snap.sh \\\n\t\tci/ddebs.list \\\n\t\tci/pinned-pkgs \\\n\t\tsrc/Make_all.mak \\\n\t\tsrc/README.md \\\n\t\tsrc/alloc.c \\\n\t\tsrc/alloc.h \\\n\t\tsrc/arabic.c \\\n\t\tsrc/arglist.c \\\n\t\tsrc/ascii.h \\\n\t\tsrc/autocmd.c \\\n\t\tsrc/beval.c \\\n\t\tsrc/beval.h \\\n\t\tsrc/blob.c \\\n\t\tsrc/blowfish.c \\\n\t\tsrc/buffer.c \\\n\t\tsrc/bufwrite.c \\\n\t\tsrc/change.c \\\n\t\tsrc/channel.c \\\n\t\tsrc/charset.c \\\n\t\tsrc/cindent.c \\\n\t\tsrc/clientserver.c \\\n\t\tsrc/clipboard.c \\\n\t\tsrc/cmdexpand.c \\\n\t\tsrc/cmdhist.c \\\n\t\tsrc/crypt.c \\\n\t\tsrc/crypt_zip.c \\\n\t\tsrc/debugger.c \\\n\t\tsrc/dict.c \\\n\t\tsrc/diff.c \\\n\t\tsrc/linematch.c \\\n\t\tsrc/digraph.c \\\n\t\tsrc/drawline.c \\\n\t\tsrc/drawscreen.c \\\n\t\tsrc/edit.c \\\n\t\tsrc/errors.h \\\n\t\tsrc/eval.c \\\n\t\tsrc/evalbuffer.c \\\n\t\tsrc/evalfunc.c \\\n\t\tsrc/evalvars.c \\\n\t\tsrc/evalwindow.c \\\n\t\tsrc/ex_cmdidxs.h \\\n\t\tsrc/ex_cmds.c \\\n\t\tsrc/ex_cmds.h \\\n\t\tsrc/ex_cmds2.c \\\n\t\tsrc/ex_docmd.c \\\n\t\tsrc/ex_eval.c \\\n\t\tsrc/ex_getln.c \\\n\t\tsrc/feature.h \\\n\t\tsrc/fileio.c \\\n\t\tsrc/filepath.c \\\n\t\tsrc/findfile.c \\\n\t\tsrc/float.c \\\n\t\tsrc/fold.c \\\n\t\tsrc/getchar.c \\\n\t\tsrc/gc.c \\\n\t\tsrc/globals.h \\\n\t\tsrc/gui.c \\\n\t\tsrc/gui.h \\\n\t\tsrc/gui_beval.c \\\n\t\tsrc/hardcopy.c \\\n\t\tsrc/hashtab.c \\\n\t\tsrc/help.c \\\n\t\tsrc/highlight.c \\\n\t\tsrc/indent.c \\\n\t\tsrc/insexpand.c \\\n\t\tsrc/job.c \\\n\t\tsrc/json.c \\\n\t\tsrc/json_test.c \\\n\t\tsrc/keymap.h \\\n\t\tsrc/kword_test.c \\\n\t\tsrc/list.c \\\n\t\tsrc/locale.c \\\n\t\tsrc/logfile.c \\\n\t\tsrc/macros.h \\\n\t\tsrc/main.c \\\n\t\tsrc/map.c \\\n\t\tsrc/mark.c \\\n\t\tsrc/match.c \\\n\t\tsrc/mbyte.c \\\n\t\tsrc/memfile.c \\\n\t\tsrc/memfile_test.c \\\n\t\tsrc/memline.c \\\n\t\tsrc/menu.c \\\n\t\tsrc/message.c \\\n\t\tsrc/message_test.c \\\n\t\tsrc/misc1.c \\\n\t\tsrc/misc2.c \\\n\t\tsrc/mouse.c \\\n\t\tsrc/move.c \\\n\t\tsrc/mysign \\\n\t\tsrc/nbdebug.c \\\n\t\tsrc/nbdebug.h \\\n\t\tsrc/netbeans.c \\\n\t\tsrc/normal.c \\\n\t\tsrc/nv_cmdidxs.h \\\n\t\tsrc/nv_cmds.h \\\n\t\tsrc/ops.c \\\n\t\tsrc/option.c \\\n\t\tsrc/option.h \\\n\t\tsrc/optiondefs.h \\\n\t\tsrc/optionstr.c \\\n\t\tsrc/popupmenu.c \\\n\t\tsrc/popupwin.c \\\n\t\tsrc/profiler.c \\\n\t\tsrc/quickfix.c \\\n\t\tsrc/regexp.c \\\n\t\tsrc/regexp_bt.c \\\n\t\tsrc/regexp_nfa.c \\\n\t\tsrc/regexp.h \\\n\t\tsrc/register.c \\\n\t\tsrc/scriptfile.c \\\n\t\tsrc/screen.c \\\n\t\tsrc/search.c \\\n\t\tsrc/session.c \\\n\t\tsrc/sha256.c \\\n\t\tsrc/sign.c \\\n\t\tsrc/sound.c \\\n\t\tsrc/spell.c \\\n\t\tsrc/spell.h \\\n\t\tsrc/spellfile.c \\\n\t\tsrc/spellsuggest.c \\\n\t\tsrc/strings.c \\\n\t\tsrc/structs.h \\\n\t\tsrc/syntax.c \\\n\t\tsrc/tabpanel.c \\\n\t\tsrc/tag.c \\\n\t\tsrc/term.c \\\n\t\tsrc/terminal.c \\\n\t\tsrc/termdefs.h \\\n\t\tsrc/termlib.c \\\n\t\tsrc/testing.c \\\n\t\tsrc/textformat.c \\\n\t\tsrc/textobject.c \\\n\t\tsrc/textprop.c \\\n\t\tsrc/time.c \\\n\t\tsrc/tuple.c \\\n\t\tsrc/typval.c \\\n\t\tsrc/ui.c \\\n\t\tsrc/undo.c \\\n\t\tsrc/usercmd.c \\\n\t\tsrc/userfunc.c \\\n\t\tsrc/version.c \\\n\t\tsrc/version.h \\\n\t\tsrc/vim.h \\\n\t\tsrc/vim9.h \\\n\t\tsrc/vim9class.c \\\n\t\tsrc/vim9cmds.c \\\n\t\tsrc/vim9compile.c \\\n\t\tsrc/vim9execute.c \\\n\t\tsrc/vim9expr.c \\\n\t\tsrc/vim9instr.c \\\n\t\tsrc/vim9script.c \\\n\t\tsrc/vim9type.c \\\n\t\tsrc/viminfo.c \\\n\t\tsrc/winclip.c \\\n\t\tsrc/window.c \\\n\t\tsrc/xxd/xxd.c \\\n\t\tsrc/testdir/*.in \\\n\t\tsrc/testdir/*.py \\\n\t\tsrc/testdir/Make_all.mak \\\n\t\tsrc/testdir/README.txt \\\n\t\tsrc/testdir/commondumps.vim \\\n\t\tsrc/testdir/crash/* \\\n\t\tsrc/testdir/dumps/*.dump \\\n\t\tsrc/testdir/dumps/*.vim \\\n\t\tsrc/testdir/keycode_check.json \\\n\t\tsrc/testdir/keycode_check.vim \\\n\t\tsrc/testdir/lsan-suppress.txt \\\n\t\tsrc/testdir/python2/*.py \\\n\t\tsrc/testdir/python3/*.py \\\n\t\tsrc/testdir/python_after/*.py \\\n\t\tsrc/testdir/python_before/*.py \\\n\t\tsrc/testdir/pythonx/*.py \\\n\t\tsrc/testdir/pythonx\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "3f9d2378:CWE-22:true_positive",
+      "project_id": "https://github.com/vim/vim",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "Filelist",
+      "line_range": "1-1175",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "3f9d2378bd70748fc59e02a402422269bd096492"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: dao/adicionar_status_atendido.php\nLines: 1-19\n\nCode:\n<?php\n\trequire_once 'Conexao.php';\n\t\n\t$status = trim($_POST[\"status\"]);\n\n\tif(!$status || empty($status)){\n\t\thttp_response_code(400);\n\t\texit('Erro, a descrição de um novo tipo de status não pode ser vazia.');\n\t}\n\n\ttry{\n\t\t$pdo = Conexao::connect();\n\t\t$sql = \"INSERT into atendido_status(status) values(:status)\";\n\t\t$stmt = $pdo->prepare($sql);\n\t\t$stmt->bindParam(':status', $status);\n\t\t$stmt->execute();\n\t}catch(PDOException $e){\n\t\techo 'Erro ao inserir novo tipo de status no banco de dados: '.$e->getMessage();\n\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "adfba44e:CWE-79:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "dao/adicionar_status_atendido.php",
+      "line_range": "1-19",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "adfba44e28b555db7847a597aec949df97608d3a"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: llama-index-cli/llama_index/cli/rag/base.py\nLines: 153-175\n\nCode:\n            }\n        )\n        query_pipeline.add_link(\"query\", \"retriever\")\n        query_pipeline.add_link(\"retriever\", \"summarizer\", dest_key=\"nodes\")\n        query_pipeline.add_link(\"query\", \"summarizer\", dest_key=\"query_str\")\n        return query_pipeline\n\n    @field_validator(\"chat_engine\", mode=\"before\")\n    def chat_engine_from_query_pipeline(\n        cls, chat_engine: Any, values: Dict[str, Any]\n    ) -> Optional[CondenseQuestionChatEngine]:\n        \"\"\"\n        If chat_engine is not provided, create one from query_pipeline.\n        \"\"\"\n        if chat_engine is not None:\n            return chat_engine\n\n        if values.get(\"query_pipeline\", None) is None:\n            values[\"query_pipeline\"] = cls.query_pipeline_from_ingestion_pipeline(\n                query_pipeline=None, values=values\n            )\n\n        query_pipeline = cast(QueryPipeline, values[\"query_pipeline\"])\n        if query_pipeline is None:\n            return None\n        query_engine = QueryPipelineQueryEngine(query_pipeline=query_pipeline)  # type: ignore\n        verbose = cast(bool, values[\"verbose\"])\n        llm = cast(LLM, values[\"llm\"])\n        return CondenseQuestionChatEngine.from_defaults(\n            query_engine=query_engine, llm=llm, verbose=verbose\n        )\n\n    async def handle_cli(\n        self,\n        files: Optional[List[str]] = None,\n        question: Optional[str] = None,\n        chat: bool = False,\n        verbose: bool = False,\n        clear: bool = False,\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "2c00a1df:CWE-78:true_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "toml",
+      "tool": "semgrep",
+      "file_path": "llama-index-cli/llama_index/cli/rag/base.py",
+      "line_range": "153-175",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+      "commit_hash": "2c00a1dfc71ec513353aa10159d980b68c3c7e70"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: dao/adicionar_situacao.php\nLines: 1-19\n\nCode:\n<?php\nrequire_once 'Conexao.php';\n\n$situacao = trim($_POST[\"situacao\"]);\n\nif(!$situacao || empty($situacao)){\n\thttp_response_code(400);\n\texit('Erro, a descrição de uma nova situação não pode ser vazia.');\n}\n\ntry {\n\t$sql = \"INSERT into situacao(situacoes) values(:situacao)\";\n\t$pdo = Conexao::connect();\n\t$stmt = $pdo->prepare($sql);\n\t$stmt->bindParam(':situacao', $situacao);\n\t$stmt->execute();\n} catch (PDOException $e) {\n\techo 'Erro ao inserir uma nova situação no banco de dados: '.$e->getMessage();\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "f35910cb:CWE-79:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "dao/adicionar_situacao.php",
+      "line_range": "1-19",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "f35910cb8b9205a6f038ef1e8b3413ea8eee850b"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: obfx_modules/elementor-extra-widgets/widgets/elementor/pricing-table.php\nLines: 1015-1139\n\nCode:\n\t\t$this->end_controls_tab();\n\n\t\t$this->end_controls_tabs();\n\t}\n\n\t/**\n\t * Render function to output the pricing table.\n\t */\n\tprotected function render() {\n\t\t$settings = $this->get_settings();\n\n\t\t$this->add_render_attribute( 'title', 'class', 'obfx-pricing-table-title' );\n\t\t$this->add_render_attribute( 'subtitle', 'class', 'obfx-pricing-table-subtitle' );\n\t\t$this->add_render_attribute( 'button', 'class', 'obfx-pricing-table-button' );\n\t\t//      $this->add_render_attribute( 'button_icon', 'class', $settings['button_icon'] );\n\t\t$this->add_render_attribute( 'button_icon_align', 'class', 'obfx-button-icon-align-' . $settings['button_icon_align'] );\n\t\tif ( ! empty( $settings['button_link']['url'] ) ) {\n\t\t\t$this->add_render_attribute( 'button', 'href', $settings['button_link']['url'] );\n\n\t\t\tif ( ! empty( $settings['button_link']['is_external'] ) ) {\n\t\t\t\t$this->add_render_attribute( 'button', 'target', '_blank' );\n\t\t\t}\n\t\t\tif ( ! empty( $settings['button_link']['nofollow'] ) ) {\n\t\t\t\t$this->add_render_attribute( 'button', 'rel', 'nofollow' );\n\t\t\t}\n\t\t}\n\n\t\t$output = '';\n\n\t\t$output .= '<div class=\"obfx-pricing-table-wrapper\">';\n\n\t\tif ( ! empty( $settings['title'] ) || ! empty( $settings['subtitle'] ) ) {\n\t\t\t$output .= '<div class=\"obfx-title-wrapper\">';\n\t\t\tif ( ! empty( $settings['title'] ) ) {\n\t\t\t\t// Start of title tag.\n\t\t\t\t$output .= '<' . esc_html( $settings['title_tag'] ) . ' ' . $this->get_render_attribute_string( 'title' ) . '>';\n\n\t\t\t\t// Title string.\n\t\t\t\t$output .= esc_html( $settings['title'] );\n\n\t\t\t\t// End of title tag.\n\t\t\t\t$output .= '</' . esc_html( $settings['title_tag'] ) . '>';\n\t\t\t}\n\t\t\tif ( ! empty( $settings['subtitle'] ) ) {\n\t\t\t\t// Start of subtitle tag.\n\t\t\t\t$output .= '<' . esc_html( $settings['subtitle_tag'] ) . ' ' . $this->get_render_attribute_string( 'subtitle' ) . '>';\n\n\t\t\t\t// Subtitle string.\n\t\t\t\t$output .= esc_html( $settings['subtitle'] );\n\n\t\t\t\t// End of subtitle tag.\n\t\t\t\t$output .= '</' . esc_html( $settings['subtitle_tag'] ) . '>';\n\n\t\t\t}\n\n\t\t\t$output .= '</div> <!-- /.obfx-title-wrapper -->';\n\t\t}\n\n\t\tif ( ! empty( $settings['price_tag_text'] ) || ! empty( $settings['price_tag_currency'] ) || ! empty( $settings['price_tag_period'] ) ) {\n\t\t\t$output .= '<div class=\"obfx-price-wrapper\">';\n\n\t\t\tif ( ! empty( $settings['price_tag_currency'] ) && ( $settings['price_tag_currency_position'] == 'left' ) ) {\n\t\t\t\t$output .= '<span class=\"obfx-price-currency\">' . esc_html( $settings['price_tag_currency'] ) . '</span>';\n\t\t\t}\n\n\t\t\tif ( ( isset( $settings['price_tag_text'] ) && $settings['price_tag_text'] === '0' ) || ! empty( $settings['price_tag_text'] ) ) {\n\t\t\t\t$output .= '<span class=\"obfx-price\">' . esc_html( $settings['price_tag_text'] ) . '</span>';\n\t\t\t}\n\n\t\t\tif ( ! empty( $settings['price_tag_currency'] ) && ( $settings['price_tag_currency_position'] == 'right' ) ) {\n\t\t\t\t$output .= '<span class=\"obfx-price-currency\">' . esc_html( $settings['price_tag_currency'] ) . '</span>';\n\t\t\t}\n\n\t\t\tif ( ! empty( $settings['price_tag_period'] ) ) {\n\t\t\t\t$output .= '<span class=\"obfx-pricing-period\">' . esc_html( $settings['price_tag_period'] ) . '</span>';\n\t\t\t}\n\n\t\t\t$output .= '</div> <!-- /.obfx-price-wrapper -->';\n\t\t}\n\n\t\tif ( count( $settings['feature_list'] ) ) {\n\t\t\t$output .= '<ul class=\"obfx-feature-list\">';\n\t\t\tforeach ( $settings['feature_list'] as $feature ) {\n\t\t\t\t$output .= '<li>';\n\n\t\t\t\tif ( empty( $feature['feature_icon'] ) || isset( $feature['__fa4_migrated']['feature_icon_new'] ) ) {\n\t\t\t\t\tif ( isset( $feature['feature_icon_new']['value']['url'] ) ) {\n\t\t\t\t\t\t$output .= '<img class=\"obfx-pricing-table-feature-icon\" src=\"' . esc_url( $feature['feature_icon_new']['value']['url'] ) . '\" alt=\"' . esc_attr( get_post_meta( $feature['feature_icon_new']['value']['id'], '_wp_attachment_image_alt', true ) ) . '\"/>';\n\t\t\t\t\t} else {\n\t\t\t\t\t\t$output .= '<i class=\"obfx-pricing-table-feature-icon ' . esc_attr( $feature['feature_icon_new']['value'] ) . '\" aria-hidden=\"true\"></i>';\n\t\t\t\t\t}\n\t\t\t\t} else {\n\t\t\t\t\t$output .= '<i class=\"obfx-pricing-table-feature-\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "c9ba7b08:CWE-79:true_positive",
+      "project_id": "https://github.com/Codeinwp/themeisle-companion",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "obfx_modules/elementor-extra-widgets/widgets/elementor/pricing-table.php",
+      "line_range": "1015-1139",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "c9ba7b0821bbceb73098302cd37ef7ec45f5c8e9"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: mobsf/MobSF/forms.py\nLines: 48-52\n\nCode:\n\nclass RegisterForm(UserCreationForm):\n\n    role = forms.ChoiceField(\n        choices=(('viewer', 'Viewer'), ('maintainer', 'Maintainer')),\n        required=True,\n        help_text='User Role')\n\n    def clean_email(self):\n        email = self.cleaned_data.get('email')\n        if User.objects.filter(email=email).exists():\n            raise forms.ValidationError('Email already exists')\n        return email\n\n    class Meta:\n        \"\"\"Meta Class.\"\"\"\n\n        model = User\n        fields = ['username', 'password1', 'password2', 'email', 'role']\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "cecec6e9:CWE-79:true_positive",
+      "project_id": "https://github.com/MobSF/Mobile-Security-Framework-MobSF",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "toml",
+      "tool": "semgrep",
+      "file_path": "mobsf/MobSF/forms.py",
+      "line_range": "48-52",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "cecec6e96d802e8058682a15046fda389b90ac40"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: llama-index-core/llama_index/core/agent/workflow/react_agent.py\nLines: 31-33\n\nCode:\nfrom llama_index.core.llms.llm import ToolSelection\nfrom llama_index.core.memory import BaseMemory\nfrom llama_index.core.prompts.base import PromptTemplate\nfrom llama_index.core.prompts.mixin import PromptDictType\nfrom llama_index.core.tools import AsyncBaseTool\nfrom llama_index.core.workflow import Context\n\n\ndef default_formatter(fields: dict) -> ReActChatFormatter:\n    \"\"\"Sets up a default formatter so that the proper react header is set.\"\"\"\n    return ReActChatFormatter.from_defaults(context=fields[\"system_prompt\"])\n\n\nclass ReActAgent(SingleAgentRunnerMixin, BaseWorkflowAgent):\n    \"\"\"React agent implementation.\"\"\"\n\n    reasoning_key: str = \"current_reasoning\"\n    output_parser: ReActOutputParser = Field(\n        default_factory=ReActOutputParser, description=\"The react output parser\"\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "cc77ed70:CWE-22:true_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "toml",
+      "tool": "semgrep",
+      "file_path": "llama-index-core/llama_index/core/agent/workflow/react_agent.py",
+      "line_range": "31-33",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "cc77ed70ad8b0e07b7803c1afcb988aa84b26644"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: html/funcionario/profile_dependente.php\nLines: 1-808\n\nCode:\n<?php\nif (session_status() === PHP_SESSION_NONE) {\n    session_start();\n}\n\nif (!isset($_SESSION['usuario'])) {\n    header('Location: ../../index.php');\n    exit();\n}\n\nrequire_once \"../permissao/permissao.php\";\npermissao($_SESSION['id_pessoa'], 11, 7);\n\nrequire_once \"../personalizacao_display.php\";\nrequire_once \"../geral/msg.php\";\nrequire_once \"../../dao/Conexao.php\";\n\ntry {\n    $pdo = Conexao::connect();\n\n    $id = filter_input(INPUT_GET, 'id_dependente', FILTER_SANITIZE_NUMBER_INT);\n\n    if (!$id || $id < 1) {\n        http_response_code(400);\n        exit('O id do dependente informado não é válido.');\n    }\n\n    $sql = \"\n    SELECT \n        fdep.*, \n        p.nome AS nome_dependente, \n        p.sobrenome AS sobrenome_dependente,\n        par.descricao AS parentesco,\n        pf.nome AS nome_funcionario,\n        pf.sobrenome AS sobrenome_funcionario\n    FROM funcionario_dependentes fdep\n    LEFT JOIN pessoa p ON p.id_pessoa = fdep.id_pessoa\n    LEFT JOIN funcionario f ON f.id_funcionario = fdep.id_funcionario\n    LEFT JOIN pessoa pf ON pf.id_pessoa = f.id_pessoa\n    LEFT JOIN funcionario_dependente_parentesco par ON par.id_parentesco = fdep.id_parentesco\n    WHERE fdep.id_dependente = :id_dependente\n\";\n\n    $stmt = $pdo->prepare($sql);\n    $stmt->execute([':id_dependente' => $id]);\n    $dependente = $stmt->fetch(PDO::FETCH_ASSOC);\n\n    $id_pessoa = $dependente[\"id_pessoa\"];\n    $id_dependente = $dependente[\"id_dependente\"];\n    $JSON_dependente = json_encode($dependente);\n} catch (PDOException $e) {\n    http_response_code(500);\n    exit('Erro ao buscar informações do dependente no banco de dados da aplicação');\n}\n\n?>\n<!doctype html>\n<html class=\"fixed\">\n\n<head>\n    <!-- Basic -->\n    <meta charset=\"UTF-8\">\n    <title>Perfil de Dependente</title>\n    <meta name=\"keywords\" content=\"HTML5 Admin Template\" />\n    <meta name=\"description\" content=\"Porto Admin - Responsive HTML5 Template\">\n    <meta name=\"author\" content=\"okler.net\">\n    <!-- Mobile Metas -->\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" />\n    <!-- Web Fonts  -->\n    <link href=\"http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light\" rel=\"stylesheet\" type=\"text/css\">\n    <link rel=\"icon\" href=\"<?php display_campo(\"Logo\", 'file'); ?>\" type=\"image/x-icon\" id=\"logo-icon\">\n    <!-- Vendor CSS -->\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap/css/bootstrap.css\" />\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/font-awesome/css/font-awesome.css\" />\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/magnific-popup/magnific-popup.css\" />\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap-datepicker/css/datepicker3.css\" />\n    <link rel=\"icon\" href=\"<?php display_campo(\"Logo\", 'file'); ?>\" type=\"image/x-icon\" id=\"logo-icon\">\n    <!-- Theme CSS -->\n    <link rel=\"stylesheet\" href=\"../../assets/stylesheets/theme.css\" />\n    <!-- Skin CSS -->\n    <link rel=\"stylesheet\" href=\"../../assets/stylesheets/skins/default.css\" />\n    <!-- Theme Custom CSS -->\n    <link rel=\"stylesheet\" href=\"../../assets/stylesheets/theme-custom.css\">\n    <link rel=\"stylesheet\" href=\"../../css/profile-theme.css\" />\n    <!-- Head Libs -->\n    <script src=\"../../Functions/onlyNumbers.js\"></script>\n    <script src=\"../../Functions/onlyChars.js\"></script>\n    <!--script src=\"../Functions/enviar_dados.js\"></script-->\n    <script src=\"../../Functions/mascara.js\"></script>\n    <script src=\"../../Functions/lista.js\"></script>\n    <script src=\"<?php echo WWW; ?>Functions/testaCPF.js\"></script>\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap/css/bootstrap.css\" />\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/magnific-popup/magnific-popup.css\" />\n    <link rel=\"stylesheet\" href=\"../../assets/vendor/bootstrap-datepicker/css/datepicker3.css\" />\n    <link rel=\"icon\" href=\"<?php display_campo(\"Logo\", 'file'); ?>\" type=\"image/x-icon\" id=\"logo-icon\">\n    <!-- Specific\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "82c410b7:CWE-89:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/funcionario/profile_dependente.php",
+      "line_range": "1-808",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+      "commit_hash": "82c410b72e68d61539a246f873fe0bb49a2109c6"
+    }
+  }
+]

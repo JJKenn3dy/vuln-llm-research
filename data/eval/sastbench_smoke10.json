@@ -1,0 +1,292 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: internal/sftpd/internal_test.go\nLines: 826-873\n\nCode:\n\t_, err = cmd.getSystemCommand()\n\tassert.NoError(t, err)\n\n\tcmd.args = []string{\"/adir/subdir\"}\n\t_, err = cmd.getSystemCommand()\n\tassert.NoError(t, err)\n}\n\nfunc TestRsyncOptions(t *testing.T) {\n\tpermissions := make(map[string][]string)\n\tpermissions[\"/\"] = []string{dataprovider.PermAny}\n\tuser := dataprovider.User{\n\t\tBaseUser: sdk.BaseUser{\n\t\t\tPermissions: permissions,\n\t\t\tHomeDir:     os.TempDir(),\n\t\t},\n\t}\n\tconn := &Connection{\n\t\tBaseConnection: common.NewBaseConnection(\"\", common.ProtocolSFTP, \"\", \"\", user),\n\t}\n\tsshCmd := sshCommand{\n\t\tcommand:    \"rsync\",\n\t\tconnection: conn,\n\t\targs:       []string{\"--server\", \"-vlogDtprze.iLsfxC\", \".\", \"/\"},\n\t}\n\tcmd, err := sshCmd.getSystemCommand()\n\tassert.NoError(t, err)\n\tassert.True(t, util.Contains(cmd.cmd.Args, \"--safe-links\"),\n\t\t\"--safe-links must be added if the user has the create symlinks permission\")\n\n\tpermissions[\"/\"] = []string{dataprovider.PermDownload, dataprovider.PermUpload, dataprovider.PermCreateDirs,\n\t\tdataprovider.PermListItems, dataprovider.PermOverwrite, dataprovider.PermDelete, dataprovider.PermRename}\n\tuser.Permissions = permissions\n\n\tconn = &Connection{\n\t\tBaseConnection: common.NewBaseConnection(\"\", common.ProtocolSFTP, \"\", \"\", user),\n\t}\n\tsshCmd = sshCommand{\n\t\tcommand:    \"rsync\",\n\t\tconnection: conn,\n\t\targs:       []string{\"--server\", \"-vlogDtprze.iLsfxC\", \".\", \"/\"},\n\t}\n\tcmd, err = sshCmd.getSystemCommand()\n\tassert.NoError(t, err)\n\tassert.True(t, util.Contains(cmd.cmd.Args, \"--munge-links\"),\n\t\t\"--munge-links must be added if the user has the create symlinks permission\")\n\n\tsshCmd.connection.User.VirtualFolders = append(sshCmd.connection.User.VirtualFolders, vfs.VirtualFolder{\n\t\tBaseVirtualFolder: vfs.BaseVirtualFolder{\n\t\t\tMappedPath: os.TempDir(),\n\t\t},\n\t\tVirtualPath: \"/vdir\",\n\t})\n\t_, err = sshCmd.getSystemCommand()\n\tassert.EqualError(t, err, errUnsupportedConfig.Error())\n}\n\nfunc TestSystemCommandSizeForPath(t *testing.T) {\n\tpermissions := make(map[string][]string)\n\tpermissions[\"/\"] = []string{dataprovider.PermAny}\n\tuser := dataprovider.User{\n\t\tBaseUser: sdk.BaseUser{\n\t\t\tPermissions: permissions,\n\t\t\tHomeDir:     os.TempDir(),\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-78 (Improper Neutralization of Special Elements used in an OS Command ('OS Command I).\nRealCWE: CWE-78\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "4611d05d:CWE-78:true_positive",
+      "project_id": "https://github.com/drakkan/sftpgo",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "go",
+      "tool": "semgrep",
+      "file_path": "internal/sftpd/internal_test.go",
+      "line_range": "826-873",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: lib/helpers/populate/getModelsMapForPopulate.js\nLines: 364-493\n\nCode:\n    return { modelNames: modelNames, justOne: justOne, isRefPath: isRefPath, refPath: refPath };\n  }\n};\n\n/*!\n * ignore\n */\n\nfunction _virtualPopulate(model, docs, options, _virtualRes) {\n  const map = [];\n  const available = {};\n  const virtual = _virtualRes.virtual;\n\n  for (const doc of docs) {\n    let modelNames = null;\n    const data = {};\n\n    // localField and foreignField\n    let localField;\n    const virtualPrefix = _virtualRes.nestedSchemaPath ?\n      _virtualRes.nestedSchemaPath + '.' : '';\n    if (typeof options.localField === 'string') {\n      localField = options.localField;\n    } else if (typeof virtual.options.localField === 'function') {\n      localField = virtualPrefix + virtual.options.localField.call(doc, doc);\n    } else if (Array.isArray(virtual.options.localField)) {\n      localField = virtual.options.localField.map(field => virtualPrefix + field);\n    } else {\n      localField = virtualPrefix + virtual.options.localField;\n    }\n    data.count = virtual.options.count;\n\n    if (virtual.options.skip != null && !options.hasOwnProperty('skip')) {\n      options.skip = virtual.options.skip;\n    }\n    if (virtual.options.limit != null && !options.hasOwnProperty('limit')) {\n      options.limit = virtual.options.limit;\n    }\n    if (virtual.options.perDocumentLimit != null && !options.hasOwnProperty('perDocumentLimit')) {\n      options.perDocumentLimit = virtual.options.perDocumentLimit;\n    }\n    let foreignField = virtual.options.foreignField;\n\n    if (!localField || !foreignField) {\n      return new MongooseError('If you are populating a virtual, you must set the ' +\n        'localField and foreignField options');\n    }\n\n    if (typeof localField === 'function') {\n      localField = localField.call(doc, doc);\n    }\n    if (typeof foreignField === 'function') {\n      foreignField = foreignField.call(doc, doc);\n    }\n\n    data.isRefPath = false;\n\n    // `justOne = null` means we don't know from the schema whether the end\n    // result should be an array or a single doc. This can result from\n    // populating a POJO using `Model.populate()`\n    let justOne = null;\n    if ('justOne' in options && options.justOne !== void 0) {\n      justOne = options.justOne;\n    }\n\n    if (virtual.options.refPath) {\n      modelNames =\n        modelNamesFromRefPath(virtual.options.refPath, doc, options.path);\n      justOne = !!virtual.options.justOne;\n      data.isRefPath = true;\n    } else if (virtual.options.ref) {\n      let normalizedRef;\n      if (typeof virtual.options.ref === 'function' && !virtual.options.ref[modelSymbol]) {\n        normalizedRef = virtual.options.ref.call(doc, doc);\n      } else {\n        normalizedRef = virtual.options.ref;\n      }\n      justOne = !!virtual.options.justOne;\n      // When referencing nested arrays, the ref should be an Array\n      // of modelNames.\n      if (Array.isArray(normalizedRef)) {\n        modelNames = normalizedRef;\n      } else {\n        modelNames = [normalizedRef];\n      }\n    }\n\n    data.isVirtual = true;\n    data.virtual = virtual;\n    data.justOne = justOne;\n\n    // `match`\n    let match = get(options, 'match', null) ||\n      get(data, 'virtual.options.match', null) ||\n      get(data, 'virtual.options.options.match', null);\n\n    let hasMatchFunction = typeof match === 'function';\n    if (hasMatchFunction) {\n      match = match.call(doc, doc);\n    }\n\n    if (Array.isArray(localField) && Array.isArray(foreignField) && localField.length === foreignField.length) {\n      match = Object.assign({}, match);\n      for (let i = 1; i < localField.length; ++i) {\n        match[foreignField[i]] = convertTo_id(mpath.get(localField[i], doc, lookupLocalFields), model.schema);\n        hasMatchFunction = true;\n      }\n\n      localField = localField[0];\n      foreignField = foreignField[0];\n    }\n    data.localField = localField;\n    data.foreignField = foreignField;\n    data.match = match;\n    data.hasMatchFunction = hasMatchFunction;\n\n    if (Array.isArray(match)) {\n      for (const item of matc\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-94 (Improper Control of Generation of Code ('Code Injection')).\nRealCWE: CWE-94\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "15bdccf7:CWE-94:true_positive",
+      "project_id": "https://github.com/Automattic/mongoose",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "lib/helpers/populate/getModelsMapForPopulate.js",
+      "line_range": "364-493",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Control of Generation of Code ('Code Injection')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: html/funcionario/dependente_editarInfoPessoal.php\nLines: 1-53\n\nCode:\n<?php\n\n    ini_set('display_errors',1);\n    ini_set('display_startup_erros',1);\n    error_reporting(E_ALL);\n    extract($_REQUEST);\n\n    session_start();\n    if (!isset($_SESSION[\"usuario\"])){\n        header(\"Location: ../../index.php\");\n    }\n\n    // Verifica Permissão do Usuário\n    require_once '../permissao/permissao.php';\n    permissao($_SESSION['id_pessoa'], 11, 7);\n    require_once '../../dao/Conexao.php';\n    $pdo = Conexao::connect();\n\n\n    $id = $_GET['id_pessoa'];\n    $nome = $_POST['nome'];\n    $sobrenome = $_POST['sobrenomeForm'];\n    $sexo = $_POST['gender'];\n    $telefone = $_POST['telefone'];\n    $data_nascimento = $_POST['nascimento'];\n    $nome_mae = $_POST['nome_mae'];\n    $nome_pai = $_POST['nome_pai'];\n\n    define(\"ALTERAR_INFO_PESSOAL\", \"UPDATE pessoa SET nome=:nome, sobrenome=:sobrenome, sexo=:sexo, data_nascimento=:data_nascimento, telefone=:telefone, nome_mae=:nome_mae, nome_pai=:nome_pai where id_pessoa = :id\"); \n\n\n    try {\n        $pessoa = $pdo->prepare(ALTERAR_INFO_PESSOAL);\n        $pessoa->bindValue(\":id\", $id);\n        $pessoa->bindValue(\":nome\", $nome);\n        $pessoa->bindValue(\":sobrenome\", $sobrenome);\n        $pessoa->bindValue(\":sexo\", $sexo);\n        $pessoa->bindValue(\":telefone\", $telefone);\n        $pessoa->bindValue(\":data_nascimento\", $data_nascimento);\n        $pessoa->bindValue(\":nome_mae\", $nome_mae);\n        $pessoa->bindValue(\":nome_pai\", $nome_pai);\n        $pessoa->execute();\n    } catch (PDOException $th) {\n        echo \"Houve um erro ao inserir a pessoa no banco de dados: $th\";\n        die();\n    }\n\n\n    $idatendido_familiares = $_GET['idatendido_familiares'];\n\n    header(\"Location: profile_dependente.php?id_dependente=$idatendido_familiares\");\n\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "0d81074c:CWE-79:true_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/funcionario/dependente_editarInfoPessoal.php",
+      "line_range": "1-53",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: includes/TabberTransclude.php\nLines: 144-212\n\nCode:\n\t * @param array $tabData Tab data\n\t * @param Parser $parser Mediawiki Parser Object\n\t * @param PPFrame $frame Mediawiki PPFrame Object\n\t * @param bool &$selected The tab is the selected one\n\t *\n\t * @return string HTML\n\t * @throws Exception\n\t */\n\tprivate static function buildTabTransclude( array $tabData, Parser $parser, PPFrame $frame, bool &$selected ): string {\n\t\t$tabName = $tabData['label'];\n\t\t$pageName = $tabData['content'];\n\n\t\t$dataProps = [];\n\t\t$title = Title::newFromText( trim( $pageName ) );\n\t\tif ( !$title ) {\n\t\t\tif ( empty( $tabName ) ) {\n\t\t\t\t$tabName = $pageName;\n\t\t\t}\n\t\t\t$tabBody = sprintf( '<div class=\"error\">Invalid title: %s</div>', $pageName );\n\t\t} else {\n\t\t\t$pageName = $title->getPrefixedText();\n\t\t\tif ( empty( $tabName ) ) {\n\t\t\t\t$tabName = $pageName;\n\t\t\t}\n\t\t\t$dataProps['page-title'] = $pageName;\n\t\t\tif ( $selected ) {\n\t\t\t\t$tabBody = $parser->recursiveTagParseFully(\n\t\t\t\t\tsprintf( '{{:%s}}', $pageName ),\n\t\t\t\t\t$frame\n\t\t\t\t);\n\t\t\t} else {\n\t\t\t\t$service = MediaWikiServices::getInstance();\n\t\t\t\t// Add a link placeholder, as a fallback if JavaScript doesn't execute\n\t\t\t\t$linkRenderer = $service->getLinkRenderer();\n\t\t\t\t$tabBody = sprintf(\n\t\t\t\t\t'<div class=\"tabber__transclusion\">%s</div>',\n\t\t\t\t\t$linkRenderer->makeLink( $title, null, [ 'rel' => 'nofollow' ] )\n\t\t\t\t);\n\t\t\t\t$currentTitle = $parser->getPage();\n\t\t\t\t$query = sprintf(\n\t\t\t\t\t'?action=parse&format=json&formatversion=2&title=%s&text={{:%s}}&redirects=1&prop=text&disablelimitreport=1&disabletoc=1&wrapoutputclass=',\n\t\t\t\t\turlencode( $currentTitle->getPrefixedText() ),\n\t\t\t\t\turlencode( $pageName )\n\t\t\t\t);\n\n\t\t\t\t$utils = $service->getUrlUtils();\n\t\t\t\t$utils->expand( wfScript( 'api' ) . $query, PROTO_CANONICAL );\n\n\t\t\t\t$dataProps['load-url'] = $utils->expand( wfScript( 'api' ) . $query, PROTO_CANONICAL );\n\t\t\t\t$oldTabBody = $tabBody;\n\t\t\t\t// Allow extensions to update the lazy loaded tab\n\t\t\t\t$service->getHookContainer()->run(\n\t\t\t\t\t'TabberNeueRenderLazyLoadedTab',\n\t\t\t\t\t[ &$tabBody, &$dataProps, $parser, $frame ]\n\t\t\t\t);\n\t\t\t\tif ( $oldTabBody !== $tabBody ) {\n\t\t\t\t\t$parser->getOutput()->recordOption( 'tabberneuelazyupdated' );\n\t\t\t\t}\n\t\t\t}\n\t\t\t// Register as a template\n\t\t\t$revRecord = $parser->fetchCurrentRevisionRecordOfTitle( $title );\n\t\t\t$parser->getOutput()->addTemplate(\n\t\t\t\t$title,\n\t\t\t\t$title->getArticleId(),\n\t\t\t\t$revRecord ? $revRecord->getId() : null\n\t\t\t);\n\t\t}\n\n\t\t$tab = '<article id=\"tabber-tabpanel-' . $tabData['id'] . '\" class=\"tabber__panel\" data-mw-tabber-title=\"' . htmlspecialchars( $tabName ) . '\"';\n\t\t$tab .= implode( array_map( static function ( $prop, $value ) {\n\t\t\treturn sprintf( ' data-mw-tabber-%s=\"%s\"', $prop, htmlspecialchars( $value ) );\n\t\t}, array_keys( $dataProps ), $dataProps ) );\n\t\t$tab .= '>' . $tabBody . '</article>';\n\t\t$selected = false;\n\n\t\treturn $tab;\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: CWE-79\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "1ccbeb94:CWE-79:true_positive",
+      "project_id": "https://github.com/StarCitizenTools/mediawiki-extensions-TabberNeue",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "includes/TabberTransclude.php",
+      "line_range": "144-212",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: includes/services/ThemeManager.php\nLines: 111-244\n\nCode:\n    }\n\n    /* function imported from tooles/templates/libs/templates.functions.php\n     * to load templates and generate an error if needed\n     *\n     * @param $metadata metadata fr the current Page\n     * @return array of templates\n     */\n    public function loadTemplates($metadata = []): ?array\n    {\n        // Premier cas le template par défaut est forcé : on ajoute ce qui est présent dans le fichier de configuration, ou le theme par defaut précisé ci dessus\n        if ($this->params->has('hide_action_template') && $this->params->get('hide_action_template') == '1') {\n            $this->setFavorite('theme', $this->getConfigAsStringOrDefault('favorite_theme', THEME_PAR_DEFAUT));\n            $this->setFavorite('style', $this->getConfigAsStringOrDefault('favorite_style', CSS_PAR_DEFAUT));\n            $this->setFavorite('squelette', $this->getConfigAsStringOrDefault('favorite_squelette', SQUELETTE_PAR_DEFAUT));\n            $this->setFavorite('background_image', $this->getConfigAsStringOrDefault('favorite_background_image', BACKGROUND_IMAGE_PAR_DEFAUT));\n            $this->setFavorite('preset', $this->getConfigAsStringOrDefault('favorite_preset', ''));\n        } else {\n            // Sinon, on récupère premièrement les valeurs passées en REQUEST, ou deuxièmement les métasdonnées présentes pour la page, ou troisièmement les valeurs du fichier de configuration\n            if (isset($_REQUEST['theme']) && (is_dir('custom/themes/' . $_REQUEST['theme']) || is_dir('themes/' . $_REQUEST['theme']))\n                && isset($_REQUEST['style']) && (is_file('custom/themes/' . $_REQUEST['theme'] . '/styles/' . $_REQUEST['style']) || is_file('themes/' . $_REQUEST['theme'] . '/styles/' . $_REQUEST['style']))\n                && isset($_REQUEST['squelette']) && (is_file('custom/themes/' . $_REQUEST['theme'] . '/squelettes/' . $_REQUEST['squelette']) || is_file('themes/' . $_REQUEST['theme'] . '/squelettes/' . $_REQUEST['squelette']))\n            ) {\n                $this->setFavorite('theme', $_REQUEST['theme']);\n                $this->setFavorite('style', $_REQUEST['style']);\n                $this->setFavorite('squelette', $_REQUEST['squelette']);\n\n                // presets\n                if (isset($_REQUEST['preset'])\n                        && (\n                            (\n                                ($isCustom = (substr($_REQUEST['preset'], 0, strlen(self::CUSTOM_CSS_PRESETS_PREFIX)) == self::CUSTOM_CSS_PRESETS_PREFIX))\n                                && is_file(self::CUSTOM_CSS_PRESETS_PATH . '/' . substr($_REQUEST['preset'], strlen(self::CUSTOM_CSS_PRESETS_PREFIX)))\n                            )\n                            || (\n                                !$isCustom\n                                && (\n                                    is_file('custom/themes/' . $_REQUEST['theme'] . '/presets/' . $_REQUEST['preset'])\n                                    || is_file('themes/' . $_REQUEST['theme'] . '/presets/' . $_REQUEST['preset'])\n                                )\n                            )\n                        )\n                ) {\n                    $this->setFavorite('preset', $_REQUEST['preset']);\n                }\n\n                if (isset($_REQUEST['bgimg']) && is_file('files/backgrounds/' . $_REQUEST['bgimg'])) {\n                    $this->setFavorite('background_image', $_REQUEST['bgimg']);\n                } else {\n                    $this->setFavorite('background_image', BACKGROUND_IMAGE_PAR_DEFAUT);\n                }\n            } else {\n                // si les metas sont présentes on les utilise\n                if (isset($metadata['theme']) && isset($metadata['style']) && isset($metadata['squelette'])) {\n                    $this->setFavorite('theme', $metadata['theme']);\n                    $this->setFavorite('style', $metadata['style']);\n                    $this->setFavorite('squelette', $metadata['squelette']);\n                    if (!empty($metadata['favorite_preset'])) {\n                        $\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: TRUE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: CWE-22\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "cbe3e8ff:CWE-22:true_positive",
+      "project_id": "https://github.com/YesWiki/yeswiki",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "includes/services/ThemeManager.php",
+      "line_range": "111-244",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: assets/javascripts/theme.js\nLines: 2526-2553\n\nCode:\n\t\t\t\t} else {\n\t\t\t\t\tmarker._infoWindow.open( _self.map, this );\n\t\t\t\t\tmarker._infoWindow.isOpened = true;\n\t\t\t\t}\n\n\t\t\t});\n\t\t},\n\n\t\tpreview: function() {\n\t\t\tvar customScript,\n\t\t\t\tgoogleScript,\n\t\t\t\tiframe,\n\t\t\t\tpreviewHtml;\n\n\t\t\tpreviewHtml = [\n\t\t\t\t'<style>',\n\t\t\t\t\t'html, body { margin: 0; padding: 0; }',\n\t\t\t\t'</style>',\n\t\t\t\t'<div id=\"' + this.$wrapper.find('[data-builder-field=\"mapid\"]').val() + '\" style=\"width: 100%; height: 100%;\"></div>'\n\t\t\t];\n\n\t\t\tiframe = this.$previewModal.find( 'iframe' ).get(0).contentWindow.document;\n\n\t\t\tiframe.body.innerHTML = previewHtml.join('');\n\n\t\t\tcustomScript = iframe.createElement( 'script' );\n\t\t\tcustomScript.type = 'text/javascript';\n\t\t\tcustomScript.text = \"window.initialize = function() { \" + this.generate() + \" init(); }; \";\n\t\t\tiframe.body.appendChild( customScript );\n\n\t\t\tgoogleScript = iframe.createElement( 'script' );\n\t\t\tgoogleScript.type = 'text/javascript';\n\t\t\tgoogleScript.text = 'function loadScript() { var script = document.createElement(\"script\"); script.type = \"text/javascript\"; script.src = \"http://maps.googleapis.com/maps/api/js?key=&sensor=&callback=initialize\"; document.body.appendChild(script); } loadScript()';\n\t\t\tiframe.body.appendChild( googleScript );\n\t\t},\n\n\t\tgetCode: function() {\n\t\t\tthis.$getCodeModal.find('.modal-body pre').html( this.generate().replace( /</g, '&lt;' ).replace( />/g, '&gt;' ) );\n\t\t},\n\n\t\t// GENERATE CODE\n\t\t// -----------------------------------------------------------------------------\n\t\tgenerate: function() {\n\t\t\tvar i,\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "6f33768a:CWE-79:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "assets/javascripts/theme.js",
+      "line_range": "2526-2553",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: assets/javascripts/theme.js\nLines: 2526-2553\n\nCode:\n\t\t\t\t} else {\n\t\t\t\t\tmarker._infoWindow.open( _self.map, this );\n\t\t\t\t\tmarker._infoWindow.isOpened = true;\n\t\t\t\t}\n\n\t\t\t});\n\t\t},\n\n\t\tpreview: function() {\n\t\t\tvar customScript,\n\t\t\t\tgoogleScript,\n\t\t\t\tiframe,\n\t\t\t\tpreviewHtml;\n\n\t\t\tpreviewHtml = [\n\t\t\t\t'<style>',\n\t\t\t\t\t'html, body { margin: 0; padding: 0; }',\n\t\t\t\t'</style>',\n\t\t\t\t'<div id=\"' + this.$wrapper.find('[data-builder-field=\"mapid\"]').val() + '\" style=\"width: 100%; height: 100%;\"></div>'\n\t\t\t];\n\n\t\t\tiframe = this.$previewModal.find( 'iframe' ).get(0).contentWindow.document;\n\n\t\t\tiframe.body.innerHTML = previewHtml.join('');\n\n\t\t\tcustomScript = iframe.createElement( 'script' );\n\t\t\tcustomScript.type = 'text/javascript';\n\t\t\tcustomScript.text = \"window.initialize = function() { \" + this.generate() + \" init(); }; \";\n\t\t\tiframe.body.appendChild( customScript );\n\n\t\t\tgoogleScript = iframe.createElement( 'script' );\n\t\t\tgoogleScript.type = 'text/javascript';\n\t\t\tgoogleScript.text = 'function loadScript() { var script = document.createElement(\"script\"); script.type = \"text/javascript\"; script.src = \"http://maps.googleapis.com/maps/api/js?key=&sensor=&callback=initialize\"; document.body.appendChild(script); } loadScript()';\n\t\t\tiframe.body.appendChild( googleScript );\n\t\t},\n\n\t\tgetCode: function() {\n\t\t\tthis.$getCodeModal.find('.modal-body pre').html( this.generate().replace( /</g, '&lt;' ).replace( />/g, '&gt;' ) );\n\t\t},\n\n\t\t// GENERATE CODE\n\t\t// -----------------------------------------------------------------------------\n\t\tgenerate: function() {\n\t\t\tvar i,\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "7465f785:CWE-79:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "file_path": "assets/javascripts/theme.js",
+      "line_range": "2526-2553",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: classes/Cache.php\nLines: 50-70\n\nCode:\n\t\t\t$time = strtotime(!is_null($time) ? $time : self::$time);\n\t\t\t$content = serialize(array(\n\t\t\t'expires' => $time,\n\t\t\t'content' => $content));\n\n\t\t\treturn $this->createCacheFile($key, $content);\n\t\t}\n\n\t\tpublic function read($key) {\n\n\t\t\t$filename = $this->generateFileLocation($key);\n\n\t\t\tif (file_exists($filename) && is_readable($filename)) {\n\n\t\t\t\t$cache = unserialize(file_get_contents($filename));\n\n\t\t\t\tif ($cache['expires'] > time()) {\n\n\t\t\t\t\treturn $cache['content'];\n\t\t\t\t\t\n\t\t\t\t} else {\n\n\t\t\t\t\tunlink($filename);\n\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn null;\n\t\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "09affa8a:CWE-22:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "classes/Cache.php",
+      "line_range": "50-70",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: html/apoio/controller/control.php\nLines: 1-52\n\nCode:\n<?php\n//Sanitizes the request parameters\n$controller = trim(htmlspecialchars($_REQUEST['nomeClasse']));\n$function = trim(htmlspecialchars($_REQUEST['metodo']));\n\ntry {\n    if (!$controller || !$function) {\n        throw new InvalidArgumentException('Operação Inválida, controladora e função não definidas');\n    }\n\n    $whiteList = \n    [\n        'exibirBoletosPorCpf',\n        'buscarPorDocumento',\n        'criarSocio',\n        'atualizarSocio',\n    ];\n\n    //Blocks execution for unauthorized access\n    if(($controller !='ContribuicaoLogController' && !in_array($function, $whiteList)) || $function == 'pagarPorId'){\n        session_start();\n        if(!isset($_SESSION['id_pessoa'])){\n            throw new Exception('Violação de acesso: '.$function);\n        }\n\n        require_once '../../permissao/permissao.php';\n        permissao($_SESSION['id_pessoa'], 9, 3);\n    }\n\n    $controllerPath = $controller . '.php'; //Prepare the require path\n\n    if (!file_exists($controllerPath)) {\n        throw new InvalidArgumentException('Operação Inválida, arquivo da controladora inexistente');\n    }\n\n    require_once($controllerPath);\n\n    if (!class_exists($controller)) {\n        throw new InvalidArgumentException('Operação Inválida, controladora inexistente');\n    }\n\n    $controllerObject = new $controller(); //Instance the controller type object\n\n    if (!method_exists($controllerObject, $function)) {\n        throw new InvalidArgumentException('Operação Inválida, método inexistente');\n    }\n\n    $controllerObject->$function(); //Calls the controller function\n} catch (Exception $e) {\n    http_response_code(400);\n    exit(\"Erro: {$e->getMessage()}\");\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-918 (Server-Side Request Forgery (SSRF)).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "8eb446f1:CWE-918:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "html/apoio/controller/control.php",
+      "line_range": "1-52",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Server-Side Request Forgery (SSRF)"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: Lib/cProfile.py\nLines: 15-16\n\nCode:\nimport _lsprof\nimport importlib.machinery\nimport io\nimport profile as _pyprofile\n\n# ____________________________________________________________\n# Simple interface\n\ndef run(statement, filename=None, sort=-1):\n    return _pyprofile._Utils(Profile).run(statement, filename, sort)\n\ndef runctx(statement, globals, locals, filename=None, sort=-1):\n    return _pyprofile._Utils(Profile).runctx(statement, globals, locals,\n                                             filename, sort)\n\nrun.__doc__ = _pyprofile.run.__doc__\nrunctx.__doc__ = _pyprofile.runctx.__doc__\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-502 (Deserialization of Untrusted Data).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "54f74b80:CWE-502:false_positive",
+      "project_id": "https://github.com/python/cpython",
+      "claimed_cwe": "CWE-502",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "Lib/cProfile.py",
+      "line_range": "15-16",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Deserialization of Untrusted Data"
+    }
+  }
+]

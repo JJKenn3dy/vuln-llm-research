@@ -1,0 +1,92 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: classes/Cache.php\nLines: 50-70\n\nCode:\n\t\t\t$time = strtotime(!is_null($time) ? $time : self::$time);\n\t\t\t$content = serialize(array(\n\t\t\t'expires' => $time,\n\t\t\t'content' => $content));\n\n\t\t\treturn $this->createCacheFile($key, $content);\n\t\t}\n\n\t\tpublic function read($key) {\n\n\t\t\t$filename = $this->generateFileLocation($key);\n\n\t\t\tif (file_exists($filename) && is_readable($filename)) {\n\n\t\t\t\t$cache = unserialize(file_get_contents($filename));\n\n\t\t\t\tif ($cache['expires'] > time()) {\n\n\t\t\t\t\treturn $cache['content'];\n\t\t\t\t\t\n\t\t\t\t} else {\n\n\t\t\t\t\tunlink($filename);\n\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn null;\n\t\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-22 (Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "782080f7:CWE-22:false_positive",
+      "project_id": "https://github.com/LabRedesCefetRJ/WeGIA",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "classes/Cache.php",
+      "line_range": "50-70",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+      "commit_hash": "782080f7c68abc8ab870bcd19ec909ef0bea0e7b"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: app/src/asset/anno.ts\nLines: 771-818\n\nCode:\n    await pdfPage.render({\n        canvasContext: canvas.getContext(\"2d\"),\n        viewport: viewport\n    }).promise;\n\n    return canvas;\n};\n\nasync function getRectImgData(pdfObj: any) {\n    const pageElement = hasClosestByClassName(rectElement, \"page\");\n    if (!pageElement) {\n        return;\n    }\n\n    const captureCanvas = await getCaptureCanvas(pdfObj, parseInt(pageElement.getAttribute(\"data-page-number\")));\n\n    const rectStyle = (rectElement.firstElementChild as HTMLElement).style;\n    const scale = 1.5;\n    const captureImageData = captureCanvas.getContext(\"2d\").getImageData(\n        scale * parseFloat(rectStyle.left),\n        scale * parseFloat(rectStyle.top),\n        scale * parseFloat(rectStyle.width),\n        scale * parseFloat(rectStyle.height));\n\n    const tempCanvas = document.createElement(\"canvas\");\n    tempCanvas.width = captureImageData.width;\n    tempCanvas.height = captureImageData.height;\n    const ctx = tempCanvas.getContext(\"2d\");\n    ctx.putImageData(captureImageData, 0, 0);\n    return tempCanvas.toDataURL();\n}\n\nconst setConfig = (pdf: any, id: string, data: IPdfAnno) => {\n    const config = getConfig(pdf);\n    config[id] = data;\n    fetchPost(\"/api/asset/setFileAnnotation\", {\n        path: pdf.appConfig.file.replace(location.origin, \"\").substr(1) + \".sya\",\n        data: JSON.stringify(config),\n    });\n};\n\nconst getConfig = (pdf: any) => {\n    if (pdf.appConfig.config) {\n        return pdf.appConfig.config;\n    }\n    const urlPath = pdf.appConfig.file.replace(location.origin, \"\").substr(1) + \".sya\";\n    fetchPost(\"/api/asset/getFileAnnotation\", {\n        path: urlPath,\n    }, (response) => {\n        let config = {};\n        if (response.code !== 1) {\n            config = JSON.parse(response.data.data);\n        }\n        pdf.appConfig.config = config;\n    });\n};\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "98819ca4:CWE-79:false_positive",
+      "project_id": "https://github.com/siyuan-note/siyuan",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "go",
+      "tool": "semgrep",
+      "file_path": "app/src/asset/anno.ts",
+      "line_range": "771-818",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "98819ca4c780ab0064a255aa1df0c42c065707ef"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: docs/docs/_static/js/algolia.js\nLines: 8-18\n\nCode:\n/**\n * Skipped minification because the original files appears to be already minified.\n * Original file: /npm/@docsearch/js@3.6.1/dist/umd/index.js\n *\n * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files\n */\n/*! @docsearch/js 3.6.1 | MIT License | © Algolia, Inc. and contributors | https://docsearch.algolia.com */\n!function(e,t){\"object\"==typeof exports&&\"undefined\"!=typeof module?module.exports=t():\"function\"==typeof define&&define.amd?define(t):(e=e||self).docsearch=t()}(this,(function(){\"use strict\";function e(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var r=Object.getOwnPropertySymbols(e);t&&(r=r.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,r)}return n}function t(t){for(var n=1;n<arguments.length;n++){var o=null!=arguments[n]?arguments[n]:{};n%2?e(Object(o),!0).forEach((function(e){r(t,e,o[e])})):Object.getOwnPropertyDescriptors?Object.defineProperties(t,Object.getOwnPropertyDescriptors(o)):e(Object(o)).forEach((function(e){Object.defineProperty(t,e,Object.getOwnPropertyDescriptor(o,e))}))}return t}function n(e){return n=\"function\"==typeof Symbol&&\"symbol\"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&\"function\"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?\"symbol\":typeof e},n(e)}function r(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function o(){return o=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e},o.apply(this,arguments)}function i(e,t){if(null==e)return{};var n,r,o=function(e,t){if(null==e)return{};var n,r,o={},i=Object.keys(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||(o[n]=e[n]);return o}(e,t);if(Object.getOwnPropertySymbols){var i=Object.getOwnPropertySymbols(e);for(r=0;r<i.length;r++)n=i[r],t.indexOf(n)>=0||Object.prototype.propertyIsEnumerable.call(e,n)&&(o[n]=e[n])}return o}function c(e,t){return function(e){if(Array.isArray(e))return e}(e)||function(e,t){var n=null==e?null:\"undefined\"!=typeof Symbol&&e[Symbol.iterator]||e[\"@@iterator\"];if(null==n)return;var r,o,i=[],c=!0,a=!1;try{for(n=n.call(e);!(c=(r=n.next()).done)&&(i.push(r.value),!t||i.length!==t);c=!0);}catch(e){a=!0,o=e}finally{try{c||null==n.return||n.return()}finally{if(a)throw o}}return i}(e,t)||u(e,t)||function(){throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\")}()}function a(e){return function(e){if(Array.isArray(e))return l(e)}(e)||function(e){if(\"undefined\"!=typeof Symbol&&null!=e[Symbol.iterator]||null!=e[\"@@iterator\"])return Array.from(e)}(e)||u(e)||function(){throw new TypeError(\"Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\")}()}function u(e,t){if(e){if(\"string\"==typeof e)return l(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return\"Object\"===n&&e.constructor&&(n=e.constructor.name),\"Map\"===n||\"Set\"===n?Array.from(e):\"Arguments\"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?l(e,t):void 0}}function l(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}var s,f,p,m,d,v={},h=[],y=/acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i;function _(e,t){for(var n in t)e[n]=t[n];return e}function b(e){var t=e.parentNode;t&&t.removeChild(e)}function g(e,t,n){var r,o,i,c=arguments,a={};for(i in t)\"key\"==i?r=t[i]:\"ref\"==i?o=t[i]:a[i]=t[i];if(arguments.length>3)for(n=[n],i=3;i<arguments.length;i++)n.push(c[i]);if(null!=n&&(a.children=n),\"function\"==typeof e&&null!=e.defaultProps)for(i in e.defaultProps)void 0===a[i]&&(a[i]=e.defaultProps[i]);return S(e,a,r,o,null)}function S(e,t,n,r,o){var i={type:e,props:t,key:n,ref:r,__k:nul\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: Ground truth from SastBench: FALSE_POSITIVE. Claimed: CWE-79 (Improper Neutralization of Input During Web Page Generation ('Cross-site Scripti).\nRealCWE: N/A\nSuggestedFix: see SastBench reference\n"
+      }
+    ],
+    "metadata": {
+      "case_id": "08199826:CWE-79:false_positive",
+      "project_id": "https://github.com/run-llama/llama_index",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "docs/docs/_static/js/algolia.js",
+      "line_range": "8-18",
+      "source": "sastbench_v01",
+      "vulnerability_name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+      "commit_hash": "08199826ac3c4c69e7691d993eaa4c0f6e6e14b7"
+    }
+  }
+]

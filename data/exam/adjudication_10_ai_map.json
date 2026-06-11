@@ -1,0 +1,72 @@
+{
+  "8eb446f1:CWE-89:false_positive": {
+    "blind_id": "hl_3ccbdbd0",
+    "ai_verdict": "TRUE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "FALSE_POSITIVE",
+    "ai_reasoning_preview": "$almox = $_REQUEST['almox']; then directly concatenated into mysqli_query SQL string: WHERE estoque.id_almoxarifado=$almox. No parameterization, no escaping, no type check. Classic CWE-89 SQL injectio"
+  },
+  "493c6e68:CWE-78:false_positive": {
+    "blind_id": "hl_6bb6d3c5",
+    "ai_verdict": "TRUE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "FALSE_POSITIVE",
+    "ai_reasoning_preview": "GitHub Actions workflow interpolates github.event.pull_request.title (attacker-controlled — any PR opener can set it) directly into bash via PR_TITLE=\"${{ github.event.pull_request.title }}\" and then "
+  },
+  "3f9d2378:CWE-22:true_positive": {
+    "blind_id": "hl_d52700b2",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "vim/Filelist is the Vim source distribution Makefile manifest listing source files included in tarball releases. Not executable code — just a list of strings with backslash continuations. Semgrep firi"
+  },
+  "adfba44e:CWE-79:true_positive": {
+    "blind_id": "hl_7da4e72c",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "WeGIA adicionar_status_atendido.php takes $_POST['status'], passes to prepared statement via bindParam, executes. No HTML output anywhere in this script. The only echo is $e->getMessage() in catch (PD"
+  },
+  "2c00a1df:CWE-78:true_positive": {
+    "blind_id": "hl_eb2d5c83",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "llama_index CLI RAG base.py snippet shows QueryPipeline construction, field_validator for chat_engine, CondenseQuestionChatEngine.from_defaults — pure LLM pipeline builder code. No subprocess/os.syste"
+  },
+  "f35910cb:CWE-79:true_positive": {
+    "blind_id": "hl_13335fed",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "WeGIA adicionar_situacao.php — same pattern as hl_7da4e72c. $_POST['situacao'] → prepared statement bindParam → execute. No HTML output. CWE-79 (XSS) claim absent — no reflection sink in this script."
+  },
+  "c9ba7b08:CWE-79:true_positive": {
+    "blind_id": "hl_1b2869c9",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "themeisle Elementor pricing-table widget render(): every $settings field is wrapped with esc_html(), esc_attr(), or esc_url() before output. WordPress standard XSS protection used consistently. No raw"
+  },
+  "cecec6e9:CWE-79:true_positive": {
+    "blind_id": "hl_38c0ddf4",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "MobSF forms.py is a Django ModelForm definition (RegisterForm extends UserCreationForm). Form definitions do not render HTML themselves — Django templating layer auto-escapes output. forms.ChoiceField"
+  },
+  "cc77ed70:CWE-22:true_positive": {
+    "blind_id": "hl_db31f162",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "llama_index react_agent.py lines 31-33 are just import statements (from llama_index.core.llms.llm import ToolSelection, etc.). No file path manipulation, no os.path/open/Path() operations at the flagg"
+  },
+  "82c410b7:CWE-89:true_positive": {
+    "blind_id": "hl_b5c350bb",
+    "ai_verdict": "FALSE_POSITIVE",
+    "ai_confidence": "HIGH",
+    "sastbench_verdict": "TRUE_POSITIVE",
+    "ai_reasoning_preview": "WeGIA profile_dependente.php uses filter_input(INPUT_GET, 'id_dependente', FILTER_SANITIZE_NUMBER_INT) → validates $id > 0 → passes as parameter to $pdo->prepare with :id_dependente placeholder → exec"
+  }
+}
