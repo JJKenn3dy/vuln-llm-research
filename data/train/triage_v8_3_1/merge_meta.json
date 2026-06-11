@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-06-11T04:34:11.056007+00:00",
+  "inputs": {
+    "cvefixes": "data/train/triage_v8_3_clean/train_dedup_balanced.json",
+    "crossvul": "data/train/triage_v8_3_1_crossvul/triage_train.json"
+  },
+  "cvefixes_n": 970,
+  "crossvul_n": 1210,
+  "cross_source_verdict_conflicts": 0,
+  "intra_source_dups_collapsed": 0,
+  "unique_after_dedup": 2180,
+  "balanced_n": 2180,
+  "source_mix": {
+    "cvefixes_v8_2": 970,
+    "crossvul": 1210
+  },
+  "verdict_dist": {
+    "TRUE_POSITIVE": 1090,
+    "FALSE_POSITIVE": 1090
+  },
+  "cwe_dist": {
+    "CWE-79": 761,
+    "CWE-89": 444,
+    "CWE-352": 265,
+    "CWE-22": 231,
+    "CWE-94": 105,
+    "CWE-78": 95,
+    "CWE-918": 84,
+    "CWE-502": 62,
+    "CWE-611": 60,
+    "CWE-434": 59,
+    "CWE-787": 8,
+    "CWE-798": 6
+  }
+}
