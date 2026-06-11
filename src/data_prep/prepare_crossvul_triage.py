@@ -253,7 +253,13 @@ def main() -> None:
             skipped["identical_pair"] += 1
             continue
 
-        project = row.get("repo_url") or row.get("project") or "crossvul"
+        # CrossVul does not carry repo_url; use file_pair_id as stratification
+        # unit (closest proxy for "vulnerability instance" since one fix touches
+        # multiple rows sharing a file_pair_id prefix).
+        file_pair_id = row.get("file_pair_id", "")
+        # Group by the prefix (everything before the last _<digit>)
+        pair_prefix = re.sub(r"_\d+$", "", file_pair_id) if file_pair_id else "crossvul"
+        project = f"crossvul-pair-{pair_prefix}"
         file_path = row.get("file_path") or row.get("path") or "unknown"
         line_range = row.get("line_range") or "?"
         tool = rng.choice(SAST_TOOLS)
