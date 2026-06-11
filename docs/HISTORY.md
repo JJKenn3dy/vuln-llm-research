@@ -161,6 +161,69 @@ attach the external SastBench MCC alongside. If the gap between in-domain
 and SastBench is more than ~0.15 BA, we're overfitting and the pitch is
 fragile.
 
+## Lesson 14: Calibration trick requires logprob signal — gap < 0.10 means it's dead
+
+v8.2 SastBench median(p_tp|TP) - median(p_tp|FP) = 0.058 (val) and 0.027 (test).
+Threshold sweep on val gave MCC=0.151, but transfer to test produced MCC=-0.010
+(catastrophic). The wedge-of-three-policies claim from v5b ($threshold 0.40
+lifts F1 0.78→0.86) had hidden prerequisite: p_tp distribution actually
+separable.
+
+**Implication**: ALWAYS print median TP gap before running any threshold
+sweep. Below 0.10, sweep is fitting val noise — don't waste compute on it.
+
+## Lesson 15: 64% of v8.2 train was duplicate code with conflicting verdicts
+
+Audit 2026-06-11: 1794 train rows mapped to 1007 unique code SHAs. 35% of
+unique codes appeared with BOTH TP and FP labels (across different claimed
+CWEs). Top duplicate code appeared 20 times in train: 17 FP + 3 TP across
+8 CWEs.
+
+Root cause: `prepare_cvefixes_triage.py` misclassification FP strategy reused
+`fixed_code` from other CVE rows as FP source. Same code could be:
+- TP from its own CVE row
+- FP-misclass for CWE-89 from another row
+- FP-misclass for CWE-22 from a third row
+...
+
+**Mechanistic prediction (per reviewer 2026-06-11)**: Contradictory supervision
+on identical input means gradient cancels. Model collapses to majority class
+frequency — paranoia AND logprob gap collapse follow from the same cause.
+v8.2's calibration "didn't work externally" because it didn't exist anywhere.
+
+**Fix**: `scripts/prepare_v8_3_clean.py` produces 970 unique-code 50/50 balanced
+rows. v8.3.0 isolates the effect.
+
+## Lesson 16: Honest CI must use cluster bootstrap on clustered eval data
+
+SastBench-250 has WeGIA = 30% of cases. Case-level bootstrap treats cases as
+IID and underestimates variance because within-project cases are correlated
+(same coder, same patterns, same Semgrep ruleset hits). Cluster bootstrap by
+repo_url on v8.2 overall: case CI [-0.01, +0.19], cluster CI [-0.04, +0.19].
+Per-language differences larger: PHP +0.10 case → cluster CI [-0.10, +0.33].
+
+Per-slice k-fold cluster-CV on v8.2 SastBench logprobs: overall calibrated
+MCC drops from default-thr +0.079 to **cluster-CV mean -0.011**. v8.2 had
+no real signal after honest calibration — the +0.10 headline was project-
+clustering artifact.
+
+**Implication**: All future eval reports use cluster bootstrap CI by repo_url.
+Threshold sweeps via cluster-CV honest (`scripts/per_slice_calibration.py`).
+Headline pitch numbers from cluster-CV calibrated MCC, not naive defaults.
+
+## Lesson 17: Per-language inversion is a real wedge, but smaller than oracle
+
+Per-language MCC on v8.2 SastBench-250 has slices with MCC<0 (Python -0.07,
+TypeScript -0.12, Ruby -1.0). Oracle ceiling: flip those slices, MCC jumps
+overall from +0.10 to +0.20.
+
+5-fold honest CV (pick flip set on 4 folds, apply on 5th) gives Δ MCC = +0.014.
+~7× smaller than oracle. Ruby flipped in 4/5 folds (consistent), Python in
+3/5, TS in 2/5.
+
+**Implication**: Per-slice calibration is a real free win but modest. Cannot
+be the headline pitch driver. Apply as final eval step.
+
 ## Summary table
 
 | # | Lesson | v8 design impact |
@@ -178,3 +241,7 @@ fragile.
 | 11 | Shortcut elimination is iterative | Re-run shortcut_check after any fix |
 | 12 | FP distribution mix matters more than total FP count | 50/50 post-fix + misclass baseline |
 | 13 | Internal benchmark has home advantage | Always attach SastBench MCC to headline |
+| 14 | Calibration requires gap ≥ 0.10 in p_tp | Print gap before sweeping |
+| 15 | Misclass FP strategy creates duplicates | Strict (code, verdict) uniqueness in prep |
+| 16 | Cluster bootstrap mandatory for clustered eval | Per-repo CI for all SastBench claims |
+| 17 | Per-language flip is real but small | Apply via CV, not oracle, as final eval step |
