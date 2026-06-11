@@ -78,3 +78,11 @@ dist/
 
 # Local config
 config.local.toml
+
+# Practical smoke artifacts (regeneratable from Semgrep/Bandit + scripts)
+data/practical/apps*.tar.gz
+data/practical/sarif/*.sarif
+data/practical/results*/**/*.sarif
+data/practical/results*/**/*.log
+# keep partial JSONL (compact per-finding records)
+!data/practical/results*/**/*.partial.jsonl
