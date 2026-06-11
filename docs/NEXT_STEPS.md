@@ -15,26 +15,61 @@ Root cause: `prepare_cvefixes_triage.py` misclassification FP strategy reused `f
 
 ## v8.3.0 — what to run next
 
-Single experiment isolating the dedup effect. Same v8.2 hyperparameters, only train data differs.
+Single experiment isolating the dedup effect. Same v8.2 hyperparameters, only train data differs. **Updated 2026-06-11 evening per external review** to include the logprob-extract mechanistic check.
 
 ```bash
 # On pod:
 cd /workspace/vuln-llm-research && git pull origin main
 python scripts/prepare_v8_3_clean.py \
     --input data/train/triage_v8_2_train.json \
-    --out-dir data/train/triage_v8_3_clean   # produces train_dedup_balanced.json
+    --out-dir data/train/triage_v8_3_clean
 bash scripts/train_v8_3_0.sh v8_3_0
 ```
 
-Expected wall-clock: ~1.5h on A6000, ~$1 compute + ~$1 eval = ~$2 total.
+train_v8_3_0.sh now ALSO runs `extract_triage_logprobs` on both test_balanced
+and SastBench-250. This is the mechanistic test. v8.2's `gap_p_tp` (median TP
+minus median FP first-token probabilities) collapsed to 0.058 — hypothesis
+is that contradictory train labels destroyed first-token signal. If dedup
+cures it, gap should return on in-domain test_balanced, regardless of what
+happens on SastBench.
 
-**Decision rule**:
-- SastBench-250 FAR < 50% (down from 77%) AND MCC > 0.15 (up from 0.10)
-  → dedup is the single biggest lever, multi-source becomes a next-step
-    accelerant, not a prerequisite. Pitch story updates favorably.
-- FAR stays > 70% AND MCC stays around 0.10
-  → dedup alone is not enough. Proceed to multi-source mix (Phase 1 of
-    project_v8_3_plan.md) and/or class-weighted loss for anti-paranoia.
+Expected wall-clock: ~2h on A6000, ~$1 train + ~$1 eval + ~$0.20 logprob = ~$2.20.
+
+**Decision tree (three cases, not two)**:
+
+**Case A — dedup cures everything**: SastBench MCC > 0.15 cluster CI bound,
+FAR < 50%, gap > 0.10 on both test_balanced AND SastBench.
+→ Calibration trick alive on this distribution. v8.3.1 multi-source becomes
+  next accelerant (not prerequisite). Run per-slice calibration on val_working
+  with cluster bootstrap.
+
+**Case B — contradictory train was the issue, distribution mismatch wasn't**:
+gap returns on test_balanced (>0.10) but stays collapsed on SastBench (<0.07).
+SastBench MCC may not move much.
+→ Clean separation of two problems. v8.3.1 multi-source mix IS needed for
+  out-of-distribution generalization. Don't claim dedup as the full fix.
+
+**Case C — gap stays collapsed on test_balanced too**:
+gap < 0.08 on in-domain after dedup.
+→ Dedup hypothesis wrong; problem is deeper than label noise. Review training
+  methodology (loss formulation, prompt format, base model choice).
+
+## Methodology updates (from external review)
+
+1. **Cluster bootstrap** for all SastBench CIs by `repo_url`. WeGIA = 30%
+   of test, naive case bootstrap is too tight. Use
+   `scripts/cluster_bootstrap_eval.py`. Honest CIs are wider; most per-language
+   claims become statistically borderline.
+
+2. **Don't close sufficiency gate** — model-proxy labeling answers "what does
+   Sonnet think", not "what does an expert see". Hand-labeling 50 cases
+   still adds genuine signal that's orthogonal to v8.3.0 training. The two
+   tasks parallelise perfectly. Status of hand-labeling and probe should be
+   noted in any future summary.
+
+3. **Ruby MCC=-1 was an n=10 / 5-cluster observation** — wider cluster CI
+   shows we can't claim "systematically inverted" on this evidence alone.
+   Treat as hypothesis worth examining, not a fact.
 
 ## What else was found today
 

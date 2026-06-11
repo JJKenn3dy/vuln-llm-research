@@ -1,5 +1,37 @@
 # v8.2 SastBench-250 diagnostics — slices and findings 2026-06-11
 
+## ⚠️ CI caveat — cluster bootstrap (added per external review)
+
+All BA/MCC numbers below were initially reported with naive case-level
+implicit certainty. WeGIA = 30% of cases means cases are correlated within
+project, so naive variance estimates are too tight. Re-running with cluster
+bootstrap by `repo_url` shows:
+
+| Slice | n | n_clusters | MCC | case CI | **cluster CI** |
+|---|---|---|---|---|---|
+| Overall | 250 | 66 | +0.100 | [-0.01, +0.19] | **[-0.04, +0.19]** |
+| PHP | 118 | 16 | +0.095 | [-0.06, +0.20] | **[-0.10, +0.33]** |
+| Python | 43 | 15 | -0.065 | [-0.43, +0.19] | **[-0.46, +0.33]** |
+| JavaScript | 38 | 22 | +0.276 | [+0.00, +0.48] | **[+0.00, +0.49]** |
+| Go | 18 | 11 | +0.000 | [0, 0] | [0, 0] |
+| TypeScript | 14 | 11 | -0.122 | [-0.65, +0.35] | **[-0.60, +0.32]** |
+| Ruby | 10 | 5 | -1.000 | [-1, 0] | [-1, 0] |
+| Other | 8 | 6 | +0.378 | [+0.00, +0.77] | [+0.00, +1.00] |
+
+**Reading**: at honest CI level, **most slice claims are not statistically
+significant**. Overall MCC=0.10 cluster CI includes 0. PHP +0.10 CI spans
+-0.10 to +0.33. JS "best" +0.28 has lower CI at 0. Per-language wedges
+should be reported with cluster CIs in pitch, not point estimates.
+
+Ruby's MCC=-1.00 on n=10 / 5 clusters is too small a sample for a strong
+"systematically inverted" claim — reviewer was right to push back. Treat as
+suggestive observation, not load-bearing.
+
+Numbers below are point estimates; CI for any claim should be re-derived
+via `scripts/cluster_bootstrap_eval.py`.
+
+
+
 Honest re-analysis of v8.2's MCC=0.100 on SastBench-250 by project and by
 language. The headline number hides a load of structure that v8.3 mix design
 must directly address.
