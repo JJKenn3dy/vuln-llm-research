@@ -1,0 +1,379 @@
+{
+  "input": "runs/v8_3_1_logprobs_sastbench250.json",
+  "by": "cwe",
+  "baseline_default_thr_0.5_mcc": 0.037733610271098166,
+  "overall_cluster_cv_mcc_mean": 0.011361131370153783,
+  "overall_cluster_cv_mcc_median": 0.0,
+  "overall_picks_per_fold": [
+    {
+      "fold": 0,
+      "threshold": 0.7,
+      "flip": false,
+      "test_mcc": -0.07733088933397006,
+      "n_train": 206,
+      "n_test": 44
+    },
+    {
+      "fold": 1,
+      "threshold": 0.6,
+      "flip": false,
+      "test_mcc": 0.13413654618473897,
+      "n_train": 152,
+      "n_test": 98
+    },
+    {
+      "fold": 2,
+      "threshold": 0.75,
+      "flip": false,
+      "test_mcc": 0.0,
+      "n_train": 228,
+      "n_test": 22
+    },
+    {
+      "fold": 3,
+      "threshold": 0.75,
+      "flip": false,
+      "test_mcc": 0.0,
+      "n_train": 215,
+      "n_test": 35
+    },
+    {
+      "fold": 4,
+      "threshold": 0.75,
+      "flip": false,
+      "test_mcc": 0.0,
+      "n_train": 199,
+      "n_test": 51
+    }
+  ],
+  "per_slice": {
+    "CWE-78": {
+      "n": 23,
+      "n_tp": 2,
+      "n_fp": 21,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.45,
+          "flip": true,
+          "test_mcc": -0.6123724356957946,
+          "n_train": 18,
+          "n_test": 5
+        },
+        {
+          "fold": 1,
+          "threshold": 0.5,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 18,
+          "n_test": 5
+        },
+        {
+          "fold": 2,
+          "threshold": 0.45,
+          "flip": false,
+          "test_mcc": -0.5,
+          "n_train": 20,
+          "n_test": 3
+        },
+        {
+          "fold": 3,
+          "threshold": 0.5,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 19,
+          "n_test": 4
+        },
+        {
+          "fold": 4,
+          "threshold": 0.5,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 17,
+          "n_test": 6
+        }
+      ],
+      "mean_mcc": -0.2224744871391589,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "CWE-22": {
+      "n": 35,
+      "n_tp": 2,
+      "n_fp": 33,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 30,
+          "n_test": 5
+        },
+        {
+          "fold": 1,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 22,
+          "n_test": 13
+        },
+        {
+          "fold": 2,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 31,
+          "n_test": 4
+        },
+        {
+          "fold": 4,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 32,
+          "n_test": 3
+        }
+      ],
+      "mean_mcc": 0.0,
+      "median_mcc": 0.0,
+      "n_valid_folds": 4
+    },
+    "CWE-89": {
+      "n": 38,
+      "n_tp": 8,
+      "n_fp": 30,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.7,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 35,
+          "n_test": 3
+        },
+        {
+          "fold": 1,
+          "threshold": 0.7,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 35,
+          "n_test": 3
+        },
+        {
+          "fold": 2,
+          "threshold": 0.5,
+          "flip": true,
+          "test_mcc": 0.10826639239215334,
+          "n_train": 19,
+          "n_test": 19
+        },
+        {
+          "fold": 3,
+          "threshold": 0.7,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 28,
+          "n_test": 10
+        },
+        {
+          "fold": 4,
+          "threshold": 0.7,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 35,
+          "n_test": 3
+        }
+      ],
+      "mean_mcc": 0.021653278478430668,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "CWE-611": {
+      "n": 5,
+      "n_tp": 1,
+      "n_fp": 4,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.05,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 2,
+          "n_test": 3
+        },
+        {
+          "fold": 1,
+          "threshold": 0.45,
+          "flip": true,
+          "test_mcc": 0.0,
+          "n_train": 4,
+          "n_test": 1
+        }
+      ],
+      "mean_mcc": 0.0,
+      "median_mcc": 0.0,
+      "n_valid_folds": 2
+    },
+    "CWE-79": {
+      "n": 57,
+      "n_tp": 18,
+      "n_fp": 39,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.65,
+          "flip": true,
+          "test_mcc": -0.47140452079103173,
+          "n_train": 50,
+          "n_test": 7
+        },
+        {
+          "fold": 1,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": -0.2857142857142857,
+          "n_train": 48,
+          "n_test": 9
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": true,
+          "test_mcc": -0.2721655269759087,
+          "n_train": 47,
+          "n_test": 10
+        },
+        {
+          "fold": 3,
+          "threshold": 0.65,
+          "flip": false,
+          "test_mcc": -0.2182178902359924,
+          "n_train": 35,
+          "n_test": 22
+        },
+        {
+          "fold": 4,
+          "threshold": 0.45,
+          "flip": true,
+          "test_mcc": -0.125,
+          "n_train": 48,
+          "n_test": 9
+        }
+      ],
+      "mean_mcc": -0.2745004447434437,
+      "median_mcc": -0.2721655269759087,
+      "n_valid_folds": 5
+    },
+    "CWE-502": {
+      "n": 25,
+      "degenerate": true,
+      "n_tp": 0,
+      "n_fp": 25
+    },
+    "CWE-94": {
+      "n": 22,
+      "n_tp": 2,
+      "n_fp": 20,
+      "fold_picks": [
+        {
+          "fold": 1,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 19,
+          "n_test": 3
+        },
+        {
+          "fold": 2,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 20,
+          "n_test": 2
+        },
+        {
+          "fold": 3,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 20,
+          "n_test": 2
+        },
+        {
+          "fold": 4,
+          "threshold": 0.5,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 10,
+          "n_test": 12
+        }
+      ],
+      "mean_mcc": 0.0,
+      "median_mcc": 0.0,
+      "n_valid_folds": 4
+    },
+    "CWE-918": {
+      "n": 26,
+      "n_tp": 2,
+      "n_fp": 24,
+      "fold_picks": [
+        {
+          "fold": 0,
+          "threshold": 0.55,
+          "flip": false,
+          "test_mcc": 0.24253562503633297,
+          "n_train": 8,
+          "n_test": 18
+        },
+        {
+          "fold": 1,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 22,
+          "n_test": 4
+        },
+        {
+          "fold": 2,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 25,
+          "n_test": 1
+        },
+        {
+          "fold": 3,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 24,
+          "n_test": 2
+        },
+        {
+          "fold": 4,
+          "threshold": 0.6,
+          "flip": false,
+          "test_mcc": 0.0,
+          "n_train": 25,
+          "n_test": 1
+        }
+      ],
+      "mean_mcc": 0.048507125007266595,
+      "median_mcc": 0.0,
+      "n_valid_folds": 5
+    },
+    "CWE-352": {
+      "n": 9,
+      "degenerate": true,
+      "n_tp": 0,
+      "n_fp": 9
+    },
+    "CWE-798": {
+      "n": 10,
+      "degenerate": true,
+      "n_tp": 0,
+      "n_fp": 10
+    }
+  }
+}
