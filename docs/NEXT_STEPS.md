@@ -1,4 +1,36 @@
-# Next steps — 2026-06-11 end of autonomous session
+# Next steps — UPDATED 2026-06-11 evening (autonomous overnight)
+
+## v8.3.0 done — Case B confirmed
+
+See `docs/RESULTS_v8_3_0.md` for full numbers. Headline:
+- SastBench MCC: 0.10 → **0.14**
+- SastBench FAR: 77% → **32%** (anti-paranoia win, biggest delta)
+- SastBench DR: 89% → 51% (recall trade-off)
+- test_balanced MCC: 0.65 → 0.45 (in-domain trade-off, expected)
+- gap_p_tp (in-domain): 0.058 → **0.175** (calibration restored!)
+
+Reviewer's mechanistic prediction confirmed: contradictory train labels were
+destroying first-token signal. Dedup restored signal on in-domain. Distribution
+mismatch on SastBench remains — multi-source needed.
+
+Cluster bootstrap honest CI: v8.3.0 MCC=[-0.07, +0.31] (still captures 0,
+but ceiling moved from v8.2's +0.19 to +0.31).
+
+## v8.3.1 in progress (overnight)
+
+Started ~05:00 UTC on RunPod A40. Multi-source train:
+- 970 v8.3 clean CVEFixes + 1210 CrossVul TRIAGE = 2180 unique rows
+- Source-tag in metadata for future LOSO eval
+- Same hyperparams as v8.3.0 (r=16) — only train data differs
+
+Known risk: CrossVul reasoning is placeholder (no teacher API). If stylistic
+shortcut returns, v8.3.2 needs teacher call. ~$1.50 OpenRouter would fix.
+
+Expected ~2h wall-clock. Results land in `runs/v8_3_1_*` files. Run
+`scripts/v8_3_0_full_report.py` (works for v8.3.1 with --v83-* flags repointed)
+or write a v8.3.1 report.
+
+# Original 2026-06-11 morning — Next steps as of the morning, kept for context
 
 Concise summary. For full details see:
 - `docs/SESSION_2026-06-11_autonomous.md` (running session journal)
