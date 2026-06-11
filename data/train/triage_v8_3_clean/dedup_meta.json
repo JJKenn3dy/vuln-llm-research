@@ -1,13 +1,21 @@
 {
-  "created_at": "2026-06-11",
-  "source": "data/train/triage_v8_2_train.json (1794 rows)",
-  "dedup_strategy": "code_sha → majority verdict (FP on ties for paranoia-prevention) → 50/50 balance",
-  "pre_dedup_size": 1794,
-  "post_dedup_size": 1007,
-  "post_balance_size": 932,
-  "class_balance": {
-    "FALSE_POSITIVE": 466,
-    "TRUE_POSITIVE": 466
+  "created_at": "2026-06-11T02:37:57.407419+00:00",
+  "source": "data/train/triage_v8_2_train.json",
+  "n_input": 1794,
+  "n_unique_codes": 1007,
+  "n_conflicting_codes": 352,
+  "n_picked_fp_on_tie": 207,
+  "n_after_dedup": 1007,
+  "pre_balance_dist": {
+    "TRUE_POSITIVE": 485,
+    "FALSE_POSITIVE": 522
   },
-  "ambiguous_codes": 352
+  "n_after_balance": 970,
+  "final_dist": {
+    "TRUE_POSITIVE": 485,
+    "FALSE_POSITIVE": 485
+  },
+  "seed": 42,
+  "tie_breaker": "FP",
+  "balance": "downsample to min(TP, FP)"
 }
