@@ -130,7 +130,7 @@ def main() -> None:
         dataloader_pin_memory=False,
         seed=args.seed,
         dataset_text_field="text",
-        max_seq_length=args.max_seq_length,
+        max_length=args.max_seq_length,
     )
 
     trainer = SFTTrainer(
