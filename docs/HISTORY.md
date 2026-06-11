@@ -224,6 +224,132 @@ overall from +0.10 to +0.20.
 **Implication**: Per-slice calibration is a real free win but modest. Cannot
 be the headline pitch driver. Apply as final eval step.
 
+## Lesson 18: LoRA capacity is regime-dependent — Lesson 4 has a scope
+
+Lesson 4 from v7lite (May 2026) said: r=8 generalizes better than r=16
+because less capacity = less stylistic overfit. That conclusion was correct
+**for v7lite's regime**: 4079 pairs with 35% project leak, paranoia mode,
+visible surface-stylistic shortcut. Regularization (smaller r) reduced
+memorization of those shortcuts and the model fell back on weaker but
+real semantic signal. Honest OOD BA 0.46 → 0.53.
+
+v8.3.1_r8 ablation (this session, 2026-06-11) measured the same lever on
+a different regime — clean dedup'd train (2180 rows, no contradictory
+labels, two source mechanisms):
+- SastBench MCC: +0.177 (r=16) → +0.057 (r=8) — direction-only, N=1
+- SastBench FAR: 23.3% → **40.5%** (paranoia returns)
+- test_balanced MCC: +0.424 → +0.363 (in-domain hit too, modest)
+- test_balanced FAR: 21.8% → 29.8% (paranoia in-domain too)
+- SastBench logprob gap collapsed: 0.023 → 0.011
+
+Pre-registered R decomposition (PREREGISTERED_PREDICTION_v8_3_1_r8.md):
+R = ΔMCC_ID / ΔMCC_OOD = −0.061 / −0.120 = **0.51** → mixed mechanism.
+
+**Unified principle**: regularization heals noisy supervision and starves
+clean supervision. With clean train, smaller r hurts both in-domain AND
+cross-distribution, but cross-distribution roughly 2× harder. The
+mechanism is NOT pure capacity-bottleneck-on-task (in-domain MCC drop
+is modest, −0.06). Dominant effect is loss of the specific degrees of
+freedom the model used for distribution-shift adaptation. Both
+contribute; not mutually exclusive.
+
+This is **scope/conditions discovery**, not Lesson 4 refutation. Lesson 4
+remains valid in its regime; Lesson 18 names the regime boundary. See
+`docs/PREREGISTERED_PREDICTION_v8_3_1_r8.md` for the pre-committed
+decomposition test that distinguishes (a) "r=8 starves capacity for the
+task itself" from (b) "r=8 starves capacity specifically for distribution-
+shift adaptation, in-domain task is fine".
+
+**Operational rule**: capacity choice is **re-opened every time train
+size doubles**. We carried r=16 forward from v8.2 by inertia and were
+lucky it stayed correct on v8.3.x; future train bumps (v8.3.2 Juliet, D2A,
+Semgrep-pipeline → 5-8k rows) make r=32 a legitimate candidate. One cheap
+ablation per train-doubling event = sufficient discipline.
+
+Don't sweep r=4 or r=32 right now — current ratio (2180 rows / 40M trainable
+= 18000:1) is in known-working territory for r=16. Sweep when train doubles.
+
+See `docs/RESULTS_v8_3_1_r8.md` for the ablation numbers and epistemic
+caveats (N=1, CIs overlap, direction-only).
+
+## Lesson 19: Paranoia is an uncertainty signature, not a task property
+
+Three independent experiments now point at the same mechanism: when the
+model does not know, it defaults to TRUE_POSITIVE.
+
+| Setup | Cause of "not knowing" | FAR symptom |
+|---|---|---|
+| v8.2 (dirty train, 64% dup rows with conflicting labels) | gradient cancels on identical inputs → model learns the marginal frequency | **77%** |
+| v8.3.1_r8 (clean train, undercapacity for cross-source signal) | capacity bottleneck | **41%** |
+| Frontier single-call Sonnet 4.5 / Gemini 2.5 (no fine-tune, no in-context examples) | task-format unfamiliarity | **80%+** in smoke |
+
+This is **not "the triage task makes models paranoid"**. It is "model
+sees code, has no internal handle for FP, picks the more salient class".
+Different causes of low signal, same surface behaviour.
+
+**Operational implication**: anti-paranoia interventions are uncertainty
+interventions. Four levers we now know about:
+
+1. **Calibration sweep** (explicit threshold over confidence) — works only
+   when median(p_tp|TP) − median(p_tp|FP) ≥ ~0.10 (Lesson 14)
+2. **Multi-source train diversity** (cover distribution shift) — Lesson 18,
+   diversity-as-structural-cure memory
+3. **Capacity matched to train size** (under-fit AND over-fit both create
+   paranoia) — this lesson
+4. **ReAct / multi-turn for frontier** (explicitly gather signal before
+   verdict) — paper finding
+
+For the methodology paper section: one principle, four actionable levers.
+
+## Lesson 20: Self-judging is hopeless; tri-judge adjudication with pre-commit rule converts a soft claim into a defensible one
+
+When AI annotated 50 hand-label cases on snippet only (2026-06-11 night),
+56% raw agreement with SastBench. HIGH-confidence band agreement was 37.5%,
+**lower than MEDIUM (72%)** — inverted calibration. Two compatible
+explanations:
+
+1. Where I'm confident, SastBench is wrong (flattering)
+2. Where I'm confident, I'm systematically wrong (unflattering)
+
+Cannot distinguish by self-assessment. Захар's correction was the lever:
+adjudicate the 10 HIGH-confidence contested cases via independent
+frontier judges (Sonnet 4.5 + Gemini 2.5 Pro) on the SAME cases, with
+**pre-committed decision rule** locked before frontier outputs landed:
+- all 3 judges disagree with SB → strong_mislabel
+- only AI disagrees, both frontier agree with SB → likely_ai_error
+- mixed → ambiguous
+
+Result on the 10 cases:
+- 7 strong_mislabel (defensible benchmark errors)
+- 2 likely_ai_error (AI was wrong; mechanism: missed `echo $e->getMessage()`
+  reflection in PHP error paths)
+- 1 ambiguous
+
+**Lesson**: a single annotator (human or AI) cannot defensibly claim
+"benchmark is wrong" against their own disagreement count — that's the
+oracle-leak structural error applied to label trust. Adjudication via
+independent judges with **pre-committed interpretation rule** converts the
+self-judging confound into a reproducible result.
+
+**Operational rule**: any time you find yourself disagreeing with a
+benchmark label, route the case through ≥2 independent judges with a
+pre-committed rule. Cheap ($0.25 for 10 cases via OpenRouter on Sonnet +
+Gemini at 2026 prices). Cuts confirmation bias to nearly zero.
+
+Related: `feedback_no_oracle_leak_in_calibration.md`,
+`feedback_no_apples_to_oranges_frontier_compare.md` — same family of
+anti-patterns ("the judge is also the defendant").
+
+## Lessons format note (going forward)
+
+Every lesson lives with two implicit fields whether we write them or not:
+- **Scope/conditions**: the regime in which the claim holds
+- **Operational rule**: what to do because of the claim
+
+When the regime changes, the lesson does not become wrong — it becomes
+scoped. Add a sibling lesson naming the new regime instead of retracting.
+Lesson 4 + Lesson 18 is the worked example.
+
 ## Summary table
 
 | # | Lesson | v8 design impact |
@@ -231,7 +357,7 @@ be the headline pitch driver. Apply as final eval step.
 | 1 | Low train loss ≠ good model | Track val loss, early stopping |
 | 2 | Random split inflates OOD 2x | Project-stratified split mandatory |
 | 3 | More data did not help | Methodology > data scaling |
-| 4 | Smaller LoRA generalized | Sweep r ∈ {4, 8, 16, 24, 32} |
+| 4 | Smaller LoRA generalized — **scope**: dirty/noisy supervision regime (v7lite era) | Apply when train has known label noise or shortcuts; otherwise see Lesson 18 |
 | 5 | Reasoner teacher did not work | Multi-teacher distillation |
 | 6 | F1 alone is misleading on balanced eval | Always report BalAcc and prediction distribution |
 | 7 | 100-example eval has wide CI | Aim for 500-1000 for real claims |
@@ -245,3 +371,6 @@ be the headline pitch driver. Apply as final eval step.
 | 15 | Misclass FP strategy creates duplicates | Strict (code, verdict) uniqueness in prep |
 | 16 | Cluster bootstrap mandatory for clustered eval | Per-repo CI for all SastBench claims |
 | 17 | Per-language flip is real but small | Apply via CV, not oracle, as final eval step |
+| 18 | LoRA capacity is regime-dependent — Lesson 4 has a scope; smaller r heals noisy train, starves clean train | Re-open r choice every time train doubles; one cheap ablation per event; keep r=16 for v8.3.x |
+| 19 | Paranoia (default-to-TP) is an uncertainty signature, not a task property | Anti-paranoia = uncertainty intervention: calibration, multi-source, capacity match, ReAct for frontier |
+| 20 | Self-judging label disagreements is structurally hopeless | Adjudicate via ≥2 independent judges with pre-committed rule; converts soft claim into defensible result |

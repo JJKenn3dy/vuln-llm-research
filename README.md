@@ -41,9 +41,19 @@ Headline findings:
 
 Industry data: average enterprise sees 865k SAST alerts/year, **91% false positive**,
 15-30 min triage time per false alert. Existing AI-SAST startups (Corgea, ZeroPath,
-Cycode, Black Duck Signal) all use frontier LLMs as the reasoner — which we just
-showed are at random on this task. Specialist 7B at $0.0001/finding vs $0.05 API
-is a 500x cost edge, plus on-prem option for regulated industries.
+Cycode, Black Duck Signal) all use frontier LLMs as the reasoner. We measured
+single-call frontier on SastBench-250: Sonnet 4.5 MCC=+0.019, Gemini 2.5 Pro
+MCC=+0.043 (both CIs span 0). Our specialist 7B v8.3.1 hits MCC=+0.177 with
+cluster-honest CI [+0.004, +0.297] and paired-test strict beat vs Sonnet at 95%.
+At $0.0001/finding self-hosted (vLLM batched) vs $0.015/finding Sonnet single-call
+that is a ~150x cost edge, plus on-prem option for regulated industries.
+
+**Benchmark label noise audit** (2026-06-11 night): AI hand-label + tri-judge
+adjudication on a balanced 50-case sample from SastBench val-558 partition
+confirmed ≥7 cases (14%) where SastBench's label is contradicted by all three
+independent judges (AI + Sonnet 4.5 + Gemini 2.5 Pro). Floor on benchmark
+noise is non-zero. Does not shift us vs frontier (noise hits all models
+equally) but supports an "honest-benchmark audit" angle for outreach.
 
 For the why and where-we-go, see [docs/PRODUCT.md](docs/PRODUCT.md),
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/ROADMAP.md](docs/ROADMAP.md),

@@ -1,4 +1,277 @@
-# Next steps — UPDATED 2026-06-11 evening (autonomous overnight)
+# Next steps — UPDATED 2026-06-11 night (strategic pivot to demand validation)
+
+## Strategic shift — model research freeze, demand validation primary
+
+Захар поставил кадр 2026-06-11 поздний вечер. Прямая цитата:
+
+> Самая рискованная гипотеза проекта сейчас не "дотянем ли до 0.25", а
+> "нужно ли это кому-то за деньги" — и её исследовать train-прогонами
+> невозможно в принципе.
+
+Все оставшиеся research-рычаги (teacher reasoning v8.3.2, Juliet, prompt
+format) дают +0.02-0.05 каждый. Ни один не меняет ответ на вопрос "можно
+ли продавать как ranker": при MCC 0.20 и 0.23 ответ одинаковый. Скачок
+v8.2 → v8.3.1 (root cause найден, +0.07 absolute) был раз-за-цикл event,
+повторить его без structural insight не выйдет.
+
+**Стратегия**: после закрытия двух tier-1 хвостов (hand-labeling, frontier
+baseline) — **заморозить model research**. Опционально v8.3.2 фоном с
+teacher reasoning ($1.50 OpenRouter), но не как gating activity.
+Переключаемся на проверку спроса.
+
+## Priority queue (новая, executable)
+
+### P1: Hand-labeling 50 — ✅ DONE 2026-06-11 night (AI labeler + tri-judge)
+
+Полный отчёт: [HAND_LABEL_50_2026-06-11.md](HAND_LABEL_50_2026-06-11.md).
+
+Headline:
+- AI Pass 1 на 50 snippets: 56% agreement с SastBench
+- 10 HIGH-confidence disagreements → tri-judge adjudication
+- **7 strong_mislabel candidates** confirmed (AI + Sonnet + Gemini vs SB)
+- 2 reclassified as AI error (frontier на стороне SB)
+- 1 ambiguous
+
+**Sufficiency conclusion** (главное для roadmap): snippet достаточен в
+76% по самооценке, evidence packet ceiling ~12%. **Sprint 2 evidence
+packet официально закрыт в backlog** — не нужен для v8.3.x.
+
+**Three independent outputs gate** (per reviewer's framing):
+1. Sufficiency probe: closed, evidence packet deprioritized
+2. SastBench label trust: floor ≥14% noise in val-558 partition (confirmed)
+3. Judge calibration baseline: established (AI HIGH-confidence inverted,
+   need adjudication for any single-judge claim)
+
+**Захар hand-labeling по-прежнему добавит value** на:
+- 1 ambiguous case (c9ba7b08 themeisle pricing-table)
+- 35 case confusion-intersection priority list (v8.3.1 + Sonnet + Gemini
+  all wrong vs SastBench на subset250) — top mislabel candidates на test
+  set
+- broader sample adjudication для unbiased noise estimate
+
+### P2: Frontier baseline 250 — ✅ DONE 2026-06-11 night
+
+Sonnet 4.5 + Gemini 2.5 Pro single-call на тех же 250 кейсах через
+OpenRouter. Cluster bootstrap CI by repo_url. Decision rule applied
+mechanically.
+
+| Model | MCC | Cluster CI | FAR |
+|---|---|---|---|
+| v8.3.1 | +0.177 | [+0.004, +0.297] | 23.3% |
+| Sonnet 4.5 | +0.019 | [-0.141, +0.118] | 68.8% |
+| Gemini 2.5 Pro | +0.043 | [-0.150, +0.138] | 59.4% |
+
+**Verdict**: per script's strict pre-commit rule → "match" (frontier
+point inside our CI). Honest narrative → **asymmetric soft beat** (our
+CI excludes 0, theirs include 0; our point above their CI upper bound).
+
+Полный отчёт: [docs/RESULTS_v8_3_1.md](RESULTS_v8_3_1.md), сравнительная
+таблица в [docs/FINDINGS_2026-06-11.md](FINDINGS_2026-06-11.md), per-case
+data в `runs/frontier_v8_3_1/`.
+
+**Confusion intersection**: 35 кейсов где все три модели не согласны с
+SastBench ground truth — priority кандидаты для P1 hand-labeling.
+Список case_ids в `runs/frontier_v8_3_1/comparison_report.md`.
+
+**Что осталось открытым** (deferred):
+- Sonnet neutral prompt run (+$3.50 OpenRouter) для закрытия
+  format-unfamiliarity атаки. Не критично сейчас (Sonnet smoke
+  parse_fail=0% значит format adherence хороший), но добавит конкретики
+  если pitch встретит сопротивление.
+
+### P3: МОДЕЛЬНЫЙ FREEZE на v8.3.1
+
+После P1-P2 объявляем v8.3.1 production-frozen. v8.3.2 опционально:
+- Teacher reasoning for CrossVul (~$1.50 OpenRouter, ~2h pod) — может
+  дать +0.02-0.05 MCC, но **не gating** для outreach
+- Juliet small dose (~$1) — то же самое, optional
+
+**Не делаем больше**:
+- r=4 / r=32 sweep (Lesson 18: wait until train doubles)
+- Calibration tricks (gap < 0.05 на SastBench, dead)
+- 14B base model (Lesson 10)
+- Evidence packet pipeline до hand-labeling decision
+
+### P4: Demand validation MVP — ranker-CLI + OSS PDF reports
+
+**Цель**: ноль байт информации о стороне спроса. Закрываем за 3 недели.
+
+Артефакты для outreach:
+1. **Ranker-CLI** (уже написан, `src/product/`): "ест SARIF, выдаёт ранжированный
+   список с p_tp". MVP-state: тестировать на real Semgrep output из 3-5
+   OSS репозиториев. p_tp через `--mode ranker` (first-token logprobs,
+   не verdict → 1/0).
+2. **3-5 PDF reports** по известным OSS-репам: запустить Semgrep на public
+   repo (например mongodb, rails, django), пропустить через v8.3.1 ranker,
+   сгенерить PDF "мы отсортировали ваши 800 алертов, вот топ-30 с p_tp ≥ X".
+   Не filter, не "вот эти не баги" — **сортированный список с честным
+   confidence**. Формат проверяемый получателем за час.
+3. **Outreach 20-30 контактов**: AppSec-инженеры, CTO мелких команд.
+   Cold message + PDF attached. Не invest pitch — это "вот triage отчёт
+   по вашему репо, скажите honestly: useful?"
+
+### P5: Demand validation pre-committed success criterion
+
+Та же дисциплина что pre-commit на frontier baseline. Записано ДО старта
+outreach чтобы не было motivated reasoning post-факто:
+
+> **20 контактов за 3 недели.**
+> - Если ≥ 3 запросили отчёт по своему репо AND ≥ 1 после отчёта
+>   продолжил разговор → **продуктовая ветка живёт**. Sprint 4 stripe
+>   billing + landing page.
+> - Если < 3 запросов OR никто не продолжил → **уходим в paper ветку**.
+>   Архивируем GitHub App planning, пишем методологическую секцию paper'а
+>   по уровню v8.3.1 + lesson 15/18/19 findings.
+> - Intermediate (3+ запросили, 0 продолжили после отчёта) → диагностика
+>   ad-hoc: показывает что отчёт не bridges от curiosity к engagement,
+>   нужен другой формат demo.
+
+Без этого критерия outreach превращается в бесконечное "ещё чуть улучшим
+и тогда напишем". С ним — есть exit condition в обе стороны.
+
+## Original queue (rest of this doc) — superseded by above
+
+
+## Priority queue (in execution order)
+
+### P1: Frontier baseline на тех же 250 кейсах (~$2, ~45 мин)
+
+Эта дыра была в day-0 списке и до сих пор не закрыта. Без неё все
+сравнения с frontier в docs невалидны. Reviewer 11.06.2026 поймал и
+пометил как первое что надо сделать.
+
+**Методология (закрепить ДО запуска чтобы не было motivated reasoning)**:
+- Те же 250 кейсов из `data/eval/sastbench_v01_subset250.json`
+- greedy / temperature=0 (для OpenAI/OpenRouter где можно)
+- Тот же parse-regex что в `src.eval.run_triage_eval` (VERDICT_RE)
+- parse_fail считается как абсолютная ошибка (любой, не parse_fail rate)
+- Cluster bootstrap по `repo_url` для CI, identical scripts
+  (`scripts/cluster_bootstrap_eval.py`)
+- Sonnet 4.5 прогоняем **двумя промптами**:
+  (a) наш TRIAGE_USER_TEMPLATE
+  (b) нейтральный: "Here's a Semgrep finding, here's the code. TP or FP?
+     Answer 'Verdict: TRUE_POSITIVE' or 'Verdict: FALSE_POSITIVE' on the
+     first line, then a one-paragraph reason"
+  В отчёт идёт **лучший из двух** Sonnet result. Закрывает атаку "вы
+  дали frontier неудобный формат и назвали это baseline"
+- Gemini 2.5 Pro одним промптом (наш TRIAGE), для бюджета
+
+**Pre-commit interpretation criteria** (зафиксировать ДО запуска):
+- "Мы лучше frontier" = наш cluster CI lower bound ≥ их point estimate
+  (консервативно). Headline сравнение только при этом условии
+- "Мы матчим frontier" = наш point estimate в их cluster CI и наоборот
+- "Мы хуже frontier" = их point estimate выше нашего upper bound
+- **Что говорить если Sonnet single-call на 250 даст 0.15+**: значит
+  smoke n=10 был мисчиталой, single-call frontier работает на этой
+  distribution лучше чем мы думали, наш +0.177 ≈ frontier, pitch
+  переходит на cost wedge и calibration controllability, не на margin
+
+**Бонус из того же прогона**:
+- Сохранить per-case verdicts всех три (v8.3.1 + Sonnet + Gemini)
+- Confusion intersection: кейсы где ошибаются все три → первые
+  кандидаты для разметки-50 (вероятно кривые SastBench метки)
+- Per-case JSON сохранится autoматически по partial-правилу
+
+**Бюджет**: ~$1.5-2 OpenRouter (Sonnet двумя промптами ~$1, Gemini
+~$0.5, plus overhead). Если жмёт, упростить до Sonnet одного промпта
++ Gemini одного промпта ~$1.
+
+### P2: Правка docs (нет compute, ~30 мин) — ✅ DONE 11.06 late evening
+
+- FINDINGS_2026-06-11.md: убран "обходим Gemini ReAct" и "crossing
+  significance" из самооценки и pitch story
+- RESULTS_v8_3_1.md: "decisive margin" и "first crossing significance"
+  заменены на "first version with honest CI no longer in negative
+  territory" + явный список запрещённых формулировок
+- OVERNIGHT_SUMMARY.md: без правок (там нет overclaim'ов, только raw
+  numbers)
+- NEXT_STEPS.md: этот файл
+
+### P3: r=8 ablation v8.3.1 — ✅ DONE 11.06 late evening, scope discovered
+
+Полный отчёт: [docs/RESULTS_v8_3_1_r8.md](RESULTS_v8_3_1_r8.md). Headline
+(N=1, direction-only):
+
+| | v8.3.1 (r=16) | v8.3.1_r8 |
+|---|---|---|
+| SastBench MCC | +0.177 | +0.057 |
+| SastBench FAR | 23.3% | 40.5% |
+
+**Mechanism interpretation gated by pre-registered prediction**
+([docs/PREREGISTERED_PREDICTION_v8_3_1_r8.md](PREREGISTERED_PREDICTION_v8_3_1_r8.md)).
+Two competing hypotheses:
+- H1 (capacity bottleneck): in-domain тоже просел, R ≈ ΔMCC_ID/ΔMCC_OOD ∈ [0.5, 1.0]
+- H2 (transfer-DoF): in-domain почти не просел, R ∈ [0.0, 0.2]
+- Mixed: R ∈ [0.2, 0.5]
+
+Wait for test_balanced final → compute R → close interpretation. Production
+decision (keep r=16) does NOT depend on mechanism — both H1 and H2 yield
+"keep r=16" given training cost asymmetry.
+
+**Lesson 4 NOT retracted, scoped**: regularization heals noisy supervision,
+starves clean supervision. Lesson 18 (regime boundary) + Lesson 19
+(paranoia-as-uncertainty signature) added to HISTORY.md.
+
+**Operational rule going forward** (Lesson 18): capacity choice re-opens
+each time train doubles. We carried r=16 from v8.2 → v8.3 by inertia; was
+lucky. v8.3.2+ Juliet / D2A → 5-8k rows = r=32 legitimate candidate, one
+cheap ablation per event.
+
+r=4 и r=32 sweep НЕ делать на текущих 2180 rows.
+
+### P4: Ranker-CLI расширение (нет compute, code only)
+
+Repositioning продукта с filter на ranker. Reviewer аргумент:
+> "Live бот с DR=46% = анти-кейс при первом missed bug в проде клиента.
+> Корректное позиционирование: сортируем алерты по p_tp без скрытия"
+
+Расширить `src/product/` (уже написан):
+- Добавить `--mode ranker` к CLI
+- p_tp из first-token logprobs через `src.eval.extract_triage_logprobs`
+  (НЕ из текстового verdict, иначе ранжирование вырождается в два ведра)
+- Output: ranked SARIF где каждый result имеет `properties.vuln_llm_triage.p_tp`,
+  сортированный по убыванию
+- Не маппим p_tp в verdict, отдаём raw для пользователя
+
+### P5 (Захару): hand-labeling 50 (полдня, нет автоматизации)
+
+Reviewer вернул это из do-not-do листа в priority. Аргумент:
+> Sufficiency probe дал: Sonnet выдал 37 TP без evidence и 36 с evidence.
+> Это метрика **сдвига вердиктов**, не качества. Без ground truth
+> различить "evidence не помогает" от "Sonnet игнорирует evidence"
+> невозможно. Hand-labeling даёт (a) ground truth для sufficiency,
+> (b) валидацию SastBench меток, (c) калибровку judge'ей
+
+Scaffold готов: `scripts/carve_exam.py` создал `data/exam/hand_label_50.json`
+с правильной структурой two-pass labeling. Захар заполняет руками.
+
+Это **самый ценный** несделанный пункт всего проекта согласно reviewer.
+
+### P6: HF upload v8.3.1 adapter (~$0.10, 10 мин)
+
+Тех-долг: adapter `/workspace/adapters/v8_3_1/` только на network volume,
+HF upload в train script не сработал. Pod EXITED, A6000 capacity wait
+блокирует resume. Опция: temp A40 deploy (new pod billing), нужен явный
+OK на трату.
+
+## Exam-A policy reaffirmed
+
+`data/exam/exam_a.json` — locked, **не открывается до v8.3.2 finals**.
+v8.3.1 на exam_a НЕ peek'аем. Soблазн "глянуть как там" категорически
+отбрасывается, иначе через месяц сета не останется.
+
+Per `feedback_exam_set_discipline.md`: each peek = 1 researcher decision
+of contamination. After 3 peeks the set is de-facto val.
+
+## Что **НЕ** в priority queue (исправление прежнего do-not-do)
+
+- ~~Evidence packet (Sprint 2) до v8.3.2~~ — reviewer вернул, ждёт
+  hand-labeling decision. Если ручная разметка показала что код в репо
+  даёт ground truth точнее чем код в сниппете, то контекст содержит
+  signal и evidence packet рестартует как pre-v8.3.2 prerequisite.
+  Sufficiency probe не закрыл этот вопрос.
+
+
 
 ## v8.3.0 done — Case B confirmed
 

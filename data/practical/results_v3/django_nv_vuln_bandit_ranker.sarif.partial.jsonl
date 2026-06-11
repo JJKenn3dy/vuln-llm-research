@@ -1,0 +1,5 @@
+{"i": 0, "total": 5, "finding_id": "bandit:B605:file:///f:/tmp/practical_apps/django_nv_vuln/taskManager/misc.py:33-33:0", "rule_id": "B605", "claimed_cwe": null, "p_tp": 0.5579694065968472, "error": ""}
+{"i": 1, "total": 5, "finding_id": "bandit:B105:file:///f:/tmp/practical_apps/django_nv_vuln/taskManager/settings.py:24-24:1", "rule_id": "B105", "claimed_cwe": null, "p_tp": 0.4143135941152095, "error": ""}
+{"i": 2, "total": 5, "finding_id": "bandit:B608:file:///f:/tmp/practical_apps/django_nv_vuln/taskManager/views.py:184-184:2", "rule_id": "B608", "claimed_cwe": null, "p_tp": 0.6887672709279582, "error": ""}
+{"i": 3, "total": 5, "finding_id": "bandit:B105:file:///f:/tmp/practical_apps/django_nv_vuln/taskManager/views.py:751-751:3", "rule_id": "B105", "claimed_cwe": null, "p_tp": 0.3882498970511488, "error": ""}
+{"i": 4, "total": 5, "finding_id": "bandit:B105:file:///f:/tmp/practical_apps/django_nv_vuln/taskManager/views.py:767-767:4", "rule_id": "B105", "claimed_cwe": null, "p_tp": 0.3882237489553232, "error": ""}

@@ -1,0 +1,5 @@
+{"i": 0, "total": 5, "finding_id": "bandit:B106:file:///f:/tmp/practical_apps/cursor_django/src/blog/management/commands/create_blog_posts.py:22-22:0", "rule_id": "B106", "claimed_cwe": null, "p_tp": 0.44487386557641523, "error": ""}
+{"i": 1, "total": 5, "finding_id": "bandit:B311:file:///f:/tmp/practical_apps/cursor_django/src/blog/management/commands/create_blog_posts.py:27-27:1", "rule_id": "B311", "claimed_cwe": null, "p_tp": 0.4181671775776039, "error": ""}
+{"i": 2, "total": 5, "finding_id": "bandit:B311:file:///f:/tmp/practical_apps/cursor_django/src/blog/management/commands/create_blog_posts.py:28-28:2", "rule_id": "B311", "claimed_cwe": null, "p_tp": 0.44498818981702304, "error": ""}
+{"i": 3, "total": 5, "finding_id": "bandit:B311:file:///f:/tmp/practical_apps/cursor_django/src/blog/management/commands/create_blog_posts.py:29-29:3", "rule_id": "B311", "claimed_cwe": null, "p_tp": 0.39566059296919875, "error": ""}
+{"i": 4, "total": 5, "finding_id": "bandit:B311:file:///f:/tmp/practical_apps/cursor_django/src/cfehome/views.py:64-64:4", "rule_id": "B311", "claimed_cwe": null, "p_tp": 0.47610660400008076, "error": ""}
