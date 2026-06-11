@@ -1,0 +1,51 @@
+[
+  {
+    "hf_dataset": "hitoshura25/cvefixes",
+    "hf_split": "train",
+    "n_input_rows": 12987,
+    "n_kept_pairs": 1294,
+    "teacher": "openrouter",
+    "teacher_model": "anthropic/claude-haiku-4.5",
+    "fp_post_fix_frac": 0.2,
+    "split_fractions": {
+      "train": 0.7,
+      "val": 0.15,
+      "test_balanced": 0.075,
+      "test_imbalanced": 0.075
+    },
+    "cap_per_cwe": 400,
+    "exclude_from": [
+      "data/eval/eval_cvefixes_100.json",
+      "data/eval/eval_crossvul_100.json",
+      "data/eval/fresh_cves_60_detection.json",
+      "data/train/train_v5b_train.json",
+      "data/train/train_v5b_val.json"
+    ],
+    "seed": 42,
+    "dry_run": false,
+    "rows_per_split": {
+      "val": 166,
+      "train": 897,
+      "test_imbalanced": 107,
+      "test_balanced": 124
+    },
+    "fp_source_mix_per_split": {
+      "val": {
+        "misclassified_cwe": 136,
+        "post_fix": 30
+      },
+      "train": {
+        "misclassified_cwe": 705,
+        "post_fix": 192
+      },
+      "test_imbalanced": {
+        "misclassified_cwe": 85,
+        "post_fix": 22
+      },
+      "test_balanced": {
+        "post_fix": 32,
+        "misclassified_cwe": 92
+      }
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-06-11",
+  "source": "data/train/triage_v8_2_train.json (1794 rows)",
+  "dedup_strategy": "code_sha → majority verdict (FP on ties for paranoia-prevention) → 50/50 balance",
+  "pre_dedup_size": 1794,
+  "post_dedup_size": 1007,
+  "post_balance_size": 932,
+  "class_balance": {
+    "FALSE_POSITIVE": 466,
+    "TRUE_POSITIVE": 466
+  },
+  "ambiguous_codes": 352
+}
