@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OWASP DVWA — SAST Triage Report</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --high: #b91c1c;
+    --high-bg: #fee2e2;
+    --medium: #b45309;
+    --medium-bg: #fef3c7;
+    --low: #1e7c5a;
+    --low-bg: #d1fae5;
+    --unknown: #6b7280;
+    --unknown-bg: #f3f4f6;
+    --link: #1d4ed8;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--fg); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    font-size: 14px;
+  }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; margin: 16px 0 4px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0 24px;
+  }
+  .summary .card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .summary .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .summary .value { font-size: 20px; font-weight: 600; margin-top: 2px; }
+
+  .finding {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 14px 0;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+  }
+  .finding-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .rank { font-weight: 700; color: var(--muted); font-size: 13px; }
+  .file-path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; flex: 1; word-break: break-all; }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .priority.high   { color: var(--high);   background: var(--high-bg);   }
+  .priority.medium { color: var(--medium); background: var(--medium-bg); }
+  .priority.low    { color: var(--low);    background: var(--low-bg);    }
+  .priority.unknown { color: var(--unknown); background: var(--unknown-bg); }
+
+  .badges { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-right: 4px;
+  }
+  .msg { font-size: 13px; color: var(--fg); margin: 4px 0 10px; }
+  .code-block {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .code-block .src { margin: 0; }
+  .code-block pre { margin: 0; }
+  .reasoning {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border-left: 3px solid var(--link);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .reasoning .label { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 4px; }
+  .suggested-fix {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #ecfdf5;
+    border-left: 3px solid var(--low);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .footer { color: var(--muted); font-size: 12px; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .footer p { margin: 6px 0; }
+  .footer ul { margin: 6px 0; padding-left: 18px; }
+  .scope { background: #fffbeb; border: 1px solid #fde68a; padding: 10px 14px; border-radius: 6px; margin: 16px 0; font-size: 13px; }
+  .scope b { color: #92400e; }
+
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.src .hll { background-color: #ffffcc }
+.src .c { color: #3D7B7B; font-style: italic } /* Comment */
+.src .err { border: 1px solid #F00 } /* Error */
+.src .k { color: #008000; font-weight: bold } /* Keyword */
+.src .o { color: #666 } /* Operator */
+.src .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.src .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.src .cp { color: #9C6500 } /* Comment.Preproc */
+.src .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.src .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.src .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.src .gd { color: #A00000 } /* Generic.Deleted */
+.src .ge { font-style: italic } /* Generic.Emph */
+.src .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.src .gr { color: #E40000 } /* Generic.Error */
+.src .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.src .gi { color: #008400 } /* Generic.Inserted */
+.src .go { color: #717171 } /* Generic.Output */
+.src .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.src .gs { font-weight: bold } /* Generic.Strong */
+.src .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.src .gt { color: #04D } /* Generic.Traceback */
+.src .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.src .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.src .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.src .kp { color: #008000 } /* Keyword.Pseudo */
+.src .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.src .kt { color: #B00040 } /* Keyword.Type */
+.src .m { color: #666 } /* Literal.Number */
+.src .s { color: #BA2121 } /* Literal.String */
+.src .na { color: #687822 } /* Name.Attribute */
+.src .nb { color: #008000 } /* Name.Builtin */
+.src .nc { color: #00F; font-weight: bold } /* Name.Class */
+.src .no { color: #800 } /* Name.Constant */
+.src .nd { color: #A2F } /* Name.Decorator */
+.src .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.src .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.src .nf { color: #00F } /* Name.Function */
+.src .nl { color: #767600 } /* Name.Label */
+.src .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.src .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.src .nv { color: #19177C } /* Name.Variable */
+.src .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.src .w { color: #BBB } /* Text.Whitespace */
+.src .mb { color: #666 } /* Literal.Number.Bin */
+.src .mf { color: #666 } /* Literal.Number.Float */
+.src .mh { color: #666 } /* Literal.Number.Hex */
+.src .mi { color: #666 } /* Literal.Number.Integer */
+.src .mo { color: #666 } /* Literal.Number.Oct */
+.src .sa { color: #BA2121 } /* Literal.String.Affix */
+.src .sb { color: #BA2121 } /* Literal.String.Backtick */
+.src .sc { color: #BA2121 } /* Literal.String.Char */
+.src .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.src .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.src .s2 { color: #BA2121 } /* Literal.String.Double */
+.src .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.src .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.src .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.src .sx { color: #008000 } /* Literal.String.Other */
+.src .sr { color: #A45A77 } /* Literal.String.Regex */
+.src .s1 { color: #BA2121 } /* Literal.String.Single */
+.src .ss { color: #19177C } /* Literal.String.Symbol */
+.src .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.src .fm { color: #00F } /* Name.Function.Magic */
+.src .vc { color: #19177C } /* Name.Variable.Class */
+.src .vg { color: #19177C } /* Name.Variable.Global */
+.src .vi { color: #19177C } /* Name.Variable.Instance */
+.src .vm { color: #19177C } /* Name.Variable.Magic */
+.src .il { color: #666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+
+<h1>SAST Triage Report</h1>
+<p class="meta">
+  Repository: <b>OWASP DVWA</b><br>
+  Generated: 2026-06-12 13:46<br>
+  Triage model: v8.3.1 (Qwen2.5-Coder-7B + LoRA, fine-tuned on CVEFixes + CrossVul)
+</p>
+
+<div class="summary">
+  <div class="card"><div class="label">Total findings</div><div class="value">72</div></div>
+  <div class="card"><div class="label">High priority (p_tp ≥ 0.6)</div><div class="value">27</div></div>
+  <div class="card"><div class="label">Medium (0.5–0.6)</div><div class="value">10</div></div>
+  <div class="card"><div class="label">Low (< 0.5)</div><div class="value">35</div></div>
+</div>
+
+
+<h2>CWE distribution (across all findings)</h2>
+<p style="font-size: 13px; color: var(--muted);">
+  <span class="badge">CWE-94 (17)</span><span class="badge">CWE-89 (14)</span><span class="badge">CWE-78 (12)</span><span class="badge">CWE-918 (11)</span><span class="badge">CWE-697 (10)</span><span class="badge">CWE-1333 (2)</span><span class="badge">CWE-346 (2)</span><span class="badge">CWE-22 (1)</span><span class="badge">CWE-252 (1)</span><span class="badge">CWE-200 (1)</span><span class="badge">CWE-95 (1)</span>
+</p>
+
+
+<h2>Top 20 findings by triage priority</h2>
+<p class="meta" style="margin-top:-6px;">Sorted by p_tp (model's probability that the finding is a true positive) descending.</p>
+
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#1</span>
+    <span class="priority high">high · p_tp 0.798</span>
+    <span class="file-path">vulnerabilities\sqli_blind\source\low.php:32</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">32</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#2</span>
+    <span class="priority high">high · p_tp 0.795</span>
+    <span class="file-path">vulnerabilities\sqli\source\low.php:10</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">10</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#3</span>
+    <span class="priority high">high · p_tp 0.795</span>
+    <span class="file-path">vulnerabilities\sqli\source\low.php:31</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">31</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#4</span>
+    <span class="priority high">high · p_tp 0.793</span>
+    <span class="file-path">vulnerabilities\sqli_blind\source\low.php:11</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">11</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#5</span>
+    <span class="priority high">high · p_tp 0.792</span>
+    <span class="file-path">vulnerabilities\brute\source\low.php:12</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">12</span><span class="x">	$query  = &quot;SELECT * FROM `users` WHERE user = &#39;$user&#39; AND password = &#39;$pass&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#6</span>
+    <span class="priority high">high · p_tp 0.785</span>
+    <span class="file-path">vulnerabilities\sqli_blind\source\high.php:33</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">33</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39; LIMIT 1;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#7</span>
+    <span class="priority high">high · p_tp 0.785</span>
+    <span class="file-path">vulnerabilities\bac\source\medium.php:28</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">28</span><span class="x">                $query = &quot;SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = &#39;$id&#39;;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#8</span>
+    <span class="priority high">high · p_tp 0.782</span>
+    <span class="file-path">vulnerabilities\bac\source\medium.php:21</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">21</span><span class="x">        $check_query = &quot;SELECT user_id FROM users WHERE user_id = &#39;$id&#39;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#9</span>
+    <span class="priority high">high · p_tp 0.782</span>
+    <span class="file-path">vulnerabilities\sqli_blind\source\high.php:11</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">11</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = &#39;$id&#39; LIMIT 1;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#10</span>
+    <span class="priority high">high · p_tp 0.774</span>
+    <span class="file-path">vulnerabilities\bac\source\low.php:79-80</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">79</span><span class="x">            $log_query = &quot;INSERT INTO bac_log (user_id, target_id, ip_address) VALUES </span>
+<span class="linenos">80</span><span class="x">                        ({$current_user_id}, {$target_id}, &#39;{$ip}&#39;)&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#11</span>
+    <span class="priority high">high · p_tp 0.768</span>
+    <span class="file-path">vulnerabilities\bac\source\medium.php:71-72</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">71</span><span class="x">            $log_query = &quot;INSERT INTO bac_log (user_id, target_id, ip_address) VALUES </span>
+<span class="linenos">72</span><span class="x">                        ({$current_user_id}, {$target_id}, &#39;{$ip}&#39;)&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#12</span>
+    <span class="priority high">high · p_tp 0.766</span>
+    <span class="file-path">vulnerabilities\bac\source\low.php:22</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">22</span><span class="x">        $check_query = &quot;SELECT user_id FROM users WHERE user_id = $id&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#13</span>
+    <span class="priority high">high · p_tp 0.766</span>
+    <span class="file-path">vulnerabilities\sqli_blind\source\medium.php:34</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">34</span><span class="x">			$query  = &quot;SELECT first_name, last_name FROM users WHERE user_id = $id;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#14</span>
+    <span class="priority high">high · p_tp 0.766</span>
+    <span class="file-path">vulnerabilities\bac\source\low.php:35</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-89</span>
+    <span class="badge">tainted-sql-string</span>
+    
+  </div>
+  <div class="msg">User data flows into this manually-constructed SQL string. User data can be safely inserted into SQL strings using prepared statements or an object-relational mapper (ORM). Manually-constructed SQL strings is a possible indicator of SQL injection, which could let an attacker steal or manipulate data from the database. Instead, use prepared statements (`$mysqli-&gt;prepare(&#34;INSERT INTO test(id, label) VALUES (?, ?)&#34;);`) or a safe library.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">35</span><span class="x">                    $query = &quot;SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = $id;&quot;;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#15</span>
+    <span class="priority high">high · p_tp 0.692</span>
+    <span class="file-path">vulnerabilities\api\src\HealthController.php:88</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-78</span>
+    <span class="badge">tainted-exec</span>
+    
+  </div>
+  <div class="msg">User input is passed to a function that executes a shell command. This can lead to remote code execution.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">88</span><span class="x">			exec (&quot;ping -c 4 &quot; . $target, $output, $ret_var);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#16</span>
+    <span class="priority high">high · p_tp 0.685</span>
+    <span class="file-path">vulnerabilities\exec\source\low.php:10</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-78</span>
+    <span class="badge">tainted-exec</span>
+    
+  </div>
+  <div class="msg">User input is passed to a function that executes a shell command. This can lead to remote code execution.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">10</span><span class="x">		$cmd = shell_exec( &#39;ping  &#39; . $target );</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#17</span>
+    <span class="priority high">high · p_tp 0.675</span>
+    <span class="file-path">vulnerabilities\view_help.php:22</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-78</span>
+    <span class="badge">eval-use</span>
+    
+  </div>
+  <div class="msg">Evaluating non-constant commands. This can lead to command injection.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">22</span><span class="x">		eval( &#39;?&gt;&#39; . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . &quot;vulnerabilities/{$id}/help/help.{$locale}.php&quot; ) . &#39;</span><span class="cp">&lt;?php</span> <span class="err">&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#18</span>
+    <span class="priority high">high · p_tp 0.665</span>
+    <span class="file-path">vulnerabilities\exec\source\high.php:26</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-78</span>
+    <span class="badge">tainted-exec</span>
+    
+  </div>
+  <div class="msg">User input is passed to a function that executes a shell command. This can lead to remote code execution.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">26</span><span class="x">		$cmd = shell_exec( &#39;ping  &#39; . $target );</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#19</span>
+    <span class="priority high">high · p_tp 0.658</span>
+    <span class="file-path">vulnerabilities\exec\source\medium.php:19</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-78</span>
+    <span class="badge">tainted-exec</span>
+    
+  </div>
+  <div class="msg">User input is passed to a function that executes a shell command. This can lead to remote code execution.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">19</span><span class="x">		$cmd = shell_exec( &#39;ping  &#39; . $target );</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#20</span>
+    <span class="priority high">high · p_tp 0.655</span>
+    <span class="file-path">vulnerabilities\view_help.php:22</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-918</span>
+    <span class="badge">tainted-filename</span>
+    
+  </div>
+  <div class="msg">File name based on user input risks server-side request forgery.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">22</span><span class="x">		eval( &#39;?&gt;&#39; . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . &quot;vulnerabilities/{$id}/help/help.{$locale}.php&quot; ) . &#39;</span><span class="cp">&lt;?php</span> <span class="err">&#39;</span> <span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+
+<div class="scope">
+  <p><b>Triage scope</b> (honest disclosure, per public-benchmark eval on yeswehack + DVWA-paired, 111 cases):</p>
+  <ul>
+    <li>High detection: SQL injection (CWE-89), XSS (CWE-79), LFI/PathTraversal (CWE-22/98), SSRF (CWE-918), SSTI, Deserialization, eval/CodeInjection, FormatString, CSRF, PrototypePollution.</li>
+    <li>Partial: CommandInjection (CWE-78), OpenRedirect (CWE-601), IDOR (CWE-639).</li>
+    <li>Out of scope (model does not reliably detect): BusinessLogic, CORS, CachePoisoning, Broken-Access-Control, Weak-ID-Generation, Captcha-Bypass, Upload-Chain, AuthBypass-via-type-juggling, client-side JS validation.</li>
+    <li>Snippet-only triage: findings whose mitigation lives outside the visible code window (e.g. validation 100 lines upstream) may be flagged as priority. Manual confirmation of top-5 recommended before acting.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>Methodology: single-call inference per finding, greedy decoding, p_tp from first-token logprobs over TRUE_POSITIVE vs FALSE_POSITIVE. Benchmark numbers (MCC 0.420 on yeswehack+DVWA, MCC 0.177 with paired strict-beat vs single-call Sonnet 4.5 on SastBench-250) measured under cluster-bootstrap CIs. Recall on diverse OSS is partial (DR ~46% on SastBench-250) — positioning is <b>priority ranker</b>, not filter.</p>
+  <p>Generated by <a href="https://github.com/JJKenn3dy/vuln-llm-research" style="color: var(--link);">vuln-llm-research</a> · v8.3.1 adapter</p>
+</div>
+
+</body>
+</html>

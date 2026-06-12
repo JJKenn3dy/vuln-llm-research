@@ -1,0 +1,317 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 33-33\n\nCode:\n        const afterTax = eval(req.body.afterTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:33",
+      "rank": 1,
+      "p_tp": 0.7574054304810803,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 33
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 32-32\n\nCode:\n        const preTax = eval(req.body.preTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:32",
+      "rank": 2,
+      "p_tp": 0.7486808673108216,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 32
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 33-33\n\nCode:\n        const afterTax = eval(req.body.afterTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.browser.security.eval-detected.eval-detected:app\\routes\\contributions.js:33",
+      "rank": 3,
+      "p_tp": 0.7306537519509472,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 33
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 34-34\n\nCode:\n        const roth = eval(req.body.roth);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:34",
+      "rank": 4,
+      "p_tp": 0.7244313168568055,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 34
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 32-32\n\nCode:\n        const preTax = eval(req.body.preTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.browser.security.eval-detected.eval-detected:app\\routes\\contributions.js:32",
+      "rank": 5,
+      "p_tp": 0.7213353926530344,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 32
+    }
+  },
+  {
+    "case_id": "top_5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 34-34\n\nCode:\n        const roth = eval(req.body.roth);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.browser.security.eval-detected.eval-detected:app\\routes\\contributions.js:34",
+      "rank": 6,
+      "p_tp": 0.6955093708959249,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 34
+    }
+  },
+  {
+    "case_id": "top_6",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-352\nClaimed severity: HIGH\nFile: app\\views\\login.html\nLines: 107-127\n\nCode:\n                            <form method=\"post\" role=\"form\" method=\"post\" id=\"loginform\">\n                                <div class=\"form-group\">\n                                    <label for=\"userName\">User Name</label>\n                                    <input type=\"text\" class=\"form-control\" id=\"userName\" name=\"userName\" value=\"{{userName}}\" placeholder=\"Enter User Name\">\n                                </div>\n\n                                <div class=\"form-group\">\n                                    <label for=\"password\">Password</label>\n                                    <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" value=\"{{password}}\" placeholder=\"Enter Password\">\n                                </div>\n                                <input type=\"hidden\" name=\"_csrf\" value=\"{{csrftoken}}\" />\n\n                                <div class=\"row\">\n                                    <div class=\"col-lg-4\"><a href=\"/signup\">New user? Sign Up</a>\n                                    </div>\n                                    <div class=\"col-lg-5\"></div>\n                                    <div class=\"col-lg-3\">\n                                        <button type=\"submit\" class=\"btn btn-danger\">Submit</button>\n                                    </div>\n                                </div>\n                            </form>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:python.django.security.django-no-csrf-token.django-no-csrf-token:app\\views\\login.html:107",
+      "rank": 7,
+      "p_tp": 0.6786998116831484,
+      "claimed_cwe": "CWE-352",
+      "file_path": "app\\views\\login.html",
+      "line_start": 107
+    }
+  },
+  {
+    "case_id": "top_7",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-352\nClaimed severity: HIGH\nFile: app\\views\\benefits.html\nLines: 54-63\n\nCode:\n                            <form method=\"POST\" action=\"/benefits\">\n                                <div class=\"input-group\">\n                                    <input type=\"hidden\" name=\"userId\" value=\"{{user._id.toString()}}\"></input>\n                                    <input type=\"date\" class=\"form-control\" name=\"benefitStartDate\" value=\"{{user.benefitStartDate}}\"></input>\n                                    <span class=\"input-group-btn\">\n                                        <button type=\"submit\" class=\"btn btn-default\">Save</button>\n                                    </span>\n                                </div>\n                                <!-- /input-group -->\n                            </form>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:python.django.security.django-no-csrf-token.django-no-csrf-token:app\\views\\benefits.html:54",
+      "rank": 8,
+      "p_tp": 0.6613077764964445,
+      "claimed_cwe": "CWE-352",
+      "file_path": "app\\views\\benefits.html",
+      "line_start": 54
+    }
+  },
+  {
+    "case_id": "top_8",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-352\nClaimed severity: HIGH\nFile: app\\views\\memos.html\nLines: 15-23\n\nCode:\n                <form action=\"/memos\" method=\"post\" role=\"search\">\n\n                    <div class=\"form-group\">\n                        <textarea class=\"form-control\" name=\"memo\"></textarea>\n                        <p class=\"help-block\">You may use Markdown syntax to format your memo</p>\n                    </div>\n\n                    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n                </form>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:python.django.security.django-no-csrf-token.django-no-csrf-token:app\\views\\memos.html:15",
+      "rank": 9,
+      "p_tp": 0.6220541496927504,
+      "claimed_cwe": "CWE-352",
+      "file_path": "app\\views\\memos.html",
+      "line_start": 15
+    }
+  },
+  {
+    "case_id": "top_9",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-default-name:server.js:78",
+      "rank": 10,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  },
+  {
+    "case_id": "top_10",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-no-domain:server.js:78",
+      "rank": 11,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  },
+  {
+    "case_id": "top_11",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-no-expires:server.js:78",
+      "rank": 12,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  },
+  {
+    "case_id": "top_12",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-no-httponly:server.js:78",
+      "rank": 13,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  },
+  {
+    "case_id": "top_13",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-no-path:server.js:78",
+      "rank": 14,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  },
+  {
+    "case_id": "top_14",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-522\nClaimed severity: HIGH\nFile: server.js\nLines: 78-102\n\nCode:\n    app.use(session({\n        // genid: (req) => {\n        //    return genuuid() // use UUIDs for session IDs\n        //},\n        secret: cookieSecret,\n        // Both mandatory in Express v4\n        saveUninitialized: true,\n        resave: true\n        /*\n        // Fix for A5 - Security MisConfig\n        // Use generic cookie name\n        key: \"sessionId\",\n        */\n\n        /*\n        // Fix for A3 - XSS\n        // TODO: Add \"maxAge\"\n        cookie: {\n            httpOnly: true\n            // Remember to start an HTTPS server to get this working\n            // secure: true\n        }\n        */\n\n    }));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.express.security.audit.express-cookie-settings.express-cookie-session-no-secure:server.js:78",
+      "rank": 15,
+      "p_tp": 0.5501379388886793,
+      "claimed_cwe": "CWE-522",
+      "file_path": "server.js",
+      "line_start": 78
+    }
+  }
+]

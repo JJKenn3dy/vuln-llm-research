@@ -1,0 +1,212 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py\nLines: 54-54\n\nCode:\n        assert request.url.params[\"telegram_id\"] == \"7\"\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py:54",
+      "rank": 1,
+      "p_tp": 0.44498186034423926,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py",
+      "line_start": 54
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py\nLines: 201-201\n\nCode:\n        assert created_log.status_code == 200, created_log.text\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py:201",
+      "rank": 2,
+      "p_tp": 0.4411517585987774,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py",
+      "line_start": 201
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py\nLines: 24-24\n\nCode:\n        assert data == {\"username\": \"tester\", \"level\": 1}\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py:24",
+      "rank": 3,
+      "p_tp": 0.44113540491472064,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py",
+      "line_start": 24
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py\nLines: 105-105\n\nCode:\n    assert updated.status_code == 200, updated.text\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py:105",
+      "rank": 4,
+      "p_tp": 0.4373588243774807,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py",
+      "line_start": 105
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py\nLines: 22-22\n\nCode:\n    assert log[\"day_score\"] == payload[\"day_score\"]\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py:22",
+      "rank": 5,
+      "p_tp": 0.43735320285083706,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py",
+      "line_start": 22
+    }
+  },
+  {
+    "case_id": "top_5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py\nLines: 74-74\n\nCode:\n        assert request.url.params[\"telegram_id\"] == \"99\"\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py:74",
+      "rank": 6,
+      "p_tp": 0.4372863508977804,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/tests/test_api_client.py",
+      "line_start": 74
+    }
+  },
+  {
+    "case_id": "top_6",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py\nLines: 88-88\n\nCode:\n    assert created_domain.status_code == 200, created_domain.text\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py:88",
+      "rank": 7,
+      "p_tp": 0.4334498648883919,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/test_full_system.py",
+      "line_start": 88
+    }
+  },
+  {
+    "case_id": "top_7",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py\nLines: 20-20\n\nCode:\n    assert created_log.status_code == 200, created_log.text\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py:20",
+      "rank": 8,
+      "p_tp": 0.43343512216231755,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py",
+      "line_start": 20
+    }
+  },
+  {
+    "case_id": "top_8",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py\nLines: 27-27\n\nCode:\n    assert log[\"log_date\"] == payload[\"log_date\"]\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py:27",
+      "rank": 9,
+      "p_tp": 0.42967350458320286,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py",
+      "line_start": 27
+    }
+  },
+  {
+    "case_id": "top_9",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Bandit\nClaimed CWE: unknown\nClaimed severity: HIGH\nFile: file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py\nLines: 25-25\n\nCode:\n    assert log[\"xp_pulse_received\"] is False\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:B101:file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py:25",
+      "rank": 10,
+      "p_tp": 0.4258705238492535,
+      "claimed_cwe": null,
+      "file_path": "file:///f:/tmp/practical_apps/rpg_life/backend/tests/api/test_daily_logs.py",
+      "line_start": 25
+    }
+  }
+]

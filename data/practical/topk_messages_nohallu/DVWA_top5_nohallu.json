@@ -1,0 +1,107 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\low.php\nLines: 32-32\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\low.php:32",
+      "rank": 1,
+      "p_tp": 0.7975764039745997,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\low.php",
+      "line_start": 32
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli\\source\\low.php\nLines: 10-10\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli\\source\\low.php:10",
+      "rank": 2,
+      "p_tp": 0.7950811122471182,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli\\source\\low.php",
+      "line_start": 10
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli\\source\\low.php\nLines: 31-31\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli\\source\\low.php:31",
+      "rank": 3,
+      "p_tp": 0.7950609467785769,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli\\source\\low.php",
+      "line_start": 31
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\low.php\nLines: 11-11\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\low.php:11",
+      "rank": 4,
+      "p_tp": 0.7925098675433682,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\low.php",
+      "line_start": 11
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\brute\\source\\low.php\nLines: 12-12\n\nCode:\n\t$query  = \"SELECT * FROM `users` WHERE user = '$user' AND password = '$pass';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\brute\\source\\low.php:12",
+      "rank": 5,
+      "p_tp": 0.7924461142308789,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\brute\\source\\low.php",
+      "line_start": 12
+    }
+  }
+]

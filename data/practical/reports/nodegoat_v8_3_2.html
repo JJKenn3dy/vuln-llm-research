@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>OWASP NodeGoat — SAST Triage Report</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --high: #b91c1c;
+    --high-bg: #fee2e2;
+    --medium: #b45309;
+    --medium-bg: #fef3c7;
+    --low: #1e7c5a;
+    --low-bg: #d1fae5;
+    --unknown: #6b7280;
+    --unknown-bg: #f3f4f6;
+    --link: #1d4ed8;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--fg); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    font-size: 14px;
+  }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; margin: 16px 0 4px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0 24px;
+  }
+  .summary .card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .summary .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .summary .value { font-size: 20px; font-weight: 600; margin-top: 2px; }
+
+  .finding {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 14px 0;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+  }
+  .finding-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .rank { font-weight: 700; color: var(--muted); font-size: 13px; }
+  .file-path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; flex: 1; word-break: break-all; }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .priority.high   { color: var(--high);   background: var(--high-bg);   }
+  .priority.medium { color: var(--medium); background: var(--medium-bg); }
+  .priority.low    { color: var(--low);    background: var(--low-bg);    }
+  .priority.unknown { color: var(--unknown); background: var(--unknown-bg); }
+
+  .badges { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-right: 4px;
+  }
+  .msg { font-size: 13px; color: var(--fg); margin: 4px 0 10px; }
+  .code-block {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .code-block .src { margin: 0; }
+  .code-block pre { margin: 0; }
+  .reasoning {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border-left: 3px solid var(--link);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .reasoning .label { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 4px; }
+  .suggested-fix {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #ecfdf5;
+    border-left: 3px solid var(--low);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .footer { color: var(--muted); font-size: 12px; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .footer p { margin: 6px 0; }
+  .footer ul { margin: 6px 0; padding-left: 18px; }
+  .scope { background: #fffbeb; border: 1px solid #fde68a; padding: 10px 14px; border-radius: 6px; margin: 16px 0; font-size: 13px; }
+  .scope b { color: #92400e; }
+
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.src .hll { background-color: #ffffcc }
+.src .c { color: #3D7B7B; font-style: italic } /* Comment */
+.src .err { border: 1px solid #F00 } /* Error */
+.src .k { color: #008000; font-weight: bold } /* Keyword */
+.src .o { color: #666 } /* Operator */
+.src .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.src .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.src .cp { color: #9C6500 } /* Comment.Preproc */
+.src .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.src .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.src .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.src .gd { color: #A00000 } /* Generic.Deleted */
+.src .ge { font-style: italic } /* Generic.Emph */
+.src .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.src .gr { color: #E40000 } /* Generic.Error */
+.src .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.src .gi { color: #008400 } /* Generic.Inserted */
+.src .go { color: #717171 } /* Generic.Output */
+.src .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.src .gs { font-weight: bold } /* Generic.Strong */
+.src .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.src .gt { color: #04D } /* Generic.Traceback */
+.src .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.src .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.src .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.src .kp { color: #008000 } /* Keyword.Pseudo */
+.src .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.src .kt { color: #B00040 } /* Keyword.Type */
+.src .m { color: #666 } /* Literal.Number */
+.src .s { color: #BA2121 } /* Literal.String */
+.src .na { color: #687822 } /* Name.Attribute */
+.src .nb { color: #008000 } /* Name.Builtin */
+.src .nc { color: #00F; font-weight: bold } /* Name.Class */
+.src .no { color: #800 } /* Name.Constant */
+.src .nd { color: #A2F } /* Name.Decorator */
+.src .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.src .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.src .nf { color: #00F } /* Name.Function */
+.src .nl { color: #767600 } /* Name.Label */
+.src .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.src .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.src .nv { color: #19177C } /* Name.Variable */
+.src .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.src .w { color: #BBB } /* Text.Whitespace */
+.src .mb { color: #666 } /* Literal.Number.Bin */
+.src .mf { color: #666 } /* Literal.Number.Float */
+.src .mh { color: #666 } /* Literal.Number.Hex */
+.src .mi { color: #666 } /* Literal.Number.Integer */
+.src .mo { color: #666 } /* Literal.Number.Oct */
+.src .sa { color: #BA2121 } /* Literal.String.Affix */
+.src .sb { color: #BA2121 } /* Literal.String.Backtick */
+.src .sc { color: #BA2121 } /* Literal.String.Char */
+.src .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.src .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.src .s2 { color: #BA2121 } /* Literal.String.Double */
+.src .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.src .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.src .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.src .sx { color: #008000 } /* Literal.String.Other */
+.src .sr { color: #A45A77 } /* Literal.String.Regex */
+.src .s1 { color: #BA2121 } /* Literal.String.Single */
+.src .ss { color: #19177C } /* Literal.String.Symbol */
+.src .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.src .fm { color: #00F } /* Name.Function.Magic */
+.src .vc { color: #19177C } /* Name.Variable.Class */
+.src .vg { color: #19177C } /* Name.Variable.Global */
+.src .vi { color: #19177C } /* Name.Variable.Instance */
+.src .vm { color: #19177C } /* Name.Variable.Magic */
+.src .il { color: #666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+
+<h1>SAST Triage Report</h1>
+<p class="meta">
+  Repository: <b>OWASP NodeGoat</b><br>
+  Generated: 2026-06-12 13:46<br>
+  Triage model: v8.3.1 (Qwen2.5-Coder-7B + LoRA, fine-tuned on CVEFixes + CrossVul)
+</p>
+
+<div class="summary">
+  <div class="card"><div class="label">Total findings</div><div class="value">29</div></div>
+  <div class="card"><div class="label">High priority (p_tp ≥ 0.6)</div><div class="value">9</div></div>
+  <div class="card"><div class="label">Medium (0.5–0.6)</div><div class="value">7</div></div>
+  <div class="card"><div class="label">Low (< 0.5)</div><div class="value">13</div></div>
+</div>
+
+
+<h2>CWE distribution (across all findings)</h2>
+<p style="font-size: 13px; color: var(--muted);">
+  <span class="badge">CWE-95 (6)</span><span class="badge">CWE-522 (6)</span><span class="badge">CWE-319 (6)</span><span class="badge">CWE-352 (4)</span><span class="badge">CWE-798 (4)</span><span class="badge">CWE-732 (2)</span><span class="badge">CWE-601 (1)</span>
+</p>
+
+
+<h2>Top 15 findings by triage priority</h2>
+<p class="meta" style="margin-top:-6px;">Sorted by p_tp (model's probability that the finding is a true positive) descending.</p>
+
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#1</span>
+    <span class="priority high">high · p_tp 0.757</span>
+    <span class="file-path">app\routes\contributions.js:33</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">code-string-concat</span>
+    
+  </div>
+  <div class="msg">Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">33</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">afterTax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">afterTax</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#2</span>
+    <span class="priority high">high · p_tp 0.749</span>
+    <span class="file-path">app\routes\contributions.js:32</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">code-string-concat</span>
+    
+  </div>
+  <div class="msg">Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">32</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">preTax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">preTax</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#3</span>
+    <span class="priority high">high · p_tp 0.731</span>
+    <span class="file-path">app\routes\contributions.js:33</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">eval-detected</span>
+    
+  </div>
+  <div class="msg">Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">33</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">afterTax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">afterTax</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#4</span>
+    <span class="priority high">high · p_tp 0.724</span>
+    <span class="file-path">app\routes\contributions.js:34</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">code-string-concat</span>
+    
+  </div>
+  <div class="msg">Found data from an Express or Next web request flowing to `eval`. If this data is user-controllable this can lead to execution of arbitrary system commands in the context of your application process. Avoid `eval` whenever possible.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">34</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">roth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">roth</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#5</span>
+    <span class="priority high">high · p_tp 0.721</span>
+    <span class="file-path">app\routes\contributions.js:32</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">eval-detected</span>
+    
+  </div>
+  <div class="msg">Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">32</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">preTax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">preTax</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#6</span>
+    <span class="priority high">high · p_tp 0.696</span>
+    <span class="file-path">app\routes\contributions.js:34</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-95</span>
+    <span class="badge">eval-detected</span>
+    
+  </div>
+  <div class="msg">Detected the use of eval(). eval() can be dangerous if used to evaluate dynamic content. If this content can be input from outside the program, this may be a code injection vulnerability. Ensure evaluated content is not definable by external sources.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">34</span><span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">roth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">eval</span><span class="p">(</span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">roth</span><span class="p">);</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#7</span>
+    <span class="priority high">high · p_tp 0.679</span>
+    <span class="file-path">app\views\login.html:107-127</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-352</span>
+    <span class="badge">django-no-csrf-token</span>
+    
+  </div>
+  <div class="msg">Manually-created forms in django templates should specify a csrf_token to prevent CSRF attacks.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">107</span>                            <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;form&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;loginform&quot;</span><span class="p">&gt;</span>
+<span class="linenos">108</span>                                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+<span class="linenos">109</span>                                    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;userName&quot;</span><span class="p">&gt;</span>User Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="linenos">110</span>                                    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;userName&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;userName&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{userName}}&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Enter User Name&quot;</span><span class="p">&gt;</span>
+<span class="linenos">111</span>                                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">112</span>
+<span class="linenos">113</span>                                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+<span class="linenos">114</span>                                    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">&gt;</span>Password<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="linenos">115</span>                                    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{password}}&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Enter Password&quot;</span><span class="p">&gt;</span>
+<span class="linenos">116</span>                                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">117</span>                                <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;_csrf&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{csrftoken}}&quot;</span> <span class="p">/&gt;</span>
+<span class="linenos">118</span>
+<span class="linenos">119</span>                                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+<span class="linenos">120</span>                                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-4&quot;</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/signup&quot;</span><span class="p">&gt;</span>New user? Sign Up<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="linenos">121</span>                                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">122</span>                                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-5&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">123</span>                                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-lg-3&quot;</span><span class="p">&gt;</span>
+<span class="linenos">124</span>                                        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-danger&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="linenos">125</span>                                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">126</span>                                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">127</span>                            <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#8</span>
+    <span class="priority high">high · p_tp 0.661</span>
+    <span class="file-path">app\views\benefits.html:54-63</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-352</span>
+    <span class="badge">django-no-csrf-token</span>
+    
+  </div>
+  <div class="msg">Manually-created forms in django templates should specify a csrf_token to prevent CSRF attacks.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">54</span>                            <span class="p">&lt;</span><span class="nt">form</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;POST&quot;</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/benefits&quot;</span><span class="p">&gt;</span>
+<span class="linenos">55</span>                                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-group&quot;</span><span class="p">&gt;</span>
+<span class="linenos">56</span>                                    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;userId&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{user._id.toString()}}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
+<span class="linenos">57</span>                                    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;date&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;benefitStartDate&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;{{user.benefitStartDate}}&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">input</span><span class="p">&gt;</span>
+<span class="linenos">58</span>                                    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;input-group-btn&quot;</span><span class="p">&gt;</span>
+<span class="linenos">59</span>                                        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="linenos">60</span>                                    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="linenos">61</span>                                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">62</span>                                <span class="cm">&lt;!-- /input-group --&gt;</span>
+<span class="linenos">63</span>                            <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#9</span>
+    <span class="priority high">high · p_tp 0.622</span>
+    <span class="file-path">app\views\memos.html:15-23</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-352</span>
+    <span class="badge">django-no-csrf-token</span>
+    
+  </div>
+  <div class="msg">Manually-created forms in django templates should specify a csrf_token to prevent CSRF attacks.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">15</span>                <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;/memos&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">role</span><span class="o">=</span><span class="s">&quot;search&quot;</span><span class="p">&gt;</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span>                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+<span class="linenos">18</span>                        <span class="p">&lt;</span><span class="nt">textarea</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;memo&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">textarea</span><span class="p">&gt;</span>
+<span class="linenos">19</span>                        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;help-block&quot;</span><span class="p">&gt;</span>You may use Markdown syntax to format your memo<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="linenos">20</span>                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="linenos">21</span>
+<span class="linenos">22</span>                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="linenos">23</span>                <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#10</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-default-name</span>
+    
+  </div>
+  <div class="msg">Don’t use the default session cookie name Using the default session cookie name can open your app to attacks. The security issue posed is similar to X-Powered-By: a potential attacker can use it to fingerprint the server and target attacks accordingly.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#11</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-no-domain</span>
+    
+  </div>
+  <div class="msg">Default session middleware settings: `domain` not set. It indicates the domain of the cookie; use it to compare against the domain of the server in which the URL is being requested. If they match, then check the path attribute next.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#12</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-no-expires</span>
+    
+  </div>
+  <div class="msg">Default session middleware settings: `expires` not set. Use it to set expiration date for persistent cookies.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#13</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-no-httponly</span>
+    
+  </div>
+  <div class="msg">Default session middleware settings: `httpOnly` not set. It ensures the cookie is sent only over HTTP(S), not client JavaScript, helping to protect against cross-site scripting attacks.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#14</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-no-path</span>
+    
+  </div>
+  <div class="msg">Default session middleware settings: `path` not set. It indicates the path of the cookie; use it to compare against the request path. If this and domain match, then send the cookie in the request.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#15</span>
+    <span class="priority medium">medium · p_tp 0.550</span>
+    <span class="file-path">server.js:78-102</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-522</span>
+    <span class="badge">express-cookie-session-no-secure</span>
+    
+  </div>
+  <div class="msg">Default session middleware settings: `secure` not set. It ensures the browser only sends the cookie over HTTPS.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos"> 78</span><span class="w">    </span><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">session</span><span class="p">({</span>
+<span class="linenos"> 79</span><span class="w">        </span><span class="c1">// genid: (req) =&gt; {</span>
+<span class="linenos"> 80</span><span class="w">        </span><span class="c1">//    return genuuid() // use UUIDs for session IDs</span>
+<span class="linenos"> 81</span><span class="w">        </span><span class="c1">//},</span>
+<span class="linenos"> 82</span><span class="w">        </span><span class="nx">secret</span><span class="o">:</span><span class="w"> </span><span class="nx">cookieSecret</span><span class="p">,</span>
+<span class="linenos"> 83</span><span class="w">        </span><span class="c1">// Both mandatory in Express v4</span>
+<span class="linenos"> 84</span><span class="w">        </span><span class="nx">saveUninitialized</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="linenos"> 85</span><span class="w">        </span><span class="nx">resave</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="linenos"> 86</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 87</span><span class="cm">        // Fix for A5 - Security MisConfig</span>
+<span class="linenos"> 88</span><span class="cm">        // Use generic cookie name</span>
+<span class="linenos"> 89</span><span class="cm">        key: &quot;sessionId&quot;,</span>
+<span class="linenos"> 90</span><span class="cm">        */</span>
+<span class="linenos"> 91</span>
+<span class="linenos"> 92</span><span class="w">        </span><span class="cm">/*</span>
+<span class="linenos"> 93</span><span class="cm">        // Fix for A3 - XSS</span>
+<span class="linenos"> 94</span><span class="cm">        // TODO: Add &quot;maxAge&quot;</span>
+<span class="linenos"> 95</span><span class="cm">        cookie: {</span>
+<span class="linenos"> 96</span><span class="cm">            httpOnly: true</span>
+<span class="linenos"> 97</span><span class="cm">            // Remember to start an HTTPS server to get this working</span>
+<span class="linenos"> 98</span><span class="cm">            // secure: true</span>
+<span class="linenos"> 99</span><span class="cm">        }</span>
+<span class="linenos">100</span><span class="cm">        */</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="w">    </span><span class="p">}));</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+
+<div class="scope">
+  <p><b>Triage scope</b> (honest disclosure, per public-benchmark eval on yeswehack + DVWA-paired, 111 cases):</p>
+  <ul>
+    <li>High detection: SQL injection (CWE-89), XSS (CWE-79), LFI/PathTraversal (CWE-22/98), SSRF (CWE-918), SSTI, Deserialization, eval/CodeInjection, FormatString, CSRF, PrototypePollution.</li>
+    <li>Partial: CommandInjection (CWE-78), OpenRedirect (CWE-601), IDOR (CWE-639).</li>
+    <li>Out of scope (model does not reliably detect): BusinessLogic, CORS, CachePoisoning, Broken-Access-Control, Weak-ID-Generation, Captcha-Bypass, Upload-Chain, AuthBypass-via-type-juggling, client-side JS validation.</li>
+    <li>Snippet-only triage: findings whose mitigation lives outside the visible code window (e.g. validation 100 lines upstream) may be flagged as priority. Manual confirmation of top-5 recommended before acting.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>Methodology: single-call inference per finding, greedy decoding, p_tp from first-token logprobs over TRUE_POSITIVE vs FALSE_POSITIVE. Benchmark numbers (MCC 0.420 on yeswehack+DVWA, MCC 0.177 with paired strict-beat vs single-call Sonnet 4.5 on SastBench-250) measured under cluster-bootstrap CIs. Recall on diverse OSS is partial (DR ~46% on SastBench-250) — positioning is <b>priority ranker</b>, not filter.</p>
+  <p>Generated by <a href="https://github.com/JJKenn3dy/vuln-llm-research" style="color: var(--link);">vuln-llm-research</a> · v8.3.1 adapter</p>
+</div>
+
+</body>
+</html>

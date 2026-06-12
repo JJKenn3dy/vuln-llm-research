@@ -1,0 +1,107 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 33-33\n\nCode:\n        const afterTax = eval(req.body.afterTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:33",
+      "rank": 1,
+      "p_tp": 0.7574054304810803,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 33
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 32-32\n\nCode:\n        const preTax = eval(req.body.preTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:32",
+      "rank": 2,
+      "p_tp": 0.7486808673108216,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 32
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 33-33\n\nCode:\n        const afterTax = eval(req.body.afterTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.browser.security.eval-detected.eval-detected:app\\routes\\contributions.js:33",
+      "rank": 3,
+      "p_tp": 0.7306537519509472,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 33
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 34-34\n\nCode:\n        const roth = eval(req.body.roth);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.audit.code-string-concat.code-string-concat:app\\routes\\contributions.js:34",
+      "rank": 4,
+      "p_tp": 0.7244313168568055,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 34
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-95\nClaimed severity: HIGH\nFile: app\\routes\\contributions.js\nLines: 32-32\n\nCode:\n        const preTax = eval(req.body.preTax);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.browser.security.eval-detected.eval-detected:app\\routes\\contributions.js:32",
+      "rank": 5,
+      "p_tp": 0.7213353926530344,
+      "claimed_cwe": "CWE-95",
+      "file_path": "app\\routes\\contributions.js",
+      "line_start": 32
+    }
+  }
+]

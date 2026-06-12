@@ -1,0 +1,107 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: app\\lib\\runtime\\git-manager.ts\nLines: 44-44\n\nCode:\n    return execSync(cmd, {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.detect-child-process.detect-child-process:app\\lib\\runtime\\git-manager.ts:44",
+      "rank": 1,
+      "p_tp": 0.7630725793262546,
+      "claimed_cwe": "CWE-78",
+      "file_path": "app\\lib\\runtime\\git-manager.ts",
+      "line_start": 44
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: app\\lib\\runtime\\git-manager.ts\nLines: 440-440\n\nCode:\n    return execSync(`git archive --format=zip ${commitSha} -- ${paths}`, {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.detect-child-process.detect-child-process:app\\lib\\runtime\\git-manager.ts:440",
+      "rank": 2,
+      "p_tp": 0.736653123040239,
+      "claimed_cwe": "CWE-78",
+      "file_path": "app\\lib\\runtime\\git-manager.ts",
+      "line_start": 440
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: app\\lib\\runtime\\git-manager.ts\nLines: 440-440\n\nCode:\n    return execSync(`git archive --format=zip ${commitSha} -- ${paths}`, {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.detect-child-process.detect-child-process:app\\lib\\runtime\\git-manager.ts:440",
+      "rank": 3,
+      "p_tp": 0.736653123040239,
+      "claimed_cwe": "CWE-78",
+      "file_path": "app\\lib\\runtime\\git-manager.ts",
+      "line_start": 440
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: app\\lib\\runtime\\git-manager.ts\nLines: 409-409\n\nCode:\n    return execSync(`git archive --format=zip ${commitSha}`, {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.detect-child-process.detect-child-process:app\\lib\\runtime\\git-manager.ts:409",
+      "rank": 4,
+      "p_tp": 0.7336482888011379,
+      "claimed_cwe": "CWE-78",
+      "file_path": "app\\lib\\runtime\\git-manager.ts",
+      "line_start": 409
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested. Describe ONLY the specific code shown to you. Do NOT reference fictional CVE entries, do NOT name unrelated open-source projects or plugins, do NOT invent commit SHAs, versions, or patch identifiers. If the code is a true positive, explain in one paragraph WHY this exact snippet is exploitable based only on what you can see."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: pre-start.cjs\nLines: 48-48\n\nCode:\n      const out = execSync(`lsof -ti tcp:${port}`, {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph about THIS code only. Do not mention other CVEs, packages, or upstream patches. Describe what makes this exact snippet vulnerable or safe.>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph: concrete code-level change for THIS snippet, or \"N/A\" if FP>\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:javascript.lang.security.detect-child-process.detect-child-process:pre-start.cjs:48",
+      "rank": 5,
+      "p_tp": 0.7085006850649276,
+      "claimed_cwe": "CWE-78",
+      "file_path": "pre-start.cjs",
+      "line_start": 48
+    }
+  }
+]

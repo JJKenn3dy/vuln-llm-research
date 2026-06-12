@@ -1,0 +1,422 @@
+[
+  {
+    "case_id": "top_0",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\low.php\nLines: 32-32\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\low.php:32",
+      "rank": 1,
+      "p_tp": 0.7975764039745997,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\low.php",
+      "line_start": 32
+    }
+  },
+  {
+    "case_id": "top_1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli\\source\\low.php\nLines: 10-10\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli\\source\\low.php:10",
+      "rank": 2,
+      "p_tp": 0.7950811122471182,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli\\source\\low.php",
+      "line_start": 10
+    }
+  },
+  {
+    "case_id": "top_2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli\\source\\low.php\nLines: 31-31\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli\\source\\low.php:31",
+      "rank": 3,
+      "p_tp": 0.7950609467785769,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli\\source\\low.php",
+      "line_start": 31
+    }
+  },
+  {
+    "case_id": "top_3",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\low.php\nLines: 11-11\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\low.php:11",
+      "rank": 4,
+      "p_tp": 0.7925098675433682,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\low.php",
+      "line_start": 11
+    }
+  },
+  {
+    "case_id": "top_4",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\brute\\source\\low.php\nLines: 12-12\n\nCode:\n\t$query  = \"SELECT * FROM `users` WHERE user = '$user' AND password = '$pass';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\brute\\source\\low.php:12",
+      "rank": 5,
+      "p_tp": 0.7924461142308789,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\brute\\source\\low.php",
+      "line_start": 12
+    }
+  },
+  {
+    "case_id": "top_5",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\high.php\nLines: 33-33\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\high.php:33",
+      "rank": 6,
+      "p_tp": 0.7847072520055486,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\high.php",
+      "line_start": 33
+    }
+  },
+  {
+    "case_id": "top_6",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\medium.php\nLines: 28-28\n\nCode:\n                $query = \"SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = '$id';\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\medium.php:28",
+      "rank": 7,
+      "p_tp": 0.7846703939155046,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\medium.php",
+      "line_start": 28
+    }
+  },
+  {
+    "case_id": "top_7",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\medium.php\nLines: 21-21\n\nCode:\n        $check_query = \"SELECT user_id FROM users WHERE user_id = '$id'\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\medium.php:21",
+      "rank": 8,
+      "p_tp": 0.7820921254450437,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\medium.php",
+      "line_start": 21
+    }
+  },
+  {
+    "case_id": "top_8",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\high.php\nLines: 11-11\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = '$id' LIMIT 1;\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\high.php:11",
+      "rank": 9,
+      "p_tp": 0.7820816454836274,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\high.php",
+      "line_start": 11
+    }
+  },
+  {
+    "case_id": "top_9",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\low.php\nLines: 79-80\n\nCode:\n            $log_query = \"INSERT INTO bac_log (user_id, target_id, ip_address) VALUES \n                        ({$current_user_id}, {$target_id}, '{$ip}')\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\low.php:79",
+      "rank": 10,
+      "p_tp": 0.7739144241926128,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\low.php",
+      "line_start": 79
+    }
+  },
+  {
+    "case_id": "top_10",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\medium.php\nLines: 71-72\n\nCode:\n            $log_query = \"INSERT INTO bac_log (user_id, target_id, ip_address) VALUES \n                        ({$current_user_id}, {$target_id}, '{$ip}')\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\medium.php:71",
+      "rank": 11,
+      "p_tp": 0.7683777931777793,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\medium.php",
+      "line_start": 71
+    }
+  },
+  {
+    "case_id": "top_11",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\low.php\nLines: 22-22\n\nCode:\n        $check_query = \"SELECT user_id FROM users WHERE user_id = $id\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\low.php:22",
+      "rank": 12,
+      "p_tp": 0.7657315055442152,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\low.php",
+      "line_start": 22
+    }
+  },
+  {
+    "case_id": "top_12",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\sqli_blind\\source\\medium.php\nLines: 34-34\n\nCode:\n\t\t\t$query  = \"SELECT first_name, last_name FROM users WHERE user_id = $id;\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\sqli_blind\\source\\medium.php:34",
+      "rank": 13,
+      "p_tp": 0.7656412388509699,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\sqli_blind\\source\\medium.php",
+      "line_start": 34
+    }
+  },
+  {
+    "case_id": "top_13",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-89\nClaimed severity: HIGH\nFile: vulnerabilities\\bac\\source\\low.php\nLines: 35-35\n\nCode:\n                    $query = \"SELECT first_name, last_name, user_id, avatar FROM users WHERE user_id = $id;\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-sql-string.tainted-sql-string:vulnerabilities\\bac\\source\\low.php:35",
+      "rank": 14,
+      "p_tp": 0.7656285387786111,
+      "claimed_cwe": "CWE-89",
+      "file_path": "vulnerabilities\\bac\\source\\low.php",
+      "line_start": 35
+    }
+  },
+  {
+    "case_id": "top_14",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: vulnerabilities\\api\\src\\HealthController.php\nLines: 88-88\n\nCode:\n\t\t\texec (\"ping -c 4 \" . $target, $output, $ret_var);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-exec.tainted-exec:vulnerabilities\\api\\src\\HealthController.php:88",
+      "rank": 15,
+      "p_tp": 0.6920176796667706,
+      "claimed_cwe": "CWE-78",
+      "file_path": "vulnerabilities\\api\\src\\HealthController.php",
+      "line_start": 88
+    }
+  },
+  {
+    "case_id": "top_15",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: vulnerabilities\\exec\\source\\low.php\nLines: 10-10\n\nCode:\n\t\t$cmd = shell_exec( 'ping  ' . $target );\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-exec.tainted-exec:vulnerabilities\\exec\\source\\low.php:10",
+      "rank": 16,
+      "p_tp": 0.6854050252109429,
+      "claimed_cwe": "CWE-78",
+      "file_path": "vulnerabilities\\exec\\source\\low.php",
+      "line_start": 10
+    }
+  },
+  {
+    "case_id": "top_16",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: vulnerabilities\\view_help.php\nLines: 22-22\n\nCode:\n\t\teval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . \"vulnerabilities/{$id}/help/help.{$locale}.php\" ) . '<?php ' );\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.eval-use.eval-use:vulnerabilities\\view_help.php:22",
+      "rank": 17,
+      "p_tp": 0.675249396237558,
+      "claimed_cwe": "CWE-78",
+      "file_path": "vulnerabilities\\view_help.php",
+      "line_start": 22
+    }
+  },
+  {
+    "case_id": "top_17",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: vulnerabilities\\exec\\source\\high.php\nLines: 26-26\n\nCode:\n\t\t$cmd = shell_exec( 'ping  ' . $target );\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-exec.tainted-exec:vulnerabilities\\exec\\source\\high.php:26",
+      "rank": 18,
+      "p_tp": 0.6648547316866921,
+      "claimed_cwe": "CWE-78",
+      "file_path": "vulnerabilities\\exec\\source\\high.php",
+      "line_start": 26
+    }
+  },
+  {
+    "case_id": "top_18",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: vulnerabilities\\exec\\source\\medium.php\nLines: 19-19\n\nCode:\n\t\t$cmd = shell_exec( 'ping  ' . $target );\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-exec.tainted-exec:vulnerabilities\\exec\\source\\medium.php:19",
+      "rank": 19,
+      "p_tp": 0.6578391989006993,
+      "claimed_cwe": "CWE-78",
+      "file_path": "vulnerabilities\\exec\\source\\medium.php",
+      "line_start": 19
+    }
+  },
+  {
+    "case_id": "top_19",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: Semgrep OSS\nClaimed CWE: CWE-918\nClaimed severity: HIGH\nFile: vulnerabilities\\view_help.php\nLines: 22-22\n\nCode:\n\t\teval( '?>' . file_get_contents( DVWA_WEB_PAGE_TO_ROOT . \"vulnerabilities/{$id}/help/help.{$locale}.php\" ) . '<?php ' );\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      }
+    ],
+    "metadata": {
+      "finding_key": "0:php.lang.security.injection.tainted-filename.tainted-filename:vulnerabilities\\view_help.php:22",
+      "rank": 20,
+      "p_tp": 0.6545075529388102,
+      "claimed_cwe": "CWE-918",
+      "file_path": "vulnerabilities\\view_help.php",
+      "line_start": 22
+    }
+  }
+]
