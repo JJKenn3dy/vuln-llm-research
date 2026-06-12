@@ -209,7 +209,7 @@ and Path C becomes the strongest training direction.
 Cost of validation: $0.05 OpenRouter call. Justified, but **only after**
 the human hand-labels are in place. Order matters.
 
-## Outreach pitch v3 (still deferred — see Decisions below)
+## Outreach pitch v3 — pre-GPT-5.3 version (DEPRECATED, see revised below)
 
 Do **not** lead with a number that claims superiority over frontier or
 SastBench. The structure to ship after the GPT-5.3 re-labeler check
@@ -229,18 +229,105 @@ This sells the diagnostic contribution + the on-prem economics, not a
 contested number. Does not need to win the disputed +0.177 vs Sonnet
 comparison.
 
+## 4-judge picture: GPT-5.3-codex added (2026-06-13)
+
+Ran `openai/gpt-5.3-codex` as a 4th independent blind voice on the same 100
+hand-label cases. Cost: $0.66 (token-heavy reasoning model). Script:
+[scripts/gpt53_relabel_handlabel100.py](../scripts/gpt53_relabel_handlabel100.py).
+Cross-check: [scripts/analyze_handlabel_100_with_gpt53.py](../scripts/analyze_handlabel_100_with_gpt53.py).
+
+### Pairwise agreement matrix (n=99 with all 6 verdicts)
+
+|           | SB | Sonnet | Gemini | v8.3.1 | Human | GPT-5.3 |
+|-----------|----|--------|--------|--------|-------|---------|
+| SB        | -    | 34.3% | 41.4% | 66.7% | 57.6% | **67.7%** |
+| Sonnet    | 34.3% | -    | 74.7% | 51.5% | 62.6% | 56.6% |
+| Gemini    | 41.4% | 74.7% | -    | 46.5% | 61.6% | 61.6% |
+| v8.3.1    | 66.7% | 51.5% | 46.5% | -    | 68.7% | 68.7% |
+| Human     | 57.6% | 62.6% | 61.6% | 68.7% | -    | 71.7% |
+| GPT-5.3   | **67.7%** | 56.6% | 61.6% | 68.7% | 71.7% | -    |
+
+**Critical reframing**: Sonnet and Gemini are unusually skeptical of SB
+labels (34% / 41% agreement) while GPT-5.3-codex agrees with SB **68%** of
+the time — about as often as our own v8.3.1. The original
+`strong_mislabel` bucket was defined as `Sonnet == Gemini != SB`, so
+adding a 3rd independent frontier was the precise test of "are Sonnet
+and Gemini in pretrained-error agreement, or actually catching real label
+noise". Answer: **partial corroboration**.
+
+### Headline (strong_mislabel n=49 after parse-fail filter)
+
+| | n=49 |
+|---|---:|
+| GPT-5.3 joins Sonnet+Gemini against SB | 24 (49%) |
+| GPT-5.3 sides with SB instead | 25 (51%) |
+| On the 24 triad-against-SB cases, human also rejects SB | 17 (71% of triad) |
+| **4 independent voices (S+G+G53+human) all reject SB** | **17/49 = 35%** |
+
+So out of the 250 adjudication-eligible cases, the "strong_mislabel" bucket
+contained 49 (after parse-fail filter), and only 17 of those (35% of bucket,
+**~7% of total benchmark**) have unanimous 4-judge rejection of SB.
+
+### Calibration update
+
+| Judge | Noise on clean_consistent (n=25) |
+|---|---:|
+| Sonnet | 0% (by construction) |
+| Gemini | 0% (by construction) |
+| GPT-5.3 | **12%** |
+| v8.3.1 | 20% |
+| Human (me) | 20% |
+
+GPT-5.3-codex has the lowest noise floor among the non-construction judges.
+
+## Pitch numbers, honest revision after 4-judge
+
+| Old (partial-30) | First-pass full-100 | After GPT-5.3 4th voice |
+|---|---|---|
+| "~50% noisy" | "~60% on contested third" | **"~7% have 4-judge unanimous rejection; 20% have ≥3-of-3-frontier rejection of SB"** |
+
+| Claim | Status after 4-judge |
+|---|---|
+| Real signal exists in clean labels | ✅ stands (Sonnet+Gemini perfect on clean_consistent, GPT-5.3 88%) |
+| SastBench has material label noise | ✅ ~7% of total benchmark cases have 4-judge unanimous rejection |
+| "Half the benchmark is wrong" | ❌ Dies. Cannot be claimed. |
+| "Roughly 1 in 3 labels disagrees with experts" | ❌ Also dies after 4th voice. Closer to **1 in 15** on the strictest reading. |
+| Sonnet+Gemini independence assumption | ❌ Partially refuted: GPT-5.3 (also frontier-class) agrees with SB much more often. Sonnet+Gemini share more error-mode than expected. |
+| v8.3.1 picture relative to humans | ✅ v8.3.1 vs human agreement = 68.7%, highest of any judge except GPT-5.3. Our 7B is solidly in the "agrees with cautious human/GPT-5.3" cluster, not the "rejects everything" Sonnet+Gemini cluster. |
+
+## Outreach pitch v3 — REVISED structure (still deferred for Zakhar review)
+
+The "benchmark is broken" framing has to be cut substantially:
+
+1. **Built honest evaluation infrastructure** (3-judge + human + 4th frontier
+   adjudication on a public benchmark — methodologically clean, reproducible
+   at $0.66, not a contested home-bench).
+2. **Found measurable but not catastrophic label noise**: ~7% of SastBench-250
+   cases have 4 independent judges unanimously rejecting the shipped label.
+   The benchmark is usable but noisy enough that single-model MCC at the
+   ±0.05 level is below the noise floor.
+3. **Local 7B specialist clusters with the conservative judges** (human,
+   GPT-5.3-codex), not with the aggressive ones (Sonnet, Gemini). For
+   commercial triage where "don't reject real bugs" matters more than
+   "find every possible bug", this cluster is the right side to be on.
+4. **Economics**: on-prem 7B inference at ~$0 marginal vs frontier $1.75-15/M
+   tokens — and the 7B is in the same agreement-cluster as a frontier model
+   at the upper-end of that price band.
+
+Headline number to lead with: **"v8.3.1 agrees with human expert review
+68.7% of the time on 100 stratified SastBench cases — same agreement rate
+as GPT-5.3-codex"**. Defensible, calibrated, not contested.
+
 ## Decisions to make next
 
-1. **GPT-5.3-codex re-labeler test ($0.05)** — run on the same 100 cases,
-   blind. Validates (a) whether a fourth independent model corroborates the
-   60/40 strong_mislabel split and (b) whether it agrees with our human
-   anchor on calibration-bucket disagreements. Justified now that the
-   human-side numbers are in.
-2. **Pitch v3 wording lock** — only after step 1. If GPT-5.3 corroborates
-   the calibrated 30-40% disagreement rate, the pitch ships at that number
-   (not 50%). If it sides with SB, the diagnostic claim weakens to
-   "labelers disagree among themselves" and we lead only with the
-   on-prem-economics framing.
+1. **Zakhar review** of this updated picture. The strong-mislabel pitch
+   claim has materially shrunk. Decide whether to ship pitch v3 on
+   "matching frontier agreement at 0% inference cost" instead of "benchmark
+   is broken" — these are very different go-to-market messages.
+2. **Maybe** a 5th voice (o3 or Opus 4.7) on the 17 "4-judge unanimous"
+   cases — if all 5 unanimously reject SB, that subset becomes a public
+   "verified mislabel" donor patch. Cost: ~$0.10. Justified only if (1)
+   commits to the audit angle vs the economics angle.
 
 ## Files
 
@@ -258,4 +345,12 @@ comparison.
 - [data/exam/sastbench250_handlabel/ai_pass1_vs_all_judges.json](../data/exam/sastbench250_handlabel/ai_pass1_vs_all_judges.json)
   — merged join used for per-bucket breakdown
 - [scripts/analyze_handlabel_100.py](../scripts/analyze_handlabel_100.py)
+- [scripts/gpt53_relabel_handlabel100.py](../scripts/gpt53_relabel_handlabel100.py)
+  — GPT-5.3-codex blind re-labeler
+- [data/exam/sastbench250_handlabel/gpt53_codex_labels.jsonl](../data/exam/sastbench250_handlabel/gpt53_codex_labels.jsonl)
+  — 100 verdicts from GPT-5.3-codex
+- [scripts/analyze_handlabel_100_with_gpt53.py](../scripts/analyze_handlabel_100_with_gpt53.py)
+  — 4-judge pairwise + 3-frontier-consensus analysis
+- [data/exam/sastbench250_handlabel/four_judge_merged.json](../data/exam/sastbench250_handlabel/four_judge_merged.json)
+  — final 6-verdicts-per-case join
 - This doc.
