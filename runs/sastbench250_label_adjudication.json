@@ -1,0 +1,1914 @@
+[
+  {
+    "case_id": "107d4305:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "28a0bf51:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "cd2a2e21:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e6bfae09:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8355e20b:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1c813937:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "54f74b80:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "1da81885:CWE-611:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "0da687b7:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "119330c5:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "8c2ea232:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "6bc280a6:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "1359a530:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "8a370214:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "734e15b7:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "45695edc:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "e8cb6944:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0ab52dda:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "5e5c4b7d:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0ab53172:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "11d32137:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f2cdf788:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "2db5cfb3:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "5f42a0ba:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "b57e7673:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e1561f14:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "f3b1cd90:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "f652c8a5:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "1c813937:CWE-611:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1ccbeb94:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "b57e7673:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "734e15b7:CWE-611:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "a1dd529a:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "57334302:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "d137a063:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "c2b310d3:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4823c426:CWE-918:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0b420853:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "d32a39ca:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "f2cdf788:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f3b1cd90:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "cd1cbfd3:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "191ea16c:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "45695edc:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "90edae6b:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4edad4dc:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "e05d9d7f:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "4edad4dc:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fba695ad:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "d1d3b7a9:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "90edae6b:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "d7f50dfe:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "7d0df8c9:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8355e20b:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1da81885:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "33779f20:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f5c4022a:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "69ec57ce:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "18ce5c27:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e6bfae09:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "54f74b80:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "c49ceae7:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "c9d4385c:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "10c74e10:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "ff00d75b:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "08199826:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "0af67dd5:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "09affa8a:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "782080f7:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4611d05d:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "f897007a:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "63037fb7:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8355e20b:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "734e15b7:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8eb446f1:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "107d4305:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "7465f785:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0d81074c:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "3ac1cd02:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "70e79f28:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "45695edc:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "be0de1ab:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "d2316c99:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "06f879ce:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "51b1d1c3:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "5a1cd3ff:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "0d81074c:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "a1dd529a:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "8355e20b:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "28a0bf51:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "dded82bb:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "853c1acf:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1739e158:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "2aefef26:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8cef54ea:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "f3b1cd90:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "606b6c78:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "1da81885:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "4ab43c37:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "fa1c1325:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fd093b88:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f1684882:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "a1dbce2e:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "d358e680:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0ab52dda:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "95c50ada:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "be0de1ab:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "c2b310d3:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "f1233c30:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "1ac0d070:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "69b6e054:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "95b4e32d:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "4823c426:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4f34e3c2:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "63037fb7:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "0ab52dda:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "107d4305:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "b33780d8:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "ef1f9f4e:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "92e5e452:CWE-78:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "be0de1ab:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1ac0d070:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "fa1c1325:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "2c00a1df:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "95c50ada:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "43e12c3d:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f3b1cd90:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "57334302:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "54f74b80:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "11d32137:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "5e5c4b7d:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "92e5e452:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4611d05d:CWE-78:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "43e12c3d:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "cb7f5e2b:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4afb9a06:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "c9d4385c:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1c813937:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "f2cdf788:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "7a885d2d:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "ecf18913:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "44a531a6:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e8cb6944:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "420b88e7:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "ff00d75b:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "9edbd9a5:CWE-22:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "d358e680:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "a1dbce2e:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "35d37473:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "498f9286:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "e2603176:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "10c74e10:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "cdb8e846:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "15bdccf7:CWE-94:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "44a531a6:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "22329c46:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "0dac9e2f:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fd0f5682:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "22329c46:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fa86d95a:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "731afbee:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "22329c46:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "adfba44e:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "cbe3e8ff:CWE-22:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "6894234b:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "1739e158:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "2f1be92c:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "f2cdf788:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "f1684882:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "10c74e10:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "e3109dbb:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e3109dbb:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "add78bb1:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fa1c1325:CWE-611:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "4edad4dc:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "0ae0365e:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "09affa8a:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "43e12c3d:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "63037fb7:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "606b6c78:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "7d0df8c9:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "6894234b:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "6ea0c814:CWE-611:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "766f9f07:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "d2316c99:CWE-89:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "10c74e10:CWE-352:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "8eb446f1:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "cbe3e8ff:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "f2cdf788:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "c2f4afd5:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "6f33768a:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "3be55f59:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "cb7f5e2b:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "08199826:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "854f69a0:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "cb7f5e2b:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "b3976e39:CWE-918:true_positive",
+    "sb": "TP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "119330c5:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "06f879ce:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "0ae0365e:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1f40a88b:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "fd093b88:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "95c50ada:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "18b2b308:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e8cb6944:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "ffd59e7d:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "d137a063:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e8cb6944:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "7d0df8c9:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "606b6c78:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "add78bb1:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "731afbee:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0ab52dda:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "32989a50:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "50643467:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "1739e158:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "06f879ce:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "fd093b88:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "31c8d3e4:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "cb7f5e2b:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "7465f785:CWE-79:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "e2603176:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "08199826:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0d81074c:CWE-94:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "fa86d95a:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "0d81074c:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "31c8d3e4:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "5a1cd3ff:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "465db27c:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "bde1822c:CWE-22:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "606b6c78:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "0ab52dda:CWE-78:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "7a885d2d:CWE-918:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "c0c2d2ad:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "fa86d95a:CWE-79:true_positive",
+    "sb": "TP",
+    "sonnet": "TP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "one_frontier_dissent"
+  },
+  {
+    "case_id": "0d81074c:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "TP",
+    "gemini": "TP",
+    "ours": "TP",
+    "bucket": "strong_mislabel"
+  },
+  {
+    "case_id": "8308f98c:CWE-502:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "FP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "c49ceae7:CWE-89:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "FP",
+    "ours": "TP",
+    "bucket": "clean_consistent"
+  },
+  {
+    "case_id": "e1561f14:CWE-798:false_positive",
+    "sb": "FP",
+    "sonnet": "FP",
+    "gemini": "TP",
+    "ours": "FP",
+    "bucket": "one_frontier_dissent"
+  }
+]

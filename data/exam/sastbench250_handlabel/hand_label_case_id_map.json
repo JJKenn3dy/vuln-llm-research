@@ -1,0 +1,802 @@
+{
+  "hl2_000_0ae0365e": {
+    "original_case_id": "0ae0365e:CWE-502:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_001_4823c426": {
+    "original_case_id": "4823c426:CWE-918:true_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_002_7465f785": {
+    "original_case_id": "7465f785:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_003_11d32137": {
+    "original_case_id": "11d32137:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_004_18b2b308": {
+    "original_case_id": "18b2b308:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_005_7d0df8c9": {
+    "original_case_id": "7d0df8c9:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_006_8355e20b": {
+    "original_case_id": "8355e20b:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_007_95c50ada": {
+    "original_case_id": "95c50ada:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_008_45695edc": {
+    "original_case_id": "45695edc:CWE-502:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_009_a1dbce2e": {
+    "original_case_id": "a1dbce2e:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_010_43e12c3d": {
+    "original_case_id": "43e12c3d:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_011_95c50ada": {
+    "original_case_id": "95c50ada:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_012_63037fb7": {
+    "original_case_id": "63037fb7:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_013_22329c46": {
+    "original_case_id": "22329c46:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_014_1ac0d070": {
+    "original_case_id": "1ac0d070:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_015_fd093b88": {
+    "original_case_id": "fd093b88:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_016_57334302": {
+    "original_case_id": "57334302:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_017_92e5e452": {
+    "original_case_id": "92e5e452:CWE-78:true_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_018_b57e7673": {
+    "original_case_id": "b57e7673:CWE-502:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_019_0d81074c": {
+    "original_case_id": "0d81074c:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_020_1739e158": {
+    "original_case_id": "1739e158:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_021_c9d4385c": {
+    "original_case_id": "c9d4385c:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_022_add78bb1": {
+    "original_case_id": "add78bb1:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_023_cb7f5e2b": {
+    "original_case_id": "cb7f5e2b:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_024_0dac9e2f": {
+    "original_case_id": "0dac9e2f:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_025_f3b1cd90": {
+    "original_case_id": "f3b1cd90:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_026_8355e20b": {
+    "original_case_id": "8355e20b:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_027_45695edc": {
+    "original_case_id": "45695edc:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_028_e3109dbb": {
+    "original_case_id": "e3109dbb:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_029_70e79f28": {
+    "original_case_id": "70e79f28:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_030_5e5c4b7d": {
+    "original_case_id": "5e5c4b7d:CWE-352:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_031_f2cdf788": {
+    "original_case_id": "f2cdf788:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_032_f897007a": {
+    "original_case_id": "f897007a:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_033_90edae6b": {
+    "original_case_id": "90edae6b:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_034_adfba44e": {
+    "original_case_id": "adfba44e:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_035_e8cb6944": {
+    "original_case_id": "e8cb6944:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_036_33779f20": {
+    "original_case_id": "33779f20:CWE-352:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_037_4edad4dc": {
+    "original_case_id": "4edad4dc:CWE-94:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_038_d358e680": {
+    "original_case_id": "d358e680:CWE-22:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_039_44a531a6": {
+    "original_case_id": "44a531a6:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_040_782080f7": {
+    "original_case_id": "782080f7:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_041_2aefef26": {
+    "original_case_id": "2aefef26:CWE-78:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_042_f2cdf788": {
+    "original_case_id": "f2cdf788:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_043_1c813937": {
+    "original_case_id": "1c813937:CWE-611:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_044_d358e680": {
+    "original_case_id": "d358e680:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_045_6f33768a": {
+    "original_case_id": "6f33768a:CWE-79:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_046_1739e158": {
+    "original_case_id": "1739e158:CWE-502:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_047_fd093b88": {
+    "original_case_id": "fd093b88:CWE-918:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_048_e2603176": {
+    "original_case_id": "e2603176:CWE-89:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_049_90edae6b": {
+    "original_case_id": "90edae6b:CWE-502:false_positive",
+    "bucket": "strong_mislabel",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_050_107d4305": {
+    "original_case_id": "107d4305:CWE-79:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_051_08199826": {
+    "original_case_id": "08199826:CWE-89:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_052_c9d4385c": {
+    "original_case_id": "c9d4385c:CWE-502:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_053_8c2ea232": {
+    "original_case_id": "8c2ea232:CWE-94:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_054_f3b1cd90": {
+    "original_case_id": "f3b1cd90:CWE-79:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_055_dded82bb": {
+    "original_case_id": "dded82bb:CWE-22:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_056_1c813937": {
+    "original_case_id": "1c813937:CWE-79:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_057_28a0bf51": {
+    "original_case_id": "28a0bf51:CWE-798:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_058_69ec57ce": {
+    "original_case_id": "69ec57ce:CWE-22:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_059_54f74b80": {
+    "original_case_id": "54f74b80:CWE-502:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_060_51b1d1c3": {
+    "original_case_id": "51b1d1c3:CWE-79:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_061_1da81885": {
+    "original_case_id": "1da81885:CWE-89:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_062_b57e7673": {
+    "original_case_id": "b57e7673:CWE-89:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_063_fa86d95a": {
+    "original_case_id": "fa86d95a:CWE-89:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_064_ffd59e7d": {
+    "original_case_id": "ffd59e7d:CWE-89:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_065_465db27c": {
+    "original_case_id": "465db27c:CWE-78:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_066_8eb446f1": {
+    "original_case_id": "8eb446f1:CWE-79:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_067_1f40a88b": {
+    "original_case_id": "1f40a88b:CWE-79:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_068_c49ceae7": {
+    "original_case_id": "c49ceae7:CWE-89:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_069_a1dd529a": {
+    "original_case_id": "a1dd529a:CWE-89:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_070_95b4e32d": {
+    "original_case_id": "95b4e32d:CWE-502:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_071_e05d9d7f": {
+    "original_case_id": "e05d9d7f:CWE-798:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_072_3be55f59": {
+    "original_case_id": "3be55f59:CWE-79:false_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_073_7d0df8c9": {
+    "original_case_id": "7d0df8c9:CWE-89:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_074_6ea0c814": {
+    "original_case_id": "6ea0c814:CWE-611:true_positive",
+    "bucket": "clean_consistent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_075_31c8d3e4": {
+    "original_case_id": "31c8d3e4:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_076_f3b1cd90": {
+    "original_case_id": "f3b1cd90:CWE-918:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_077_5e5c4b7d": {
+    "original_case_id": "5e5c4b7d:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_078_498f9286": {
+    "original_case_id": "498f9286:CWE-89:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_079_119330c5": {
+    "original_case_id": "119330c5:CWE-78:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_080_e1561f14": {
+    "original_case_id": "e1561f14:CWE-78:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_081_10c74e10": {
+    "original_case_id": "10c74e10:CWE-352:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_082_4f34e3c2": {
+    "original_case_id": "4f34e3c2:CWE-79:true_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_083_b3976e39": {
+    "original_case_id": "b3976e39:CWE-918:true_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_084_4611d05d": {
+    "original_case_id": "4611d05d:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_085_5a1cd3ff": {
+    "original_case_id": "5a1cd3ff:CWE-918:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_086_e1561f14": {
+    "original_case_id": "e1561f14:CWE-798:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_087_c2f4afd5": {
+    "original_case_id": "c2f4afd5:CWE-78:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_088_cbe3e8ff": {
+    "original_case_id": "cbe3e8ff:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_089_1ccbeb94": {
+    "original_case_id": "1ccbeb94:CWE-79:true_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_090_8a370214": {
+    "original_case_id": "8a370214:CWE-94:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_091_5a1cd3ff": {
+    "original_case_id": "5a1cd3ff:CWE-94:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_092_22329c46": {
+    "original_case_id": "22329c46:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "FP",
+    "gemini_verdict": "TP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_093_420b88e7": {
+    "original_case_id": "420b88e7:CWE-94:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_094_32989a50": {
+    "original_case_id": "32989a50:CWE-79:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_095_1739e158": {
+    "original_case_id": "1739e158:CWE-22:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_096_45695edc": {
+    "original_case_id": "45695edc:CWE-79:true_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "TP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_097_d2316c99": {
+    "original_case_id": "d2316c99:CWE-94:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "FP"
+  },
+  "hl2_098_8eb446f1": {
+    "original_case_id": "8eb446f1:CWE-918:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  },
+  "hl2_099_0d81074c": {
+    "original_case_id": "0d81074c:CWE-918:false_positive",
+    "bucket": "one_frontier_dissent",
+    "sb_verdict": "FP",
+    "sonnet_verdict": "TP",
+    "gemini_verdict": "FP",
+    "v8_3_1_verdict": "TP"
+  }
+}
