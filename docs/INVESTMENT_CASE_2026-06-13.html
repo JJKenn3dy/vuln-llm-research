@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vuln-llm-research — почему стоит вложить следующие $300</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2430; --ink:#e6edf3;
+    --muted:#8b96a5; --line:#283040;
+    --accent:#3fb6ff; --good:#3fd17a; --warn:#ffb454; --bad:#ff6b6b; --gold:#ffd34d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:'Segoe UI',-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .deck{max-width:980px;margin:0 auto;padding:0 24px}
+  section.slide{
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding:64px 0; border-bottom:1px solid var(--line); position:relative;
+  }
+  .kicker{color:var(--accent);font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;font-size:13px;margin-bottom:18px}
+  h1{font-size:54px;line-height:1.07;font-weight:800;letter-spacing:-.02em}
+  h2{font-size:38px;line-height:1.12;font-weight:800;letter-spacing:-.015em;margin-bottom:14px}
+  h2 .em{color:var(--accent)}
+  .sub{color:var(--muted);font-size:20px;max-width:760px;margin-top:18px}
+  p.lead{font-size:20px;color:var(--ink);max-width:780px;margin-top:14px}
+  .muted{color:var(--muted)}
+  .grid{display:grid;gap:18px;margin-top:34px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:24px}
+  .card.h{background:linear-gradient(160deg,var(--panel2),var(--panel))}
+  .stat{font-size:46px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .stat.good{color:var(--good)} .stat.bad{color:var(--bad)}
+  .stat.warn{color:var(--warn)} .stat.acc{color:var(--accent)} .stat.gold{color:var(--gold)}
+  .stat small{font-size:18px;font-weight:700;color:var(--muted)}
+  .label{color:var(--muted);font-size:15px;margin-top:8px}
+  table{width:100%;border-collapse:collapse;margin-top:26px;font-size:17px}
+  th,td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+  td.n{font-variant-numeric:tabular-nums;font-weight:700}
+  .row-us{background:rgba(63,182,255,.08)}
+  .row-us td:first-child{color:var(--accent);font-weight:700}
+  .tag{display:inline-block;font-size:13px;font-weight:700;padding:3px 11px;border-radius:999px}
+  .tag.us{background:rgba(63,209,122,.14);color:var(--good)}
+  .tag.them{background:rgba(255,107,107,.14);color:var(--bad)}
+  ul.clean{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  ul.clean li{padding-left:30px;position:relative;font-size:18px}
+  ul.clean li::before{content:"";position:absolute;left:0;top:9px;width:11px;height:11px;
+    border-radius:3px;background:var(--accent)}
+  ul.clean li.good::before{background:var(--good)}
+  ul.clean li.bad::before{background:var(--bad)}
+  ul.clean li b{color:var(--ink)}
+  .note{margin-top:30px;padding:18px 22px;border-left:3px solid var(--accent);
+    background:var(--panel);border-radius:0 10px 10px 0;color:var(--muted);font-size:16px}
+  .billof{margin-top:30px;font-size:18px}
+  .billof .ln{display:flex;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--line)}
+  .billof .ln b{font-variant-numeric:tabular-nums}
+  .billof .total{border-bottom:none;padding-top:18px;font-size:22px;font-weight:800}
+  .billof .total b{color:var(--good)}
+  .scale{display:flex;align-items:center;gap:18px;margin-top:34px;flex-wrap:wrap}
+  .scale .down,.scale .up{flex:1;min-width:260px;border-radius:14px;padding:24px;border:1px solid var(--line)}
+  .scale .down{background:rgba(255,107,107,.06)}
+  .scale .up{background:rgba(63,209,122,.06)}
+  .scale .arrow{font-size:34px;color:var(--muted)}
+  .foot{color:var(--muted);font-size:14px;margin-top:30px}
+  .pgnum{position:absolute;right:0;top:30px;color:var(--line);font-weight:800;font-size:15px}
+  .big2{font-size:64px}
+  @media print{
+    section.slide{min-height:auto;page-break-after:always;border:none;padding:40px 0}
+    body{background:#fff;color:#111}
+    .card,.note{border-color:#ddd}
+    h2 .em,.kicker,.stat.acc{color:#0a6fb3}
+  }
+  @media(max-width:760px){.g2,.g3,.g4{grid-template-columns:1fr}h1{font-size:38px}h2{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide">
+  <div class="pgnum">01</div>
+  <div class="kicker">SAST-триаж · 7B специалист · on-prem</div>
+  <h1>Почему стоит вложить<br>следующие <span style="color:var(--gold)">$300</span></h1>
+  <p class="sub">Честный разбор, без питч-хайпа. Все цифры из собственных замеров,
+  большинство из них уже пережили попытку себя опровергнуть.</p>
+  <div class="foot">vuln-llm-research · 13.06.2026 · Захар Якуба</div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="pgnum">02</div>
+  <div class="kicker">Боль рынка</div>
+  <h2>SAST захлёбывается в ложняке,<br>и весь рынок лечит это <span class="em">frontier-моделью</span></h2>
+  <div class="grid g3">
+    <div class="card"><div class="stat warn">865K</div><div class="label">SAST-алертов в год у среднего enterprise</div></div>
+    <div class="card"><div class="stat bad">91%</div><div class="label">из них ложные срабатывания</div></div>
+    <div class="card"><div class="stat">15-30<small> мин</small></div><div class="label">ручного разбора на каждый ложный</div></div>
+  </div>
+  <p class="lead">Snyk, Corgea, ZeroPath, Cycode сажают на триаж frontier-LLM как «рассуждателя».
+  Мы измерили, как frontier реально справляется. Результат открывает окно.</p>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="pgnum">03</div>
+  <div class="kicker">Что мы измерили про frontier</div>
+  <h2>Frontier не глупый. Он <span class="em">топит разработчика в ложняке</span><br>и не умеет ранжировать</h2>
+  <p class="muted" style="margin-top:8px">На доверенном наборе из 71 кейса (там, где сошлись человек-эксперт и GPT-5.3)</p>
+  <div class="grid g2">
+    <div class="card h"><div class="stat bad">47-51%</div><div class="label">False Alarm Rate у Sonnet 4.5 и Gemini 2.5 Pro: половину безопасного кода они помечают как уязвимый</div></div>
+    <div class="card h"><div class="stat bad">2 <small>уровня</small></div><div class="label">Single-call frontier выдаёт вердикт + HIGH/MED/LOW. «Покажи топ-30 из 800» внутри его огромного ведра «опасно» это подброс монеты</div></div>
+  </div>
+  <div class="note">Прежний тезис «frontier = рандом» мы сами выкинули как неточный. Честная формулировка:
+  у frontier точность есть, но рабочая точка убийственная для продукта, плюс он не ранжирует.</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="pgnum">04</div>
+  <div class="kicker">Актив, который уже есть</div>
+  <h2>7B специалист: <span class="em">вровень по точности,<br>лучше по делу, в 150 раз дешевле</span></h2>
+  <table>
+    <thead><tr><th>Метрика на доверенном ядре</th><th>Frontier (single-call)</th><th>Наш 7B (v8.3.1)</th></tr></thead>
+    <tbody>
+      <tr><td>Точность (AUC)</td><td class="n">~0.74</td><td class="n">0.75</td></tr>
+      <tr class="row-us"><td>False Alarm Rate</td><td class="n">47-51%</td><td class="n">18%</td></tr>
+      <tr class="row-us"><td>Топ-10 = реальные находки</td><td class="n">30%</td><td class="n">80%</td></tr>
+      <tr class="row-us"><td>Цена за находку</td><td class="n">~$0.015</td><td class="n">~$0.0001</td></tr>
+      <tr><td>On-prem (регулируемые отрасли)</td><td><span class="tag them">нет</span></td><td><span class="tag us">да</span></td></tr>
+    </tbody>
+  </table>
+  <p class="lead">Мы не заявляем «мы умнее всех». Мы говорим: при той же точности модель не топит
+  в ложняке, реально сортирует, и стоит на два порядка дешевле, локально.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="pgnum">05</div>
+  <div class="kicker">Ров: честность измерения</div>
+  <h2>На рынке, где все пишут «95% точности»,<br>мы <span class="em">единственные, кто измеряет честно</span></h2>
+  <ul class="clean">
+    <li class="good"><b>Первый воспроизводимый мульти-судейский аудит</b> публичного бенчмарка: 4 независимых оценщика (Sonnet, Gemini, GPT-5.3, человек), матрица выложена в открытый репозиторий.</li>
+    <li class="good"><b>Главная находка:</b> у SAST-триажа нет единой истины. Согласие разумных оценщиков с метками бенчмарка гуляет от 34% до 68%. Вендорские «проценты» не верифицируемы в принципе.</li>
+    <li class="good"><b>Мы выкинули собственные лестные цифры,</b> когда нашли в них загрязнение. Проект ни разу не остановился на красивом промежуточном выводе.</li>
+  </ul>
+  <div class="note">Покупатель в этом рынке устал от непроверяемых обещаний. «Команда, которая считает
+  математику честно» это позиционирование, которое конкуренты занять не могут, потому что им невыгодно.</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="pgnum">06</div>
+  <div class="kicker">Мы знаем точный диагноз</div>
+  <h2>Killer-тест: <span class="em">мы нашли ровно, что чинить</span></h2>
+  <p class="lead">20 пар кода. В каждой паре один и тот же код: в первом варианте дыра, во втором та же
+  дыра уже закрыта защитой. Различие только в этом.</p>
+  <div class="grid g2">
+    <div class="card h"><div class="stat acc">20 / 20</div><div class="label">GPT-5.3 различает уязвимое и защищённое</div></div>
+    <div class="card h"><div class="stat bad">0 / 20</div><div class="label">Наш v8.3.1 назвал уязвимыми все. Он реагирует на форму кода, а не на смысл защиты</div></div>
+  </div>
+  <ul class="clean" style="margin-top:24px">
+    <li><b>Причина известна:</b> 69% обучающих примеров не содержали самой уязвимости в показанном куске кода. Модели не на чем было научиться.</li>
+    <li class="good"><b>Лекарство построено:</b> контролируемый набор данных, где защита это единственное различие. Это одновременно и диагностика, и шаблон обучающего сигнала для v8.4.</li>
+  </ul>
+  <div class="note">Это редкость. Большинство ML-проектов не знают, что у них сломано. У нас есть и точный
+  диагноз, и измеритель, заякоренный на frontier. Следующий шаг это чистый go/no-go.</div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="pgnum">07</div>
+  <div class="kicker">Что покупает $300</div>
+  <h2>$300 это <span class="em">не «построить компанию».</span><br>Это ответ на два вопроса</h2>
+  <div class="billof">
+    <div class="ln"><span>v8.4 эксперимент: лечится ли модель чистыми данными (train + eval)</span><b>~$5</b></div>
+    <div class="ln"><span>Ещё 10-15 контролируемых экспериментов по другим CWE</span><b>~$60</b></div>
+    <div class="ln"><span>Demand-validation: отчёты по реальным репам + рассылка (outreach бесплатен)</span><b>~$15</b></div>
+    <div class="ln"><span>Месяцы pod-времени про запас на итерации</span><b>~$120</b></div>
+    <div class="ln total"><span>Полный рукав до ответа «работает / нужно ли это»</span><b>&lt; $300</b></div>
+  </div>
+  <div class="note">Сегодняшний день целиком (диагноз, killer-тест, gold-core, demo-отчёты, аудит)
+  стоил около $6. $300 это десятки таких дней.</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="pgnum">08</div>
+  <div class="kicker">Почему это разумная ставка</div>
+  <h2>Асимметрия: <span class="em">ограниченный низ, продуктовый верх</span></h2>
+  <div class="scale">
+    <div class="down">
+      <div class="stat bad">− $300</div>
+      <div class="label" style="margin-top:14px">Худший исход: тратишь $300 и получаешь твёрдый ответ «нет». Это не потеря, это закрытый вопрос, на который иначе можно гадать годами.</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="up">
+      <div class="stat good">$5-10K<small> MRR</small></div>
+      <div class="label" style="margin-top:14px">Цель за 6 месяцев. Реальная боль рынка, дешёвый on-prem продукт, окно которого frontier-конкуренты структурно не закрывают.</div>
+    </div>
+  </div>
+  <p class="lead">$300 несопоставимы с потенциалом. И главное: эти деньги покупают не надежду, а
+  <b>знание</b>. Оба исхода полезны.</p>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="pgnum">09</div>
+  <div class="kicker">Два вопроса, оба с чётким выходом</div>
+  <h2>На что конкретно идут деньги</h2>
+  <div class="grid g2">
+    <div class="card h">
+      <div class="kicker" style="color:var(--good)">Вопрос 1 · модель</div>
+      <p style="font-size:19px;margin-top:6px"><b>Лечится ли слепота к защите чистыми данными?</b></p>
+      <p class="muted" style="margin-top:12px">Успех = discrimination растёт с 0/20 к frontier-уровню и переносится на реальный код. Стоит ~$5. Инструмент уже построен.</p>
+    </div>
+    <div class="card h">
+      <div class="kicker" style="color:var(--good)">Вопрос 2 · спрос</div>
+      <p style="font-size:19px;margin-top:6px"><b>Нужно ли это кому-то за деньги?</b></p>
+      <p class="muted" style="margin-top:12px">Критерий зафиксирован заранее: 20 контактов за 3 недели, ≥3 запросили отчёт, ≥1 продолжил разговор. Compute не нужен.</p>
+    </div>
+  </div>
+  <div class="big2" style="margin-top:46px;font-weight:800;letter-spacing:-.02em">
+    $300 → <span style="color:var(--good)">ответ,</span> <span class="muted" style="font-size:32px">а не ставка вслепую.</span>
+  </div>
+  <div class="foot">Полные данные и скрипты: github.com/JJKenn3dy/vuln-llm-research · docs/SESSION_2026-06-13.md</div>
+</section>
+
+</div>
+</body>
+</html>
