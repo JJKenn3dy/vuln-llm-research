@@ -1,0 +1,15 @@
+{
+  "n": 100,
+  "agree_human": 0.72,
+  "blind_agree_human": 0.7171717171717171,
+  "cave_rate": 0.3125,
+  "cave_n": [
+    10,
+    32
+  ],
+  "defect_rate": 0.0,
+  "stability_vs_blind": 0.898989898989899,
+  "keep_rate": 0.77,
+  "agree_gold_core": 0.9295774647887324,
+  "gate": "FAIL"
+}
