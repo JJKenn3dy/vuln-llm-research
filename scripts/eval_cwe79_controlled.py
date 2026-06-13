@@ -19,7 +19,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 ROOT = Path("f:/vuln-llm-research")
-SET = ROOT / "data/eval/cwe79_controlled_pairs.json"
+SET = ROOT / "data/eval/cwe79_controlled_pairs.json"  # default; override with --set
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from blind_relabel_train import call_model
@@ -72,8 +72,12 @@ def main():
     ap.add_argument("--judge", default="gpt53", choices=["gpt53"])
     ap.add_argument("--analyze", help="path to a triage outputs.json (e.g. v8.3.1 pod run) instead of calling a judge")
     ap.add_argument("--out", default=str(ROOT / "runs/cwe79_controlled_gpt53.json"))
+    ap.add_argument("--set", default=str(SET), help="cases file to evaluate")
+    ap.add_argument("--sample", type=int, default=0, help="evaluate only first N cases (pair-aligned)")
     args = ap.parse_args()
-    cases = json.loads(SET.read_text(encoding="utf-8"))
+    cases = json.loads(Path(args.set).read_text(encoding="utf-8"))
+    if args.sample:
+        cases = cases[:args.sample]
 
     rows = []
     if args.analyze:
