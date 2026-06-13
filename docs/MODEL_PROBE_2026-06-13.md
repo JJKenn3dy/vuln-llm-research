@@ -70,13 +70,55 @@ verdict, or calibrate the threshold (~0.6) on val. Reinforces finding 1.
 FP concentration by CWE: CWE-79 (9), CWE-94 (7), CWE-89 (5), CWE-22 (4).
 Broad over-flagging, not one bad CWE. FN tiny and spread (PHP 3, Python 1).
 
+## 4. Calibration headroom — tested, and it is a NEGATIVE result
+
+Ran honest val-fit calibration ([scripts/calibrate_probe.py](../scripts/calibrate_probe.py),
+[runs/calibrate_probe.json](../runs/calibrate_probe.json)): Platt scaling fit
+on test_balanced VAL (n=248, clean balanced), applied fixed to gold-core.
+
+| metric | raw p_tp | calibrated |
+|---|---:|---:|
+| ECE | 0.224 | 0.206 |
+| AUC | 0.749 | 0.749 |
+| precision@10 | 80% | 80% |
+| p_tp range | [0.29,0.74] | [0.13,0.86] |
+
+Two things settled:
+
+1. **Ranking is invariant under recalibration — confirmed on data, not
+   asserted.** Platt/temperature are monotonic, so AUC and precision@K do
+   not move. My earlier claim that recalibration could "improve precision@K"
+   was wrong. **There is no quick ranking headroom in calibration.** The
+   ranking ceiling for this checkpoint is AUC ~0.75; raising it needs a
+   better model (v8.4), not post-hoc tricks.
+
+2. **The calibration that does exist does not transfer.** ECE barely moved
+   (0.224 → 0.206) and the val-fit threshold made the gold-core operating
+   point *worse* (FAR 59% → 67%), because test_balanced (in-domain, 50/50)
+   has a different base rate and threshold than SastBench (31% TP). The
+   miscalibration is distribution-shift, not a global scale we can fix from
+   in-domain data.
+
+### The actually-useful synthesis: two heads, two jobs
+
+The model probe found verdict-FAR 18% but p_tp@0.5 FAR 59% on the same cases.
+Reconciled: the **first-token p_tp** and the **generated verdict** are
+different signals.
+- **Ranking** → use first-token p_tp (AUC 0.75, continuous, good order).
+- **Binary keep/drop** → use the generated verdict (FAR 18%, conservative).
+- **Do NOT** threshold p_tp at a fixed value — worse than the verdict and
+  does not transfer across distributions.
+
 ## Bottom line
 
-- We do NOT beat frontier on accuracy (AUC tie ~0.74). The earlier "win"
-  is operating-point + cost, now joined by **ranking ability** (frontier
-  structurally can't rank single-call).
-- Two cheap, independent improvement leads for v8.x: (a) post-hoc p_tp
-  recalibration on val (band is compressed, signal monotonic), (b) the
-  blind data-clean → v8.4. They stack; neither needs the other.
-- Discipline note: the GPT-5.3 circularity trap was inside this very probe.
-  Any "judge" that helped define the eval set cannot be scored on it.
+- We do NOT beat frontier on accuracy (AUC tie ~0.74). The "win" is
+  operating-point + cost + **ranking ability** (frontier can't rank
+  single-call) + a conservative verdict head for binary decisions.
+- Quick calibration win is **closed (negative)**. The only real model-quality
+  lever left is the blind data-clean → v8.4. Effort should go there, not to
+  more calibration tricks (consistent with the long-standing "calibration
+  trick dead when gap small" lesson).
+- Discipline notes that fired this session: the GPT-5.3 circularity trap was
+  inside this very probe (any judge that defined the eval set cannot be
+  scored on it); and a math claim ("recalibration improves ranking") was
+  caught and corrected by running it instead of trusting it.
