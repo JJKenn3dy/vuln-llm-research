@@ -17,14 +17,19 @@ defended in BSc thesis) to triage filtering of existing SAST tool findings.
 | v5b zero-shot (detector) | 100 | 38 | 12 | 11 | 39 | 76.0% | 78.0% | 0.598 | 0.490 | -0.02 | paranoia (says TP on everything) |
 | **v8 triage (target)** | 100 | – | – | – | – | – | – | **>0.65** | **>0.65** | **>0.30** | specialist 7B + LoRA |
 
-Headline findings:
+Headline findings (interpretation updated 2026-06-13 after the gold-core audit,
+see [docs/GOLD_CORE_2026-06-13.md](docs/GOLD_CORE_2026-06-13.md)):
 
-1. **Frontier LLMs perform at random on SAST triage** (BalAcc ≈ 0.50).
+1. **Frontier LLMs are systematically TP-biased on SAST triage, not random.**
+   On the trusted gold-core they show real signal (Sonnet MCC +0.43, Gemini
+   +0.46) but at FAR 47-51% — they flag half the noise as real. The earlier
+   "random" read (table above) was measured against noisy labels; do not
+   reuse it in external claims.
 2. **The v5b detector, used zero-shot for triage, goes into paranoia mode** —
    high apparent F1 but random BalAcc because it just calls everything TP.
-3. **Both failure modes leave room for a specialist**: a model trained
-   specifically on the triage TP/FP task with project-stratified data should
-   clear BA = 0.65 comfortably.
+3. **The specialist's edge is the operating point, not raw accuracy**: at
+   comparable MCC on the trusted core, v8.3.1 runs at FAR 18.4% vs frontier's
+   ~50%, with calibrated p_tp for ranking — at ~150x lower inference cost.
 
 ## Historical context
 
@@ -41,19 +46,24 @@ Headline findings:
 
 Industry data: average enterprise sees 865k SAST alerts/year, **91% false positive**,
 15-30 min triage time per false alert. Existing AI-SAST startups (Corgea, ZeroPath,
-Cycode, Black Duck Signal) all use frontier LLMs as the reasoner. We measured
-single-call frontier on SastBench-250: Sonnet 4.5 MCC=+0.019, Gemini 2.5 Pro
-MCC=+0.043 (both CIs span 0). Our specialist 7B v8.3.1 hits MCC=+0.177 with
-cluster-honest CI [+0.004, +0.297] and paired-test strict beat vs Sonnet at 95%.
-At $0.0001/finding self-hosted (vLLM batched) vs $0.015/finding Sonnet single-call
-that is a ~150x cost edge, plus on-prem option for regulated industries.
+Cycode, Black Duck Signal) all use frontier LLMs as the reasoner. On the trusted
+gold-core (n=71, human + GPT-5.3-codex consensus) frontier single-call shows real
+signal (MCC +0.43..+0.46) but at FAR 47-51%: it drowns the developer in confirmed
+noise. Our specialist 7B v8.3.1 reaches comparable MCC (+0.447) at FAR 18.4% with
+calibrated p_tp for ranking. At $0.0001/finding self-hosted (vLLM batched) vs
+$0.015/finding Sonnet single-call that is a ~150x cost edge, plus on-prem option
+for regulated industries. Raw SastBench-250 numbers (v8.3.1 +0.177, Sonnet +0.019,
+Gemini +0.043) are kept as a noisy diagnostic, not a headline — see below.
 
-**Benchmark label noise audit** (2026-06-11 night): AI hand-label + tri-judge
-adjudication on a balanced 50-case sample from SastBench val-558 partition
-confirmed ≥7 cases (14%) where SastBench's label is contradicted by all three
-independent judges (AI + Sonnet 4.5 + Gemini 2.5 Pro). Floor on benchmark
-noise is non-zero. Does not shift us vs frontier (noise hits all models
-equally) but supports an "honest-benchmark audit" angle for outreach.
+**Benchmark label audit** (updated 2026-06-13, 4-judge,
+[docs/LABEL_ADJUDICATION_2026-06-13.md](docs/LABEL_ADJUDICATION_2026-06-13.md)):
+on a stratified 100-case sample, agreement with shipped SastBench labels ranges
+34-68% across four independent judges (Sonnet, Gemini, GPT-5.3-codex, human);
+~7% of cases have unanimous 4-judge rejection of the shipped label. The
+conclusion is structural: **SAST triage has no undisputed ground truth at the
+market level** — vendor accuracy claims without a disclosed labeling protocol
+are unverifiable. This measurement-methodology finding, plus the gold-core
+trusted subset built from it, is the basis of our outreach positioning.
 
 For the why and where-we-go, see [docs/PRODUCT.md](docs/PRODUCT.md),
 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md), [docs/ROADMAP.md](docs/ROADMAP.md),
