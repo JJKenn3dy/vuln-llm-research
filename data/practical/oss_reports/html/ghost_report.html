@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ghost (TryGhost/Ghost) — SAST Triage Report</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a1a;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --high: #b91c1c;
+    --high-bg: #fee2e2;
+    --medium: #b45309;
+    --medium-bg: #fef3c7;
+    --low: #1e7c5a;
+    --low-bg: #d1fae5;
+    --unknown: #6b7280;
+    --unknown-bg: #f3f4f6;
+    --link: #1d4ed8;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--fg); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.5;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+    font-size: 14px;
+  }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 18px; margin: 32px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 15px; margin: 16px 0 4px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0 24px;
+  }
+  .summary .card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .summary .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .summary .value { font-size: 20px; font-weight: 600; margin-top: 2px; }
+
+  .finding {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 14px 0;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+  }
+  .finding-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+  .rank { font-weight: 700; color: var(--muted); font-size: 13px; }
+  .file-path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; flex: 1; word-break: break-all; }
+  .priority {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  .priority.high   { color: var(--high);   background: var(--high-bg);   }
+  .priority.medium { color: var(--medium); background: var(--medium-bg); }
+  .priority.low    { color: var(--low);    background: var(--low-bg);    }
+  .priority.unknown { color: var(--unknown); background: var(--unknown-bg); }
+
+  .badges { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-right: 4px;
+  }
+  .msg { font-size: 13px; color: var(--fg); margin: 4px 0 10px; }
+  .code-block {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 8px 10px;
+    overflow-x: auto;
+    font-size: 12px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  .code-block .src { margin: 0; }
+  .code-block pre { margin: 0; }
+  .reasoning {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: #f9fafb;
+    border-left: 3px solid var(--link);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .reasoning .label { font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); margin-bottom: 4px; }
+  .suggested-fix {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #ecfdf5;
+    border-left: 3px solid var(--low);
+    border-radius: 0 4px 4px 0;
+    font-size: 13px;
+  }
+  .footer { color: var(--muted); font-size: 12px; margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .footer p { margin: 6px 0; }
+  .footer ul { margin: 6px 0; padding-left: 18px; }
+  .scope { background: #fffbeb; border: 1px solid #fde68a; padding: 10px 14px; border-radius: 6px; margin: 16px 0; font-size: 13px; }
+  .scope b { color: #92400e; }
+
+  pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.src .hll { background-color: #ffffcc }
+.src .c { color: #3D7B7B; font-style: italic } /* Comment */
+.src .err { border: 1px solid #F00 } /* Error */
+.src .k { color: #008000; font-weight: bold } /* Keyword */
+.src .o { color: #666 } /* Operator */
+.src .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.src .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.src .cp { color: #9C6500 } /* Comment.Preproc */
+.src .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.src .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.src .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.src .gd { color: #A00000 } /* Generic.Deleted */
+.src .ge { font-style: italic } /* Generic.Emph */
+.src .ges { font-weight: bold; font-style: italic } /* Generic.EmphStrong */
+.src .gr { color: #E40000 } /* Generic.Error */
+.src .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.src .gi { color: #008400 } /* Generic.Inserted */
+.src .go { color: #717171 } /* Generic.Output */
+.src .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.src .gs { font-weight: bold } /* Generic.Strong */
+.src .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.src .gt { color: #04D } /* Generic.Traceback */
+.src .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.src .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.src .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.src .kp { color: #008000 } /* Keyword.Pseudo */
+.src .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.src .kt { color: #B00040 } /* Keyword.Type */
+.src .m { color: #666 } /* Literal.Number */
+.src .s { color: #BA2121 } /* Literal.String */
+.src .na { color: #687822 } /* Name.Attribute */
+.src .nb { color: #008000 } /* Name.Builtin */
+.src .nc { color: #00F; font-weight: bold } /* Name.Class */
+.src .no { color: #800 } /* Name.Constant */
+.src .nd { color: #A2F } /* Name.Decorator */
+.src .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.src .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.src .nf { color: #00F } /* Name.Function */
+.src .nl { color: #767600 } /* Name.Label */
+.src .nn { color: #00F; font-weight: bold } /* Name.Namespace */
+.src .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.src .nv { color: #19177C } /* Name.Variable */
+.src .ow { color: #A2F; font-weight: bold } /* Operator.Word */
+.src .w { color: #BBB } /* Text.Whitespace */
+.src .mb { color: #666 } /* Literal.Number.Bin */
+.src .mf { color: #666 } /* Literal.Number.Float */
+.src .mh { color: #666 } /* Literal.Number.Hex */
+.src .mi { color: #666 } /* Literal.Number.Integer */
+.src .mo { color: #666 } /* Literal.Number.Oct */
+.src .sa { color: #BA2121 } /* Literal.String.Affix */
+.src .sb { color: #BA2121 } /* Literal.String.Backtick */
+.src .sc { color: #BA2121 } /* Literal.String.Char */
+.src .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.src .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.src .s2 { color: #BA2121 } /* Literal.String.Double */
+.src .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.src .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.src .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.src .sx { color: #008000 } /* Literal.String.Other */
+.src .sr { color: #A45A77 } /* Literal.String.Regex */
+.src .s1 { color: #BA2121 } /* Literal.String.Single */
+.src .ss { color: #19177C } /* Literal.String.Symbol */
+.src .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.src .fm { color: #00F } /* Name.Function.Magic */
+.src .vc { color: #19177C } /* Name.Variable.Class */
+.src .vg { color: #19177C } /* Name.Variable.Global */
+.src .vi { color: #19177C } /* Name.Variable.Instance */
+.src .vm { color: #19177C } /* Name.Variable.Magic */
+.src .il { color: #666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body>
+
+<h1>SAST Triage Report</h1>
+<p class="meta">
+  Repository: <b>Ghost (TryGhost/Ghost)</b><br>
+  Generated: 2026-06-13 06:47<br>
+  Triage model: v8.3.1 (Qwen2.5-Coder-7B + LoRA, fine-tuned on CVEFixes + CrossVul)
+</p>
+
+<div class="summary">
+  <div class="card"><div class="label">Total findings</div><div class="value">383</div></div>
+  <div class="card"><div class="label">High priority (p_tp ≥ 0.6)</div><div class="value">263</div></div>
+  <div class="card"><div class="label">Medium (0.5–0.6)</div><div class="value">82</div></div>
+  <div class="card"><div class="label">Low (< 0.5)</div><div class="value">38</div></div>
+</div>
+
+
+<h2>CWE distribution (across all findings)</h2>
+<p style="font-size: 13px; color: var(--muted);">
+  <span class="badge">CWE-79 (342)</span><span class="badge">CWE-22 (18)</span><span class="badge">CWE-1333 (8)</span><span class="badge">CWE-345 (7)</span><span class="badge">CWE-353 (2)</span><span class="badge">CWE-78 (2)</span><span class="badge">CWE-798 (1)</span><span class="badge">CWE-269 (1)</span><span class="badge">CWE-319 (1)</span><span class="badge">CWE-601 (1)</span>
+</p>
+
+
+<h2>Top 15 findings by triage priority</h2>
+<p class="meta" style="margin-top:-6px;">Sorted by p_tp (model's probability that the finding is a true positive) descending.</p>
+
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#1</span>
+    <span class="priority high">high · p_tp 0.798</span>
+    <span class="file-path">apps/posts/src/views/comments/components/comment-reports-modal.tsx:50</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">react-dangerouslysetinnerhtml</span>
+    
+  </div>
+  <div class="msg">Detection of dangerouslySetInnerHTML from non-constant definition. This can inadvertently expose users to cross-site scripting (XSS) attacks if this comes from user-provided input. If you have to use dangerouslySetInnerHTML, consider using a sanitization library such as DOMPurify to sanitize your HTML.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">50</span><span class="w">                                </span><span class="nx">dangerouslySetInnerHTML</span><span class="o">=</span><span class="p">{{</span><span class="nx">__html</span><span class="o">:</span><span class="w"> </span><span class="kt">comment.html</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#2</span>
+    <span class="priority high">high · p_tp 0.790</span>
+    <span class="file-path">ghost/admin/app/components/modal-post-history.hbs:6</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">template-explicit-unescape</span>
+    
+  </div>
+  <div class="msg">Detected an explicit unescape in a Mustache template, using triple braces &#39;{{{...}}}&#39; or ampersand &#39;&amp;&#39;. If external data can reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If you must do this, ensure no external data can reach this location.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">6</span>                <span class="cs">{{{</span><span class="nv">this.selectedHTML</span><span class="cs">}}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#3</span>
+    <span class="priority high">high · p_tp 0.785</span>
+    <span class="file-path">ghost/core/core/server/services/comments/email-templates/report.hbs:142</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">template-explicit-unescape</span>
+    
+  </div>
+  <div class="msg">Detected an explicit unescape in a Mustache template, using triple braces &#39;{{{...}}}&#39; or ampersand &#39;&amp;&#39;. If external data can reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If you must do this, ensure no external data can reach this location.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">142</span>                                    <span class="cs">{{{</span><span class="nv">commentHtml</span><span class="cs">}}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#4</span>
+    <span class="priority high">high · p_tp 0.782</span>
+    <span class="file-path">apps/activitypub/src/views/profile/components/profile-page.tsx:275</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">react-dangerouslysetinnerhtml</span>
+    
+  </div>
+  <div class="msg">Detection of dangerouslySetInnerHTML from non-constant definition. This can inadvertently expose users to cross-site scripting (XSS) attacks if this comes from user-provided input. If you have to use dangerouslySetInnerHTML, consider using a sanitization library such as DOMPurify to sanitize your HTML.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">275</span><span class="w">                                    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">dangerouslySetInnerHTML</span><span class="o">=</span><span class="p">{{</span><span class="nx">__html</span><span class="o">:</span><span class="w"> </span><span class="kt">sanitizeHtml</span><span class="p">(</span><span class="nx">openLinksInNewTab</span><span class="p">(</span><span class="nx">stripHtml</span><span class="p">(</span><span class="nx">account</span><span class="o">?</span><span class="p">.</span><span class="nx">bio</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;br&#39;</span><span class="p">])))}}</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="o">:</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#5</span>
+    <span class="priority high">high · p_tp 0.771</span>
+    <span class="file-path">ghost/core/core/frontend/helpers/tpl/content-cta.hbs:1</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">template-explicit-unescape</span>
+    
+  </div>
+  <div class="msg">Detected an explicit unescape in a Mustache template, using triple braces &#39;{{{...}}}&#39; or ampersand &#39;&amp;&#39;. If external data can reach these locations, your application is exposed to a cross-site scripting (XSS) vulnerability. If you must do this, ensure no external data can reach this location.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">1</span><span class="cs">{{{</span><span class="nv">html</span><span class="cs">}}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#6</span>
+    <span class="priority high">high · p_tp 0.763</span>
+    <span class="file-path">ghost/admin/app/components/member/activity-feed.hbs:33</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">var-in-href</span>
+    
+  </div>
+  <div class="msg">Detected a template variable used in an anchor tag with the &#39;href&#39; attribute. This allows a malicious actor to input the &#39;javascript:&#39; URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use &#39;url_for()&#39; to safely generate a URL. If using Django, use the &#39;url&#39; filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash &#39;/&#39; to the variable for relative links (`href=&#34;/{{link}}&#34;`). You may also consider setting the Content Security Policy (CSP) header.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">33</span>                                                                <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;gh-members-activity-object-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="cp">{{</span><span class="nv">event.route</span><span class="cp">}}</span><span class="err">&gt;</span><span class="cp">{{</span><span class="nv">event.object</span><span class="cp">}}</span><span class="s">&lt;/a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#7</span>
+    <span class="priority high">high · p_tp 0.757</span>
+    <span class="file-path">ghost/admin/app/components/member/subscription-detail-box.hbs:22</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">var-in-href</span>
+    
+  </div>
+  <div class="msg">Detected a template variable used in an anchor tag with the &#39;href&#39; attribute. This allows a malicious actor to input the &#39;javascript:&#39; URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use &#39;url_for()&#39; to safely generate a URL. If using Django, use the &#39;url&#39; filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash &#39;/&#39; to the variable for relative links (`href=&#34;/{{link}}&#34;`). You may also consider setting the Content Security Policy (CSP) header.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">22</span>                Page<span class="ni">&amp;nbsp;&amp;mdash;&amp;nbsp;</span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">@sub.attribution.url</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;noopener noreferrer&quot;</span><span class="p">&gt;</span><span class="cp">{{</span> <span class="nv">@sub.attribution.title</span> <span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#8</span>
+    <span class="priority high">high · p_tp 0.752</span>
+    <span class="file-path">ghost/admin/app/components/members-activity/table-row.hbs:9</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">unquoted-attribute-var</span>
+    
+  </div>
+  <div class="msg">Detected a unquoted template variable as an attribute. If unquoted, a malicious actor could inject custom JavaScript handlers. To fix this, add quotes around the template expression, like this: &#34;{{ expr }}&#34;.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">9</span>                            <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ma0 pa0 gh-members-list-name </span><span class="cp">{{</span><span class="nv">unless</span> <span class="nv">event.member.name</span> <span class="s2">&quot;gh-members-name-noname&quot;</span><span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span><span class="cp">{{</span><span class="nv">event.subject</span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#9</span>
+    <span class="priority high">high · p_tp 0.751</span>
+    <span class="file-path">ghost/admin/app/components/members-activity/table-row.hbs:29</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">unquoted-attribute-var</span>
+    
+  </div>
+  <div class="msg">Detected a unquoted template variable as an attribute. If unquoted, a malicious actor could inject custom JavaScript handlers. To fix this, add quotes around the template expression, like this: &#34;{{ expr }}&#34;.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">29</span>                            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;gh-members-activity-object-link&quot;</span> <span class="na">href</span><span class="o">=</span><span class="cp">{{</span><span class="nv">event.route</span><span class="cp">}}</span><span class="err">&gt;</span><span class="cp">{{</span><span class="nv">event.object</span><span class="cp">}}</span><span class="s">&lt;/a</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#10</span>
+    <span class="priority high">high · p_tp 0.751</span>
+    <span class="file-path">apps/activitypub/src/views/explore/explore.tsx:93</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">react-dangerouslysetinnerhtml</span>
+    
+  </div>
+  <div class="msg">Detection of dangerouslySetInnerHTML from non-constant definition. This can inadvertently expose users to cross-site scripting (XSS) attacks if this comes from user-provided input. If you have to use dangerouslySetInnerHTML, consider using a sanitization library such as DOMPurify to sanitize your HTML.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">93</span><span class="w">                            </span><span class="nx">dangerouslySetInnerHTML</span><span class="o">=</span><span class="p">{{</span><span class="nx">__html</span><span class="o">:</span><span class="w"> </span><span class="kt">sanitizeHtml</span><span class="p">(</span><span class="nx">openLinksInNewTab</span><span class="p">(</span><span class="nx">stripHtml</span><span class="p">(</span><span class="nx">profile</span><span class="p">.</span><span class="nx">bio</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;br&#39;</span><span class="p">])))}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#11</span>
+    <span class="priority high">high · p_tp 0.749</span>
+    <span class="file-path">ghost/admin/app/components/editor/modals/preview/email.hbs:52</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">unquoted-attribute-var</span>
+    
+  </div>
+  <div class="msg">Detected a unquoted template variable as an attribute. If unquoted, a malicious actor could inject custom JavaScript handlers. To fix this, add quotes around the template expression, like this: &#34;{{ expr }}&#34;.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">52</span>                                            aria-invalid=<span class="cp">{{</span><span class="nv">if</span> <span class="nv">this.sendPreviewEmailError</span> <span class="s2">&quot;true&quot;</span><span class="cp">}}</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#12</span>
+    <span class="priority high">high · p_tp 0.749</span>
+    <span class="file-path">ghost/admin/app/components/modal-post-history.hbs:82</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">unquoted-attribute-var</span>
+    
+  </div>
+  <div class="msg">Detected a unquoted template variable as an attribute. If unquoted, a malicious actor could inject custom JavaScript handlers. To fix this, add quotes around the template expression, like this: &#34;{{ expr }}&#34;.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">82</span>                                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;gh-post-history-version-meta </span><span class="cp">{{</span><span class="nv">if</span> <span class="nv">(eq</span> <span class="nv">revision.author.name</span> <span class="s2">&quot;Deleted staff user&quot;</span><span class="nv">)</span> <span class="s2">&quot;deleted-user&quot;</span><span class="cp">}}</span><span class="s">&quot;</span><span class="p">&gt;</span><span class="cp">{{</span><span class="nv">revision.author.name</span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#13</span>
+    <span class="priority high">high · p_tp 0.748</span>
+    <span class="file-path">ghost/core/core/server/services/comments/email-templates/report.hbs:119</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">var-in-href</span>
+    
+  </div>
+  <div class="msg">Detected a template variable used in an anchor tag with the &#39;href&#39; attribute. This allows a malicious actor to input the &#39;javascript:&#39; URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use &#39;url_for()&#39; to safely generate a URL. If using Django, use the &#39;url&#39; filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash &#39;/&#39; to the variable for relative links (`href=&#34;/{{link}}&#34;`). You may also consider setting the Content Security Policy (CSP) header.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">119</span>                          <span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-family: -apple-system, BlinkMacSystemFont, &#39;Segoe UI&#39;, Roboto, Helvetica, Arial, sans-serif, &#39;Apple Color Emoji&#39;, &#39;Segoe UI Emoji&#39;, &#39;Segoe UI Symbol&#39;; font-size: 16px; color: #3A464C; font-weight: normal; margin: 0; line-height: 25px; margin-bottom: 32px;&quot;</span><span class="p">&gt;</span><span class="cp">{{</span><span class="nv">reporter</span><span class="cp">}}</span> has reported the comment below on <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">postUrl</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;font-weight: bold; text-decoration: underline; color: #15212A;&quot;</span><span class="p">&gt;</span><span class="cp">{{</span><span class="nv">postTitle</span><span class="cp">}}</span><span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#14</span>
+    <span class="priority high">high · p_tp 0.746</span>
+    <span class="file-path">ghost/core/core/server/web/gift-preview/controller.js:110-111</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">raw-html-format</span>
+    
+  </div>
+  <div class="msg">User data flows into the host portion of this manually-constructed HTML. This can introduce a Cross-Site-Scripting (XSS) vulnerability if this comes from user-provided input. Consider using a sanitization library such as DOMPurify to sanitize the HTML within.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">110</span><span class="w">    </span><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">$</span><span class="p">{</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">redirectUrl</span><span class="p">)});</span><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<span class="linenos">111</span><span class="w">    </span><span class="o">&lt;</span><span class="nx">noscript</span><span class="o">&gt;&lt;</span><span class="nx">a</span><span class="w"> </span><span class="nx">href</span><span class="o">=</span><span class="s2">&quot;${escapeHtml(redirectUrl)}&quot;</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">escapeHtml</span><span class="p">(</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;Redeem your gift subscription&#39;</span><span class="p">))}</span><span class="o">&lt;</span><span class="err">/a&gt;&lt;/noscript&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+<div class="finding">
+  <div class="finding-head">
+    <span class="rank">#15</span>
+    <span class="priority high">high · p_tp 0.746</span>
+    <span class="file-path">ghost/core/core/frontend/helpers/tpl/recommendations.hbs:5</span>
+  </div>
+  <div class="badges">
+    <span class="badge">tool: Semgrep OSS</span>
+    <span class="badge">CWE-79</span>
+    <span class="badge">var-in-href</span>
+    
+  </div>
+  <div class="msg">Detected a template variable used in an anchor tag with the &#39;href&#39; attribute. This allows a malicious actor to input the &#39;javascript:&#39; URI and is subject to cross- site scripting (XSS) attacks. If using Flask, use &#39;url_for()&#39; to safely generate a URL. If using Django, use the &#39;url&#39; filter to safely generate a URL. If using Mustache, use a URL encoding library, or prepend a slash &#39;/&#39; to the variable for relative links (`href=&#34;/{{link}}&#34;`). You may also consider setting the Content Security Policy (CSP) header.</div>
+  
+  <div class="code-block"><div class="src"><pre><span></span><span class="linenos">5</span>            <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">rec.url</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">data-recommendation</span><span class="o">=</span><span class="s">&quot;</span><span class="cp">{{</span><span class="nv">rec.id</span><span class="cp">}}</span><span class="s">&quot;</span> <span class="na">target</span><span class="o">=</span><span class="s">&quot;_blank&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;noopener&quot;</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+  
+  
+  
+</div>
+
+
+<div class="scope">
+  <p><b>Triage scope</b> (honest disclosure, per public-benchmark eval on yeswehack + DVWA-paired, 111 cases):</p>
+  <ul>
+    <li>High detection: SQL injection (CWE-89), XSS (CWE-79), LFI/PathTraversal (CWE-22/98), SSRF (CWE-918), SSTI, Deserialization, eval/CodeInjection, FormatString, CSRF, PrototypePollution.</li>
+    <li>Partial: CommandInjection (CWE-78), OpenRedirect (CWE-601), IDOR (CWE-639).</li>
+    <li>Out of scope (model does not reliably detect): BusinessLogic, CORS, CachePoisoning, Broken-Access-Control, Weak-ID-Generation, Captcha-Bypass, Upload-Chain, AuthBypass-via-type-juggling, client-side JS validation.</li>
+    <li>Snippet-only triage: findings whose mitigation lives outside the visible code window (e.g. validation 100 lines upstream) may be flagged as priority. Manual confirmation of top-5 recommended before acting.</li>
+  </ul>
+</div>
+
+<div class="footer">
+  <p>Methodology: single-call inference per finding, greedy decoding, p_tp from first-token logprobs over TRUE_POSITIVE vs FALSE_POSITIVE. Benchmark numbers (MCC 0.420 on yeswehack+DVWA, MCC 0.177 with paired strict-beat vs single-call Sonnet 4.5 on SastBench-250) measured under cluster-bootstrap CIs. Recall on diverse OSS is partial (DR ~46% on SastBench-250) — positioning is <b>priority ranker</b>, not filter.</p>
+  <p>Generated by <a href="https://github.com/JJKenn3dy/vuln-llm-research" style="color: var(--link);">vuln-llm-research</a> · v8.3.1 adapter</p>
+</div>
+
+</body>
+</html>
