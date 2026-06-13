@@ -229,7 +229,47 @@ This sells the diagnostic contribution + the on-prem economics, not a
 contested number. Does not need to win the disputed +0.177 vs Sonnet
 comparison.
 
-## 4-judge picture: GPT-5.3-codex added (2026-06-13)
+## Methodological correction (2026-06-13, after Zakhar review)
+
+**Bucket-based numbers (clean_consistent / strong_mislabel / one_frontier_dissent)
+are contaminated and cannot be used in any external claim.** The buckets were
+defined by Sonnet vs Gemini agreement; the GPT-5.3 results then showed
+Sonnet+Gemini pairwise = 74.7% — by far the highest non-trivial pairwise in
+the matrix. The "strong_mislabel" bucket is therefore not "cases where SB is
+wrong" but "cases where two correlated frontier models share an error mode
+relative to SB". Every per-bucket MCC, agreement rate, and the "60% reject
+SB / 35% 4-judge unanimous" headline inherits this selection bias.
+
+**What is uncontaminated and ships:**
+
+The pairwise agreement matrix vs SB on all 99 cases. It does not depend on
+any bucket. It shows two distinct judge clusters:
+
+| Cluster | Members | Agreement with SB | Within-cluster pairwise |
+|---|---|---|---|
+| A (skeptical of SB) | Sonnet, Gemini | 34%, 41% | **Sonnet↔Gemini 74.7%** |
+| B (conservative) | v8.3.1, GPT-5.3-codex, Human | 67%, 68%, 58% | v8.3.1↔GPT-5.3 68.7%, v8.3.1↔Human 68.7%, Human↔GPT-5.3 71.7% |
+| Cross-cluster | A vs B | — | 46–62% |
+
+Three pre-pitch blockers, all answered:
+
+1. **v8.3.1 vs GPT-5.3 = 68.7%** (> both vs SB). The "v8.3.1 clusters with
+   GPT-5.3" claim is not an artifact of equal-but-different agreement counts
+   against SB — the two models actually agree with each other more than with
+   SB.
+2. **Sonnet vs Gemini = 74.7%** (highest pairwise in the matrix after
+   Human↔GPT-5.3). Sonnet+Gemini are numerically the most correlated pair,
+   confirming that buckets built on their agreement inherit that correlation.
+3. **Human vs GPT-5.3 = 71.7%** (top of matrix). The conservative-cluster
+   reference axis is real.
+
+This is the cleanest finding that survives: **the SAST-triage market does
+not have an undisputed ground truth.** Two frontier-class models disagree
+with each other on ~25% of cases. The 32–66% range of agreement-with-SB
+across reasonable evaluators is a structural property of the field, not a
+flaw of one benchmark.
+
+## 4-judge picture: GPT-5.3-codex added (2026-06-13) [bucket numbers below — read with the caveat above]
 
 Ran `openai/gpt-5.3-codex` as a 4th independent blind voice on the same 100
 hand-label cases. Cost: $0.66 (token-heavy reasoning model). Script:
@@ -295,39 +335,73 @@ GPT-5.3-codex has the lowest noise floor among the non-construction judges.
 | Sonnet+Gemini independence assumption | ❌ Partially refuted: GPT-5.3 (also frontier-class) agrees with SB much more often. Sonnet+Gemini share more error-mode than expected. |
 | v8.3.1 picture relative to humans | ✅ v8.3.1 vs human agreement = 68.7%, highest of any judge except GPT-5.3. Our 7B is solidly in the "agrees with cautious human/GPT-5.3" cluster, not the "rejects everything" Sonnet+Gemini cluster. |
 
-## Outreach pitch v3 — REVISED structure (still deferred for Zakhar review)
+## Outreach pitch v3 — final structure (methodology-of-measurement angle)
 
-The "benchmark is broken" framing has to be cut substantially:
+After Zakhar review of the GPT-5.3 4-judge result, both prior framings die:
 
-1. **Built honest evaluation infrastructure** (3-judge + human + 4th frontier
-   adjudication on a public benchmark — methodologically clean, reproducible
-   at $0.66, not a contested home-bench).
-2. **Found measurable but not catastrophic label noise**: ~7% of SastBench-250
-   cases have 4 independent judges unanimously rejecting the shipped label.
-   The benchmark is usable but noisy enough that single-model MCC at the
-   ±0.05 level is below the noise floor.
-3. **Local 7B specialist clusters with the conservative judges** (human,
-   GPT-5.3-codex), not with the aggressive ones (Sonnet, Gemini). For
-   commercial triage where "don't reject real bugs" matters more than
-   "find every possible bug", this cluster is the right side to be on.
-4. **Economics**: on-prem 7B inference at ~$0 marginal vs frontier $1.75-15/M
-   tokens — and the 7B is in the same agreement-cluster as a frontier model
-   at the upper-end of that price band.
+* "Benchmark is 50% broken" — false (4-judge unanimous reject is 7%, not 50%)
+* "We match frontier" — ambiguous (which frontier? they disagree among themselves)
 
-Headline number to lead with: **"v8.3.1 agrees with human expert review
-68.7% of the time on 100 stratified SastBench cases — same agreement rate
-as GPT-5.3-codex"**. Defensible, calibrated, not contested.
+The honest, triangulated, attack-proof framing is the **measurement-methodology**
+angle. It does not require winning any contested number, it pre-empts criticism
+by having performed the attack on itself, and it produces three sale points
+none of which depends on a fragile metric.
+
+**Headline:** "There is no undisputed ground truth in SAST triage at the
+market level. We built and applied the first reproducible multi-judge audit
+of a public benchmark and the data is on disk."
+
+**Three sale points:**
+1. *Honest measurement.* In a market where vendors quote "95% accuracy"
+   without disclosing labeling protocol, we built and ran a reproducible
+   audit: 4 independent judges on a public 100-case stratified sample at
+   $0.66 cost. We published the matrix.
+2. *Our 7B is behaviorally inside the conservative-judge cluster.*
+   v8.3.1 ↔ GPT-5.3-codex agreement is 68.7%, v8.3.1 ↔ Human is 68.7%,
+   both higher than v8.3.1 ↔ SB (66.7%). This is a direct measurement,
+   not an inferred similarity from matching SB-agreement counts.
+3. *On-prem economics.* Same behavioral cluster as a frontier code model,
+   at $0 marginal inference vs $1.75/M in + $14/M out, fully local.
+
+**What this pitch does NOT claim:**
+- We are more accurate than SB / Sonnet / Gemini (cannot be claimed
+  without an oracle truth that does not exist).
+- 50% / 30% / any specific % of SB labels are wrong (selection-biased).
+- We beat frontier on accuracy (false precision in a no-ground-truth setting).
+
+## Honest sizing of the finding
+
+This is **not** a Series-A killer result. It is a **first-conversation**
+result. It is enough to:
+- get past the "have you actually validated this" reflex from a competent
+  integrator,
+- earn a position as "the team that runs the math honestly" in CIS-market
+  outreach where competitors are sloppy,
+- support a short technical write-up that makes the work visible.
+
+It is not enough to:
+- justify a fundraising headline number,
+- support a product-claim of "X% reduction in false positives",
+- close a paid pilot without an integrator-side test.
+
+The next informational bit is not in a fifth analysis of these 250 cases.
+It is in a live conversation with an industry buyer who looks at this
+material and answers the question "is this a pain people pay for?".
 
 ## Decisions to make next
 
-1. **Zakhar review** of this updated picture. The strong-mislabel pitch
-   claim has materially shrunk. Decide whether to ship pitch v3 on
-   "matching frontier agreement at 0% inference cost" instead of "benchmark
-   is broken" — these are very different go-to-market messages.
-2. **Maybe** a 5th voice (o3 or Opus 4.7) on the 17 "4-judge unanimous"
-   cases — if all 5 unanimously reject SB, that subset becomes a public
-   "verified mislabel" donor patch. Cost: ~$0.10. Justified only if (1)
-   commits to the audit angle vs the economics angle.
+1. **Stop analyzing.** Six runs in a row narrowed the claim from "~50%
+   noisy" to "no single ground truth exists" — the diagnostic ceiling on
+   these 100 cases is reached.
+2. **Outreach draft.** Short technical post (≤300 words) + a 4-line cold
+   message variant. Both live on this corrected interpretation.
+3. **Pick 3-5 target readers.** Integrators or in-house security leads
+   in CIS, where the "vendors quote unvalidated %s" problem is sharpest.
+   Send. Listen. The signal that matters is whether anyone replies with
+   a procurement question, not a research question.
+
+The 5th-judge / o3 / Opus extension is NOT justified. It would refine a
+number that does not need refining for first contact.
 
 ## Files
 
