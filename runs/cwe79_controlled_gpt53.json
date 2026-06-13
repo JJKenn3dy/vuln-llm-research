@@ -1,0 +1,295 @@
+{
+  "rows": [
+    {
+      "case_id": "ctrl79_php_echo_vuln",
+      "pair_id": "php_echo",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_php_echo_safe",
+      "pair_id": "php_echo",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_php_printf_vuln",
+      "pair_id": "php_printf",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_php_printf_safe",
+      "pair_id": "php_printf",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_php_attr_vuln",
+      "pair_id": "php_attr",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_php_attr_safe",
+      "pair_id": "php_attr",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_php_comment_vuln",
+      "pair_id": "php_comment",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_php_comment_safe",
+      "pair_id": "php_comment",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_js_innerhtml_vuln",
+      "pair_id": "js_innerhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_js_innerhtml_safe",
+      "pair_id": "js_innerhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_js_dompurify_vuln",
+      "pair_id": "js_dompurify",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_js_dompurify_safe",
+      "pair_id": "js_dompurify",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_js_docwrite_vuln",
+      "pair_id": "js_docwrite",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_js_docwrite_safe",
+      "pair_id": "js_docwrite",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_js_insertadjacent_vuln",
+      "pair_id": "js_insertadjacent",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_js_insertadjacent_safe",
+      "pair_id": "js_insertadjacent",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_react_dangerously_vuln",
+      "pair_id": "react_dangerously",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_react_dangerously_safe",
+      "pair_id": "react_dangerously",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_handlebars_vuln",
+      "pair_id": "handlebars",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_handlebars_safe",
+      "pair_id": "handlebars",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_ejs_vuln",
+      "pair_id": "ejs",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_ejs_safe",
+      "pair_id": "ejs",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_jinja_safe_vuln",
+      "pair_id": "jinja_safe",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_jinja_safe_safe",
+      "pair_id": "jinja_safe",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_flask_markup_vuln",
+      "pair_id": "flask_markup",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_flask_markup_safe",
+      "pair_id": "flask_markup",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_express_send_vuln",
+      "pair_id": "express_send",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_express_send_safe",
+      "pair_id": "express_send",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_vue_vhtml_vuln",
+      "pair_id": "vue_vhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_vue_vhtml_safe",
+      "pair_id": "vue_vhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_jquery_html_vuln",
+      "pair_id": "jquery_html",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_jquery_html_safe",
+      "pair_id": "jquery_html",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_jsp_out_vuln",
+      "pair_id": "jsp_out",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_jsp_out_safe",
+      "pair_id": "jsp_out",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_angular_innerhtml_vuln",
+      "pair_id": "angular_innerhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_angular_innerhtml_safe",
+      "pair_id": "angular_innerhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_php_setcookie_reflect_vuln",
+      "pair_id": "php_setcookie_reflect",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_php_setcookie_reflect_safe",
+      "pair_id": "php_setcookie_reflect",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "ctrl79_js_template_literal_vuln",
+      "pair_id": "js_template_literal",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "ctrl79_js_template_literal_safe",
+      "pair_id": "js_template_literal",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    }
+  ],
+  "summary": {
+    "n": 40,
+    "accuracy": 1.0,
+    "dr": 1.0,
+    "spec": 1.0,
+    "discrimination": 1.0,
+    "n_pairs": 20,
+    "both_tp": 0,
+    "both_fp": 0,
+    "inverted": 0
+  }
+}

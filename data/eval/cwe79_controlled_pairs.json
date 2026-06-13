@@ -1,0 +1,962 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: profile.php\nLines: see snippet\n\nCode:\n<?php\n$name = $_GET['name'];\n?>\n<div class=\"greeting\">\n  Hello, <?php echo $name; ?>!\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_echo_vuln",
+      "pair_id": "php_echo",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "echo + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: profile.php\nLines: see snippet\n\nCode:\n<?php\n$name = $_GET['name'];\n?>\n<div class=\"greeting\">\n  Hello, <?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8'); ?>!\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_echo_safe",
+      "pair_id": "php_echo",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "echo + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: search.php\nLines: see snippet\n\nCode:\n<?php\n$q = $_REQUEST['query'];\nprintf('<p>Results for: %s</p>', $q);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_printf_vuln",
+      "pair_id": "php_printf",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "printf %s + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: search.php\nLines: see snippet\n\nCode:\n<?php\n$q = $_REQUEST['query'];\nprintf('<p>Results for: %s</p>', htmlspecialchars($q, ENT_QUOTES, 'UTF-8'));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_printf_safe",
+      "pair_id": "php_printf",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "printf %s + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: form.php\nLines: see snippet\n\nCode:\n<?php\n$q = $_GET['q'];\necho '<input type=\"text\" name=\"q\" value=\"' . $q . '\">';\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_attr_vuln",
+      "pair_id": "php_attr",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "value attribute + htmlspecialchars(ENT_QUOTES)",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: form.php\nLines: see snippet\n\nCode:\n<?php\n$q = $_GET['q'];\necho '<input type=\"text\" name=\"q\" value=\"' . htmlspecialchars($q, ENT_QUOTES, 'UTF-8') . '\">';\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_attr_safe",
+      "pair_id": "php_attr",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "value attribute + htmlspecialchars(ENT_QUOTES)",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: post.php\nLines: see snippet\n\nCode:\n<?php\n$comment = $_POST['comment'];\n$html = \"<div class='comment'>\" . $comment . \"</div>\";\necho $html;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_comment_vuln",
+      "pair_id": "php_comment",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "echo comment body + htmlentities",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: post.php\nLines: see snippet\n\nCode:\n<?php\n$comment = $_POST['comment'];\n$html = \"<div class='comment'>\" . htmlentities($comment, ENT_QUOTES, 'UTF-8') . \"</div>\";\necho $html;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_comment_safe",
+      "pair_id": "php_comment",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "echo comment body + htmlentities",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: widget.js\nLines: see snippet\n\nCode:\nfunction showName(req) {\n  const name = new URLSearchParams(location.search).get('name');\n  document.getElementById('out').innerHTML = 'Hi ' + name;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_innerhtml_vuln",
+      "pair_id": "js_innerhtml",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "innerHTML vs textContent",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: widget.js\nLines: see snippet\n\nCode:\nfunction showName(req) {\n  const name = new URLSearchParams(location.search).get('name');\n  document.getElementById('out').textContent = 'Hi ' + name;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_innerhtml_safe",
+      "pair_id": "js_innerhtml",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "innerHTML vs textContent",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: render.js\nLines: see snippet\n\nCode:\nfunction render(userBio) {\n  const el = document.querySelector('#bio');\n  el.innerHTML = userBio;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_dompurify_vuln",
+      "pair_id": "js_dompurify",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "innerHTML raw vs DOMPurify",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: render.js\nLines: see snippet\n\nCode:\nfunction render(userBio) {\n  const el = document.querySelector('#bio');\n  el.innerHTML = DOMPurify.sanitize(userBio);\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_dompurify_safe",
+      "pair_id": "js_dompurify",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "innerHTML raw vs DOMPurify",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: banner.js\nLines: see snippet\n\nCode:\nconst msg = decodeURIComponent(location.hash.slice(1));\ndocument.write('<h2>' + msg + '</h2>');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_docwrite_vuln",
+      "pair_id": "js_docwrite",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "document.write vs escaped",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: banner.js\nLines: see snippet\n\nCode:\nconst msg = decodeURIComponent(location.hash.slice(1));\nconst safe = msg.replace(/[&<>\"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]));\ndocument.write('<h2>' + safe + '</h2>');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_docwrite_safe",
+      "pair_id": "js_docwrite",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "document.write vs escaped",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: list.js\nLines: see snippet\n\nCode:\nfunction addItem(input) {\n  const v = input.value;\n  list.insertAdjacentHTML('beforeend', '<li>' + v + '</li>');\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_insertadjacent_vuln",
+      "pair_id": "js_insertadjacent",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "insertAdjacentHTML vs textContent node",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: list.js\nLines: see snippet\n\nCode:\nfunction addItem(input) {\n  const v = input.value;\n  const li = document.createElement('li');\n  li.textContent = v;\n  list.appendChild(li);\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_insertadjacent_safe",
+      "pair_id": "js_insertadjacent",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "insertAdjacentHTML vs textContent node",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: Comment.jsx\nLines: see snippet\n\nCode:\nfunction Comment({ body }) {\n  return <div className=\"c\" dangerouslySetInnerHTML={{ __html: body }} />;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_react_dangerously_vuln",
+      "pair_id": "react_dangerously",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "dangerouslySetInnerHTML vs JSX",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: Comment.jsx\nLines: see snippet\n\nCode:\nfunction Comment({ body }) {\n  return <div className=\"c\">{body}</div>;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_react_dangerously_safe",
+      "pair_id": "react_dangerously",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "dangerouslySetInnerHTML vs JSX",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: tpl.hbs\nLines: see snippet\n\nCode:\n<div class=\"user-card\">\n  <span class=\"name\">{{{userName}}}</span>\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_handlebars_vuln",
+      "pair_id": "handlebars",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Handlebars triple vs double brace",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: tpl.hbs\nLines: see snippet\n\nCode:\n<div class=\"user-card\">\n  <span class=\"name\">{{userName}}</span>\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_handlebars_safe",
+      "pair_id": "handlebars",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Handlebars triple vs double brace",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: view.ejs\nLines: see snippet\n\nCode:\n<h1>Welcome</h1>\n<p>Your note: <%- note %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_ejs_vuln",
+      "pair_id": "ejs",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "EJS unescaped <%- %> vs <%= %>",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: view.ejs\nLines: see snippet\n\nCode:\n<h1>Welcome</h1>\n<p>Your note: <%= note %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_ejs_safe",
+      "pair_id": "ejs",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "EJS unescaped <%- %> vs <%= %>",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: page.html.j2\nLines: see snippet\n\nCode:\n<div class=\"bio\">\n  {{ profile.bio | safe }}\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jinja_safe_vuln",
+      "pair_id": "jinja_safe",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "mechanism": "Jinja2 |safe vs autoescape",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: page.html.j2\nLines: see snippet\n\nCode:\n<div class=\"bio\">\n  {{ profile.bio }}\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jinja_safe_safe",
+      "pair_id": "jinja_safe",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "mechanism": "Jinja2 |safe vs autoescape",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: views.py\nLines: see snippet\n\nCode:\nfrom flask import request\nfrom markupsafe import Markup\n\n@app.route('/hello')\ndef hello():\n    name = request.args.get('name', '')\n    return Markup('<h1>Hello ' + name + '</h1>')\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_flask_markup_vuln",
+      "pair_id": "flask_markup",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "mechanism": "Flask Markup raw vs escape",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: views.py\nLines: see snippet\n\nCode:\nfrom flask import request\nfrom markupsafe import Markup, escape\n\n@app.route('/hello')\ndef hello():\n    name = request.args.get('name', '')\n    return Markup('<h1>Hello %s</h1>') % escape(name)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_flask_markup_safe",
+      "pair_id": "flask_markup",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "mechanism": "Flask Markup raw vs escape",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: routes.js\nLines: see snippet\n\nCode:\napp.get('/q', (req, res) => {\n  const term = req.query.term;\n  res.send('<p>You searched: ' + term + '</p>');\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_express_send_vuln",
+      "pair_id": "express_send",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "res.send concat vs escape-html",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: routes.js\nLines: see snippet\n\nCode:\nconst escapeHtml = require('escape-html');\napp.get('/q', (req, res) => {\n  const term = req.query.term;\n  res.send('<p>You searched: ' + escapeHtml(term) + '</p>');\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_express_send_safe",
+      "pair_id": "express_send",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "res.send concat vs escape-html",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: Note.vue\nLines: see snippet\n\nCode:\n<template>\n  <div class=\"note\" v-html=\"userNote\"></div>\n</template>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_vue_vhtml_vuln",
+      "pair_id": "vue_vhtml",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Vue v-html vs mustache",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: Note.vue\nLines: see snippet\n\nCode:\n<template>\n  <div class=\"note\">{{ userNote }}</div>\n</template>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_vue_vhtml_safe",
+      "pair_id": "vue_vhtml",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Vue v-html vs mustache",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: chat.js\nLines: see snippet\n\nCode:\n$('#msg').on('submit', function() {\n  var text = $('#input').val();\n  $('#log').append($('<div>').html(text));\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jquery_html_vuln",
+      "pair_id": "jquery_html",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "jQuery .html() vs .text()",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: chat.js\nLines: see snippet\n\nCode:\n$('#msg').on('submit', function() {\n  var text = $('#input').val();\n  $('#log').append($('<div>').text(text));\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jquery_html_safe",
+      "pair_id": "jquery_html",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "jQuery .html() vs .text()",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: result.jsp\nLines: see snippet\n\nCode:\n<body>\n  <p>Hello <%= request.getParameter(\"user\") %></p>\n</body>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jsp_out_vuln",
+      "pair_id": "jsp_out",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "java",
+      "tool": "semgrep",
+      "mechanism": "JSP <%= %> vs c:out escapeXml",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: result.jsp\nLines: see snippet\n\nCode:\n<%@ taglib prefix=\"c\" uri=\"http://java.sun.com/jsp/jstl/core\" %>\n<body>\n  <p>Hello <c:out value=\"${param.user}\"/></p>\n</body>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_jsp_out_safe",
+      "pair_id": "jsp_out",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "java",
+      "tool": "semgrep",
+      "mechanism": "JSP <%= %> vs c:out escapeXml",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: comp.ts\nLines: see snippet\n\nCode:\n@Component({\n  template: `<div [innerHTML]=\"trusted\"></div>`\n})\nexport class C {\n  @Input() raw: string;\n  constructor(private s: DomSanitizer) {}\n  get trusted() { return this.s.bypassSecurityTrustHtml(this.raw); }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_angular_innerhtml_vuln",
+      "pair_id": "angular_innerhtml",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Angular bypassSecurityTrustHtml vs interpolation",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: comp.ts\nLines: see snippet\n\nCode:\n@Component({\n  template: `<div>{{ raw }}</div>`\n})\nexport class C {\n  @Input() raw: string;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_angular_innerhtml_safe",
+      "pair_id": "angular_innerhtml",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "Angular bypassSecurityTrustHtml vs interpolation",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: welcome.php\nLines: see snippet\n\nCode:\n<?php\n$theme = $_COOKIE['theme'];\necho \"<body class='\" . $theme . \"'>\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_setcookie_reflect_vuln",
+      "pair_id": "php_setcookie_reflect",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "reflected cookie + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: welcome.php\nLines: see snippet\n\nCode:\n<?php\n$theme = $_COOKIE['theme'];\necho \"<body class='\" . htmlspecialchars($theme, ENT_QUOTES, 'UTF-8') . \"'>\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_php_setcookie_reflect_safe",
+      "pair_id": "php_setcookie_reflect",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "mechanism": "reflected cookie + htmlspecialchars",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: card.js\nLines: see snippet\n\nCode:\nfunction show(user) {\n  card.innerHTML = `<h3>${user.displayName}</h3>`;\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_template_literal_vuln",
+      "pair_id": "js_template_literal",
+      "variant": "vuln",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "template literal innerHTML vs textContent",
+      "source": "cwe79_controlled"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: card.js\nLines: see snippet\n\nCode:\nfunction show(user) {\n  const h = document.createElement('h3');\n  h.textContent = user.displayName;\n  card.replaceChildren(h);\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+      }
+    ],
+    "metadata": {
+      "case_id": "ctrl79_js_template_literal_safe",
+      "pair_id": "js_template_literal",
+      "variant": "safe",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "semgrep",
+      "mechanism": "template literal innerHTML vs textContent",
+      "source": "cwe79_controlled"
+    }
+  }
+]
