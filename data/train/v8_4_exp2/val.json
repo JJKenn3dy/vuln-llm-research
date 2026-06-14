@@ -1,0 +1,812 @@
+[
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n$user_input = $_GET['user_input'];\necho \"<p>\" . $user_input . \"</p>\";\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4211_vuln",
+   "pair_id": "cn_79_4211",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n$user_input = htmlspecialchars($_GET['user_input'], ENT_QUOTES, 'UTF-8');\necho \"<p>\" . $user_input . \"</p>\";\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4211_safe",
+   "pair_id": "cn_79_4211",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n$name = $_GET['name'];\necho \"Hello, \".$name;\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4266_vuln",
+   "pair_id": "cn_79_4266",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\nif(isset($_GET['name'])) {\n    $name = filter_input(INPUT_GET, 'name', FILTER_SANITIZE_STRING);\n    echo \"Hello, \".htmlspecialchars($name, ENT_QUOTES, 'UTF-8');\n} else {\n    echo \"Please provide your name.\";\n}\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4266_safe",
+   "pair_id": "cn_79_4266",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\n\nget '/' do\n  \"Hello, #{params['name']}!\"\nend\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4267_vuln",
+   "pair_id": "cn_79_4267",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'cgi'\n\nget '/' do\n  name = params['name']\n  if name\n    \"Hello, #{CGI.escapeHTML(name)}!\"\n  else\n    \"Hello, Guest!\"\n  end\nend\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4267_safe",
+   "pair_id": "cn_79_4267",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'erb'\n\nget '/' do\n  erb :index\nend\n\npost '/search' do\n  @result = params[:query]\n  erb :search_results\nend\n\n__END__\n\n@@ index\n<form action=\"/search\" method=\"post\">\n  <input type=\"text\" name=\"query\">\n  <input type=\"submit\" value=\"Search\">\n</form>\n\n@@ search_results\n<p>Your search results: <%= @result %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4289_vuln",
+   "pair_id": "cn_79_4289",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'erb'\nrequire 'cgi'\n\nget '/' do\n  erb :index\nend\n\npost '/search' do\n  @result = CGI.escapeHTML(params[:query])\n  erb :search_results\nend\n\n__END__\n\n@@ index\n<form action=\"/search\" method=\"post\">\n  <input type=\"text\" name=\"query\">\n  <input type=\"submit\" value=\"Search\">overed\n</form>\n\n@@ search_results\n<p>Your search results: <%= @result %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4289_safe",
+   "pair_id": "cn_79_4289",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nvar http = require('http');\nvar url = require('url');\n\nhttp.createServer(function (req, res) {\n    var query = url.parse(req.url, true).query;\n    res.writeHead(200, {'Content-Type': 'text/html'});\n    res.write(\"<h1>Hello \" + query.name + \"</h1>\");\n    res.end();\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4308_vuln",
+   "pair_id": "cn_79_4308",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nconst http = require('http');\nconst url = require('url');\n\nhttp.createServer((req, res) => {\n    const parsedUrl = url.parse(req.url, true);\n    const name = parsedUrl.query.name || '';\n    \n    // Sanitize the name parameter to prevent XSS attacks\n    const sanitizedName = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');\n\n    res.writeHead(200, {'Content-Type': 'text/html'});ellow\n    res.write(\"<h1>Hello \" + sanitizedName + \"</h1>\");\n    res.end();\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4308_safe",
+   "pair_id": "cn_79_4308",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nfunction getQueryParams(url) {\n    let params = new URLSearchParams(url);\n    let name = params.get('name');\n    document.getElementById('target').innerHTML = name;\n}\n\nlet url = 'https://example.com?name=<script>alert(\"XSS Attack\")</script>';\ngetQueryParams(url);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4330_vuln",
+   "pair_id": "cn_79_4330",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nfunction getQueryParams(url) {\n    let parser = document.createElement('a');\n    parser.href = url;\n    let params = parser.search.substring(1).split('&');\n    let paramObj = {};\n    for (let i = 0; i < params.length; i++) {\n        let tempArr = params[i].split('=');\n        paramObj[tempArr[0]] = decodeURIComponent(tempArr[1]);\n    }\n    return paramObj;\n}\n\nlet url = 'https://example.com?name=<script>alert(\"XSS Attack\")</script>';\nlet params = getQueryParams(url);\ndocument.getElementById('target').textContent = params['name'];\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4330_safe",
+   "pair_id": "cn_79_4330",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nconst http = require('http');\nconst url = require('url');\n\nhttp.createServer((req, res) => {\n    const queryObject = url.parse(req.url, true).query;\n    let responseCode = 200;\n    let responseMessage = 'Hello' + queryObject.name;\n\n    if (responseMessage.includes('<script>')) {\n        responseCode = 400;\n        responseMessage = 'Invalid input';\n    }\n\n    res.writeHead(responseCode, {'Content-Type': 'text/html'});\n    res.end(responseMessage);\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4374_vuln",
+   "pair_id": "cn_79_4374",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nconst http = require('http');\nconst url = require('url');\n\nhttp.createServer((req, res) => {\n    const queryObject = url.parse(req.url, true).query;\n    let name = queryObject.name || '';\n    \n    // Check for script tags in the name parameter\n    if (/<script>/.test(name)) {\n        res.writeHead(400, {'Content-Type': 'text/plain'});\n        res.end('Invalid input');\n    } else {\n        res.writeHead(200, {'Content-Type': 'text/html'});otted\n        res.end('Hello ' + name);\n    }\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4374_safe",
+   "pair_id": "cn_79_4374",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\nsession_start();\n\nif(isset($_POST['username'])) {\n    $_SESSION['username'] = $_POST['username'];\n}\n\nif(isset($_SESSION['username'])) {\n    echo \"Welcome, \" . $_SESSION['username'];\n}\n?>\n\n<form method=\"post\" action=\"\">\n    <input type=\"text\" name=\"username\" placeholder=\"Enter your username\">\n    <input type=\"submit\" value=\"Submit\">\n</form>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4376_vuln",
+   "pair_id": "cn_79_4376",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\nsession_start();\n\nif(isset($_POST['username'])) {\n    // Sanitize and validate the user input\n    $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);\n    \n    // Check if the sanitized and validated username is not empty\n    if(!empty(trim($username))) {\n        $_SESSION['username'] = $username;\n    }\n}\n\nif(isset($_SESSION['username'])) {\n    // Escape special characters to prevent XSS attacks\n    echo \"Welcome, \" . htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8');\n}\n?>\n\n<form method=\"post\" action=\"\">\n    <input type=\"text\" name=\"username\" placeholder=\"Enter your username\">\n    <input type=\"submit\" value=\"Submit\">Bs\n</form>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4376_safe",
+   "pair_id": "cn_79_4376",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.cs\nLines: see snippet\n\nCode:\nusing System;\nusing System.Web;\nusing System.Web.UI;\nusing System.Web.UI.WebControls;\n\npublic partial class _Default : Page \n{\n    protected void Page_Load(object sender, EventArgs e)\n    {\n        string userInput = Request.QueryString[\"userInput\"];\n        userInputLabel.Text = userInput;\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4419_vuln",
+   "pair_id": "cn_79_4419",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "c#",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.cs\nLines: see snippet\n\nCode:\nusing System;\nusing System.Web;\nusing System.Web.UI;Bs;\nusing System.Web.UI.WebControls;\n\npublic partial class _Default : Page \n{\n    protected void Page_Load(object sender, EventArgs e)\n    {\n        string userInput = Server.HtmlEncode(Request.QueryString[\"userInput\"]);\n        userInputLabel.Text = userInput;\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4419_safe",
+   "pair_id": "cn_79_4419",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "c#",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nconst http = require('http');\nconst url = require('url');\n\nhttp.createServer((req, res) => {\n  const queryObject = url.parse(req.url, true).query;\n  res.writeHead(200, {'Content-Type': 'text/html'});\n  res.write(\"<h1>Hello \" + queryObject.name + \"</h1>\");\n  res.end();\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4440_vuln",
+   "pair_id": "cn_79_4440",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nconst http = require('http');\nconst url = require('url');\n\nhttp.createServer((req, res) => {\n  const queryObject = url.parse(req.url, true).query;\n  let name = queryObject.name || '';\n  // Sanitize the input to prevent XSS attacks\n  name = name.replace(/</g, '&lt;').replace(/>/g, '&gt;');\n  res.writeHead(200, {'Content-Type': 'text/html'});ViewById\n  res.write(\"<h1>Hello \" + name + \"</h1>\");\n  res.end();\n}).listen(8080);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4440_safe",
+   "pair_id": "cn_79_4440",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\n\nget '/' do\n  \"<html><body><h1>Welcome #{params['name']}</h1></body></html>\"\nend\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4465_vuln",
+   "pair_id": "cn_79_4465",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'erb'\n\nget '/' do\n  @name = params['name'] ? ERB::Util.html_escape(params['name']) : 'Guest'\n  erb :index\nend\n\n__END__\n@@ index\n<html><body><h1>Welcome <%= @name %></h1></body></html>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4465_safe",
+   "pair_id": "cn_79_4465",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.txt\nLines: see snippet\n\nCode:\nimport Foundation\nimport UIKit\n\nclass ViewController: UIViewController {\n  @IBOutlet weak var inputField: UITextField\n  @IBAction func submitButtonPressed(_ sender: Any) {\n    let userInput = inputField.text\n    let urlString = \"https://example.com/search?q=\\(userInput)\"\n    if let url = URL(string: urlString) {\n      if let urlRequest = URLRequest(url: url) {\n        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in\n          // handle response\n        }\n        task.resume()\n      }\n    }\n  }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4477_vuln",
+   "pair_id": "cn_79_4477",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "swift",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.txt\nLines: see snippet\n\nCode:\nimport Foundation\nimport UIKit\n\nclass ViewController: UIViewController {\n  @IBOutlet weak var inputField: UITextField\n  @IBAction func submitButtonPressed(_ sender: Any) {\n    guard let userInput = inputField.text, !userInput.isEmpty else { return }\n    let encodedUserInput = userInput.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? \"\"\n    let urlString = \"https://example.com/search?q=\\(encodedUserInput)\"\n    guard let url = URL(string: urlString) else { return }\n    var urlRequest = URLRequest(url: url)\n    urlRequest.httpMethod = \"GET\"\n    let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in\n      DispatchQueue.main.async {\n        // handle response\n      }\n    }\n    task.resume()\n  }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4477_safe",
+   "pair_id": "cn_79_4477",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "swift",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.println(\"Enter your name:\");\n        String userInput = scanner.nextLine();\n        System.out.println(\"Hello, \" + userInput);\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4516_vuln",
+   "pair_id": "cn_79_4516",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner scanner = new Scanner(System.in);\n        System.out.println(\"Enter your name:\");\n        String userInput = sanitizeInput(scanner.nextLine());\n        System.out.println(\"Hello, \" + userInput);\n    }\n    \n    private static String sanitizeInput(String input) {\n        // Here we can add more complex sanitization logic if required\n        return input.replaceAll(\"[^a-zA-Z0-9 ]\", \"\");\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4516_safe",
+   "pair_id": "cn_79_4516",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'erb'\n\nget '/' do\n  erb :index\nend\n\npost '/comment' do\n  @comment = params[:comment]\n  erb :comment\nend\n\n__END__\n\n@@ index\n<form action=\"/comment\" method=\"post\">\n  <input type=\"text\" name=\"comment\">\n  <input type=\"submit\" value=\"Post Comment\">\n</form>\n\n@@ comment\n<h1>Your Comment:</h1>\n<p><%= @comment %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4641_vuln",
+   "pair_id": "cn_79_4641",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'sinatra'\nrequire 'erb'\nrequire 'cgi'\n\nget '/' do\n  erb :index\nend\n\npost '/comment' do\n  @comment = CGI.escapeHTML(params[:comment])\n  erb :comment\nend\n\n__END__\n\n@@ index\n<form action=\"/comment\" method=\"post\">\n  <input type=\"text\" name=\"comment\">\n  <input type=\"submit\" value=\"Post Comment\">avant\n</form>\n\n@@ comment\n<h1>Your Comment:</h1>\n<p><%= @comment %></p>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4641_safe",
+   "pair_id": "cn_79_4641",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "ruby",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.cs\nLines: see snippet\n\nCode:\nusing System;\nusing System.Web.UI;\nusing System.Web.UI.WebControls;\n\npublic partial class WebForm1 : System.Web.UI.Page\n{\n    protected void Page_Load(object sender, EventArgs e)\n    {\n        string userInput = Request.QueryString[\"userInput\"];\n        Response.Write(\"<div>\" + userInput + \"</div>\");\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: User-controlled input reaches an output sink without proper context-aware escaping.\nRealCWE: CWE-79\nSuggestedFix: Apply context-appropriate output escaping before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4650_vuln",
+   "pair_id": "cn_79_4650",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "c#",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.cs\nLines: see snippet\n\nCode:\nusing System;\nusing System.Web.UI;\nusing System.Web.UI.WebControls;lowing;\n\npublic partial class WebForm1 : System.Web.UI.Page\n{\n    protected void Page_Load(object sender, EventArgs e)\n    {\n        string userInput = Server.HtmlEncode(Request.QueryString[\"userInput\"]);\n        userDiv.InnerHtml = \"<div>\" + userInput + \"</div>\";\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: User input is escaped/sanitized before the sink, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "cn_79_4650_safe",
+   "pair_id": "cn_79_4650",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "c#",
+   "tool": "semgrep",
+   "source": "cybernative"
+  }
+ }
+]

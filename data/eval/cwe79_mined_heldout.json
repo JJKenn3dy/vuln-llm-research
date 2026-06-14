@@ -1,0 +1,1428 @@
+[
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n * Version:           1.6\n * Author:            Er Faiyaz Alam\n * Author URI:        https://github.com/faiyazalam\n * License:           GPL-2.0+\n * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt\n * Text Domain:       user-login-history\n * Domain Path:       /languages\n */\n// If this file is called directly, abort.\nif (!defined('WPINC')) {\n    die;\n}\nrequire_once plugin_dir_path(__FILE__) . 'includes/user-login-history-config.php';\n\n/**\n * The code that runs during plugin activation.\n */\nrequire_once plugin_dir_path(__FILE__) . 'includes/class-user-login-history-activator.php';\n\n/**\n * The code that runs during plugin deactivation.\n */\nrequire_once plugin_dir_path(__FILE__) . 'includes/class-user-login-history-deactivator.php';\n\n/** This action is documented in includes/class-user-login-history-activator.php */\nregister_activation_hook(__FILE__, array('User_Login_History_Activator', 'activate'));\n\n/** This action is documented in includes/class-user-login-history-deactivator.php */\nregister_deactivation_hook(__FILE__, array('User_Login_History_Deactivator', 'deactivate'));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2883_vuln",
+   "pair_id": "crossvul-pair-2883",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n * Version:           1.6\n * Author:            Er Faiyaz Alam\n * Author URI:        https://github.com/faiyazalam\n * License:           GPL-2.0+\n * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt\n * Text Domain:       user-login-history\n * Domain Path:       /languages\n */\n// If this file is called directly, abort.\nif (!defined('WPINC')) {\n    die;\n}\n\nrequire_once plugin_dir_path(__FILE__) . 'includes/user-login-history-config.php';\nrequire_once plugin_dir_path(__FILE__) . 'includes/class-user-login-history-error-handler.php';\n\n/**\n * The code that runs during plugin activation.\n */\nrequire_once plugin_dir_path(__FILE__) . 'includes/class-user-login-history-activator.php';\n\n/**\n * The code that runs during plugin deactivation.\n */\nrequire_once plugin_dir_path(__FILE__) . 'includes/class-user-login-history-deactivator.php';\n\n/** This action is documented in includes/class-user-login-history-activator.php */\nregister_activation_hook(__FILE__, array('User_Login_History_Activator', 'activate'));\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2883_safe",
+   "pair_id": "crossvul-pair-2883",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * phpwcms content management system\n *\n * @author Oliver Georgi <og@phpwcms.org>\n * @copyright Copyright (c) 2002-2017, Oliver Georgi\n * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2\n * @link http://www.phpwcms.org\n *\n **/\n\ndefine('PHPWCMS_VERSION', '1.8.9');\ndefine('PHPWCMS_RELEASE_DATE', '2017/09/14');\ndefine('PHPWCMS_REVISION', '547');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2885_vuln",
+   "pair_id": "crossvul-pair-2885",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * phpwcms content management system\n *\n * @author Oliver Georgi <og@phpwcms.org>\n * @copyright Copyright (c) 2002-2017, Oliver Georgi\n * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2\n * @link http://www.phpwcms.org\n *\n **/\n\ndefine('PHPWCMS_VERSION', '1.8.9');\ndefine('PHPWCMS_RELEASE_DATE', '2017/10/23');\ndefine('PHPWCMS_REVISION', '547');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2885_safe",
+   "pair_id": "crossvul-pair-2885",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * phpwcms content management system\n *\n * @author Oliver Georgi <og@phpwcms.org>\n * @copyright Copyright (c) 2002-2017, Oliver Georgi\n * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2\n * @link http://www.phpwcms.org\n *\n **/\n\ndefine('PHPWCMS_VERSION', '1.9.0-beta.8');\ndefine('PHPWCMS_RELEASE_DATE', '2017/10/08');\ndefine('PHPWCMS_REVISION', '549');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2886_vuln",
+   "pair_id": "crossvul-pair-2886",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * phpwcms content management system\n *\n * @author Oliver Georgi <og@phpwcms.org>\n * @copyright Copyright (c) 2002-2017, Oliver Georgi\n * @license http://opensource.org/licenses/GPL-2.0 GNU GPL-2\n * @link http://www.phpwcms.org\n *\n **/\n\ndefine('PHPWCMS_VERSION', '1.9.0-beta.8');\ndefine('PHPWCMS_RELEASE_DATE', '2017/10/23');\ndefine('PHPWCMS_REVISION', '549');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-2886_safe",
+   "pair_id": "crossvul-pair-2886",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n    }\n    exit();\n  }\n}\n\nif (!isset($ctype))\n{ // give it a guess\n  $ctype = guess_mime_type( get_extension($file) );\n}\n\n$http_headers[] = 'Content-Type: '.$ctype;\n\nif (isset($_GET['download']))\n{\n  $http_headers[] = 'Content-Disposition: attachment; filename=\"'.$element_info['file'].'\";';\n  $http_headers[] = 'Content-Transfer-Encoding: binary';\n}\nelse\n{\n  $http_headers[] = 'Content-Disposition: inline; filename=\"'\n            .basename($file).'\";';\n}\n\nforeach ($http_headers as $header)\n{\n  header( $header );\n}\n\n// Looking at the safe_mode configuration for execution time\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3135_vuln",
+   "pair_id": "crossvul-pair-3135",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n    }\n    exit();\n  }\n}\n\nif (!isset($ctype))\n{ // give it a guess\n  $ctype = guess_mime_type( get_extension($file) );\n}\n\n$http_headers[] = 'Content-Type: '.$ctype;\n\nif (isset($_GET['download']))\n{\n  $http_headers[] = 'Content-Disposition: attachment; filename=\"'.htmlspecialchars_decode($element_info['file']).'\";';\n  $http_headers[] = 'Content-Transfer-Encoding: binary';\n}\nelse\n{\n  $http_headers[] = 'Content-Disposition: inline; filename=\"'\n            .basename($file).'\";';\n}\n\nforeach ($http_headers as $header)\n{\n  header( $header );\n}\n\n// Looking at the safe_mode configuration for execution time\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3135_safe",
+   "pair_id": "crossvul-pair-3135",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n  }\n  monitorPrinting();\n}\n\nfunction monitorPrinting() {\n  var applet = document.qz;\n  if (applet != null) {\n    if (!applet.isDonePrinting()) {\n      window.setTimeout('monitorPrinting()', 1000);\n    } else {\n      var e = applet.getException();\n      if (e != null) {\n\t    alert(\"Exception occured: \" + e.getLocalizedMessage());\n\t  } else {\n\t\t<?php echo (sizeof($pdf_list) > 0) ? \" paperPrint();\\n\" : \" window.opener.location.reload();\\n self.close();\\n\"; ?>\n\t  }\n    }\n  } else {\n\talert(\"Error: Java label printing applet not loaded!\");\n  }\n}\n\n// -->\n</script>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3157_vuln",
+   "pair_id": "crossvul-pair-3157",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n  }\n  monitorPrinting();\n}\n\nfunction monitorPrinting() {\n  var applet = document.qz;\n  if (applet != null) {\n    if (!applet.isDonePrinting()) {\n      window.setTimeout('monitorPrinting()', 1000);\n    } else {\n      var e = applet.getException();\n      if (e != null) {\n\t    alert(\"Exception occured: \" + e.getLocalizedMessage());\n\t  } else {\n\t    window.opener.location.reload();\n\t    self.close();\n\t  }\n    }\n  } else {\n\talert(\"Error: Java label printing applet not loaded!\");\n  }\n}\n\n// -->\n</script>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3157_safe",
+   "pair_id": "crossvul-pair-3157",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<html>\n  <body>\n    <div id=\"jw_wrap_1267721422280\">\n      <object width=\"400\" height=\"319\" id=\"jw_player_1267721422280\"\n      name=\"jw_player_1267721422280\">\n        <param name=\"movie\"\n        value=\"non-commercial.swf\" />\n        <param name=\"wmode\" value=\"transparent\" />\n        <param name=\"allowScriptAccess\" value=\"always\" />\n        <param name=\"flashvars\" value=\"file=<?php echo $_GET['entryId']; ?>_1@<?php echo $_GET['streamRemoteId']; ?>&subscribe=true&streamer=rtmp://cp<?php echo $_GET['streamUsername']; ?>.live.edgefcs.net/live/&type=fcsubscribe\" />\n        <embed id=\"jw_player__1267721422280\"\n        name=\"jw_player__1267721422280\"\n        src=\"non-commercial.swf\"\n        width=\"400\" height=\"319\" allowfullscreen=\"true\"\n        wmode=\"transparent\" allowscriptaccess=\"always\"\n        flashvars=\"file=<?php echo $_GET['entryId']; ?>_1@<?php echo $_GET['streamRemoteId']; ?>&subscribe=true&streamer=rtmp://cp<?php echo $_GET['streamUsername']; ?>.live.edgefcs.net/live/&type=fcsubscribe\" />\n        <noembed>\n          <a href=\"http://www.kaltura.org/\">Open Source Video</a>\n        </noembed>\n      </object>\n    </div>\n  </body>\n</html>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3183_vuln",
+   "pair_id": "crossvul-pair-3183",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<html>\n  <body>\n    <div id=\"jw_wrap_1267721422280\">\n      <object width=\"400\" height=\"319\" id=\"jw_player_1267721422280\"\n      name=\"jw_player_1267721422280\">\n        <param name=\"movie\"\n        value=\"non-commercial.swf\" />\n        <param name=\"wmode\" value=\"transparent\" />\n        <param name=\"allowScriptAccess\" value=\"always\" />\n        <param name=\"flashvars\" value=\"file=<?php echo strip_tags($_GET['entryId']); ?>_1@<?php echo strip_tags($_GET['streamRemoteId']); ?>&subscribe=true&streamer=rtmp://cp<?php echo strip_tags($_GET['streamUsername']); ?>.live.edgefcs.net/live/&type=fcsubscribe\" />\n        <embed id=\"jw_player__1267721422280\"\n        name=\"jw_player__1267721422280\"\n        src=\"non-commercial.swf\"\n        width=\"400\" height=\"319\" allowfullscreen=\"true\"\n        wmode=\"transparent\" allowscriptaccess=\"always\"\n        flashvars=\"file=<?php echo strip_tags($_GET['entryId']); ?>_1@<?php echo strip_tags($_GET['streamRemoteId']); ?>&subscribe=true&streamer=rtmp://cp<?php echo strip_tags($_GET['streamUsername']); ?>.live.edgefcs.net/live/&type=fcsubscribe\" />\n        <noembed>\n          <a href=\"http://www.kaltura.org/\">Open Source Video</a>\n        </noembed>\n      </object>\n    </div>\n  </body>\n</html>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3183_safe",
+   "pair_id": "crossvul-pair-3183",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\n\n$f = File::getByID($_REQUEST['fID']);\n$fp = new Permissions($f);\nif (!$fp->canViewFileInFileManager()) {\n\tdie(t(\"Access Denied.\"));\n}\n\n$fv = $f->getApprovedVersion();\n\n$canViewInline = $fv->canView() ? 1 : 0;\n$canEdit = $fv->canEdit() ? 1 : 0;\n?>\n\n<div class=\"ccm-file-selected\" fID=\"<?=$_REQUEST['fID']?>\" ccm-file-manager-field=\"<?=$selectedField?>\" ccm-file-manager-can-duplicate=\"<?=$fp->canCopyFile()?>\" ccm-file-manager-can-admin=\"<?=($fp->canEditFilePermissions())?>\" ccm-file-manager-can-delete=\"<?=$fp->canDeleteFile()?>\" ccm-file-manager-can-view=\"<?=$canViewInline?>\" ccm-file-manager-can-replace=\"<?=$fp->canEditFileContents()?>\" ccm-file-manager-can-edit=\"<?=$canEdit?>\"  >\n<div class=\"ccm-file-selected-thumbnail\"><?=$fv->getThumbnail(1)?></div>\n<div class=\"ccm-file-selected-data\"><div><?=$fv->getTitle()?></div><div></div></div>\n<div class=\"ccm-spacer\">&nbsp;</div>\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3236_vuln",
+   "pair_id": "crossvul-pair-3236",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\n\n$f = File::getByID($fID);\n$fp = new Permissions($f);\nif (!$fp->canViewFileInFileManager()) {\n\tdie(t(\"Access Denied.\"));\n}\n\n$fv = $f->getApprovedVersion();\n\n$canViewInline = $fv->canView() ? 1 : 0;\n$canEdit = $fv->canEdit() ? 1 : 0;\n?>\n\n<div class=\"ccm-file-selected\" fID=\"<?=$fID?>\" ccm-file-manager-field=\"<?=$selectedField?>\" ccm-file-manager-can-duplicate=\"<?=$fp->canCopyFile()?>\" ccm-file-manager-can-admin=\"<?=($fp->canEditFilePermissions())?>\" ccm-file-manager-can-delete=\"<?=$fp->canDeleteFile()?>\" ccm-file-manager-can-view=\"<?=$canViewInline?>\" ccm-file-manager-can-replace=\"<?=$fp->canEditFileContents()?>\" ccm-file-manager-can-edit=\"<?=$canEdit?>\"  >\n<div class=\"ccm-file-selected-thumbnail\"><?=$fv->getThumbnail(1)?></div>\n<div class=\"ccm-file-selected-data\"><div><?=$fv->getTitle()?></div><div></div></div>\n<div class=\"ccm-spacer\">&nbsp;</div>\n</div>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3236_safe",
+   "pair_id": "crossvul-pair-3236",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\nuse \\Dropbox as dbx;\n\nfunction verify(){\n    echo $_GET['challenge'];\n}\n\nfunction webhook(){\n    #'''Receive a list of changed user IDs from Dropbox and process each.'''\n\n    //1 recup de l'header et verifie si signature dropbox\n    $signature = (isset(getallheaders()['X-Dropbox-Signature'])) ? getallheaders()['X-Dropbox-Signature'] : \"signature invalide\" ;\n    //comment vérifier la signature ? (non facultatif)\n\n    //2 recup du json\n    $data = file_get_contents(\"php://input\");\n    $uidList = json_decode($data);\n    // file_put_contents('dblog.txt',$data.\"\\n\".$uidList);\n\n    //3 repondre rapidement\n    echo 'Lancement process_user';\n    process_user();\n    //nb  : on n'utilise pas les uid donc cette fonction pourrait se résumer en process_user();\n}\n\nfunction delta($myCustomClient ,$cursortxt, $url, $pathPrefix){\n    $cursor=file_get_contents($cursortxt);\n    // echo $cursor;\n    $deltaPage = $myCustomClient->getDelta($cursor,$pathPrefix);\n    $numAdds = 0;\n    $numRemoves = 0;\n    foreach ($deltaPage[\"entries\"] as $entry) {\n        list($lcPath, $metadata) = $entry;\n        if ($metadata === null) {\n            echo \"- $lcPath\\n\";\n            $numRemoves++;\n        } else {\n            echo \"+ $lcPath\\n\";\n            $numAdds++;\n        }\n        $id = explode(\"/\", substr($lcPath, strlen($pathPrefix)+1, 4))[0]; //create array separate by *\n        echo $id;\n    }\n    file_put_contents($cursortxt,$deltaPage[\"cursor\"]);\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3300_vuln",
+   "pair_id": "crossvul-pair-3300",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\nuse \\Dropbox as dbx;\n\nfunction verify(){\n    echo htmlspecialchars($_GET['challenge']);\n}\n\nfunction webhook(){\n    #'''Receive a list of changed user IDs from Dropbox and process each.'''\n\n    //1 recup de l'header et verifie si signature dropbox\n    $signature = (isset(getallheaders()['X-Dropbox-Signature'])) ? getallheaders()['X-Dropbox-Signature'] : \"signature invalide\" ;\n    //comment vérifier la signature ? (non facultatif)\n\n    //2 recup du json\n    $data = file_get_contents(\"php://input\");\n    $uidList = json_decode($data);\n    // file_put_contents('dblog.txt',$data.\"\\n\".$uidList);\n\n    //3 repondre rapidement\n    echo 'Lancement process_user';\n    process_user();\n    //nb  : on n'utilise pas les uid donc cette fonction pourrait se résumer en process_user();\n}\n\nfunction delta($myCustomClient ,$cursortxt, $url, $pathPrefix){\n    $cursor=file_get_contents($cursortxt);\n    // echo $cursor;\n    $deltaPage = $myCustomClient->getDelta($cursor,$pathPrefix);\n    $numAdds = 0;\n    $numRemoves = 0;\n    foreach ($deltaPage[\"entries\"] as $entry) {\n        list($lcPath, $metadata) = $entry;\n        if ($metadata === null) {\n            echo \"- $lcPath\\n\";\n            $numRemoves++;\n        } else {\n            echo \"+ $lcPath\\n\";\n            $numAdds++;\n        }\n        $id = explode(\"/\", substr($lcPath, strlen($pathPrefix)+1, 4))[0]; //create array separate by *\n        echo $id;\n    }\n    file_put_contents($cursortxt,$deltaPage[\"cursor\"]);\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3300_safe",
+   "pair_id": "crossvul-pair-3300",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n}\n\n$f_days = gpc_get_int( 'days', 0 );\n$f_all = gpc_get_int( 'all', 0 );\n$t_max_events = $f_all ? 0 : MAX_EVENTS + 1;\n\n$t_end_time = time() - ( $f_days * SECONDS_PER_DAY );\n$t_start_time = $t_end_time - ( 7 * SECONDS_PER_DAY );\n$t_events = timeline_events( $t_start_time, $t_end_time, $t_max_events, $g_timeline_filter, $g_timeline_user );\n\n$t_collapse_block = is_collapsed( 'timeline' );\n$t_block_css = $t_collapse_block ? 'collapsed' : '';\n$t_block_icon = $t_collapse_block ? 'fa-chevron-down' : 'fa-chevron-up';\n\n$t_url_page = $_SERVER[\"PHP_SELF\"];\n$t_url_params = $_GET;\nif( isset( $t_url_params['all'] ) ) {\n\tunset( $t_url_params['all'] );\n}\n?>\n\n<div id=\"timeline\" class=\"widget-box widget-color-blue2 <?php echo $t_block_css ?>\">\n\t<div class=\"widget-header widget-header-small\">\n\t\t<h4 class=\"widget-title lighter\">\n\t\t\t<i class=\"ace-icon fa fa-clock-o\"></i>\n\t\t\t<?php echo lang_get( 'timeline_title' ) ?>\n\t\t</h4>\n\t\t<div class=\"widget-toolbar\">\n\t\t\t<a data-action=\"collapse\" href=\"#\">\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3306_vuln",
+   "pair_id": "crossvul-pair-3306",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n}\n\n$f_days = gpc_get_int( 'days', 0 );\n$f_all = gpc_get_int( 'all', 0 );\n$t_max_events = $f_all ? 0 : MAX_EVENTS + 1;\n\n$t_end_time = time() - ( $f_days * SECONDS_PER_DAY );\n$t_start_time = $t_end_time - ( 7 * SECONDS_PER_DAY );\n$t_events = timeline_events( $t_start_time, $t_end_time, $t_max_events, $g_timeline_filter, $g_timeline_user );\n\n$t_collapse_block = is_collapsed( 'timeline' );\n$t_block_css = $t_collapse_block ? 'collapsed' : '';\n$t_block_icon = $t_collapse_block ? 'fa-chevron-down' : 'fa-chevron-up';\n\n$t_url_page = string_sanitize_url( basename( $_SERVER['SCRIPT_NAME'] ) );\n$t_url_params = $_GET;\nif( isset( $t_url_params['all'] ) ) {\n\tunset( $t_url_params['all'] );\n}\n?>\n\n<div id=\"timeline\" class=\"widget-box widget-color-blue2 <?php echo $t_block_css ?>\">\n\t<div class=\"widget-header widget-header-small\">\n\t\t<h4 class=\"widget-title lighter\">\n\t\t\t<i class=\"ace-icon fa fa-clock-o\"></i>\n\t\t\t<?php echo lang_get( 'timeline_title' ) ?>\n\t\t</h4>\n\t\t<div class=\"widget-toolbar\">\n\t\t\t<a data-action=\"collapse\" href=\"#\">\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3306_safe",
+   "pair_id": "crossvul-pair-3306",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n    }\n\n    public function render($ignoreCli = false)\n    {\n        if (!$ignoreCli && php_sapi_name() == 'cli') {\n            $this->log();\n            file_put_contents('php://stderr', $this->getException()->__toString().\"\\n\");\n            exit(1);\n        }\n\n        $view = Kwf_Debug::getView();\n        $view->exception = $this->getException();\n        $view->message = $this->getException()->getMessage();\n        $view->requestUri = isset($_SERVER['REQUEST_URI']) ?\n            $_SERVER['REQUEST_URI'] : '' ;\n        $view->debug = Kwf_Exception::isDebug();\n        $header = $this->getHeader();\n        $template = $this->getTemplate();\n        $template = strtolower(Zend_Filter::filterStatic($template, 'Word_CamelCaseToDash').'.tpl');\n        $this->log();\n\n        if (!headers_sent()) {\n            header($header);\n            header('Content-Type: text/html; charset=utf-8');\n        }\n\n        try {\n            echo $view->render($template);\n        } catch (Exception $e) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3559_vuln",
+   "pair_id": "crossvul-pair-3559",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n    }\n\n    public function render($ignoreCli = false)\n    {\n        if (!$ignoreCli && php_sapi_name() == 'cli') {\n            $this->log();\n            file_put_contents('php://stderr', $this->getException()->__toString().\"\\n\");\n            exit(1);\n        }\n\n        $view = Kwf_Debug::getView();\n        $view->exception = $this->getException();\n        $view->message = $this->getException()->getMessage();\n        $view->requestUri = isset($_SERVER['REQUEST_URI']) ?\n            htmlspecialchars($_SERVER['REQUEST_URI']) : '' ;\n        $view->debug = Kwf_Exception::isDebug();\n        $header = $this->getHeader();\n        $template = $this->getTemplate();\n        $template = strtolower(Zend_Filter::filterStatic($template, 'Word_CamelCaseToDash').'.tpl');\n        $this->log();\n\n        if (!headers_sent()) {\n            header($header);\n            header('Content-Type: text/html; charset=utf-8');\n        }\n\n        try {\n            echo $view->render($template);\n        } catch (Exception $e) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3559_safe",
+   "pair_id": "crossvul-pair-3559",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\t{\n\t\t\t// split into file and parameters\n\t\t\t$chunks = explode('?', $this->getParameter('querystring'));\n\n\t\t\t// get extension\n\t\t\t$extension = SpoonFile::getExtension($chunks[0]);\n\n\t\t\t// if the file has an extension it is a non-existing-file\n\t\t\tif($extension != '' && $extension != $chunks[0])\n\t\t\t{\n\t\t\t\t// set correct headers\n\t\t\t\tSpoonHTTP::setHeadersByCode(404);\n\n\t\t\t\t// give a nice error, so we can detect which file is missing\n\t\t\t\techo 'Requested file (' . implode('?', $chunks) . ') not found.';\n\n\t\t\t\t// stop script execution\n\t\t\t\texit;\n\t\t\t}\n\t\t}\n\n\t\t// assign the correct message into the template\n\t\t$this->tpl->assign('message', BL::err(SpoonFilter::toCamelCase(htmlspecialchars($errorType), '-')));\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3605_vuln",
+   "pair_id": "crossvul-pair-3605",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\t{\n\t\t\t// split into file and parameters\n\t\t\t$chunks = explode('?', $this->getParameter('querystring'));\n\n\t\t\t// get extension\n\t\t\t$extension = SpoonFile::getExtension($chunks[0]);\n\n\t\t\t// if the file has an extension it is a non-existing-file\n\t\t\tif($extension != '' && $extension != $chunks[0])\n\t\t\t{\n\t\t\t\t// set correct headers\n\t\t\t\tSpoonHTTP::setHeadersByCode(404);\n\n\t\t\t\t// give a nice error, so we can detect which file is missing\n\t\t\t\techo 'Requested file (' . htmlspecialchars($this->getParameter('querystring')) . ') not found.';\n\n\t\t\t\t// stop script execution\n\t\t\t\texit;\n\t\t\t}\n\t\t}\n\n\t\t// assign the correct message into the template\n\t\t$this->tpl->assign('message', BL::err(SpoonFilter::toCamelCase(htmlspecialchars($errorType), '-')));\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3605_safe",
+   "pair_id": "crossvul-pair-3605",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n */\n\nvar random_server_id = Math.floor(Math.random() * 10000000);\nvar conf_prefix = \"server-id=\" + random_server_id + \"<br />log-bin=mysql-bin<br />log-error=mysql-bin.err<br />\";\n\nfunction update_config() {\n    var conf_ignore = \"binlog_ignore_db=\";\n    var conf_do = \"binlog_do_db=\";\n    var database_list = $('#db_select option:selected:first').val();\n    $('#db_select option:selected:not(:first)').each(function() {\n        database_list += ',' + $(this).val();\n    });\n\n    if ($('#db_select option:selected').size() == 0) {\n        $('#rep').html(conf_prefix);\n    } else if ($('#db_type option:selected').val() == 'all') {\n        $('#rep').html(conf_prefix + conf_ignore + database_list);\n    } else {\n        $('#rep').html(conf_prefix + conf_do + database_list);\n    }\n}\n\n$(document).ready(function() {\n    $('#rep').html(conf_prefix);\n    $('#db_type').change(update_config);\n    $('#db_select').change(update_config);\n\n    $('#master_status_href').click(function() {\n        $('#replication_master_section').toggle(); \n        });\n    $('#master_slaves_href').click(function() {\n        $('#replication_slaves_section').toggle(); \n        });\n    $('#slave_status_href').click(function() {\n        $('#replication_slave_section').toggle(); \n        });\n    $('#slave_control_href').click(function() {\n        $('#slave_control_gui').toggle(); \n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3607_vuln",
+   "pair_id": "crossvul-pair-3607",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n */\n\nvar random_server_id = Math.floor(Math.random() * 10000000);\nvar conf_prefix = \"server-id=\" + random_server_id + \"\\nlog-bin=mysql-bin\\nlog-error=mysql-bin.err\\n\";\n\nfunction update_config() {\n    var conf_ignore = \"binlog_ignore_db=\";\n    var conf_do = \"binlog_do_db=\";\n    var database_list = $('#db_select option:selected:first').val();\n    $('#db_select option:selected:not(:first)').each(function() {\n        database_list += ',' + $(this).val();\n    });\n\n    if ($('#db_select option:selected').size() == 0) {\n        $('#rep').text(conf_prefix);\n    } else if ($('#db_type option:selected').val() == 'all') {\n        $('#rep').text(conf_prefix + conf_ignore + database_list);\n    } else {\n        $('#rep').text(conf_prefix + conf_do + database_list);\n    }\n}\n\n$(document).ready(function() {\n    $('#rep').text(conf_prefix);\n    $('#db_type').change(update_config);\n    $('#db_select').change(update_config);\n\n    $('#master_status_href').click(function() {\n        $('#replication_master_section').toggle(); \n        });\n    $('#master_slaves_href').click(function() {\n        $('#replication_slaves_section').toggle(); \n        });\n    $('#slave_status_href').click(function() {\n        $('#replication_slave_section').toggle(); \n        });\n    $('#slave_control_href').click(function() {\n        $('#slave_control_gui').toggle(); \n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3607_safe",
+   "pair_id": "crossvul-pair-3607",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t// The user is already authenticated using Apaches AuthType Basic... very usable in combination with LDAP\n\t} elseif(isset($_SERVER[\"PHP_AUTH_USER\"]) && isset($_SERVER[\"PHP_AUTH_PW\"])){\n\t\tif (OC_User::login($_SERVER[\"PHP_AUTH_USER\"],$_SERVER[\"PHP_AUTH_PW\"]))\t{\n\t\t\t//OC_Log::write('core',\"Logged in with HTTP Authentication\",OC_Log::DEBUG);\n\t\t\tOC_User::unsetMagicInCookie();\n\t\t\t$_REQUEST['redirect_url'] = (isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'');\n\t\t\tOC_Util::redirectToDefaultPage();\n\t\t}else{\n\t\t\t$error = true;\n\t\t}\n\t}\n\tif(!array_key_exists('sectoken', $_SESSION) || (array_key_exists('sectoken', $_SESSION) && is_null(OC::$REQUESTEDFILE)) || substr(OC::$REQUESTEDFILE, -3) == 'php'){\n\t\t$sectoken=rand(1000000,9999999);\n\t\t$_SESSION['sectoken']=$sectoken;\n\t\t$redirect_url = (isset($_REQUEST['redirect_url'])) ? $_REQUEST['redirect_url'] : $_SERVER['REQUEST_URI'];\n\t\tOC_Template::printGuestPage('', 'login', array('error' => $error, 'sectoken' => $sectoken, 'redirect' => $redirect_url));\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3742_vuln",
+   "pair_id": "crossvul-pair-3742",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t// The user is already authenticated using Apaches AuthType Basic... very usable in combination with LDAP\n\t} elseif(isset($_SERVER[\"PHP_AUTH_USER\"]) && isset($_SERVER[\"PHP_AUTH_PW\"])){\n\t\tif (OC_User::login($_SERVER[\"PHP_AUTH_USER\"],$_SERVER[\"PHP_AUTH_PW\"]))\t{\n\t\t\t//OC_Log::write('core',\"Logged in with HTTP Authentication\",OC_Log::DEBUG);\n\t\t\tOC_User::unsetMagicInCookie();\n\t\t\t$_REQUEST['redirect_url'] = (isset($_SERVER['REQUEST_URI'])?$_SERVER['REQUEST_URI']:'');\n\t\t\tOC_Util::redirectToDefaultPage();\n\t\t}else{\n\t\t\t$error = true;\n\t\t}\n\t}\n\tif(!array_key_exists('sectoken', $_SESSION) || (array_key_exists('sectoken', $_SESSION) && is_null(OC::$REQUESTEDFILE)) || substr(OC::$REQUESTEDFILE, -3) == 'php'){\n\t\t$sectoken=rand(1000000,9999999);\n\t\t$_SESSION['sectoken']=$sectoken;\n\t\t$redirect_url = (isset($_REQUEST['redirect_url'])) ? strip_tags($_REQUEST['redirect_url']) : $_SERVER['REQUEST_URI'];\n\t\tOC_Template::printGuestPage('', 'login', array('error' => $error, 'sectoken' => $sectoken, 'redirect' => $redirect_url));\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3742_safe",
+   "pair_id": "crossvul-pair-3742",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n$l = OC_L10N::get('gallery');\n$root = !empty($_GET['root']) ? $_GET['root'] : '/';\n?>\n<style>\ndiv.gallery_div {position:relative; display: inline-block; height: 152px; width: 150px; margin: 5px;}\ndiv.miniature_border {position:absolute; height: 150px; -moz-transition-duration: 0.2s; -o-transition-duration:0.2s;  -webkit-transition-duration: .2s; background-position: 50%;}\ndiv.line {display:inline-block; border: 0; width: auto; height: 160px}\ndiv.gallery_div img{position:absolute; top: 1; left: 0; -moz-transition-duration: 0.3s; -o-transition-duration:0.3s; -webkit-transition-duration: 0.3s; height:150px; width: auto;}\ndiv.gallery_div img.shrinker {width:80px !important;}\ndiv.title { opacity: 0; text-align: center; vertical-align: middle; font-family: Arial; font-size: 12px; border: 0; position: absolute; text-overflow: ellipsis; bottom: 20px; left:5px; height:auto; padding: 5px; width: 140px; background-color: black; color: white; -webkit-transition: opacity 0.5s;  z-index:1000; border-radius: 7px}\ndiv.visible { opacity: 0.8;}\n</style>\n<script type=\"text/javascript\">\n\nvar root = \"<?php echo $root; ?>\";\n\nfunction explode(element) {\n\t$('div', element).each(function(index, elem) {\n\t \tif ($(elem).hasClass('title')) {\n\t\t \t$(elem).addClass('visible');\n\t \t} else {\n\t\t\t$(elem).css('margin-top', Math.floor(30-(Math.random()*60)) + 'px')\n\t\t\t       .css('margin-left', Math.floor(30-(Math.random()*60))+ 'px')\n\t\t\t       .css('z-index', '999');\n\t\t}\n\t});\n}\n\nfunction deplode(element) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3745_vuln",
+   "pair_id": "crossvul-pair-3745",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n$l = OC_L10N::get('gallery');\n$root = !empty($_GET['root']) ? $_GET['root'] : '/';\n?>\n<style>\ndiv.gallery_div {position:relative; display: inline-block; height: 152px; width: 150px; margin: 5px;}\ndiv.miniature_border {position:absolute; height: 150px; -moz-transition-duration: 0.2s; -o-transition-duration:0.2s;  -webkit-transition-duration: .2s; background-position: 50%;}\ndiv.line {display:inline-block; border: 0; width: auto; height: 160px}\ndiv.gallery_div img{position:absolute; top: 1; left: 0; -moz-transition-duration: 0.3s; -o-transition-duration:0.3s; -webkit-transition-duration: 0.3s; height:150px; width: auto;}\ndiv.gallery_div img.shrinker {width:80px !important;}\ndiv.title { opacity: 0; text-align: center; vertical-align: middle; font-family: Arial; font-size: 12px; border: 0; position: absolute; text-overflow: ellipsis; bottom: 20px; left:5px; height:auto; padding: 5px; width: 140px; background-color: black; color: white; -webkit-transition: opacity 0.5s;  z-index:1000; border-radius: 7px}\ndiv.visible { opacity: 0.8;}\n</style>\n<script type=\"text/javascript\">\n\nvar root = \"<?php echo htmlentities($root); ?>\";\n\nfunction explode(element) {\n\t$('div', element).each(function(index, elem) {\n\t \tif ($(elem).hasClass('title')) {\n\t\t \t$(elem).addClass('visible');\n\t \t} else {\n\t\t\t$(elem).css('margin-top', Math.floor(30-(Math.random()*60)) + 'px')\n\t\t\t       .css('margin-left', Math.floor(30-(Math.random()*60))+ 'px')\n\t\t\t       .css('z-index', '999');\n\t\t}\n\t});\n}\n\nfunction deplode(element) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3745_safe",
+   "pair_id": "crossvul-pair-3745",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\t\t\tvar lists=$('ul.multiselectoptions');\n\t\t\tlists.slideUp(400,function(){\n\t\t\t\tlists.remove();\n\t\t\t\t$('div.multiselect').removeClass('active');\n\t\t\t\tbutton.addClass('active');\n\t\t\t});\n\t\t\tbutton.addClass('active');\n\t\t\tevent.stopPropagation();\n\t\t\tvar options=$(this).parent().next().children();\n\t\t\tvar list=$('<ul class=\"multiselectoptions\"/>').hide().appendTo($(this).parent());\n\t\t\tfunction createItem(element,checked){\n\t\t\t\telement=$(element);\n\t\t\t\tvar item=element.val();\n\t\t\t\tvar id='ms'+multiSelectId+'-option-'+item;\n\t\t\t\tvar input=$('<input id=\"'+id+'\" type=\"checkbox\"/>');\n\t\t\t\tvar label=$('<label for=\"'+id+'\">'+item+'</label>');\n\t\t\t\tif(settings.checked.indexOf(item)!=-1 || checked){\n\t\t\t\t\tinput.attr('checked',true);\n\t\t\t\t}\n\t\t\t\tif(checked){\n\t\t\t\t\tsettings.checked.push(item);\n\t\t\t\t}\n\t\t\t\tinput.change(function(){\n\t\t\t\t\tvar groupname=$(this).next().text();\n\t\t\t\t\tif($(this).is(':checked')){\n\t\t\t\t\t\telement.attr('selected','selected');\n\t\t\t\t\t\tif(settings.oncheck){\n\t\t\t\t\t\t\tif(settings.oncheck(groupname)===false){\n\t\t\t\t\t\t\t\t$(this).attr('checked', false);\n\t\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsettings.checked.push(groupname);\n\t\t\t\t\t}else{\n\t\t\t\t\t\tvar index=settings.checked.indexOf(groupname);\n\t\t\t\t\t\telement.attr('selected',null);\n\t\t\t\t\t\tif(settings.onuncheck){\n\t\t\t\t\t\t\tif(settings.onuncheck(groupname)===false){\n\t\t\t\t\t\t\t\t$(this).attr('checked',true);\n\t\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsettings.checked.splice(index,1);\n\t\t\t\t\t}\n\t\t\t\t\tvar oldWidth=button.width();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3746_vuln",
+   "pair_id": "crossvul-pair-3746",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\t\t\tvar lists=$('ul.multiselectoptions');\n\t\t\tlists.slideUp(400,function(){\n\t\t\t\tlists.remove();\n\t\t\t\t$('div.multiselect').removeClass('active');\n\t\t\t\tbutton.addClass('active');\n\t\t\t});\n\t\t\tbutton.addClass('active');\n\t\t\tevent.stopPropagation();\n\t\t\tvar options=$(this).parent().next().children();\n\t\t\tvar list=$('<ul class=\"multiselectoptions\"/>').hide().appendTo($(this).parent());\n\t\t\tfunction createItem(element,checked){\n\t\t\t\telement=$(element);\n\t\t\t\tvar item=element.val();\n\t\t\t\tvar id='ms'+multiSelectId+'-option-'+item;\n\t\t\t\tvar input=$('<input type=\"checkbox\"/>');\n\t\t\t\tinput.attr('id',id);\n\t\t\t\tvar label=$('<label/>');\n\t\t\t\tlabel.attr('for',id);\n\t\t\t\tlabel.text(item);\n\t\t\t\tif(settings.checked.indexOf(item)!=-1 || checked){\n\t\t\t\t\tinput.attr('checked',true);\n\t\t\t\t}\n\t\t\t\tif(checked){\n\t\t\t\t\tsettings.checked.push(item);\n\t\t\t\t}\n\t\t\t\tinput.change(function(){\n\t\t\t\t\tvar groupname=$(this).next().text();\n\t\t\t\t\tif($(this).is(':checked')){\n\t\t\t\t\t\telement.attr('selected','selected');\n\t\t\t\t\t\tif(settings.oncheck){\n\t\t\t\t\t\t\tif(settings.oncheck(groupname)===false){\n\t\t\t\t\t\t\t\t$(this).attr('checked', false);\n\t\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t\tsettings.checked.push(groupname);\n\t\t\t\t\t}else{\n\t\t\t\t\t\tvar index=settings.checked.indexOf(groupname);\n\t\t\t\t\t\telement.attr('selected',null);\n\t\t\t\t\t\tif(settings.onuncheck){\n\t\t\t\t\t\t\tif(settings.onuncheck(groupname)===false){\n\t\t\t\t\t\t\t\t$(this).attr('checked',true);\n\t\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3746_safe",
+   "pair_id": "crossvul-pair-3746",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n\n$tmpl = new OCP\\Template( 'user_openid', 'settings');\n$identity=OCP\\Config::getUserValue(OCP\\USER::getUser(),'user_openid','identity','');\n$tmpl->assign('identity',$identity);\n\nOCP\\Util::addscript('user_openid','settings');\n\nreturn $tmpl->fetchPage();\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3747_vuln",
+   "pair_id": "crossvul-pair-3747",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n<?php\n\n$tmpl = new OCP\\Template( 'user_openid', 'settings');\n$identity=OCP\\Config::getUserValue(OCP\\USER::getUser(),'user_openid','identity','');\n$tmpl->assign('identity',htmlentities($identity));\n\nOCP\\Util::addscript('user_openid','settings');\n\nreturn $tmpl->fetchPage();\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3747_safe",
+   "pair_id": "crossvul-pair-3747",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\tif(!self::$getID3){\n\t\t\tself::$getID3=@new getID3();\n\t\t\tself::$getID3->encoding='UTF-8';\n\t\t}\n\t\t$data=@self::$getID3->analyze($file);\n\t\tgetid3_lib::CopyTagsToComments($data);\n\t\tif(!isset($data['comments'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading id3 tags in '$file'\",OCP\\Util::WARN);\n\t\t\treturn;\n\t\t}\n\t\tif(!isset($data['comments']['artist'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading artist tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$artist='unknown';\n\t\t}else{\n\t\t\t$artist=stripslashes($data['comments']['artist'][0]);\n\t\t}\n\t\tif(!isset($data['comments']['album'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading album tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$album='unknown';\n\t\t}else{\n\t\t\t$album=stripslashes($data['comments']['album'][0]);\n\t\t}\n\t\tif(!isset($data['comments']['title'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading title tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$title='unknown';\n\t\t}else{\n\t\t\t$title=stripslashes($data['comments']['title'][0]);\n\t\t}\n\t\t$size=$data['filesize'];\n\t\tif (isset($data['comments']['track']))\n\t\t{\n\t\t\t$track = $data['comments']['track'][0];\n\t\t}\n\t\telse if (isset($data['comments']['track_number']))\n\t\t{\n\t\t\t$track = $data['comments']['track_number'][0];\n\t\t\t$track = explode('/',$track);\n\t\t\t$track = $track[0];\n\t\t}\n\t\telse\n\t\t{\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3749_vuln",
+   "pair_id": "crossvul-pair-3749",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\tif(!self::$getID3){\n\t\t\tself::$getID3=@new getID3();\n\t\t\tself::$getID3->encoding='UTF-8';\n\t\t}\n\t\t$data=@self::$getID3->analyze($file);\n\t\tgetid3_lib::CopyTagsToComments($data);\n\t\tif(!isset($data['comments'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading id3 tags in '$file'\",OCP\\Util::WARN);\n\t\t\treturn;\n\t\t}\n\t\tif(!isset($data['comments']['artist'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading artist tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$artist='unknown';\n\t\t}else{\n\t\t\t$artist=strip_tags(stripslashes($data['comments']['artist'][0]));\n\t\t}\n\t\tif(!isset($data['comments']['album'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading album tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$album='unknown';\n\t\t}else{\n\t\t\t$album=strip_tags(stripslashes($data['comments']['album'][0]));\n\t\t}\n\t\tif(!isset($data['comments']['title'])){\n\t\t\tOCP\\Util::writeLog('media',\"error reading title tag in '$file'\",OCP\\Util::WARN);\n\t\t\t$title='unknown';\n\t\t}else{\n\t\t\t$title=strip_tags(stripslashes($data['comments']['title'][0]));\n\t\t}\n\t\t$size=$data['filesize'];\n\t\tif (isset($data['comments']['track']))\n\t\t{\n\t\t\t$track = $data['comments']['track'][0];\n\t\t}\n\t\telse if (isset($data['comments']['track_number']))\n\t\t{\n\t\t\t$track = $data['comments']['track_number'][0];\n\t\t\t$track = explode('/',$track);\n\t\t\t$track = $track[0];\n\t\t}\n\t\telse\n\t\t{\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3749_safe",
+   "pair_id": "crossvul-pair-3749",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n *\n * @author Matthias Mullie <matthias@mullie.eu>\n */\nclass FrontendSearchAjaxAutocomplete extends FrontendBaseAJAXAction\n{\n\t/**\n\t * Execute the action\n\t */\n\tpublic function execute()\n\t{\n\t\t// call parent, this will probably add some general CSS/JS or other required files\n\t\tparent::execute();\n\n\t\t// get parameters\n\t\t$term = SpoonFilter::getPostValue('term', null, '');\n\t\t$limit = (int) FrontendModel::getModuleSetting('search', 'autocomplete_num_items', 10);\n\n\t\t// validate\n\t\tif($term == '') $this->output(self::BAD_REQUEST, null, 'term-parameter is missing.');\n\n\t\t// get matches\n\t\t$matches = FrontendSearchModel::getStartsWith($term, FRONTEND_LANGUAGE, $limit);\n\n\t\t// get search url\n\t\t$url = FrontendNavigation::getURLForBlock('search');\n\n\t\t// loop items and set search url\n\t\tforeach($matches as &$match) $match['url'] = $url . '?form=search&q=' . $match['term'];\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3777_vuln",
+   "pair_id": "crossvul-pair-3777",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n *\n * @author Matthias Mullie <matthias@mullie.eu>\n */\nclass FrontendSearchAjaxAutocomplete extends FrontendBaseAJAXAction\n{\n\t/**\n\t * Execute the action\n\t */\n\tpublic function execute()\n\t{\n\t\t// call parent, this will probably add some general CSS/JS or other required files\n\t\tparent::execute();\n\n\t\t// get parameters\n\t\t$searchTerm = SpoonFilter::getPostValue('term', null, '');\n\t\t$term = (SPOON_CHARSET == 'utf-8') ? SpoonFilter::htmlspecialchars($searchTerm) : SpoonFilter::htmlentities($searchTerm);\n\t\t$limit = (int) FrontendModel::getModuleSetting('search', 'autocomplete_num_items', 10);\n\n\t\t// validate\n\t\tif($term == '') $this->output(self::BAD_REQUEST, null, 'term-parameter is missing.');\n\n\t\t// get matches\n\t\t$matches = FrontendSearchModel::getStartsWith($term, FRONTEND_LANGUAGE, $limit);\n\n\t\t// get search url\n\t\t$url = FrontendNavigation::getURLForBlock('search');\n\n\t\t// loop items and set search url\n\t\tforeach($matches as &$match) $match['url'] = $url . '?form=search&q=' . $match['term'];\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3777_safe",
+   "pair_id": "crossvul-pair-3777",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t} else {\n\t\t\t\t\tcreateVersionsDropdown(filename, file);\n\t\t\t\t}\n\t\t\t}\n\t\t);\n\t}\n});\n\nfunction createVersionsDropdown(filename, files) {\n\n\tvar historyUrl = OC.linkTo('files_versions', 'history.php') + '?path='+encodeURIComponent( $( '#dir' ).val() ).replace( /%2F/g, '/' )+'/'+encodeURIComponent( filename );\n\n\tvar html = '<div id=\"dropdown\" class=\"drop drop-versions\" data-file=\"'+files+'\">';\n\thtml += '<div id=\"private\">';\n\thtml += '<select data-placeholder=\"Saved versions\" id=\"found_versions\" class=\"chzen-select\" style=\"width:16em;\">';\n\thtml += '<option value=\"\"></option>';\n\thtml += '</select>';\n\thtml += '</div>';\n\thtml += '<input type=\"button\" value=\"All versions...\" onclick=\"window.location=\\''+historyUrl+'\\'\" name=\"makelink\" id=\"makelink\" />';\n\thtml += '<input id=\"link\" style=\"display:none; width:90%;\" />';\n\n\tif (filename) {\n\t\t$('tr').filterAttr('data-file',filename).addClass('mouseOver');\n\t\t$(html).appendTo($('tr').filterAttr('data-file',filename).find('td.filename'));\n\t} else {\n\t\t$(html).appendTo($('thead .share'));\n\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3795_vuln",
+   "pair_id": "crossvul-pair-3795",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t} else {\n\t\t\t\t\tcreateVersionsDropdown(filename, file);\n\t\t\t\t}\n\t\t\t}\n\t\t);\n\t}\n});\n\nfunction createVersionsDropdown(filename, files) {\n\n\tvar historyUrl = OC.linkTo('files_versions', 'history.php') + '?path='+encodeURIComponent( $( '#dir' ).val() ).replace( /%2F/g, '/' )+'/'+encodeURIComponent( filename );\n\n\tvar html = '<div id=\"dropdown\" class=\"drop drop-versions\" data-file=\"'+escapeHTML(files)+'\">';\n\thtml += '<div id=\"private\">';\n\thtml += '<select data-placeholder=\"Saved versions\" id=\"found_versions\" class=\"chzen-select\" style=\"width:16em;\">';\n\thtml += '<option value=\"\"></option>';\n\thtml += '</select>';\n\thtml += '</div>';\n\thtml += '<input type=\"button\" value=\"All versions...\" onclick=\"window.location=\\''+historyUrl+'\\'\" name=\"makelink\" id=\"makelink\" />';\n\thtml += '<input id=\"link\" style=\"display:none; width:90%;\" />';\n\n\tif (filename) {\n\t\t$('tr').filterAttr('data-file',filename).addClass('mouseOver');\n\t\t$(html).appendTo($('tr').filterAttr('data-file',filename).find('td.filename'));\n\t} else {\n\t\t$(html).appendTo($('thead .share'));\n\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3795_safe",
+   "pair_id": "crossvul-pair-3795",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n            $fileRelation = $this->model->content_images();\n\n            $file = new File();\n            $file->data = $uploadedFile;\n            $file->is_public = true;\n            $file->save();\n\n            $fileRelation->add($file, $this->sessionKey);\n            $result = [\n                'file' => $uploadedFileName,\n                'path' => $file->getPath()\n            ];\n\n            $response = Response::make()->setContent($result);\n            $response->send();\n\n            die();\n        }\n        catch (Exception $ex) {\n            $message = $uploadedFileName\n                ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $uploadedFileName, 'error' => $ex->getMessage()])\n                : $ex->getMessage();\n\n            $result = [\n                'error' => $message,\n                'file' => $uploadedFileName\n            ];\n\n            $response = Response::make()->setContent($result);\n            $response->send();\n\n            die();\n        }\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3941_vuln",
+   "pair_id": "crossvul-pair-3941",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n            $fileRelation = $this->model->content_images();\n\n            $file = new File();\n            $file->data = $uploadedFile;\n            $file->is_public = true;\n            $file->save();\n\n            $fileRelation->add($file, $this->sessionKey);\n            $result = [\n                'file' => $uploadedFileName,\n                'path' => $file->getPath()\n            ];\n\n            $response = Response::make()->setContent($result);\n            $this->controller->setResponse($response);\n\n        } catch (Exception $ex) {\n            $message = $uploadedFileName\n                ? Lang::get('cms::lang.asset.error_uploading_file', ['name' => $uploadedFileName, 'error' => $ex->getMessage()])\n                : $ex->getMessage();\n\n            $result = [\n                'error' => $message,\n                'file' => $uploadedFileName\n            ];\n\n            $response = Response::make()->setContent($result);\n            $this->controller->setResponse($response);\n        }\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-3941_safe",
+   "pair_id": "crossvul-pair-3941",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\t\n\t\t\t\t\t// It's a regular file\n\t\t\t\t\tif ($itype != IMAGETYPE_GIF && $itype != IMAGETYPE_JPEG && $itype != IMAGETYPE_PNG) {\n\t\t\t\t\t\t$type = \"file\";\n\n\t\t\t\t\t\tif ($replacing) {\n\t\t\t\t\t\t\t$file = $storage->replace($temp_name, $file_name, \"files/resources/\", true, $force_local_replace);\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t$file = $storage->store($temp_name, $file_name, \"files/resources/\");\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\t\t// If we failed, either cloud storage upload failed, directory permissions are bad, or the file type isn't permitted\n\t\t\t\t\t\tif (!$file) {\n\t\t\t\t\t\t\tif ($storage->DisabledFileError) {\n\t\t\t\t\t\t\t\t$errors[] = \"$file_name has a disallowed extension: $extension.\";\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\t$errors[] = \"Uploading $file_name failed (unknown error).\";\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t// Otherwise make the database entry for the file we uplaoded.\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tif (!$replacing) {\n\t\t\t\t\t\t\t\t$admin->createResource($folder,$file,$md5,$file_name,$extension);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\t$admin->updateResource($_POST[\"replace\"], array(\"date\" => date(\"Y-m-d H:i:s\")));\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t// It's an image\n\t\t\t\t\t} else {\n\t\t\t\t\t\t$type = \"image\";\n\t\t\t\t\t\t$field = array(\n\t\t\t\t\t\t\t\"file_input\" => array(\n\t\t\t\t\t\t\t\t\"tmp_name\" => $_FILES[\"files\"][\"tmp_name\"][$number],\n\t\t\t\t\t\t\t\t\"name\" => $replacing ?: $_FILES[\"files\"][\"name\"][$number],\n\t\t\t\t\t\t\t\t\"error\" => $_FILES[\"files\"][\"error\"][$number]\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\"options\" => array(\n\t\t\t\t\t\t\t\t\"directory\" => \"files/resources/\",\n\t\t\t\t\t\t\t\t\"thumbs\" => array(\n\t\t\t\t\t\t\t\t\tarray(\"width\" => 100, \"height\" => 100, \"prefix\" => \"bigtree_list_thumb_\", \"title\" => \"bigtree_internal_list\"),\n\t\t\t\t\t\t\t\t\tarray(\"width\" => 190, \"height\" => 145, \"prefix\" => \"bigtree_detail_thumb_\", \"title\" => \"bigtree_internal_detail\")\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t);\n\t\t\t\t\t\t$more_thumb_types = $cms->getSetting(\"bigtree-file-manager-thumbnail-sizes\");\n\t\t\t\t\t\t\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-409_vuln",
+   "pair_id": "crossvul-pair-409",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t\t\n\t\t\t\t\t// It's a regular file\n\t\t\t\t\tif ($itype != IMAGETYPE_GIF && $itype != IMAGETYPE_JPEG && $itype != IMAGETYPE_PNG) {\n\t\t\t\t\t\t$type = \"file\";\n\n\t\t\t\t\t\tif ($replacing) {\n\t\t\t\t\t\t\t$file = $storage->replace($temp_name, $file_name, \"files/resources/\", true, $force_local_replace);\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t$file = $storage->store($temp_name, $file_name, \"files/resources/\");\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\t\t// If we failed, either cloud storage upload failed, directory permissions are bad, or the file type isn't permitted\n\t\t\t\t\t\tif (!$file) {\n\t\t\t\t\t\t\tif ($storage->DisabledFileError) {\n\t\t\t\t\t\t\t\t$errors[] = htmlspecialchars($file_name).\" has a disallowed extension: $extension.\";\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\t$errors[] = \"Uploading \".htmlspecialchars($file_name).\" failed (unknown error).\";\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t// Otherwise make the database entry for the file we uplaoded.\n\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\tif (!$replacing) {\n\t\t\t\t\t\t\t\t$admin->createResource($folder,$file,$md5,$file_name,$extension);\n\t\t\t\t\t\t\t} else {\n\t\t\t\t\t\t\t\t$admin->updateResource($_POST[\"replace\"], array(\"date\" => date(\"Y-m-d H:i:s\")));\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t}\n\t\t\t\t\t// It's an image\n\t\t\t\t\t} else {\n\t\t\t\t\t\t$type = \"image\";\n\t\t\t\t\t\t$field = array(\n\t\t\t\t\t\t\t\"file_input\" => array(\n\t\t\t\t\t\t\t\t\"tmp_name\" => $_FILES[\"files\"][\"tmp_name\"][$number],\n\t\t\t\t\t\t\t\t\"name\" => $replacing ?: $_FILES[\"files\"][\"name\"][$number],\n\t\t\t\t\t\t\t\t\"error\" => $_FILES[\"files\"][\"error\"][$number]\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\"options\" => array(\n\t\t\t\t\t\t\t\t\"directory\" => \"files/resources/\",\n\t\t\t\t\t\t\t\t\"thumbs\" => array(\n\t\t\t\t\t\t\t\t\tarray(\"width\" => 100, \"height\" => 100, \"prefix\" => \"bigtree_list_thumb_\", \"title\" => \"bigtree_internal_list\"),\n\t\t\t\t\t\t\t\t\tarray(\"width\" => 190, \"height\" => 145, \"prefix\" => \"bigtree_detail_thumb_\", \"title\" => \"bigtree_internal_detail\")\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t);\n\t\t\t\t\t\t$more_thumb_types = $cms->getSetting(\"bigtree-file-manager-thumbnail-sizes\");\n\t\t\t\t\t\t\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-409_safe",
+   "pair_id": "crossvul-pair-409",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t$authName = '';\n}\n?>\n\n\n<div id=\"ToolBar\">\n\t<div id=\"ToolbarInner\" class=\"clearfix\">\n\t\t<div id=\"ToolMenu\">\n\t\t\t<ul>\n\t\t\t\t<?php if ($this->name == 'Installations'): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->link(__d('baser', 'インストールマニュアル'), 'http://wiki.basercms.net/%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89', ['target' => '_blank', 'class' => 'tool-menu']) ?></li>\n\t\t\t\t<?php elseif (Configure::read('BcRequest.isUpdater')): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->link(__d('baser', 'アップデートマニュアル'), 'http://wiki.basercms.net/%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97%E3%82%AC%E3%82%A4%E3%83%89', ['target' => '_blank', 'class' => 'tool-menu']) ?></li>\n\t\t\t\t<?php elseif (!empty($this->request->params['admin']) || ('/' . $this->request->url) == $loginUrl): ?>\t\n\t\t\t\t\t<li><?php $this->BcBaser->link($this->BcBaser->siteConfig['formal_name'], '/') ?></li>\n\t\t\t\t<?php else: ?>\n\t\t\t\t\t<?php if (in_array('admin', $currentUserAuthPrefixes)): ?>\n\t\t\t\t\t\t<li><?php $this->BcBaser->link($this->BcBaser->getImg('admin/btn_logo.png', ['alt' => __d('baser', 'baserCMS管理システム'), 'class' => 'bc-btn']), ['plugin' => null, 'admin' => true, 'controller' => 'dashboard', 'action' => 'index'], ['title' => __d('baser', 'baserCMS管理システム')]) ?></li>\n\t\t\t\t\t<?php else: ?>\n\t\t\t\t\t\t<li><?php $this->BcBaser->link($authName, Configure::read('BcAuthPrefix.' . $currentPrefix . '.loginRedirect'), ['title' => $authName]) ?></li>\n\t\t\t\t\t<?php endif ?>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if ($this->BcBaser->existsEditLink() && !isset($this->request->query['preview'])): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->editLink() ?></li>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if ($this->BcBaser->existsPublishLink()): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->publishLink() ?></li>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if (!$loginUrl || $this->request->url != $loginUrl): ?>\n\t\t\t\t\t<?php if (Configure::read('debug') == -1 && $this->name != \"Installations\"): ?>\n\t\t\t\t\t\t<li>&nbsp;&nbsp;<span id=\"DebugMode\" title=\"<?php echo __d('baser', 'インストールモードです。運営を開始する前にシステム設定よりノーマルモードに戻しましょう。') ?>\"><?php echo __d('baser', 'インストールモード') ?></span>&nbsp;&nbsp;</li>\n\t\t\t\t\t<?php elseif (Configure::read('debug') > 0): ?>\n\t\t\t\t\t\t<li>&nbsp;&nbsp;<span id=\"DebugMode\" title=\"<?php echo __d('baser', 'デバッグモードです。運営を開始する前にシステム設定よりノーマルモードに戻しましょう。') ?>\"><?php echo __d('baser', 'デバッグモード') ?> <?php echo mb_convert_kana(Configure::read('debug'), 'N') ?></span>&nbsp;&nbsp;</li>\n\t\t\t\t\t<?php endif; ?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4119_vuln",
+   "pair_id": "crossvul-pair-4119",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: php_module.php\nLines: see snippet\n\nCode:\n\t$authName = '';\n}\n?>\n\n\n<div id=\"ToolBar\">\n\t<div id=\"ToolbarInner\" class=\"clearfix\">\n\t\t<div id=\"ToolMenu\">\n\t\t\t<ul>\n\t\t\t\t<?php if ($this->name == 'Installations'): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->link(__d('baser', 'インストールマニュアル'), 'http://wiki.basercms.net/%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89', ['target' => '_blank', 'class' => 'tool-menu']) ?></li>\n\t\t\t\t<?php elseif (Configure::read('BcRequest.isUpdater')): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->link(__d('baser', 'アップデートマニュアル'), 'http://wiki.basercms.net/%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%82%A2%E3%83%83%E3%83%97%E3%82%AC%E3%82%A4%E3%83%89', ['target' => '_blank', 'class' => 'tool-menu']) ?></li>\n\t\t\t\t<?php elseif (!empty($this->request->params['admin']) || ('/' . $this->request->url) == $loginUrl): ?>\t\n\t\t\t\t\t<li><?php $this->BcBaser->link($this->BcBaser->siteConfig['formal_name'], '/', ['escape' => true]) ?></li>\n\t\t\t\t<?php else: ?>\n\t\t\t\t\t<?php if (in_array('admin', $currentUserAuthPrefixes)): ?>\n\t\t\t\t\t\t<li><?php $this->BcBaser->link($this->BcBaser->getImg('admin/btn_logo.png', ['alt' => __d('baser', 'baserCMS管理システム'), 'class' => 'bc-btn']), ['plugin' => null, 'admin' => true, 'controller' => 'dashboard', 'action' => 'index'], ['title' => __d('baser', 'baserCMS管理システム')]) ?></li>\n\t\t\t\t\t<?php else: ?>\n\t\t\t\t\t\t<li><?php $this->BcBaser->link($authName, Configure::read('BcAuthPrefix.' . $currentPrefix . '.loginRedirect'), ['title' => $authName, 'escape' => ture]) ?></li>\n\t\t\t\t\t<?php endif ?>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if ($this->BcBaser->existsEditLink() && !isset($this->request->query['preview'])): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->editLink() ?></li>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if ($this->BcBaser->existsPublishLink()): ?>\n\t\t\t\t\t<li><?php $this->BcBaser->publishLink() ?></li>\n\t\t\t\t<?php endif ?>\n\t\t\t\t<?php if (!$loginUrl || $this->request->url != $loginUrl): ?>\n\t\t\t\t\t<?php if (Configure::read('debug') == -1 && $this->name != \"Installations\"): ?>\n\t\t\t\t\t\t<li>&nbsp;&nbsp;<span id=\"DebugMode\" title=\"<?php echo __d('baser', 'インストールモードです。運営を開始する前にシステム設定よりノーマルモードに戻しましょう。') ?>\"><?php echo __d('baser', 'インストールモード') ?></span>&nbsp;&nbsp;</li>\n\t\t\t\t\t<?php elseif (Configure::read('debug') > 0): ?>\n\t\t\t\t\t\t<li>&nbsp;&nbsp;<span id=\"DebugMode\" title=\"<?php echo __d('baser', 'デバッグモードです。運営を開始する前にシステム設定よりノーマルモードに戻しましょう。') ?>\"><?php echo __d('baser', 'デバッグモード') ?> <?php echo mb_convert_kana(Configure::read('debug'), 'N') ?></span>&nbsp;&nbsp;</li>\n\t\t\t\t\t<?php endif; ?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4119_safe",
+   "pair_id": "crossvul-pair-4119",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "php",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\n$(\"#search\").on(\"keyup\", Delay(function()\n{\n\tvar value = $(this).val();\n\tif (value === \"all\")\n\t{\n\t\tvalue = \"\";\n\t}\n\n\tgroupsTable.search(value).draw();\n}, 200));\n\n$(document).on('click', '.product-group-delete-button', function(e)\n{\n\tvar objectName = $(e.currentTarget).attr('data-group-name');\n\tvar objectId = $(e.currentTarget).attr('data-group-id');\n\n\tbootbox.confirm({\n\t\tmessage: __t('Are you sure to delete product group \"%s\"?', objectName),\n\t\tcloseButton: false,\n\t\tbuttons: {\n\t\t\tconfirm: {\n\t\t\t\tlabel: __t('Yes'),\n\t\t\t\tclassName: 'btn-success'\n\t\t\t},\n\t\t\tcancel: {\n\t\t\t\tlabel: __t('No'),\n\t\t\t\tclassName: 'btn-danger'\n\t\t\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4190_vuln",
+   "pair_id": "crossvul-pair-4190",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n\n$(\"#search\").on(\"keyup\", Delay(function()\n{\n\tvar value = $(this).val();\n\tif (value === \"all\")\n\t{\n\t\tvalue = \"\";\n\t}\n\n\tgroupsTable.search(value).draw();\n}, 200));\n\n$(document).on('click', '.product-group-delete-button', function(e)\n{\n\tvar objectName = SanitizeHtml($(e.currentTarget).attr('data-group-name'));\n\tvar objectId = $(e.currentTarget).attr('data-group-id');\n\n\tbootbox.confirm({\n\t\tmessage: __t('Are you sure to delete product group \"%s\"?', objectName),\n\t\tcloseButton: false,\n\t\tbuttons: {\n\t\t\tconfirm: {\n\t\t\t\tlabel: __t('Yes'),\n\t\t\t\tclassName: 'btn-success'\n\t\t\t},\n\t\t\tcancel: {\n\t\t\t\tlabel: __t('No'),\n\t\t\t\tclassName: 'btn-danger'\n\t\t\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4190_safe",
+   "pair_id": "crossvul-pair-4190",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n            'string',\n            'string',\n            'string',\n            'string',\n            function (mimeType, rawdata, filename, prefix, postfix) {\n                var clean = jsdom(),\n                    data = 'data:' + mimeType + ';base64,' + btoa(rawdata),\n                    previewSupported = (\n                        mimeType.substring(0, 6) === 'image/' ||\n                        mimeType.substring(0, 6) === 'audio/' ||\n                        mimeType.substring(0, 6) === 'video/' ||\n                        mimeType.match(/\\/pdf/i)\n                    ),\n                    results = [];\n                prefix = prefix.replace(/%(s|d)/g, '%%');\n                postfix = postfix.replace(/%(s|d)/g, '%%');\n                $('body').html(\n                    '<div id=\"attachment\" role=\"alert\" class=\"hidden alert ' +\n                    'alert-info\"><span class=\"glyphicon glyphicon-download-' +\n                    'alt\" aria-hidden=\"true\"></span> <a class=\"alert-link\">' +\n                    'Download attachment</a></div><div id=\"attachmentPrevie' +\n                    'w\" class=\"hidden\"></div>'\n                );\n                // mock createObjectURL for jsDOM\n                if (typeof window.URL.createObjectURL === 'undefined') {\n                    Object.defineProperty(\n                        window.URL,\n                        'createObjectURL',\n                        {value: function(blob) {\n                            return 'blob:' + location.origin + '/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed';\n                        }}\n                    )\n                }\n                $.PrivateBin.AttachmentViewer.init();\n                results.push(\n                    !$.PrivateBin.AttachmentViewer.hasAttachment() &&\n                    $('#attachment').hasClass('hidden') &&\n                    $('#attachmentPreview').hasClass('hidden')\n                );\n                if (filename.length) {\n                    $.PrivateBin.AttachmentViewer.setAttachment(data, filename);\n                } else {\n                    $.PrivateBin.AttachmentViewer.setAttachment(data);\n                }\n                // beyond this point we will get the blob URL instead of the data\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4529_vuln",
+   "pair_id": "crossvul-pair-4529",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n            'string',\n            'string',\n            'string',\n            'string',\n            function (mimeType, rawdata, filename, prefix, postfix) {\n                var clean = jsdom(),\n                    data = 'data:' + mimeType + ';base64,' + btoa(rawdata),\n                    previewSupported = (\n                        mimeType.substring(0, 6) === 'image/' ||\n                        mimeType.substring(0, 6) === 'audio/' ||\n                        mimeType.substring(0, 6) === 'video/' ||\n                        mimeType.match(/\\/pdf/i)\n                    ),\n                    results = [];\n                prefix  = prefix.replace(/%(s|d)/g, '%%');\n                postfix = postfix.replace(/%(s|d)/g, '%%');\n                $('body').html(\n                    '<div id=\"attachment\" role=\"alert\" class=\"hidden alert ' +\n                    'alert-info\"><span class=\"glyphicon glyphicon-download-' +\n                    'alt\" aria-hidden=\"true\"></span> <a class=\"alert-link\">' +\n                    'Download attachment</a></div><div id=\"attachmentPrevie' +\n                    'w\" class=\"hidden\"></div>'\n                );\n                // mock createObjectURL for jsDOM\n                if (typeof window.URL.createObjectURL === 'undefined') {\n                    Object.defineProperty(\n                        window.URL,\n                        'createObjectURL',\n                        {value: function(blob) {\n                            return 'blob:' + location.origin + '/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed';\n                        }}\n                    )\n                }\n                $.PrivateBin.AttachmentViewer.init();\n                results.push(\n                    !$.PrivateBin.AttachmentViewer.hasAttachment() &&\n                    $('#attachment').hasClass('hidden') &&\n                    $('#attachmentPreview').hasClass('hidden')\n                );\n                if (filename.length) {\n                    $.PrivateBin.AttachmentViewer.setAttachment(data, filename);\n                } else {\n                    $.PrivateBin.AttachmentViewer.setAttachment(data);\n                }\n                // beyond this point we will get the blob URL instead of the data\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4529_safe",
+   "pair_id": "crossvul-pair-4529",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n  //  Add \\unicode macro\n  //\n  TEX.Definitions.Add({macros: {unicode: 'Unicode'}},null,true);\n  //\n  //  Implementation of \\unicode in parser\n  //\n  TEX.Parse.Augment({\n    Unicode: function(name) {\n      var HD = this.GetBrackets(name), font;\n      if (HD) {\n        if (HD.replace(/ /g,\"\").match(/^(\\d+(\\.\\d*)?|\\.\\d+),(\\d+(\\.\\d*)?|\\.\\d+)$/))\n          {HD = HD.replace(/ /g,\"\").split(/,/); font = this.GetBrackets(name)}\n            else {font = HD; HD = null}\n      }\n      var n = this.trimSpaces(this.GetArgument(name)),\n          N = parseInt(n.match(/^x/) ? \"0\"+n : n);\n      if (!UNICODE[N]) {UNICODE[N] = [800,200,font,N]}\n      else if (!font) {font = UNICODE[N][2]}\n      if (HD) {\n        UNICODE[N][0] = Math.floor(HD[0]*1000);\n        UNICODE[N][1] = Math.floor(HD[1]*1000);\n      }\n      var variant = this.stack.env.font, def = {};\n      if (font) {\n        UNICODE[N][2] = def.fontfamily = font.replace(/\"/g,\"'\");\n        if (variant) {\n          if (variant.match(/bold/))   {def.fontweight = \"bold\"}\n          if (variant.match(/italic|-mathit/)) {def.fontstyle = \"italic\"}\n        }\n      } else if (variant) {def.mathvariant = variant}\n      def.unicode = [].concat(UNICODE[N]); // make a copy\n      this.Push(MML.mtext(MML.entity(\"#\"+n)).With(def));\n    }\n  });\n\n  MathJax.Hub.Startup.signal.Post(\"TeX unicode Ready\");\n  \n});\n    \nMathJax.Hub.Register.StartupHook(\"HTML-CSS Jax Ready\",function () {\n  var MML = MathJax.ElementJax.mml;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-470_vuln",
+   "pair_id": "crossvul-pair-470",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n  //  Add \\unicode macro\n  //\n  TEX.Definitions.Add({macros: {unicode: 'Unicode'}},null,true);\n  //\n  //  Implementation of \\unicode in parser\n  //\n  TEX.Parse.Augment({\n    Unicode: function(name) {\n      var HD = this.GetBrackets(name), font;\n      if (HD) {\n        if (HD.replace(/ /g,\"\").match(/^(\\d+(\\.\\d*)?|\\.\\d+),(\\d+(\\.\\d*)?|\\.\\d+)$/))\n          {HD = HD.replace(/ /g,\"\").split(/,/); font = this.GetBrackets(name)}\n            else {font = HD; HD = null}\n      }\n      var n = this.trimSpaces(this.GetArgument(name)).replace(/^0x/,\"x\");\n      if (!n.match(/^(x[0-9A-Fa-f]+|[0-9]+)$/)) {\n        TEX.Error([\"BadUnicode\",\"Argument to \\\\unicode must be a number\"]);\n      }\n      var N = parseInt(n.match(/^x/) ? \"0\"+n : n);\n      if (!UNICODE[N]) {UNICODE[N] = [800,200,font,N]}\n      else if (!font) {font = UNICODE[N][2]}\n      if (HD) {\n        UNICODE[N][0] = Math.floor(HD[0]*1000);\n        UNICODE[N][1] = Math.floor(HD[1]*1000);\n      }\n      var variant = this.stack.env.font, def = {};\n      if (font) {\n        UNICODE[N][2] = def.fontfamily = font.replace(/\"/g,\"'\");\n        if (variant) {\n          if (variant.match(/bold/)) {def.fontweight = \"bold\"}\n          if (variant.match(/italic|-mathit/)) {def.fontstyle = \"italic\"}\n        }\n      } else if (variant) {def.mathvariant = variant}\n      def.unicode = [].concat(UNICODE[N]); // make a copy\n      this.Push(MML.mtext(MML.entity(\"#\"+n)).With(def));\n    }\n  });\n\n  MathJax.Hub.Startup.signal.Post(\"TeX unicode Ready\");\n  \n});\n    \nMathJax.Hub.Register.StartupHook(\"HTML-CSS Jax Ready\",function () {\n  var MML = MathJax.ElementJax.mml;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-470_safe",
+   "pair_id": "crossvul-pair-470",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\nCodeMirror.sqlLint = function(text, updateLinting, options, cm) {\n\n    // Skipping check if text box is empty.\n    if(text.trim() == \"\") {\n        updateLinting(cm, []);\n        return;\n    }\n\n    function handleResponse(json) {\n        response = JSON.parse(json);\n\n        var found = [];\n        for (var idx in response) {\n            found.push({\n                from: CodeMirror.Pos(\n                    response[idx].fromLine, response[idx].fromColumn\n                ),\n                to: CodeMirror.Pos(\n                    response[idx].toLine, response[idx].toColumn\n                ),\n                message: response[idx].message,\n                severity : response[idx].severity\n            });\n        }\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4930_vuln",
+   "pair_id": "crossvul-pair-4930",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\nCodeMirror.sqlLint = function(text, updateLinting, options, cm) {\n\n    // Skipping check if text box is empty.\n    if(text.trim() == \"\") {\n        updateLinting(cm, []);\n        return;\n    }\n\n    function handleResponse(response) {\n        var found = [];\n        for (var idx in response) {\n            found.push({\n                from: CodeMirror.Pos(\n                    response[idx].fromLine, response[idx].fromColumn\n                ),\n                to: CodeMirror.Pos(\n                    response[idx].toLine, response[idx].toColumn\n                ),\n                message: response[idx].message,\n                severity : response[idx].severity\n            });\n        }\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4930_safe",
+   "pair_id": "crossvul-pair-4930",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: java_module.js\nLines: see snippet\n\nCode:\n                formVars = new StringBuilder(\"&\");\n            }\n\n            StringTokenizer st = new StringTokenizer(allowedFormVars);\n            while (st.hasMoreTokens()) {\n                if (formVars.length() > 1) {\n                    formVars.append(\"&amp;\");\n                }\n                String currentVar = st.nextToken();\n                String[] values = (String[])parameters.get(currentVar);\n\n                // if currentVar is null, values will be null too, so we can\n                // just check values.\n                if (values != null) {\n                    formVars.append(currentVar + \"=\" + values[0]);\n                }\n            }\n            href += formVars.toString();\n        }\n\n        li.addBody(aHref(href, node.getName(), node.getTarget()));\n        sb.append(li.render());\n        sb.append(\"\\n\");\n    }\n\n    /** {@inheritDoc} */\n    @Override\n    public void postNavNode(StringBuffer sb, int depth) {\n    }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4990_vuln",
+   "pair_id": "crossvul-pair-4990",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: java_module.js\nLines: see snippet\n\nCode:\n * implied, including the implied warranties of MERCHANTABILITY or FITNESS\n * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2\n * along with this software; if not, see\n * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.\n *\n * Red Hat trademarks are not licensed under GPLv2. No permission is\n * granted to use or replicate Red Hat trademarks that are incorporated\n * in this software or its documentation.\n */\n\npackage com.redhat.rhn.frontend.nav;\n\nimport java.util.Map;\nimport java.util.StringTokenizer;\n\nimport org.apache.commons.lang.StringEscapeUtils;\n\nimport com.redhat.rhn.frontend.html.HtmlTag;\n\n/**\n * DialognavRenderer - renders a navigation bar\n *\n * Renders the navigation inside the content, which is implemented\n * as rows of Twitter Bootstrap tabs (nav-tabs)\n *\n * The navigation is enclosed in a div styled with class\n * 'spacewalk-content-nav' and the individual rows can be styled by\n * ul:nth-child selectors.\n *\n * @version $Rev$\n */\n\npublic class DialognavRenderer extends Renderable {\n    private final StringBuffer titleBuf;\n    /**\n     * Public constructor\n     */\n    public DialognavRenderer() {\n         // empty\n        titleBuf = new StringBuffer();\n    }\n\n    /** {@inheritDoc} */\n    @Override\n    public void preNav(StringBuffer sb) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-4990_safe",
+   "pair_id": "crossvul-pair-4990",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n            SelectBox.add_to_cache(toId, o);\n            SelectBox.redisplay(toId);\n        }\n        win.close();\n    }\n\n    function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {\n        objId = html_unescape(objId);\n        newRepr = html_unescape(newRepr);\n        var id = windowname_to_id(win.name).replace(/^edit_/, '');\n        var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n        var selects = django.jQuery(selectsSelector);\n        selects.find('option').each(function() {\n            if (this.value === objId) {\n                this.innerHTML = newRepr;\n                this.value = newId;\n            }\n        });\n        win.close();\n    }\n\n    function dismissDeleteRelatedObjectPopup(win, objId) {\n        objId = html_unescape(objId);\n        var id = windowname_to_id(win.name).replace(/^delete_/, '');\n        var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n        var selects = django.jQuery(selectsSelector);\n        selects.find('option').each(function() {\n            if (this.value === objId) {\n                django.jQuery(this).remove();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5190_vuln",
+   "pair_id": "crossvul-pair-5190",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n            SelectBox.add_to_cache(toId, o);\n            SelectBox.redisplay(toId);\n        }\n        win.close();\n    }\n\n    function dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {\n        objId = html_unescape(objId);\n        newRepr = html_unescape(newRepr);\n        var id = windowname_to_id(win.name).replace(/^edit_/, '');\n        var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n        var selects = django.jQuery(selectsSelector);\n        selects.find('option').each(function() {\n            if (this.value === objId) {\n                this.textContent = newRepr;\n                this.value = newId;\n            }\n        });\n        win.close();\n    }\n\n    function dismissDeleteRelatedObjectPopup(win, objId) {\n        objId = html_unescape(objId);\n        var id = windowname_to_id(win.name).replace(/^delete_/, '');\n        var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n        var selects = django.jQuery(selectsSelector);\n        selects.find('option').each(function() {\n            if (this.value === objId) {\n                django.jQuery(this).remove();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5190_safe",
+   "pair_id": "crossvul-pair-5190",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n        SelectBox.add_to_cache(toId, o);\n        SelectBox.redisplay(toId);\n    }\n    win.close();\n}\n\nfunction dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {\n    objId = html_unescape(objId);\n    newRepr = html_unescape(newRepr);\n    var id = windowname_to_id(win.name).replace(/^edit_/, '');\n    var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n    var selects = django.jQuery(selectsSelector);\n    selects.find('option').each(function() {\n        if (this.value == objId) {\n            this.innerHTML = newRepr;\n            this.value = newId;\n        }\n    });\n    win.close();\n};\n\nfunction dismissDeleteRelatedObjectPopup(win, objId) {\n    objId = html_unescape(objId);\n    var id = windowname_to_id(win.name).replace(/^delete_/, '');\n    var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n    var selects = django.jQuery(selectsSelector);\n    selects.find('option').each(function() {\n        if (this.value == objId) {\n            django.jQuery(this).remove();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5191_vuln",
+   "pair_id": "crossvul-pair-5191",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n        SelectBox.add_to_cache(toId, o);\n        SelectBox.redisplay(toId);\n    }\n    win.close();\n}\n\nfunction dismissChangeRelatedObjectPopup(win, objId, newRepr, newId) {\n    objId = html_unescape(objId);\n    newRepr = html_unescape(newRepr);\n    var id = windowname_to_id(win.name).replace(/^edit_/, '');\n    var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n    var selects = django.jQuery(selectsSelector);\n    selects.find('option').each(function() {\n        if (this.value == objId) {\n            this.textContent = newRepr;\n            this.value = newId;\n        }\n    });\n    win.close();\n};\n\nfunction dismissDeleteRelatedObjectPopup(win, objId) {\n    objId = html_unescape(objId);\n    var id = windowname_to_id(win.name).replace(/^delete_/, '');\n    var selectsSelector = interpolate('#%s, #%s_from, #%s_to', [id, id, id]);\n    var selects = django.jQuery(selectsSelector);\n    selects.find('option').each(function() {\n        if (this.value == objId) {\n            django.jQuery(this).remove();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5191_safe",
+   "pair_id": "crossvul-pair-5191",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: java_module.js\nLines: see snippet\n\nCode:\n        case '\\n':\n          sb.append(\"\\\\n\");\n          break;\n        case '\\f':\n          sb.append(\"\\\\f\");\n          break;\n        case '\\r':\n          sb.append(\"\\\\r\");\n          break;\n        default:\n          if (c < ' ') {\n            t = \"000\" + Integer.toHexString(c);\n            sb.append(\"\\\\u\" + t.substring(t.length() - 4));\n          } else {\n            sb.append(c);\n          }\n      }\n    }\n    sb.append('\"');\n    return sb.toString();\n  }\n\n  /**\n   * Creates Json result string from the given list.<br/>\n   * [[\"Horst\"], [\"Klaus\"], ...]] // For single property<br/>\n   * [[\"Klein\", \"Horst\"],[\"Schmidt\", \"Klaus\"], ...] // For two Properties (e. g. name, first name) [[\"id:37\", \"Klein\", \"Horst\"],[\"id:42\",\n   * \"Schmidt\", \"Klaus\"], ...] // For two Properties (e. g. name, first name) with id. <br/>\n   * Uses formatValue(Object) for formatting each value.\n   * @param col The array representation: List<Object> or List<Object[]>. If null then \"[]\" is returned.\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5841_vuln",
+   "pair_id": "crossvul-pair-5841",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: java_module.js\nLines: see snippet\n\nCode:\n// You should have received a copy of the GNU General Public License along\n// with this program; if not, see http://www.gnu.org/licenses/.\n//\n/////////////////////////////////////////////////////////////////////////////\n\npackage org.projectforge.web.core;\n\nimport java.util.Collection;\n\nimport org.apache.commons.lang.ObjectUtils;\n\npublic class JsonBuilder\n{\n  final private StringBuilder sb = new StringBuilder();\n\n  private boolean escapeHtml;\n\n  /**\n   * Creates Json result string from the given list.<br/>\n   * [[\"Horst\"], [\"Klaus\"], ...]] // For single property<br/>\n   * [[\"Klein\", \"Horst\"],[\"Schmidt\", \"Klaus\"], ...] // For two Properties (e. g. name, first name) [[\"id:37\", \"Klein\", \"Horst\"],[\"id:42\",\n   * \"Schmidt\", \"Klaus\"], ...] // For two Properties (e. g. name, first name) with id. <br/>\n   * Uses ObjectUtils.toString(Object) for formatting each value.\n   * @param col The array representation: List<Object> or List<Object[]>. If null then \"[]\" is returned.\n   * @return\n   */\n  public static String buildToStringRows(final Collection< ? > col)\n  {\n    if (col == null) {\n      return \"[]\";\n    }\n    final JsonBuilder builder = new JsonBuilder();\n    return builder.append(col).getAsString();\n  }\n\n  /**\n   * @param escapeHtml the escapeHtml to set (default is false).\n   * @return this for chaining.\n   */\n  public JsonBuilder setEscapeHtml(final boolean escapeHtml)\n  {\n    this.escapeHtml = escapeHtml;\n    return this;\n  }\n\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-5841_safe",
+   "pair_id": "crossvul-pair-5841",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "java",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with EspoCRM. If not, see http://www.gnu.org/licenses/.\n *\n * The interactive user interfaces in modified source and object code versions\n * of this program must display Appropriate Legal Notices, as required under\n * Section 5 of the GNU General Public License version 3.\n *\n * In accordance with Section 7(b) of the GNU General Public License version 3,\n * these Appropriate Legal Notices must retain the display of tтhe \"EspoCRM\" word.\n ************************************************************************/\n\nEspo.define('views/attachment/fields/name', 'views/fields/varchar', function (Dep) {\n\n    return Dep.extend({\n\n        detailTemplate: 'attachment/fields/name/detail',\n\n        data: function () {\n            var data = Dep.prototype.data.call(this);\n\n            var url = this.getBasePath() + '?entryPoint=download&id=' + this.model.id;\n            if (this.getUser().get('portalId')) {\n                url += '&portalId=' + this.getUser().get('portalId');\n            }\n\n            data.url = url;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-981_vuln",
+   "pair_id": "crossvul-pair-981",
+   "variant": "vuln",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "TRUE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: javascript_module.js\nLines: see snippet\n\nCode:\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with EspoCRM. If not, see http://www.gnu.org/licenses/.\n *\n * The interactive user interfaces in modified source and object code versions\n * of this program must display Appropriate Legal Notices, as required under\n * Section 5 of the GNU General Public License version 3.\n *\n * In accordance with Section 7(b) of the GNU General Public License version 3,\n * these Appropriate Legal Notices must retain the display of tтhe \"EspoCRM\" word.\n ************************************************************************/\n\ndefine('views/attachment/fields/name', 'views/fields/varchar', function (Dep) {\n\n    return Dep.extend({\n\n        detailTemplate: 'attachment/fields/name/detail',\n\n        data: function () {\n            var data = Dep.prototype.data.call(this);\n\n            var url = this.getBasePath() + '?entryPoint=download&id=' + this.model.id;\n            if (this.getUser().get('portalId')) {\n                url += '&portalId=' + this.getUser().get('portalId');\n            }\n\n            data.url = url;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   }
+  ],
+  "metadata": {
+   "case_id": "mined79_crossvul-pair-981_safe",
+   "pair_id": "crossvul-pair-981",
+   "variant": "safe",
+   "claimed_cwe": "CWE-79",
+   "real_cwe": "CWE-79",
+   "verdict": "FALSE_POSITIVE",
+   "language": "javascript",
+   "tool": "semgrep",
+   "source": "crossvul_mined"
+  }
+ }
+]

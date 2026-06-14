@@ -1,0 +1,1336 @@
+[
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n#**************************************************************************\n#  openSIS is a free student information system for public and non-public \n#  schools from Open Solutions for Education, Inc. web: www.os4ed.com\n#\n#  openSIS is  web-based, open source, and comes packed with features that \n#  include student demographic info, scheduling, grade book, attendance, \n#  report cards, eligibility, transcripts, parent portal, \n#  student portal and more.   \n#\n#  Visit the openSIS web site at http://www.opensis.com to learn more.\n#  If you have question regarding this system or the license, please send \n#  an email to info@os4ed.com.\n#\n#  This program is released under the terms of the GNU General Public License as  \n#  published by the Free Software Foundation, version 2 of the License. \n#  See license.txt.\n#\n#  This program is distributed in the hope that it will be useful,\n#  but WITHOUT ANY WARRANTY; without even the implied warranty of\n#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n#  GNU General Public License for more details.\n#\n#  You should have received a copy of the GNU General Public License\n#  along with this program.  If not, see <http://www.gnu.org/licenses/>.\n#\n#***************************************************************************************\nerror_reporting(0);\nsession_start();\nsession_destroy();\necho '<script type=\"text/javascript\">\nvar page=parent.location.href.replace(/.*\\//,\"\");\nif(page && page!=\"index.php\"){\n\twindow.location.href=\"index.php\";\n\t}\n\n</script>';\n?>\n<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n        <title>openSIS Installer</title>\n        <link href=\"../assets/css/icons/fontawesome/styles.min.css\" rel=\"stylesheet\">\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"../assets/css/bootstrap.min.css\">\n        <link rel=\"stylesheet\" href=\"assets/css/installer.css?v=<?php echo rand(000, 999); ?>\" type=\"text/css\" />\n        <noscript><META http-equiv=REFRESH content='0;url=../EnableJavascript.php' /></noscript>\n    </head>\n    <body class=\"outer-body\">\n        <section class=\"login\">\n            <div class=\"login-wrapper\">\n                <div class=\"panel\">\n                    <div class=\"panel-heading\">\n                        <div class=\"logo\">\n                            <img src=\"assets/images/opensis_logo.png\" alt=\"openSIS\">\n                        </div>   \n                        <h3>openSIS Installation</h3>                 \n                    </div>\n                    <div class=\"panel-body\">\n                        <div class=\"installation-steps-wrapper\">\n                            <div class=\"installation-instructions\">\n                                <ul class=\"installation-steps-label\">\n                                    <li class=\"active\">Choose Package</li>\n                                    <li>System Requirements</li>\n                                    <li>Database Connection</li>\n                                    <li>Database Creation</li>\n                                    <li>School Information</li>\n                                    <li>Site Admin Account Setup</li>\n                                    <li>Ready to Go!</li>\n                                </ul>\n                                <!--<h4 class=\"no-margin\">Installation Prerequisite</h4>\n                                <p>Before you install openSIS, you need to have Apache web server, MySQL database server and php scripting language setup in your machine.</p>\n                                <p>You can download an all-inclusive package from: <a href=\"https://www.apachefriends.org/download.html\">https://www.apachefriends.org/download.html</a></p>\n                                <p>Select the download package for the operating system you are using on your machine. Install that first and then start the openSIS installer.</p>-->\n                            </div>\n                            <div class=\"installation-steps\">\n                                <table style=\"height:270px; width: 70%;\" border=\"0\" cellspacing=\"12\" cellpadding=\"12\" align=\"center\">\n                                    <tr>\n                                        <?php\n                                        if ($_GET[\"upreq\"] == 'true') {\n                                            echo '<td>You were redirected to this page because an upgrade is needed.<br> Please, proceed using the action below.</td>';\n                                            echo '</tr><tr>';\n                                            echo '<td valign=\"middle\" align=\"center\"><a href=\"Step0.1.php?mod=upgrade\"><img src=\"assets/images/icon-upgrade.png\" alt=\"Upgrade OpenSIS\" /><br/><h5 class=\"text-black\"><b>Upgrade</b><br/><small>(From ver 4.7 thru 6.0)</small></h5></a></td>';\n                                        } else {\n                                            echo '<td valign=\"middle\" align=\"center\"><a href=\"SystemCheck.php\"><img src=\"assets/images/icon-package.png\" alt=\"New Installation\" /><br/><h5 class=\"text-black\"><b>New Installation</b><br/><small>(Ver 7.4)</small></h5></a></td>';\n                                            echo '<td valign=\"middle\" align=\"center\"><a href=\"Step0.1.php?mod=upgrade\"><img src=\"assets/images/icon-upgrade.png\" alt=\"Upgrade OpenSIS\"/><br/><h5 class=\"text-black\"><b>Upgrade</b><br/><small>(From ver 7.1 onwards)</small></h5></a></td>';\n                                        }\n                                        ?>\n                                    </tr>\n                                </table>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <footer>\n                    Copyright &copy; Open Solutions for Education, Inc. (<a href=\"http://www.os4ed.com\">OS4ED</a>).\n                </footer>\n            </div>\n        </section>\n    </body>\n</html>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_2",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\nclass SafeMember:\n    def __init__(self, member: discord.Member):\n        self.name = member.name\n        self.mention = member.mention\n\n    def __str__(self):\n        return self.name\n\n    def __getattr__(self, name):\n        return \"\"\n\nclass TicketsCore:\n            \"category\": None,\n            \"closed_category\": None,\n            \"ticket_role\": None,\n            \"default_message_ticket_channel\": None,\n            \"sessions\": {},\n        self.ticket_info_format = \"\\n\\n**[{datetime}]** [{author}]\\n{information}\"\n        ticket_role = [\n            role\n            for role in guild.roles\n            if await self.config.guild(guild).ticket_role() == role.id\n        ]\n        default_message_ticket_channel = await self.config.guild(\n            guild\n        ).default_message_ticket_channel()\n\n        if category_channel and category_channel in [\n            category.id for category in guild.categories\n        ]:\n            n1 = 10 ** 10\n            ticket_channel = await guild.create_text_channel(\n                \"{}-{}\".format(author.display_name, ticket_id),\n                category=self.bot.get_channel(category_channel),\n            )\n\n            await ticket_channel.set_permissions(\n                author, read_messages=True, send_messages=True\n            )\n            await ticket_channel.set_permissions(\n                guild.me, read_messages=True, send_messages=True, manage_channels=True\n            )\n\n            await ticket_channel.edit(\n                topic=self.ticket_info_format.format(\n                    ticket=ticket_id,\n                    datetime=datetime.utcnow().strftime(\"%d/%m/%Y %H:%M:%S\"),\n                    author=author.display_name,\n                    information=\"Ticket opened\",\n                )\n            )\n                try:\n                    await ticket_channel.send(\n                        default_message_ticket_channel.format(\n                            member=SafeMember(author),\n                            channel=ticket_channel,\n                            origin=context.channel,\n                            ticket_role=ticket_role,\n                        )\n                    )\n                except:\n                    return \"Oops there has been an unexpected error with your new ticket message. Please contact the bot owner for assistance\"\n                session.update({ticket_channel.id: author.id})\n            return \"Naughty! You need to run the setup first.\"\n        if str(channel.id) in sessions and await self.config.guild(\n            guild\n        ).ticket_role() in [role.id for role in author.roles]:\n\n            ticket_id = str(channel.name).split(\"-\")[1]\n            await channel.edit(\n                topic=channel.topic\n                + self.ticket_info_format.format(\n                    ticket=ticket_id,\n                    datetime=datetime.utcnow().strftime(\"%d/%m/%Y %H:%M:%S\"),\n                    author=author.display_name,\n                    information=status,\n                )\n            )\n            return await channel.send(\n                \"Make sure you are doing this within the ticket channel that you want to close.\"\n            )\n        if await self.config.guild(guild).ticket_role() not in [\n            role.id for role in author.roles\n        ]:\n            return await channel.send(\n                \"You do not have the proper role to manage tickets\"\n            )\n            ticket_id = str(channel.name).split(\"-\")[1]\n            await channel.set_permissions(\n                member, read_messages=True, send_messages=False\n            )\n            await channel.edit(\n                category=closed_category,\n                topic=channel.topic\n                + self.ticket_info_format.format(\n                    ticket=ticket_id,\n                    datetime=datetime.utcnow().strftime(\"%d/%m/%Y %H:%M:%S\"),\n                    author=author.display_name,\n                    information=\"Ticket closed\",\n                ),\n            )\n                session.pop(channel.id, None)\n            closed_channels = [\n                channel\n                for channel in guild.channels\n                if channel.category_id\n                == await self.config.guild(guild).closed_category()\n            ]\n            return \"All closed tickets removed!\"\n            return \"I need permissions to manage channels.\"\n        return \"Your default message has been set.\"\n                guild.default_role: discord.PermissionOverwrite(\n                    send_messages=False, read_messages=False\n                ),\n            category_channel = await guild.create_category(\n                \"Tickets\", overwrites=overwrites\n            )\n            closed_category_channel = await guild.create_category(\n                \"Closed Tickets\", overwrites=overwrites\n            )\n            ticket_role = await guild.create_role(name=\"Ticket\")\n            await category_channel.set_permissions(\n                ticket_role, read_messages=True, send_messages=True\n            )\n            await closed_category_channel.set_permissions(\n                ticket_role, read_messages=True, send_messages=True\n            )\n            await self.config.guild(guild).closed_category.set(\n                closed_category_channel.id\n            )\n            return \":tada: Fabulous! You're all done! Now add the `Ticket` role to anyone who you deem good enough to handle tickets. And if you care, you can change the name of the role and category if you _really_ want to.\"\n            return \"That didn't go well... I need permissions to manage channels and manage roles. :rolling_eyes:\"\nimport re\n\n    @commands.group(name=\"ticket\")\n        \"\"\"\n        \"\"\"\n    @ticket.command(name=\"new\")\n        \"\"\"\n        \"\"\"\n    @ticket.command(name=\"update\")\n        \"\"\"\n        \"\"\"\n    @ticket.command(name=\"close\")\n        \"\"\"\n        \"\"\"\n    @ticket.group(name=\"set\")\n        \"\"\"\n        \"\"\"\n    @ticket_set.command(name=\"purge\")\n        \"\"\"\n        \"\"\"\n    @ticket_set.command(name=\"message\")\n        \"\"\"\n        \"\"\"\n    @ticket_set.command(name=\"setup\")\n        \"\"\"\n        \"\"\"\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-94\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_5",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-94",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: module.txt\nLines: see snippet\n\nCode:\nit('file name should ignore directories', () => {\n  cy.get('h1').matchImageSnapshot('../../../ignore-relative-dirs')\n  cy.get('h1').matchImageSnapshot('ignore/folders/image')\n})\n\n\nit('file name should ignore directories', () => {\n  cy.get('h1').matchImageSnapshot('../../../ignore-relative-dirs')\n})\n  const snapshotName = path.basename(screenshotConfig.path, '.png')\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-22\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1481",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-22",
+   "language": "typescript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\n// machinery for graph generation, constant propgation, and constant\n        arg_ann = eval(arg_ann_str, {}, EvalEnv(rcb))  # type: ignore[arg-type] # noqa: P204\n        ret_ann = eval(ret_ann_str, {}, EvalEnv(rcb))  # type: ignore[arg-type] # noqa: P204\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_27",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "ruby",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n\n/*\n * This file is part of Fork CMS.\n *\n * For the full copyright and license information, please view the license\n * file that was distributed with this source code.\n */\n\n/**\n * This class will handle files JS-files that have to be parsed by PHP\n *\n * @author Tijs Verkoyen <tijs@sumocoders.be>\n * @author Dieter Vanden Eynde <dieter.vandeneynde@netlash.com>\n */\nclass FrontendJavascript\n{\n\t/**\n\t * The actual filename\n\t *\n\t * @var\tstring\n\t */\n\tprivate $filename;\n\n\t/**\n\t * The language\n\t *\n\t * @var\tstring\n\t */\n\tprivate $language;\n\n\t/**\n\t * The module\n\t *\n\t * @var\tstring\n\t */\n\tprivate $module;\n\n\tpublic function __construct()\n\t{\n\t\t// if the application wasn't defined before we will define it\n\t\tif(!defined('NAMED_APPLICATION')) define('NAMED_APPLICATION', 'frontend');\n\n\t\t// set the module\n\t\t$this->setModule(SpoonFilter::getGetValue('module', null, ''));\n\n\t\t// set the requested file\n\t\t$this->setFile(SpoonFilter::getGetValue('file', null, ''));\n\n\t\t// set the language\n\t\t$this->setLanguage(SpoonFilter::getGetValue('language', FrontendLanguage::getActiveLanguages(), SITE_DEFAULT_LANGUAGE));\n\n\t\t// create a new template instance (this will handle all stuff for us)\n\t\t$tpl = new FrontendTemplate();\n\n\t\t// enable addslashes on each locale\n\t\t$tpl->setAddSlashes(true);\n\n\t\t// set correct headers\n\t\tSpoonHTTP::setHeaders('content-type: application/javascript');\n\n\t\t// fetch the template path\n\t\tif($this->module == 'core') $file = FRONTEND_CORE_PATH . '/js/' . $this->getFile();\n\t\telse $file = FRONTEND_MODULES_PATH . '/' . $this->getModule() . '/js/' . $this->getFile();\n\n\t\t// output the template\n\t\t$tpl->display(FrontendTheme::getPath($file), true);\n\t}\n\n\t/**\n\t * Get file\n\t *\n\t * @return string\n\t */\n\tpublic function getFile()\n\t{\n\t\treturn $this->filename;\n\t}\n\n\t/**\n\t * Get language\n\t *\n\t * @return string\n\t */\n\tpublic function getLanguage()\n\t{\n\t\treturn $this->language;\n\t}\n\n\t/**\n\t * Get module\n\t *\n\t * @return string\n\t */\n\tpublic function getModule()\n\t{\n\t\treturn $this->module;\n\t}\n\n\t/**\n\t * Set file\n\t *\n\t * @param string $value The file to load.\n\t */\n\tprivate function setFile($value)\n\t{\n\t\t// set property\n\t\t$this->filename = (string) $value;\n\n\t\t// validate\n\t\tif(substr_count($this->filename, '../') > 0)\n\t\t{\n\t\t\t// set correct headers\n\t\t\tSpoonHTTP::setHeadersByCode(400);\n\n\t\t\t// when debug is on throw an exception\n\t\t\tif(SPOON_DEBUG) throw new FrontendException('Invalid file.');\n\n\t\t\t// when debug is of show a descent message\n\t\t\telse exit(SPOON_DEBUG_MESSAGE);\n\t\t}\n\n\t\t// init var\n\t\t$valid = true;\n\n\t\t// core is a special module\n\t\tif($this->module == 'core')\n\t\t{\n\t\t\t// build path\n\t\t\t$path = realpath(FRONTEND_CORE_PATH . '/js/' . $this->filename);\n\n\t\t\t// validate if path is allowed\n\t\t\tif(substr($path, 0, strlen(realpath(FRONTEND_CORE_PATH . '/js/'))) != realpath(FRONTEND_CORE_PATH . '/js/')) $valid = false;\n\t\t}\n\n\t\t// not core\n\t\telse\n\t\t{\n\t\t\t// build path\n\t\t\t$path = realpath(FRONTEND_MODULES_PATH . '/' . $this->getModule() . '/js/' . $this->filename);\n\n\t\t\t// validate if path is allowed\n\t\t\tif(substr($path, 0, strlen(realpath(FRONTEND_MODULES_PATH . '/' . $this->getModule() . '/js/'))) != realpath(FRONTEND_MODULES_PATH . '/' . $this->getModule() . '/js/')) $valid = false;\n\t\t}\n\n\t\t// invalid file?\n\t\tif(!$valid)\n\t\t{\n\t\t\t// set correct headers\n\t\t\tSpoonHTTP::setHeadersByCode(400);\n\n\t\t\t// when debug is on throw an exception\n\t\t\tif(SPOON_DEBUG) throw new FrontendException('Invalid file.');\n\n\t\t\t// when debug is of show a descent message\n\t\t\telse exit(SPOON_DEBUG_MESSAGE);\n\t\t}\n\n\t\t// check if the path exists, if not whe should given an error\n\t\tif(!SpoonFile::exists($path))\n\t\t{\n\t\t\t// set correct headers\n\t\t\tSpoonHTTP::setHeadersByCode(404);\n\n\t\t\t// when debug is on throw an exception\n\t\t\tif(SPOON_DEBUG) throw new FrontendException('File not present.');\n\n\t\t\t// when debug is of show a descent message\n\t\t\telse exit(SPOON_DEBUG_MESSAGE);\n\t\t}\n\t}\n\n\t/**\n\t * Set language\n\t *\n\t * @param string $value The language.\n\t */\n\tprivate function setLanguage($value)\n\t{\n\t\t// set property\n\t\t$this->language = (string) $value;\n\n\t\t// define constant\n\t\tdefine('FRONTEND_LANGUAGE', $this->language);\n\n\t\t// set the locale (we need this for the labels)\n\t\tFrontendLanguage::setLocale($this->language);\n\t}\n\n\t/**\n\t * Set module\n\t *\n\t * @param string $value The module.\n\t */\n\tprivate function setModule($value)\n\t{\n\t\t$this->module = (string) $value;\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-22\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_37",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-22",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * Represents a boolean field.\n * \n * @package sapphire\n * @subpackage model\n */\nclass Boolean extends DBField {\n\t\n\tfunction __construct($name, $defaultVal = 0) {\n\t\t$this->defaultVal = ($defaultVal) ? 1 : 0;\n\t\t\n\t\tparent::__construct($name);\n\t}\n\t\n\tfunction requireField() {\n\t\t$parts=Array('datatype'=>'tinyint', 'precision'=>1, 'sign'=>'unsigned', 'null'=>'not null', 'default'=>$this->defaultVal, 'arrayValue'=>$this->arrayValue);\n\t\t$values=Array('type'=>'boolean', 'parts'=>$parts);\n\t\tDB::requireField($this->tableName, $this->name, $values);\n\t}\n\t\n\tfunction Nice() {\n\t\treturn ($this->value) ? _t('Boolean.YES', 'Yes') : _t('Boolean.NO', 'No');\n\t}\n\t\n\tfunction NiceAsBoolean() {\n\t\treturn ($this->value) ? 'true' : 'false';\n\t}\n\n\t/**\n\t * Saves this field to the given data object.\n\t */\n\tfunction saveInto($dataObject) {\n\t\t$fieldName = $this->name;\n\t\tif($fieldName) {\n\t\t\t$dataObject->$fieldName = ($this->value) ? 1 : 0;\n\t\t} else {\n\t\t\tuser_error(\"DBField::saveInto() Called on a nameless '$this->class' object\", E_USER_ERROR);\n\t\t}\n\t}\n\n\tpublic function scaffoldFormField($title = null, $params = null) {\n\t\treturn new CheckboxField($this->name, $title);\n\t}\n\t\n\tpublic function scaffoldSearchField($title = null) {\n\t\t$anyText = _t('Boolean.ANY', 'Any');\n\t\t$source = array(\n\t\t\t1 => _t('Boolean.YES', 'Yes'),\n\t\t\t0 => _t('Boolean.NO', 'No')\n\t\t);\n\t\t\n\t\treturn new DropdownField($this->name, $title, $source, '', null, \"($anyText)\");\n\t}\n\n\t/**\n\t * Return an encoding of the given value suitable for inclusion in a SQL statement.\n\t * If necessary, this should include quotes.\n\t */\n\tfunction prepValueForDB($value) {\n\t\tif(strpos($value, '[')!==false)\n\t\t\treturn Convert::raw2sql($value);\n\t\telse {\t\t\n\t\t\tif($value && strtolower($value) != 'f') {\n\t\t\t\treturn \"'1'\";\n\t\t\t} else {\n\t\t\t\treturn \"'0'\";\n\t\t\t}\n\t\t}\n\t}\n\n\tfunction nullValue() {\n\t\treturn \"'0'\";\n\t}\n\t\n}\n\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_107",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * @copyright Ilch 2.0\n * @package ilch\n */\n\nnamespace Ilch\\Layout;\ndefined('ACCESS') or die('no direct access');\n\nclass Frontend extends Base\n{\n    /**\n     * Adds layout helper.\n     *\n     * @todo adds helper dynamic from folder.\n     * @param \\Ilch\\Request $request\n     * @param \\Ilch\\Translator $translator\n     * @param \\Ilch\\Router $router\n     */\n    public function __construct(\\Ilch\\Request $request, \\Ilch\\Translator $translator, \\Ilch\\Router $router)\n    {\n        parent::__construct($request, $translator, $router);\n\n        $this->addHelper('getMenu', 'layout', new \\Ilch\\Layout\\Helper\\GetMenu($this));\n        $this->addHelper('getMenus', 'layout', new \\Ilch\\Layout\\Helper\\GetMenus($this));\n        $this->addHelper('getHmenu', 'layout', new \\Ilch\\Layout\\Helper\\GetHmenu($this));\n    }\n\n    /**\n     * Gets page title from config or meta settings.\n     *\n     * @return string\n     */\n    public function getTitle()\n    {\n        $config = \\Ilch\\Registry::get('config');\n\n        /*\n         * @todo page modul handling\n         */\n\n        if (!empty($config) && $config->get('page_title') !== '') {\n            return $this->escape($config->get('page_title'));\n        } else {\n            return 'Ilch Frontend';\n        }\n    }\n\n    /**\n     * Gets the box with the given key.\n     *\n     * @return string\n     */\n    public function getBox($boxKey)\n    {\n        $class = 'Boxes\\\\'.ucfirst($boxKey).'\\\\Index';\n        $view = new \\Ilch\\View($this->getRequest(), $this->getTranslator(), $this->getRouter());\n        $this->getTranslator()->load(APPLICATION_PATH.'/boxes/'.$boxKey.'/translations');\n        $boxObj = new $class($this, $view, $this->getRequest(), $this->getRouter(), $this->getTranslator());\n        $boxObj->render();\n\n        return $view->loadScript(APPLICATION_PATH.'/boxes/'.$boxKey.'/render.php');\n    }\n\n    /**\n     * Gets the header.\n     *\n     * @return string\n     */\n    public function getHeader()\n    {\n        $html = '<meta charset=\"utf-8\">\n                <title>'.$this->getTitle().'</title>\n                <meta name=\"description\" content=\"\">';\n\n        $html .= '<link href=\"'.$this->getStaticUrl('css/bootstrap.css').'\" rel=\"stylesheet\">\n                <link href=\"'.$this->getStaticUrl('css/font-awesome.css').'\" rel=\"stylesheet\">\n                <link href=\"'.$this->getStaticUrl('css/global.css').'\" rel=\"stylesheet\">\n                <link href=\"'.$this->getStaticUrl('css/ui-lightness/jquery-ui.css').'\" rel=\"stylesheet\">\n                <link href=\"'.$this->getStaticUrl('../application/modules/user/static/css/user.css').'\" rel=\"stylesheet\">\n                <script type=\"text/javascript\" src=\"'.$this->getStaticUrl('js/jquery.js').'\"></script>\n                <script type=\"text/javascript\" src=\"'.$this->getStaticUrl('js/bootstrap.js').'\"></script>\n                <script type=\"text/javascript\" src=\"'.$this->getStaticUrl('js/jquery-ui.js').'\"></script>\n                <script type=\"text/javascript\" src=\"'.$this->getStaticUrl('js/ckeditor/ckeditor.js').'\"></script>\n                <script type=\"text/javascript\" src=\"'.$this->getStaticUrl('js/ilch.js').'\"></script>';\n        return $html;\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_144",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n- Serialization (`model.get_config()/from_config`, `model.to_json()/to_yaml()`\ntry:\n  import yaml  # pylint:disable=g-import-not-at-top\nexcept ImportError:\n  yaml = None\n\n      if yaml is not None:\n        yaml_str = model.to_yaml()\n        models.model_from_yaml(yaml_str)\n\n    if yaml is not None:\n      yaml_str = model.to_yaml()\n      models.model_from_yaml(yaml_str)\n\n\ntry:\n  import yaml\nexcept ImportError:\n  yaml = None\n        ImportError: if yaml module is not found.\n    if yaml is None:\n      raise ImportError(\n          'Requires yaml module installed (`pip install pyyaml`).')\n    return yaml.dump(self._updated_config(), **kwargs)\n# pylint: disable=g-import-not-at-top\ntry:\n  import yaml\nexcept ImportError:\n  yaml = None\n# pylint: enable=g-import-not-at-top\n\n \n  Usage:\n\n  >>> model = tf.keras.Sequential([\n  ...     tf.keras.layers.Dense(5, input_shape=(3,)),\n  ...     tf.keras.layers.Softmax()])\n  >>> try:\n  ...   import yaml\n  ...   config = model.to_yaml()\n  ...   loaded_model = tf.keras.models.model_from_yaml(config)\n  ... except ImportError:\n  ...   pass\n      ImportError: if yaml module is not found.\n  if yaml is None:\n    raise ImportError('Requires yaml module installed (`pip install pyyaml`).')\n  # The method unsafe_load only exists in PyYAML 5.x+, so which branch of the\n  # try block is covered by tests depends on the installed version of PyYAML.\n  try:\n    # PyYAML 5.x+\n    config = yaml.unsafe_load(yaml_string)\n  except AttributeError:\n    config = yaml.load(yaml_string)\n  from tensorflow.python.keras.layers import deserialize  # pylint: disable=g-import-not-at-top\n  return deserialize(config, custom_objects=custom_objects)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_183",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n/**\n * Gets the file extension from a filename\n *\n * @param string    $filename The filename\n * @return string The extension of the file\n */\nfunction getExtensionFromFileName($filename)\n{\n    $tmp = explode('.', $filename);\n    return end($tmp);\n}\n\n    $unsafe_extensions = ['php', 'phtml', 'php3', 'ph3', 'php4', 'ph4', 'php5', 'ph5', 'phtm', 'sh', 'asp', 'cgi', 'py', 'pl', 'exe', 'aspx'];\n\n    //Dont allow upload of files with potentially dangerous extension\n    if (in_array(getExtensionFromFileName($file_array['name']), $unsafe_extensions)\n        || in_array(getExtensionFromFileName($destination_filename), $unsafe_extensions))\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-78\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_238",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\n// Copyright 2018 Google Inc.\n//\n// Licensed under the Apache License, Version 2.0 (the \"License\");\n// you may not use this file except in compliance with the License.\n// You may obtain a copy of the License at\n//\n//     https://www.apache.org/licenses/LICENSE-2.0\n//\n// Unless required by applicable law or agreed to in writing, software\n// distributed under the License is distributed on an \"AS IS\" BASIS,\n// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n// See the License for the specific language governing permissions and\n// limitations under the License.\n\nconst express = require('express');\nconst { exec } = require('child_process');\n\nconst utils = require('./utils');\n\nconst { SYNTH_SCRIPT } = require('./constants');\n\nconst router = express.Router();\n\n/** GET for healthcheck */\nrouter.get('/healthz', (_req, res) => res.json('OK'));\n\n/**\n* GET alignment information of the synthesized text.\n* TODO: Implement alignment.\n*/\nrouter.get('/alignment', (req, res) => res.status(200).send([]));\n\n/** GET synthesize voice based on a voice model */\nrouter.get('/tts', (req, res) => {\n  const { text, type } = req.query;\n  // TODO(twattanavekin): Test Unicode text.\n  const escapedText = JSON.stringify(text).slice(1, -1);\n\n  // Example command:\n  //  echo \"hello\" | ${SYNTH_SCRIPT}\n\n  const cmd = `echo \"${escapedText}\" | ${SYNTH_SCRIPT}`;\n  console.log(`Running command - \\n${cmd}`);\n\n  const options = {\n    maxBuffer: 1024 * 1000, // 1 mb buffer\n    cwd: '/tmp/',\n    timeout: 60000, // 1 minute timeout\n    encoding: 'buffer',\n  };\n\n  exec(cmd, options, (err, stdout, stderr) => {\n    const errMsg = utils.getExecErrorMessage(err, stderr);\n    if (errMsg) {\n      return res.status(500).send(errMsg);\n    }\n    res.status(200);\n    res.set('Content-Type', 'audio/wav');\n    const data = type === 'base64' ? stdout.toString('base64') : stdout;\n    return res.send(data);\n  });\n});\n\nmodule.exports = router;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-78\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_239",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nVERSIONS = '0.6.9'\n                yaml_str = yaml.load(yaml_file.read())\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-434\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_286",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-434",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\n<li><a href=\"<?php echo erLhcoreClassDesign::baseurl('system/expirecache')?>\"><?php echo erTranslationClassLhTranslation::getInstance()->getTranslation('pagelayout/pagelayout','Clean cache');?></a></li>\t\t\t\r\n    'functions' => array( 'expirecache' )\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-78\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_393",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n\n/*\n * This file is part of the Symfony package.\n *\n * (c) Fabien Potencier <fabien@symfony.com>\n *\n * For the full copyright and license information, please view the LICENSE\n * file that was distributed with this source code.\n */\n\nnamespace Symfony\\Component\\Cache\\Traits;\n\nuse Symfony\\Component\\Cache\\Exception\\InvalidArgumentException;\n\n/**\n * @author Nicolas Grekas <p@tchwork.com>\n *\n * @internal\n */\ntrait FilesystemCommonTrait\n{\n    private $directory;\n    private $tmp;\n\n    private function init($namespace, $directory)\n    {\n        if (!isset($directory[0])) {\n            $directory = sys_get_temp_dir().'/symfony-cache';\n        } else {\n            $directory = realpath($directory) ?: $directory;\n        }\n        if (isset($namespace[0])) {\n            if (preg_match('#[^-+_.A-Za-z0-9]#', $namespace, $match)) {\n                throw new InvalidArgumentException(sprintf('Namespace contains \"%s\" but only characters in [-+_.A-Za-z0-9] are allowed.', $match[0]));\n            }\n            $directory .= \\DIRECTORY_SEPARATOR.$namespace;\n        }\n        if (!file_exists($directory)) {\n            @mkdir($directory, 0777, true);\n        }\n        $directory .= \\DIRECTORY_SEPARATOR;\n        // On Windows the whole path is limited to 258 chars\n        if ('\\\\' === \\DIRECTORY_SEPARATOR && \\strlen($directory) > 234) {\n            throw new InvalidArgumentException(sprintf('Cache directory too long (%s)', $directory));\n        }\n\n        $this->directory = $directory;\n    }\n\n    /**\n     * {@inheritdoc}\n     */\n    protected function doClear($namespace)\n    {\n        $ok = true;\n\n        foreach (new \\RecursiveIteratorIterator(new \\RecursiveDirectoryIterator($this->directory, \\FilesystemIterator::SKIP_DOTS)) as $file) {\n            $ok = ($file->isDir() || @unlink($file) || !file_exists($file)) && $ok;\n        }\n\n        return $ok;\n    }\n\n    /**\n     * {@inheritdoc}\n     */\n    protected function doDelete(array $ids)\n    {\n        $ok = true;\n\n        foreach ($ids as $id) {\n            $file = $this->getFile($id);\n            $ok = (!file_exists($file) || @unlink($file) || !file_exists($file)) && $ok;\n        }\n\n        return $ok;\n    }\n\n    private function write($file, $data, $expiresAt = null)\n    {\n        set_error_handler(__CLASS__.'::throwError');\n        try {\n            if (null === $this->tmp) {\n                $this->tmp = $this->directory.uniqid('', true);\n            }\n            file_put_contents($this->tmp, $data);\n\n            if (null !== $expiresAt) {\n                touch($this->tmp, $expiresAt);\n            }\n\n            return rename($this->tmp, $file);\n        } finally {\n            restore_error_handler();\n        }\n    }\n\n    private function getFile($id, $mkdir = false)\n    {\n        $hash = str_replace('/', '-', base64_encode(hash('sha256', static::class.$id, true)));\n        $dir = $this->directory.strtoupper($hash[0].\\DIRECTORY_SEPARATOR.$hash[1].\\DIRECTORY_SEPARATOR);\n\n        if ($mkdir && !file_exists($dir)) {\n            @mkdir($dir, 0777, true);\n        }\n\n        return $dir.substr($hash, 2, 20);\n    }\n\n    /**\n     * @internal\n     */\n    public static function throwError($type, $message, $file, $line)\n    {\n        throw new \\ErrorException($message, 0, $type, $file, $line);\n    }\n\n    public function __sleep()\n    {\n        throw new \\BadMethodCallException('Cannot serialize '.__CLASS__);\n    }\n\n    public function __wakeup()\n    {\n        throw new \\BadMethodCallException('Cannot unserialize '.__CLASS__);\n    }\n\n    public function __destruct()\n    {\n        if (method_exists(parent::class, '__destruct')) {\n            parent::__destruct();\n        }\n        if (null !== $this->tmp && file_exists($this->tmp)) {\n            unlink($this->tmp);\n        }\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_400",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\n// Load modules\n\nvar Fs = require('fs');\nvar Path = require('path');\nvar Boom = require('boom');\nvar Hoek = require('hoek');\nvar Items = require('items');\nvar Joi = require('joi');\nvar File = require('./file');\n\n\n// Declare internals\n\nvar internals = {};\n\n\ninternals.schema = Joi.object({\n    path: Joi.alternatives(Joi.string(), Joi.array().includes(Joi.string()), Joi.func()).required(),\n    index: Joi.boolean(),\n    listing: Joi.boolean(),\n    showHidden: Joi.boolean(),\n    redirectToSlash: Joi.boolean(),\n    lookupCompressed: Joi.boolean(),\n    defaultExtension: Joi.string().alphanum()\n});\n\n\nexports.handler = function (route, options) {\n\n    Joi.assert(options, internals.schema, 'Invalid directory handler options (' + route.path + ')');\n    Hoek.assert(route.path[route.path.length - 1] === '}', 'The route path must end with a parameter:', route.path);\n\n    var settings = Hoek.clone(options);                                // options can be reused\n\n    // Normalize static string path\n\n    if (typeof settings.path === 'string') {\n        settings.path = [settings.path];\n    }\n\n    var normalize = function (paths) {\n\n        var normalized = [];\n        for (var i = 0, il = paths.length; i < il; ++i) {\n            var path = paths[i];\n            if (path[path.length - 1] !== Path.sep) {\n                path += Path.sep;\n            }\n\n            if (!Hoek.isAbsolutePath(path)) {\n                path = Path.join(route.files.relativeTo, path);\n            }\n\n            normalized.push(path);\n        }\n\n        return normalized;\n    };\n\n    var normalized = (Array.isArray(settings.path) ? normalize(settings.path) : []);            // Array or function\n\n    // Declare handler\n\n    var handler = function (request, reply) {\n\n        var paths = normalized;\n        if (typeof settings.path === 'function') {\n            var result = settings.path.call(null, request);\n            if (result instanceof Error) {\n                return reply(result);\n            }\n\n            if (Array.isArray(result)) {\n                paths = normalize(result);\n            }\n            else if (typeof result === 'string') {\n                paths = normalize([result]);\n            }\n            else {\n                return reply(Boom.badImplementation('Invalid path function'));\n            }\n        }\n\n        // Append parameter\n\n        var selection = null;\n        var lastParam = request._paramsArray[request._paramsArray.length - 1];\n        if (lastParam) {\n            if (lastParam.indexOf('..') !== -1) {\n                return reply(Boom.forbidden());\n            }\n\n            selection = lastParam;\n        }\n\n        if (selection &&\n            !settings.showHidden &&\n            internals.isFileHidden(selection)) {\n\n            return reply(Boom.notFound());\n        }\n\n        // Generate response\n\n        var resource = request.path;\n        var hasTrailingSlash = (resource[resource.length - 1] === '/');\n\n        Items.serial(paths, function (path, next) {\n\n            path = Path.join(path, selection || '');\n\n            File.load(path, request, { lookupCompressed: settings.lookupCompressed }, function (response) {\n\n                // File loaded successfully\n\n                if (!response.isBoom) {\n                    return reply(response);\n                }\n\n                // Not found\n\n                var err = response;\n                if (err.output.statusCode === 404) {\n                    if (!settings.defaultExtension) {\n                        return next();\n                    }\n\n                    if (hasTrailingSlash) {\n                        path = path.slice(0, -1);\n                    }\n\n                    return File.load(path + '.' + settings.defaultExtension, request, { lookupCompressed: settings.lookupCompressed }, function (extResponse) {\n\n                        if (!extResponse.isBoom) {\n                            return reply(extResponse);\n                        }\n\n                        return next();\n                    });\n                }\n\n                // Directory\n\n                var index = (settings.index !== false);                         // Defaults to true\n                if (!index &&\n                    !settings.listing) {\n\n                    return reply(Boom.forbidden());\n                }\n\n                if (settings.redirectToSlash !== false &&                       // Defaults to true\n                    !request.server.settings.router.stripTrailingSlash &&\n                    !hasTrailingSlash) {\n\n                    return reply.redirect(resource + '/');\n                }\n\n                if (!index) {\n                    return internals.generateListing(path, resource, selection, hasTrailingSlash, settings, request, reply);\n                }\n\n                var indexFile = Path.join(path, 'index.html');\n                File.load(indexFile, request, { lookupCompressed: settings.lookupCompressed }, function (indexResponse) {\n\n                    // File loaded successfully\n\n                    if (!indexResponse.isBoom) {\n                        return reply(indexResponse);\n                    }\n\n                    // Directory\n\n                    var err = indexResponse;\n                    if (err.output.statusCode !== 404) {\n                        return reply(Boom.badImplementation('index.html is a directory'));\n                    }\n\n                    // Not found\n\n                    if (!settings.listing) {\n                        return reply(Boom.forbidden());\n                    }\n\n                    return internals.generateListing(path, resource, selection, hasTrailingSlash, settings, request, reply);\n                });\n            });\n        },\n        function (/* err */) {\n\n            return reply(Boom.notFound());\n        });\n    };\n\n    return handler;\n};\n\n\ninternals.generateListing = function (path, resource, selection, hasTrailingSlash, settings, request, reply) {\n\n    Fs.readdir(path, function (err, files) {\n\n        if (err) {\n            return reply(Boom.internal('Error accessing directory', err));\n        }\n\n        resource = decodeURIComponent(resource);\n        var display = Hoek.escapeHtml(resource);\n        var html = '<html><head><title>' + display + '</title></head><body><h1>Directory: ' + display + '</h1><ul>';\n\n        if (selection) {\n            var parent = resource.substring(0, resource.lastIndexOf('/', resource.length - (hasTrailingSlash ? 2 : 1))) + '/';\n            html += '<li><a href=\"' + internals.pathEncode(parent) + '\">Parent Directory</a></li>';\n        }\n\n        for (var i = 0, il = files.length; i < il; ++i) {\n            if (settings.showHidden ||\n                !internals.isFileHidden(files[i])) {\n\n                html += '<li><a href=\"' + internals.pathEncode(resource + (selection && !hasTrailingSlash ? '/' : '') + files[i]) + '\">' + Hoek.escapeHtml(files[i]) + '</a></li>';\n            }\n        }\n\n        html += '</ul></body></html>';\n\n        return reply(request.generateResponse(html));\n    });\n};\n\n\ninternals.isFileHidden = function (path) {\n\n    return /(^|[\\\\\\/])\\.([^\\\\\\/]|[\\\\\\/]?$)/.test(path);           // Starts with a '.' or contains '/.' or '\\.', and not followed by a '/' or '\\' or end\n};\n\n\ninternals.pathEncode = function (path) {\n\n    return encodeURIComponent(path).replace(/%2F/g, '/').replace(/%5C/g, '\\\\');\n};\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-22\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_426",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-22",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\n\"path\"\ntype MkdirFS interface {\n\tfs.FS\n\tMkdirAll(path string, perm fs.FileMode) error\n\tOpen(name string) (fs.File, error)\n\tOpenAtEnd(name string) (fs.File, error)\ntype MkdirFsImpl struct {\n\tdir string\n\tfs.FS\nfunc (fsys MkdirFsImpl) MkdirAll(path string, perm fs.FileMode) error {\n\treturn os.MkdirAll(fsys.dir+\"/\"+path, perm)\nfunc (fsys MkdirFsImpl) Open(name string) (fs.File, error) {\n\treturn os.OpenFile(fsys.dir+\"/\"+name, os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0644)\nfunc (fsys MkdirFsImpl) OpenAtEnd(name string) (fs.File, error) {\n\tfile, err := os.OpenFile(fsys.dir+\"/\"+name, os.O_CREATE|os.O_RDWR, 0644)\n\nfunc uploads(router *httprouter.Router, fsys MkdirFS) {\n\t\tfilePath := fmt.Sprintf(\"%s/%s\", runID, itemPath)\n\t\terr := fsys.MkdirAll(path.Dir(filePath), os.ModePerm)\n\t\tif err != nil {\n\t\t\tpanic(err)\n\t\t}\n\n\t\tfile, err := func() (fs.File, error) {\n\t\t\t\treturn fsys.OpenAtEnd(filePath)\n\t\t\treturn fsys.Open(filePath)\nfunc downloads(router *httprouter.Router, fsys fs.FS) {\n\t\tentries, err := fs.ReadDir(fsys, runID)\n\t\tdirPath := fmt.Sprintf(\"%s/%s\", container, itemPath)\n\t\terr := fs.WalkDir(fsys, dirPath, func(path string, entry fs.DirEntry, err error) error {\n\t\t\t\trel, err := filepath.Rel(dirPath, path)\n\t\t\t\t\tPath:            fmt.Sprintf(\"%s/%s\", itemPath, rel),\n\t\tfile, err := fsys.Open(path)\n\t\t\tfile, err = fsys.Open(path + gzipExtension)\n\tfs := os.DirFS(artifactPath)\n\tuploads(router, MkdirFsImpl{artifactPath, fs})\n\tdownloads(router, fs)\n\t\"io/fs\"\ntype MapFsImpl struct {\n\tfstest.MapFS\nfunc (fsys MapFsImpl) MkdirAll(path string, perm fs.FileMode) error {\n\t// mocked no-op\n\treturn nil\ntype WritableFile struct {\n\tfs.File\n\tfsys fstest.MapFS\n\tpath string\nfunc (file WritableFile) Write(data []byte) (int, error) {\n\tfile.fsys[file.path].Data = data\n\treturn len(data), nil\nfunc (fsys MapFsImpl) Open(path string) (fs.File, error) {\n\tvar file = fstest.MapFile{\n\t\tData: []byte(\"content2\"),\n\tfsys.MapFS[path] = &file\n\tresult, err := fsys.MapFS.Open(path)\n\treturn WritableFile{result, fsys.MapFS, path}, err\nfunc (fsys MapFsImpl) OpenAtEnd(path string) (fs.File, error) {\n\tvar file = fstest.MapFile{\n\t\tData: []byte(\"content2\"),\n\tfsys.MapFS[path] = &file\n\tresult, err := fsys.MapFS.Open(path)\n\treturn WritableFile{result, fsys.MapFS, path}, err\n\tuploads(router, MapFsImpl{memfs})\n\tuploads(router, MapFsImpl{memfs})\n\tassert.Equal(\"content\", string(memfs[\"1/some/file\"].Data))\n\tuploads(router, MapFsImpl{memfs})\n\t\t\"1/file.txt\": {\n\tdownloads(router, memfs)\n\t\t\"1/some/file\": {\n\tdownloads(router, memfs)\n\tassert.Equal(\"some/file/.\", response.Value[0].Path)\n\t\t\"1/some/file\": {\n\tdownloads(router, memfs)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_514",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "ruby",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n- Fixed a bug to disable logging hyperparameters in logger if there are no hparams ([#11105](https://github.com/PyTorchLightning/pytorch-lightning/issues/11105))\n-\n        hparams = yaml.load(fp, Loader=yaml.UnsafeLoader)\nPyYAML>=5.1\nfrom argparse import Namespace\n        \"namespace\": Namespace(foo=Namespace(bar=\"buzz\")),\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_593",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\n// Copyright (C) <2015>  <it-novum GmbH>\n//\n// This file is dual licensed\n//\n// 1.\n//\tThis program is free software: you can redistribute it and/or modify\n//\tit under the terms of the GNU General Public License as published by\n//\tthe Free Software Foundation, version 3 of the License.\n//\n//\tThis program is distributed in the hope that it will be useful,\n//\tbut WITHOUT ANY WARRANTY; without even the implied warranty of\n//\tMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n//\tGNU General Public License for more details.\n//\n//\tYou should have received a copy of the GNU General Public License\n//\talong with this program.  If not, see <http://www.gnu.org/licenses/>.\n//\n\n// 2.\n//\tIf you purchased an openITCOCKPIT Enterprise Edition you can use this file\n//\tunder the terms of the openITCOCKPIT Enterprise Edition license agreement.\n//\tLicense agreement and license key will be shipped with the order\n//\tconfirmation.\n\nApp.Controllers.CommandsEditController = Frontend.AppController.extend({\n    argumentNames: null,\n    /**\n     * @constructor\n     * @return {void}\n     */\n\n    components: ['Ajaxloader'],\n\n    _initialize: function(){\n        this.Ajaxloader.setup();\n        /*\n         * Bind the click event for the Add button of the human command args\n         */\n        $('#add_new_arg').click(function(){\n            this.addArgument();\n        }.bind(this));\n\n        /*\n         * Bind click event to load user defined macros\n         */\n        $('#loadMacrosOberview').click(function(){\n            $('#macros_loader').show();\n            $.ajax({\n                url: \"/Commands/loadMacros/\",\n                type: \"POST\",\n                cache: false,\n                data: this.argumentNames,\n                error: function(){\n                },\n                success: function(){\n                },\n                complete: function(response){\n                    $('#MacroContent').html(response.responseText);\n                    $('#macros_loader').hide();\n                }.bind(this)\n            });\n        });\n\n        /*\n         * Bind click event for argument delete button\n         */\n        $(document).on(\"click\", \".deleteCommandArg\", function(e){\n            $this = $(this);\n            $this.parent().parent().remove();\n        });\n    },\n\n    addArgument: function(){\n        this.Ajaxloader.show();\n        this.updateArgumentNames();\n        this.$button = $('.addMacro');\n        this.$button.prop('disabled', true);\n        $.ajax({\n            url: \"/Commands/addCommandArg/\" + encodeURIComponent(this.getVar('command_id')),\n            type: \"POST\",\n            cache: false,\n            data: this.argumentNames,\n            error: function(){\n            },\n            success: function(){\n            },\n            complete: function(response){\n                $('#command_args').append(response.responseText);\n                this.Ajaxloader.hide();\n                this.$button.prop('disabled', false);\n            }.bind(this)\n        });\n    },\n\n    updateArgumentNames: function(){\n        this.argumentNames = {};\n        $(\"[argument='name']\").each(function(intKey, nameObject){\n            this.argumentNames[$(nameObject).attr('uuid')] = $(nameObject).val();\n        }.bind(this));\n    }\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-78\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_611",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\nresponse, err := http.DefaultClient.Get(requestURL.String())\n\tclient := &http.Client{}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-611\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_647",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-611",
+   "language": "java",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n\n/**\n * ListController\n *\n * @package humhub.modules_core.notification.controllers\n * @since 0.5\n */\nclass ListController extends Controller\n{\n\n    /**\n     * @return array action filters\n     */\n    public function filters()\n    {\n        return array(\n            'accessControl', // perform access control for CRUD operations\n        );\n    }\n\n    /**\n     * Specifies the access control rules.\n     * This method is used by the 'accessControl' filter.\n     * @return array access control rules\n     */\n    public function accessRules()\n    {\n        return array(\n            array('allow', // allow authenticated user to perform 'create' and 'update' actions\n                'users' => array('@'),\n            ),\n            array('deny', // deny all users\n                'users' => array('*'),\n            ),\n        );\n    }\n\n    /**\n     * Returns a List of all notifications for an user\n     */\n    public function actionIndex()\n    {\n\n        // the id from the last entry loaded\n        $lastEntryId = (int) Yii::app()->request->getParam('from');\n\n        // create database query\n        $criteria = new CDbCriteria();\n        if ($lastEntryId > 0) {\n            // start from last entry id loaded\n            $criteria->condition = 'id<:lastEntryId';\n            $criteria->params = array(':lastEntryId' => $lastEntryId);\n        }\n        $criteria->order = 'seen ASC, created_at DESC';\n        $criteria->limit = 6;\n\n        // safe query\n        $notifications = Notification::model()->findAllByAttributes(array('user_id' => Yii::app()->user->id), $criteria);\n\n        // variable for notification list\n        $output = \"\";\n\n        foreach ($notifications as $notification) {\n            // format and save all entries\n            $output .= $notification->getOut();\n\n            // get the id from the last entry\n            $lastEntryId = $notification->id;\n        }\n\n        // build json array\n        $json = array();\n        $json['output'] = $output;\n        $json['lastEntryId'] = $lastEntryId;\n        $json['counter'] = count($notifications);\n\n        // return json\n        echo CJSON::encode($json);\n\n        // compete action\n        Yii::app()->end();\n\n    }\n\n\n    public function actionMarkAsSeen()\n    {\n\n        // build query\n        $criteria = new CDbCriteria();\n        $criteria->condition = 'seen=0';\n\n        // load all unseen notification for this user\n        $notifications = Notification::model()->findAllByAttributes(array('user_id' => Yii::app()->user->id), $criteria);\n\n        foreach ($notifications as $notification) {\n            // mark all unseen notification as seen\n            $notification->markAsSeen();\n        }\n\n        // compete action\n        Yii::app()->end();\n    }\n\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_660",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n$page = sanitize_text_field($_REQUEST['page']);\n            'delete' => sprintf('<a href=\"?page=%s&action=%s&ID=%s\">' . __('Delete', 'wp-sms') . '</a>', $page, 'delete', $item['ID']),\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-79\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_667",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\nimport java.util.List;\nimport org.openqa.selenium.WebElement;\n            return guestUserRegistration(testUtils, registrationPage);\n    private boolean guestUserRegistration(TestUtils testUtils, AbstractRegistrationPage registrationPage)\n        List<WebElement> infos = testUtils.getDriver().findElements(By.className(\"infomessage\"));\n        for (WebElement info : infos) {\n            if (info.getText().contains(\"Registration successful.\")) {\n                return true;\n            }\n        }\n        return false;\n      <registrationSuccessMessage>#set($fullName = \"$request.get('register_first_name') $request.get('register_last_name')\")\n{{info}}$services.localization.render('core.register.successful', [\"[[$fullName&gt;&gt;$userSpace$userName]]\", $userName]){{/info}}</registrationSuccessMessage>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-22\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_698",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-22",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nrequire 'digest/md5'\n\nmodule ActionController\n  class AbstractResponse #:nodoc:\n    DEFAULT_HEADERS = { \"Cache-Control\" => \"no-cache\" }\n    attr_accessor :request\n    attr_accessor :body, :headers, :session, :cookies, :assigns, :template, :redirected_to, :redirected_to_method_params, :layout\n\n    def initialize\n      @body, @headers, @session, @assigns = \"\", DEFAULT_HEADERS.merge(\"cookie\" => []), [], []\n    end\n\n    def content_type=(mime_type)\n      self.headers[\"Content-Type\"] = charset ? \"#{mime_type}; charset=#{charset}\" : mime_type\n    end\n    \n    def content_type\n      content_type = String(headers[\"Content-Type\"] || headers[\"type\"]).split(\";\")[0]\n      content_type.blank? ? nil : content_type\n    end\n    \n    def charset=(encoding)\n      self.headers[\"Content-Type\"] = \"#{content_type || Mime::HTML}; charset=#{encoding}\"\n    end\n    \n    def charset\n      charset = String(headers[\"Content-Type\"] || headers[\"type\"]).split(\";\")[1]\n      charset.blank? ? nil : charset.strip.split(\"=\")[1]\n    end\n\n    def redirect(to_url, response_status)\n      self.headers[\"Status\"] = response_status\n      self.headers[\"Location\"] = to_url.gsub(/[\\r\\n]/, '')\n\n      self.body = \"<html><body>You are being <a href=\\\"#{CGI.escapeHTML(to_url)}\\\">redirected</a>.</body></html>\"\n    end\n\n    def prepare!\n      handle_conditional_get!\n      convert_content_type!\n      set_content_length!\n    end\n\n\n    private\n      def handle_conditional_get!\n        if body.is_a?(String) && (headers['Status'] ? headers['Status'][0..2] == '200' : true)  && !body.empty?\n          self.headers['ETag'] ||= %(\"#{Digest::MD5.hexdigest(body)}\")\n          self.headers['Cache-Control'] = 'private, max-age=0, must-revalidate' if headers['Cache-Control'] == DEFAULT_HEADERS['Cache-Control']\n\n          if request.headers['HTTP_IF_NONE_MATCH'] == headers['ETag']\n            self.headers['Status'] = '304 Not Modified'\n            self.body = ''\n          end\n        end\n      end\n\n      def convert_content_type!\n        if content_type = headers.delete(\"Content-Type\")\n          self.headers[\"type\"] = content_type\n        end\n        if content_type = headers.delete(\"Content-type\")\n          self.headers[\"type\"] = content_type\n        end\n        if content_type = headers.delete(\"content-type\")\n          self.headers[\"type\"] = content_type\n        end\n      end\n    \n      # Don't set the Content-Length for block-based bodies as that would mean reading it all into memory. Not nice\n      # for, say, a 2GB streaming file.\n      def set_content_length!\n        self.headers[\"Content-Length\"] = body.size unless body.respond_to?(:call)\n      end\n  end\nend\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-352\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_704",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-352",
+   "language": "ruby",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\n# Workaround for overly-eager decoding of percent-encoded characters in Addressable::URI#normalized_path\n  # https://github.com/sporkmonger/addressable/issues/366\n  URI_NORMALIZER = lambda do |uri|\n    uri = HTTP::URI.parse(uri)\n\n    HTTP::URI.new(\n      scheme: uri.normalized_scheme,\n      authority: uri.normalized_authority,\n      path: Addressable::URI.normalize_path(encode_non_ascii(uri.path)).presence || '/',\n      query: encode_non_ascii(uri.query)\n    )\n  end\n\n    @url         = URI_NORMALIZER.call(url)\n    NON_ASCII_PATTERN = /[^\\x00-\\x7F]+/\n\n    def encode_non_ascii(str)\n      str&.gsub(NON_ASCII_PATTERN) { |substr| CGI.escape(substr.encode(Encoding::UTF_8)) }\n    end\n\n      HTTP.use(:auto_inflate).use(normalize_uri: { normalizer: URI_NORMALIZER }).follow(max_hops: 3)\n    context 'with non-normalized URL' do\n      before do\n        get :success\n\n        fake_request = Request.new(:get, 'http://test.host/subdir/../success')\n        fake_request.on_behalf_of(author)\n\n        request.headers.merge!(fake_request.headers)\n\n        allow(controller).to receive(:actor_refresh_key!).and_return(author)\n      end\n\n      describe '#build_signed_string' do\n        it 'includes the normalized request path' do\n          expect(controller.send(:build_signed_string)).to start_with \"(request-target): get /success\\n\"\n        end\n      end\n\n      describe '#signed_request?' do\n        it 'returns true' do\n          expect(controller.signed_request?).to be true\n        end\n      end\n\n      describe '#signed_request_actor' do\n        it 'returns an account' do\n          expect(controller.signed_request_account).to eq author\n        end\n      end\n    end\n\n        stub_request(:get, 'http://localhost:5000/actor').to_raise(Mastodon::HostValidationError)\n  subject { described_class.new(:get, url) }\n\n  let(:url) { 'http://example.com' }\n\n    context 'with bare domain URL' do\n      let(:url) { 'http://example.com' }\n\n      before do\n        stub_request(:get, 'http://example.com')\n      end\n\n      it 'normalizes path' do\n        subject.perform do |response|\n          expect(response.request.uri.path).to eq '/'\n        end\n      end\n\n      it 'normalizes path used for request signing' do\n        subject.perform\n\n        headers = subject.instance_variable_get(:@headers)\n        expect(headers[Request::REQUEST_TARGET]).to eq 'get /'\n      end\n\n      it 'normalizes path used in request line' do\n        subject.perform do |response|\n          expect(response.request.headline).to eq 'GET / HTTP/1.1'\n        end\n      end\n    end\n\n    context 'with unnormalized URL' do\n      let(:url) { 'HTTP://EXAMPLE.com:80/foo%41%3A?bar=%41%3A#baz' }\n\n      before do\n        stub_request(:get, 'http://example.com/foo%41%3A?bar=%41%3A')\n      end\n\n      it 'normalizes scheme' do\n        subject.perform do |response|\n          expect(response.request.uri.scheme).to eq 'http'\n        end\n      end\n\n      it 'normalizes host' do\n        subject.perform do |response|\n          expect(response.request.uri.authority).to eq 'example.com'\n        end\n      end\n\n      it 'does not modify path' do\n        subject.perform do |response|\n          expect(response.request.uri.path).to eq '/foo%41%3A'\n        end\n      end\n\n      it 'does not modify query string' do\n        subject.perform do |response|\n          expect(response.request.uri.query).to eq 'bar=%41%3A'\n        end\n      end\n\n      it 'does not modify path used for request signing' do\n        subject.perform\n\n        headers = subject.instance_variable_get(:@headers)\n        expect(headers[Request::REQUEST_TARGET]).to eq 'get /foo%41%3A'\n      end\n\n      it 'does not modify path used in request line' do\n        subject.perform do |response|\n          expect(response.request.headline).to eq 'GET /foo%41%3A?bar=%41%3A HTTP/1.1'\n        end\n      end\n\n      it 'strips fragment' do\n        subject.perform do |response|\n          expect(response.request.uri.fragment).to be_nil\n        end\n      end\n    end\n\n    context 'with non-ASCII URL' do\n      let(:url) { 'http://éxample.com:81/föo?bär=1' }\n\n      before do\n        stub_request(:get, 'http://xn--xample-9ua.com:81/f%C3%B6o?b%C3%A4r=1')\n      end\n\n      it 'IDN-encodes host' do\n        subject.perform do |response|\n          expect(response.request.uri.authority).to eq 'xn--xample-9ua.com:81'\n        end\n      end\n\n      it 'IDN-encodes host in Host header' do\n        subject.perform do |response|\n          expect(response.request.headers['Host']).to eq 'xn--xample-9ua.com'\n        end\n      end\n\n      it 'percent-escapes path used for request signing' do\n        subject.perform\n\n        headers = subject.instance_variable_get(:@headers)\n        expect(headers[Request::REQUEST_TARGET]).to eq 'get /f%C3%B6o'\n      end\n\n      it 'normalizes path used in request line' do\n        subject.perform do |response|\n          expect(response.request.headline).to eq 'GET /f%C3%B6o?b%C3%A4r=1 HTTP/1.1'\n        end\n      end\n    end\n\n    context 'with redirecting URL' do\n      let(:url) { 'http://example.com/foo' }\n\n      before do\n        stub_request(:get, 'http://example.com/foo').to_return(status: 302, headers: { 'Location' => 'HTTPS://EXAMPLE.net/Bar' })\n        stub_request(:get, 'https://example.net/Bar').to_return(body: 'Lorem ipsum')\n      end\n\n      it 'resolves redirect' do\n        subject.perform do |response|\n          expect(response.body.to_s).to eq 'Lorem ipsum'\n        end\n\n        expect(a_request(:get, 'https://example.net/Bar')).to have_been_made\n      end\n\n      it 'normalizes destination scheme' do\n        subject.perform do |response|\n          expect(response.request.uri.scheme).to eq 'https'\n        end\n      end\n\n      it 'normalizes destination host' do\n        subject.perform do |response|\n          expect(response.request.uri.authority).to eq 'example.net'\n        end\n      end\n\n      it 'does modify path' do\n        subject.perform do |response|\n          expect(response.request.uri.path).to eq '/Bar'\n        end\n      end\n    end\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_845",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "java",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nvar execFile = require('child_process').execFile;\n\nmodule.exports = function (iface, callback) {\n    execFile(\"cat\", [\"/sys/class/net/\" + iface + \"/address\"], function (err, out) {\n        if (err) {\n            callback(err, null);\n            return;\n        }\n        callback(null, out.trim().toLowerCase());\n    });\n};\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-78\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_861",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\nExt.namespace('Tine.Phone');\n\nTine.Phone.PhoneTreePanel = Ext.extend(Ext.tree.TreePanel, {\n\n    // private\n    id: 'phone-tree',\n    rootVisible: false,\n    border: false,\n    collapsible: true,\n    baseCls: 'ux-arrowcollapse',\n    \n    // state stuff\n    stateful: true,\n    stateId: 'phone-phonetreepanel',\n    stateEvents: ['collapse', 'expand', 'click'],\n    \n    /**\n     * holds the users' phones\n     * @type {Ext.data.JsonStore}\n     */\n    store: null,\n    \n    /**\n     * last selected node\n     * \n     * @type {Ext.tree.TreeNode} \n     */\n    ctxNode: null,\n    \n    /**\n     * initializes the component\n     */\n    initComponent: function() {\n        Tine.Phone.PhoneTreePanel.superclass.initComponent.call(this, arguments);\n        \n        this.setRootNode(new Ext.tree.TreeNode({\n            cls: 'treemain',\n            allowDrag: false,\n            allowDrop: true,\n            id: 'phone-root',\n            icon: false\n        }));\n        \n        // create context menu\n        var contextMenu = new Ext.menu.Menu({\n            items: [\n                this.grid.action_editPhoneSettings\n            ],\n            listeners: {\n                scope: this,\n                hide: function() {this.ctxNode = null;}\n            }\n        });\n        \n        this.on('contextmenu', function(node, event){\n            this.ctxNode = node;\n            if (node.id != 'phone-root') {\n                contextMenu.showAt(event.getXY());\n            }\n        }, this);\n\n        this.on('click', function(node, event) {\n            this.onNodeClick(node, event);\n        }, this);\n        \n        this.store = this.app.userPhonesStore;\n    },\n        \n    /**\n     * is called on single click on an node of the phoneTreePanel\n     * \n     * @param {Ext.tree.TreeNode} node\n     * @param {} event\n     */\n    onNodeClick: function(node, event) {\n        this.ctxNode = node;\n        this.grid.store.load();\n    },\n    \n    /**\n     * returns the currently selected node\n     * \n     * @return {Ext.tree.TreeNode}\n     */\n    getActiveNode: function() {\n        return this.ctxNode || this.getSelectionModel().getSelectedNode();\n    },\n    \n    /**\n     * updates the phone tree panel after an crud action and on load\n     */\n    updateTree: function() {\n        // remove all children first\n        var rootNode = this.getRootNode();\n        rootNode.eachChild(function(child) {\n            this.removeChild(child);\n        });\n\n        // add phones from store to tree menu\n        this.store.each(function(record) {\n            var label = (record.data.description == '') \n               ? record.data.macaddress \n               : Ext.util.Format.ellipsis(record.data.description, 30);\n            var node = new Ext.tree.TreeNode({\n                id: record.id,\n                record: record,\n                text: label,\n                iconCls: 'PhoneIconCls',\n                qtip: Tine.Tinebase.common.doubleEncode(record.data.description),\n                leaf: true\n            });\n            rootNode.appendChild(node);\n        }, this);\n    },\n\n    /**\n     * @see Ext.Component\n     */\n    getState: function() {\n        var root = this.getRootNode();\n        \n        var state = {\n            selected: this.grid.ctxNode ? this.grid.ctxNode.id : null\n        };\n        \n        return state;\n    },\n    \n    \n    // private\n    initState : function(){\n        if(Ext.state.Manager){\n            var id = this.getStateId();\n            if(id){\n                var state = Ext.state.Manager.get(id);\n                if (state) {\n                    if (this.fireEvent('beforestaterestore', this, state) !== false){\n                        this.applyState(Ext.apply({}, state));\n                        this.fireEvent('staterestore', this, state);\n                    }\n                } else {\n                    (function(){\n                        var root = this.getRootNode();\n                        if (root.firstChild) {\n                            root.firstChild.select();\n                        }\n                    }).defer(100, this);\n                }\n            }\n        }\n    },\n    \n    /**\n     * applies state to cmp\n     * \n     * @param {Object} state\n     */\n    applyState: function(state) {\n        (function() {\n            var node = state.selected ? this.getNodeById(state.selected) : this.getRootNode().firstChild;\n            if (node) {\n                node.select();\n            }\n        }).defer(100, this);\n    }\n});\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-79\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_873",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\nfrom subprocess import Popen\n\n            logger.debug(\"Action will be executed with the following command: \\\n                subprocess.Popen({}, shell=False)\".format(cmd_full.split(' ')))\n                Popen(cmd_full.split(' '), shell=False)\n                logger.error(\"Can't execute the action ({})\".format(e))\n        Dynamic vlaue should starts and end with the ` char\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_880",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n/* Copyright (C) 2002-2005 Rodolphe Quiedeville <rodolphe@quiedeville.org>\n * Copyright (C) 2004-2011 Laurent Destailleur  <eldy@users.sourceforge.net>\n * Copyright (C) 2005-2010 Regis Houssin        <regis@dolibarr.fr>\n *\n * This program is free software; you can redistribute it and/or modify\n * it under the terms of the GNU General Public License as published by\n * the Free Software Foundation; either version 2 of the License, or\n * (at your option) any later version.\n *\n * This program is distributed in the hope that it will be useful,\n * but WITHOUT ANY WARRANTY; without even the implied warranty of\n * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n * GNU General Public License for more details.\n *\n * You should have received a copy of the GNU General Public License\n * along with this program. If not, see <http://www.gnu.org/licenses/>.\n */\n\n/**\n *      \\file       htdocs/user/index.php\n * \t\t\\ingroup\tcore\n *      \\brief      Page of users\n *      \\version    $Id: index.php,v 1.51 2011/07/31 23:19:42 eldy Exp $\n */\n\nrequire(\"../main.inc.php\");\n\nif (! $user->rights->user->user->lire && ! $user->admin) accessforbidden();\n\n$langs->load(\"users\");\n$langs->load(\"companies\");\n\n// Security check (for external users)\n$socid=0;\nif ($user->societe_id > 0) $socid = $user->societe_id;\n\n$sall=isset($_GET[\"sall\"])?$_GET[\"sall\"]:$_POST[\"sall\"];\n\n$sortfield = GETPOST(\"sortfield\",'alpha');\n$sortorder = GETPOST(\"sortorder\",'alpha');\n$page = GETPOST(\"page\",'int');\nif ($page == -1) { $page = 0; }\n$offset = $conf->liste_limit * $page;\n$pageprev = $page - 1;\n$pagenext = $page + 1;\n$limit = $conf->liste_limit;\nif (! $sortfield) $sortfield=\"u.login\";\nif (! $sortorder) $sortorder=\"ASC\";\n\n$userstatic=new User($db);\n$companystatic = new Societe($db);\n\n/*\n * View\n */\n\nllxHeader();\n\nprint_fiche_titre($langs->trans(\"ListOfUsers\"));\n\n$sql = \"SELECT u.rowid, u.name, u.firstname, u.admin, u.fk_societe, u.login,\";\n$sql.= \" u.datec,\";\n$sql.= \" u.tms as datem,\";\n$sql.= \" u.datelastlogin,\";\n$sql.= \" u.ldap_sid, u.statut, u.entity,\";\n$sql.= \" s.nom, s.canvas\";\n$sql.= \" FROM \".MAIN_DB_PREFIX.\"user as u\";\n$sql.= \" LEFT JOIN \".MAIN_DB_PREFIX.\"societe as s ON u.fk_societe = s.rowid\";\n$sql.= \" WHERE u.entity IN (0,\".$conf->entity.\")\";\nif (!empty($socid)) $sql.= \" AND u.fk_societe = \".$socid;\nif ($_POST[\"search_user\"])\n{\n    $sql.= \" AND (u.login like '%\".$_POST[\"search_user\"].\"%' OR u.name like '%\".$_POST[\"search_user\"].\"%' OR u.firstname like '%\".$_POST[\"search_user\"].\"%')\";\n}\nif ($sall) $sql.= \" AND (u.login like '%\".$sall.\"%' OR u.name like '%\".$sall.\"%' OR u.firstname like '%\".$sall.\"%' OR u.email like '%\".$sall.\"%' OR u.note like '%\".$sall.\"%')\";\nif ($sortfield) $sql.=\" ORDER BY $sortfield $sortorder\";\n\n$result = $db->query($sql);\nif ($result)\n{\n    $num = $db->num_rows($result);\n    $i = 0;\n\n    $param=\"search_user=$search_user&amp;sall=$sall\";\n    print \"<table class=\\\"noborder\\\" width=\\\"100%\\\">\";\n    print '<tr class=\"liste_titre\">';\n    print_liste_field_titre($langs->trans(\"Login\"),\"index.php\",\"u.login\",$param,\"\",\"\",$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"LastName\"),\"index.php\",\"u.name\",$param,\"\",\"\",$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"FirstName\"),\"index.php\",\"u.firstname\",$param,\"\",\"\",$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"Company\"),\"index.php\",\"u.fk_societe\",$param,\"\",\"\",$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"DateCreation\"),\"index.php\",\"u.datec\",$param,\"\",'align=\"center\"',$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"LastConnexion\"),\"index.php\",\"u.datelastlogin\",$param,\"\",'align=\"center\"',$sortfield,$sortorder);\n    print_liste_field_titre($langs->trans(\"Status\"),\"index.php\",\"u.status\",$param,\"\",'align=\"right\"',$sortfield,$sortorder);\n    print \"</tr>\\n\";\n    $var=True;\n    while ($i < $num)\n    {\n        $obj = $db->fetch_object($result);\n        $var=!$var;\n\n        print \"<tr $bc[$var]>\";\n        print '<td><a href=\"fiche.php?id='.$obj->rowid.'\">'.img_object($langs->trans(\"ShowUser\"),\"user\").' '.$obj->login.'</a>';\n        if ($conf->global->MAIN_MODULE_MULTICOMPANY && $obj->admin && ! $obj->entity)\n        {\n          \tprint img_redstar($langs->trans(\"SuperAdministrator\"));\n        }\n        else if ($obj->admin)\n        {\n        \tprint img_picto($langs->trans(\"Administrator\"),'star');\n        }\n        print '</td>';\n        print '<td>'.ucfirst($obj->name).'</td>';\n        print '<td>'.ucfirst($obj->firstname).'</td>';\n        print \"<td>\";\n        if ($obj->fk_societe)\n        {\n            $companystatic->id=$obj->fk_societe;\n            $companystatic->nom=$obj->nom;\n            $companystatic->canvas=$obj->canvas;\n            print $companystatic->getNomUrl(1);\n        }\n        else if ($obj->ldap_sid)\n        {\n        \tprint $langs->trans(\"DomainUser\");\n        }\n        else print $langs->trans(\"InternalUser\");\n        print '</td>';\n\n        // Date creation\n        print '<td nowrap=\"nowrap\" align=\"center\">'.dol_print_date($db->jdate($obj->datec),\"dayhour\").'</td>';\n\n        // Date last login\n        print '<td nowrap=\"nowrap\" align=\"center\">'.dol_print_date($db->jdate($obj->datelastlogin),\"dayhour\").'</td>';\n\n\t\t// Statut\n\t\t$userstatic->statut=$obj->statut;\n        print '<td width=\"100\" align=\"right\">'.$userstatic->getLibStatut(5).'</td>';\n        print \"</tr>\\n\";\n        $i++;\n    }\n    print \"</table>\";\n    $db->free($result);\n}\nelse\n{\n    dol_print_error($db);\n}\n\n$db->close();\n\nllxFooter('$Date: 2011/07/31 23:19:42 $ - $Revision: 1.51 $');\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-89\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_920",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nresponse = requests.get(images[0])\n                self.import_recipe_image(recipe, BytesIO(response.content))\n                response = requests.get(recipe_xml.find('imageurl').text.strip())\n                    response = requests.get(file['originalPicture'])\n                    if imghdr.what(BytesIO(response.content)) is not None:\n                        self.import_recipe_image(recipe, BytesIO(response.content), filetype=get_filetype(file['originalPicture']))\n                    else:\n                        raise Exception(\"Original image failed to download.\")\n                response = requests.get(file['image'][0])\n                self.import_recipe_image(recipe, BytesIO(response.content))\n        response = requests.get(recipe.link.replace('www.dropbox.', 'dl.dropboxusercontent.'))\n        return io.BytesIO(response.content)\n        r = requests.get(\n            url,\n            headers=headers,\n            auth=HTTPBasicAuth(\n                recipe.storage.username, recipe.storage.password\n        )\n        response_json = r.json()\n        for element in response_json['ocs']['data']:\n            if element['share_type'] == '3':\n                return element['url']\n        return Nextcloud.create_share_link(recipe)\nfrom django.db.models import (Case, Count, Exists, F, IntegerField, OuterRef, ProtectedError, Q,\nfrom recipe_scrapers import NoSchemaFoundInWildMode, WebsiteNotImplementedError, scrape_me\nfrom cookbook.helper.recipe_url_import import get_from_scraper\n            filetype = \".jpeg\" # fall-back to .jpeg, even if wrong, at least users will know it's an image and most image viewers can open it correctly anyways\n                    response = requests.get(serializer.validated_data['image_url'])\n                    image = File(io.BytesIO(response.content))\n                    filetype = mimetypes.guess_extension(response.headers['content-type']) or filetype\n            data = requests.get(url, headers=external_request_headers).content\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_925",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\nif ((/__proto__|constructor|prototype|eval/).test(a))\n\t\tthrow new Error('Potential vulnerability');\n\n\tfn(obj, value, path);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_953",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nexpires: 24\nvar JwtSigKey = []byte(\"signature_hmac_secret_shared_key\")\n\t\tjwtSigner:          jwt.NewSigner(jwt.HS256, JwtSigKey, jwtMaxAge),\n\n\tverifier := jwt.NewVerifier(jwt.HS256, session.JwtSigKey)\nfunc ReadConfig(c *config.Config, path ...string)  error {\n\t\treturn  err\n\t\treturn  err\n\t\treturn  nil\n\treturn  nil\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_982",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nimport io.onedev.server.OneDev;\r\n        \r\n\t\t\tClass<?> type = node.getType();\r\n\t\t\tif (type.getAnnotation(Editable.class) != null && !ClassUtils.isConcrete(type)) {\r\n\t\t\t\tImplementationRegistry registry = OneDev.getInstance(ImplementationRegistry.class);\r\n\t\t\t\tfor (Class<?> implementationClass: registry.getImplementations(node.getType())) {\r\n\t\t\t\t\tString implementationTag = new Tag(\"!\" + implementationClass.getSimpleName()).getValue();\r\n\t\t\t\t\tif (implementationTag.equals(node.getTag().getValue()))\r\n\t\t\t\t\t\treturn implementationClass;\r\n\t\t\t\r\n\t\t\treturn super.getClassForNode(node);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1038",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n\n/**\n* ownCloud - bookmarks plugin\n*\n* @author Arthur Schiwon\n* @copyright 2011 Arthur Schiwon blizzz@arthur-schiwon.de\n* \n* This library is free software; you can redistribute it and/or\n* modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE\n* License as published by the Free Software Foundation; either \n* version 3 of the License, or any later version.\n* \n* This library is distributed in the hope that it will be useful,\n* but WITHOUT ANY WARRANTY; without even the implied warranty of\n* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n* GNU AFFERO GENERAL PUBLIC LICENSE for more details.\n*  \n* You should have received a copy of the GNU Lesser General Public \n* License along with this library.  If not, see <http://www.gnu.org/licenses/>.\n* \n*/\n\n//no apps or filesystem\n$RUNTIME_NOSETUPFS=true;\n\n \n\n// Check if we are a user\nOCP\\JSON::checkLoggedIn();\nOCP\\JSON::checkAppEnabled('bookmarks');\n\n$id = $_POST['id'];\nif (!OC_Bookmarks_Bookmarks::deleteUrl($id)){\n\tOC_JSON::error();\n\texit();\n}\n\nOCP\\JSON::success();\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-352\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1056",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-352",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\nresult.highlightedNotePathTitle = result.notePathTitle.replace('/[<\\{\\}]/g', '');\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-352\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1080",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-352",
+   "language": "java",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nif app.GIT_PATH:\n            main_git = '\"' + app.GIT_PATH + '\"'\n        else:\n            main_git = 'git'\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1115",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n// name of the screenshot without the Cypress suffixes for test failures\n  const snapshotName = screenshotConfig.name.replace(/ \\(attempt [0-9]+\\)/, '')\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-434\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1219",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-434",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.js\nLines: see snippet\n\nCode:\n$id_check = $con->real_escape_string($id_check);\r\n\t/* ONLY USED BY CREATE.PHP, expects:\r\n<?php\r\n\t// Biiiggg TODO\r\n\tinclude '../setup/connect.php';\r\n\t$con = new mysqli($config_server, $config_user, $config_pass, $config_table);\r\n\t$sql=\"SELECT count(1) FROM sessions WHERE s_sid='\" . $session . \"' AND s_pass='\" . $pass . \"'\";\r\n\tif (!mysqli_query($con,$sql)) {\r\n\t\tdie('Error: ' . mysqli_error());\r\n\t}\r\n\t\r\n\t$result=$con->query($sql);\r\n\t$row = $result->fetch_array(MYSQLI_NUM);\r\n\t$total = $row[0];\r\n\tif($total == 1) {\r\n\t}\r\n\r\n\r\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1267",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "javascript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n/**\n * Iterator for arrays requiring filtered values\n *\n * @package Requests\n * @subpackage Utilities\n */\n\n/**\n * Iterator for arrays requiring filtered values\n *\n * @package Requests\n * @subpackage Utilities\n */\nclass Requests_Utility_FilteredIterator extends ArrayIterator {\n\t/**\n\t * Callback to run as a filter\n\t *\n\t * @var callable\n\t */\n\tprotected $callback;\n\n\t/**\n\t * Create a new iterator\n\t *\n\t * @param array $data\n\t * @param callable $callback Callback to be called on each value\n\t */\n\tpublic function __construct($data, $callback) {\n\t\tparent::__construct($data);\n\n\t\t$this->callback = $callback;\n\t}\n\n\t/**\n\t * Get the current item's value after filtering\n\t *\n\t * @return string\n\t */\n\tpublic function current() {\n\t\t$value = parent::current();\n\t\t$value = call_user_func($this->callback, $value);\n\t\treturn $value;\n\t}\n\n\t/**\n\t * @inheritdoc\n\t */\n\tpublic function unserialize( $serialized ) {\n\t}\n\n\t/**\n\t * @inheritdoc\n\t */\n\tpublic function __unserialize( $serialized ) { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.NewMagicMethods.__unserializeFound\n\t}\n\n\tpublic function __wakeup() { // phpcs:ignore PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.MethodDoubleUnderscore,PHPCompatibility.FunctionNameRestrictions.NewMagicMethods.__wakeupFound\n\t\tunset( $this->callback );\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1285",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n$gr['gr_use_access'] = 0;\n$sql_common = \" gr_subject = '{$_POST['gr_subject']}',\n                    set gr_subject    = '{$_POST['gr_subject'][$k]}',\n    $co['co_html'] = 2;\r\n    $co['co_skin'] = 'basic';\r\n    $co['co_mobile_skin'] = 'basic';\r\n            <input type=\"text\" name=\"nw_subject\" value=\"<?php echo stripslashes($nw['nw_subject']) ?>\" id=\"nw_subject\" required class=\"frm_input required\" size=\"80\">\r\n                nw_subject = '{$_POST['nw_subject']}',\r\n$mb_id = $_POST['mb_id'];\n$po_point = $_POST['po_point'];\n$po_content = $_POST['po_content'];\n    $write['bg_no'] = $bg_no;\r\n        <td><input type=\"text\" name=\"bk_name\" id=\"bk_name\" maxlength=\"50\" value=\"<?php echo $write['bk_name']?>\" required class=\"frm_input required\"></td>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-79\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1323",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nWhen /^I download the file '([^']+)'/ do |url|\n  unless ENV['REMOTE'] == 'true'\n    stub_request(:get, %r{/Monkey/testfile.txt}).\n      to_return(body: \"S3 Remote File\", headers: { \"Content-Type\" => \"text/plain\" })\n  end\n\n  @uploader.download!(url)\nend\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-918\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1378",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-918",
+   "language": "ruby",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.go\nLines: see snippet\n\nCode:\nRails.application.config.action_dispatch.cookies_serializer = :hybrid\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1390",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "go",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\ncon << ApplicationHelper.get_sql_like([:groups], \"|#{@group_id}|\")\n          con = ApplicationHelper.get_sql_like([:groups], \"|#{display_id}|\")\n          con = ApplicationHelper.get_sql_like([:teams], \"|#{display_id}|\")\n        con << ApplicationHelper.get_sql_like([:groups], \"|#{@group_id}|\")\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1422",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php defined('SYSPATH') or die('No direct script access.');\n\n/**\n* Model for Settings\n *\n * PHP version 5\n * LICENSE: This source file is subject to LGPL license \n * that is available through the world-wide-web at the following URI:\n * http://www.gnu.org/copyleft/lesser.html\n * @author     Ushahidi Team <team@ushahidi.com> \n * @package    Ushahidi - http://source.ushahididev.com\n * @subpackage Models\n * @copyright  Ushahidi - http://www.ushahidi.com\n * @license    http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License (LGPL) \n */\n\nclass Settings_Model extends ORM {\n\n\t/**\n\t * Database table name\n\t * @var string\n\t */\n\tprotected $table_name = 'settings';\n\t\n\t// Prevents cached items from being reloaded\n\tprotected $reload_on_wakeup   = FALSE;\n\n\t/**\n\t * Given the setting identifier, returns its value. If the identifier\n\t * is non-existed, a NULL value is returned\n\t *\n\t * @param string $key UniqueID of the settings item\n\t *\n\t * @return string\n\t */\n\tpublic static function get_setting($key)\n\t{\n\t\t$setting = ORM::factory('settings')->where('key', $key)->find();\n\n\t\treturn ($setting->loaded) ? $setting->value : NULL;\n\n\t}\n\n\t/**\n\t * Convenience method for the settings ORM when not loaded\n\t * with a specific settings value\n\t * @return string\n\t */\n\tpublic function get($key)\n\t{\n\t\treturn self::get_setting($key);\n\t}\n\n\t/**\n\t * Convenience method to save a single setting value\n\t *\n\t * @param string key Unique ID of the setting\n\t * @param string value Value for the setting item\n\t */\n\tpublic static function save_setting($key, $value)\n\t{\n\t\t$setting = ORM::factory('settings')->where('key', $key)->find();\n\t\t\n\t\t$setting->value = $value;\n\t\t$setting->save();\n\t}\n\n\t/**\n\t * Returns a key=>value array of the unique setting identifier\n\t * and its corresponding value\n\t *\n\t * @return array\n\t */\n\tpublic static function get_array()\n\t{\n\t\t$all_settings = ORM::factory('settings')->find_all();\n\t\t$settings = array();\n\t\tforeach ($all_settings as $setting)\n\t\t{\n\t\t\t$settings[$setting->key] = $setting->value;\n\t\t}\n\n\t\treturn $settings;\n\t}\n\n\t/**\n\t * Given a validation object, updates the settings table\n\t * with the values assigned to its properties\n\t *\n\t * @param Validation $settings Validation object\n\t */\n\tpublic static function save_all(Validation $settings)\n\t{\n\t\t// Get all the settings\n\t\t$all_settings = self::get_array();\n\n\t\t// Settings update query\n\t\t$query = sprintf(\"UPDATE `%ssettings` SET `value` = CASE `key` \", \n\t\t    Kohana::config('database.default.table_prefix'));\n\n\t\t// Used for building the query clauses for the final query\n\t\t$values = array();\n\t\t$keys = array();\n\t\t\n\t\t// Modification date\n\t\t$settings['date_modify'] = date(\"Y-m-d H:i:s\",time());\n\t\t\n\t\t// List of value to skip\n\t\t$skip = array('api_live');\n\t\tforeach ($settings as $key => $value)\n\t\t{\n\t\t\t// If an item has been marked for skipping or is a \n\t\t\t// non-existent setting, skip current iteration\n\t\t\tif (in_array($key, $skip) OR empty($key) OR ! array_key_exists($key, $all_settings))\n\t\t\t\tcontinue;\n\n\t\t\t// Check for the timezone\n\t\t\tif ($key === 'timezone' AND $value == 0)\n\t\t\t{\n\t\t\t\t$value = NULL;\n\t\t\t}\n\t\t\t\n\n\t\t\t$keys[] = Database::instance()->escape($key);\n\t\t\t$values[] = sprintf(\"WHEN %s THEN %s \", Database::instance()->escape($key), Database::instance()->escape($value));\n\t\t}\n\t\t\n\t\t// Construct the final query\n\t\t$query .= implode(\" \", $values).\"END WHERE `key` IN (%s)\";\n\t\t$query = sprintf($query, implode(\",\", $keys));\n\t\t\n\n\t\t// Performa batch update\n\t\tDatabase::instance()->query($query);\n\t}\n\n\n\t/**\n\t * Given an array of settings identifiers (unique values in the 'key' column),\n\t * returns a key => value array of the identifiers with their corresponding values\n\t * An exception is thrown if the parameter is not an array or is an empty\n\t * array\n\t *\n\t * @param    array $keys \n\t * @return   array\n\t */\n\tpublic function get_settings($keys)\n\t{\n\t\tif ( ! is_array($keys) OR empty($keys))\n\t\t\tthrow new Kohana_Exception(\"Invalid parameters\");\n\n\t\t$selected_settings = ORM::factory('settings')\n\t\t\t->in('key', $keys)\n\t\t\t->find_all();\n\n\n\t\t$settings = array();\n\t\tforeach ($selected_settings as $setting)\n\t\t{\n\t\t\t$settings[$setting->key] = $setting->value;\n\t\t}\n\n\t\treturn $settings;\n\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1460",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-94\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nif not PCSAuth.loginByToken(session, cookies) and not PCSAuth.isLoggedIn(session)\n      # If we're on /managec/<cluster_name>/main we redirect\n      match_expr = \"/managec/(.*)/(.*)\"\n      mymatch = request.path.match(match_expr)\n      on_managec_main = false\n      if mymatch and mymatch.length >= 3 and mymatch[2] == \"main\"\n        on_managec_main = true\n\n      if request.path.start_with?('/remote') or\n        (request.path.match(match_expr) and not on_managec_main) or\n        '/run_pcs' == request.path or\n        '/clusters_overview' == request.path or\n        request.path.start_with?('/permissions_')\n        $logger.info \"ERROR: Request without authentication\"\n      else\n        session[:pre_login_path] = request.path\n        redirect '/login'\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-94\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1487",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-94",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n<?php\n\n/**\n * Provides the JSON API for the file browser in the WYSIWYG editor.\n */\n\n$this->require_admin ();\n\n$page->layout = false;\n\nif (isset ($_POST['action'])) {\n\theader ('Content-Type: text/plain; charset=UTF-8');\n\t$_GET['action'] = $_POST['action'];\n} else {\n\theader ('Content-Type: application/json');\n\t$error = false;\n}\n\nswitch ($_GET['action']) {\n\tcase 'auth':\n\t\tif ($_GET['auth'] != 'jwysiwyg') {\n\t\t\t$error = 'Authorization failed.';\n\t\t\tbreak;\n\t\t}\n\t\t$out = array (\n\t\t\t'move' => array ('enabled' => false),\n\t\t\t'rename' => array ('enabled' => false),\n\t\t\t'remove' => array ('enabled' => false),\n\t\t\t'mkdir' => array ('enabled' => false),\n\t\t\t'upload' => array ('enabled' => true, 'handler' => '/filemanager/embed')\n\t\t);\n\t\tbreak;\n\tcase 'list':\n\t\t$ok = 0;\n\t\tif (! isset ($_GET['dir']) || $_GET['dir'] === '/') {\n\t\t\t$_GET['dir'] = '/files';\n\t\t}\n\t\tif ($_GET['dir'] === '/files') {\n\t\t\t$ok = 3;\n\t\t} else {\n\t\t\tif (strpos ($_GET['dir'], '..') === false) {\n\t\t\t\t$ok++;\n\t\t\t}\n\t\t\tif (strpos ($_GET['dir'], '/files/') === 0) {\n\t\t\t\t$ok++;\n\t\t\t}\n\t\t\tif (@is_dir (getcwd () . $_GET['dir'])) {\n\t\t\t\t$ok++;\n\t\t\t}\n\t\t}\n\t\tif ($ok < 3) {\n\t\t\t$error = 'Invalid directory: ' . $_GET['dir'];\n\t\t\tbreak;\n\t\t}\n\t\t$out = array (\n\t\t\t'directories' => array (),\n\t\t\t'files' => array ()\n\t\t);\n\t\t$d = dir (getcwd () . $_GET['dir']);\n\t\twhile (false !== ($entry = $d->read ())) {\n\t\t\tif (strpos ($entry, '.') === 0) {\n\t\t\t\tcontinue;\n\t\t\t} elseif (@is_dir (ltrim ($_GET['dir'], '/') . '/' . $entry)) {\n\t\t\t\t$out['directories'][$entry] = rtrim ($_GET['dir'], '/') . '/' . $entry;\n\t\t\t} else {\n\t\t\t\t$out['files'][$entry] = rtrim ($_GET['dir'], '/') . '/' . $entry;\n\t\t\t}\n\t\t}\n\t\t$d->close ();\n\t\tbreak;\n\tcase 'upload':\n\t\t$ok = 0;\n\t\t\n\t\t// prevent encoded symbols bypassing checks\n\t\t$_POST['dir'] = urldecode ($_POST['dir']);\n\t\t$_POST['newName'] = urldecode ($_POST['newName']);\n\n\t\tif (! isset ($_POST['dir']) || $_POST['dir'] === '/') {\n\t\t\t$_POST['dir'] = '/files';\n\t\t}\n\n\t\tif ($_POST['dir'] === '/files') {\n\t\t\t$ok = 3;\n\t\t} else {\n\t\t\tif (strpos ($_POST['dir'], '..') === false) {\n\t\t\t\t$ok++;\n\t\t\t}\n\n\t\t\tif (strpos ($_POST['dir'], '/files/') === 0) {\n\t\t\t\t$ok++;\n\t\t\t}\n\n\t\t\tif (is_dir (getcwd () . $_POST['dir'])) {\n\t\t\t\t$ok++;\n\t\t\t}\n\t\t}\n\t\t\n\t\tif ($ok < 3) {\n\t\t\techo __ ('Invalid directory');\n\t\t\treturn;\n\t\t}\n\t\t\n\t\tif (! isset ($_POST['newName'])) {\n\t\t\techo __ ('No name specified');\n\t\t\tbreak;\n\t\t}\n\n\t\tif (strpos ($_POST['newName'], '..') !== false || strpos ($_POST['newName'], '/') !== false) {\n\t\t\techo __ ('Invalid name');\n\t\t\treturn;\n\t\t}\n\t\t\n\t\t$_POST['newName'] = trim ($_POST['newName']);\n\t\t\n\t\tif (preg_match ('/\\.(php|phtml|pht|php3|php4|php5|phar|js|rb|py|pl|sh|bash|exe|htaccess|htpasswd)$/i', $_POST['newName'])) {\n\t\t\techo __ ('Invalid file type');\n\t\t\treturn;\n\t\t}\n\t\t\n\t\t$dest = ltrim ($_POST['dir'], '/') . '/' . $_POST['newName'];\n\n\t\tif (file_exists ($dest)) {\n\t\t\techo __ ('File already exists');\n\t\t\treturn;\n\t\t}\n\n\t\tif (! is_uploaded_file ($_FILES['handle']['tmp_name'])) {\n\t\t\techo __ ('File upload failed');\n\t\t\treturn;\n\t\t}\n\n\t\tif (! move_uploaded_file ($_FILES['handle']['tmp_name'], $dest)) {\n\t\t\techo __ ('File save failed');\n\t\t\treturn;\n\t\t}\n\n\t\techo 'File uploaded successfully';\n\t\treturn;\n}\n\nif ($error) {\n\techo json_encode (array (\n\t\t'success' => false,\n\t\t'error' => $error,\n\t\t'errno' => 1\n\t));\n} else {\n\techo json_encode (array (\n\t\t'success' => true,\n\t\t'data' => $out\n\t));\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-434\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1525",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-434",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n$state = \"'\" . $_GET['event'] . \"'\";\nmysql_query('INSERT INTO peer_torrent (peer_id, torrent_id, uploaded, downloaded, `left`, state, attempt, `last_updated`) '\n\t. 'SELECT ' . $pk_peer . ', `torrent`.`id`, ' . intval($_GET['uploaded']) . ', ' . intval($_GET['downloaded']) . ', ' . intval($_GET['left']) . ', ' . $state .  ', ' . 0 . ', UTC_TIMESTAMP() '\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-89\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1601",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nrequestedFile := filepath.Clean(web.Params(c.Req)[\"*\"])\n\tpluginFilePath := filepath.Join(plugin.PluginDir, requestedFile)\n\tif !plugin.IncludedInSignature(requestedFile) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-352\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1638",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-352",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-918\nClaimed severity: MEDIUM\nFile: module.rb\nLines: see snippet\n\nCode:\nif (strstr(strip_tags(strtolower($_FILES['editormd-image-file']['name'])), \".php\") \n            || strstr(strip_tags(strtolower($_FILES['editormd-image-file']['name'])), \".htm\") \n            || strstr(strip_tags(strtolower($_FILES['editormd-image-file']['name'])), \".svg\") \n            ) {\n        \n        if (strstr(strip_tags(strtolower($uploadFile['name'])), \".php\") \n            || strstr(strip_tags(strtolower($uploadFile['name'])), \".htm\") \n            || strstr(strip_tags(strtolower($uploadFile['name'])), \".svg\") \n            \n            ) {\n\t\tif (strstr(strip_tags(strtolower($uploadFile['name'])), \".php\")\n\t\t||  strstr(strip_tags(strtolower($uploadFile['name'])), \".php\")\n\t\t||  strstr(strip_tags(strtolower($uploadFile['name'])), \".svg\")\n\t\t\n\t\t) {\n\t}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-918\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1729",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-918",
+   "language": "ruby",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.txt\nLines: see snippet\n\nCode:\nif (!in_array($_FILES['vqmod']['type'], array('text/xml', 'application/xml'))) {\n        throw new Exception(language::translate('error_must_provide_vqmod', 'You must provide a valid vQmod file'));\n      move_uploaded_file($_FILES['vqmod']['tmp_name'], FS_DIR_HTTP_ROOT . WS_DIR_HTTP_HOME .'vqmod/xml/'. $_FILES['vqmod']['name']);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1761",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "typescript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: module.py\nLines: see snippet\n\nCode:\nfrom werkzeug.security import safe_join\nfrom werkzeug.security import safe_join\n    return safe_join(DATAROOT, obj_path)\n    return safe_join(INDEXDIR, index)\nfrom werkzeug.security import safe_join\n    return safe_join(DATAROOT, obj_path)\n    return safe_join(INDEXDIR, index)\nfrom werkzeug.security import safe_join\n\n    return safe_join(DATAROOT, obj_path)\n    return safe_join(INDEXDIR, index)\nfrom werkzeug.security import safe_join\n    return safe_join(DATAROOT, obj_path)\n    return safe_join(INDEXDIR, index)\nfrom werkzeug.security import safe_join\n    path = _get_obj_absolute_path(dataset, rel_path)\ndef _get_obj_absolute_path(dataset, rel_path):\n    return safe_join(DATAROOT, dataset, rel_path)\n        src_uri = 'file://' + _get_obj_absolute_path(dataset, rel_path)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-22\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1792",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-22",
+   "language": "python",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-611\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\n/*\n * Copyright 2015 McEvoy Software Ltd.\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a copy of the License at\n *\n *      http://www.apache.org/licenses/LICENSE-2.0\n *\n * Unless required by applicable law or agreed to in writing, software\n * distributed under the License is distributed on an \"AS IS\" BASIS,\n * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n * See the License for the specific language governing permissions and\n * limitations under the License.\n */\npackage io.milton.http.http11.auth;\n\nimport io.milton.common.Utils;\nimport io.milton.http.OAuth2TokenResponse;\nimport io.milton.resource.OAuth2Resource.OAuth2ProfileDetails;\nimport io.milton.resource.OAuth2Provider;\nimport java.net.MalformedURLException;\nimport java.net.URL;\nimport java.util.Map;\nimport org.apache.oltu.oauth2.client.OAuthClient;\nimport org.apache.oltu.oauth2.client.URLConnectionClient;\nimport org.apache.oltu.oauth2.client.request.OAuthBearerClientRequest;\nimport org.apache.oltu.oauth2.client.request.OAuthClientRequest;\nimport org.apache.oltu.oauth2.client.response.OAuthAccessTokenResponse;\nimport org.apache.oltu.oauth2.client.response.OAuthJSONAccessTokenResponse;\nimport org.apache.oltu.oauth2.client.response.OAuthResourceResponse;\nimport org.apache.oltu.oauth2.common.OAuth;\nimport org.apache.oltu.oauth2.common.exception.OAuthProblemException;\nimport org.apache.oltu.oauth2.common.exception.OAuthSystemException;\nimport org.apache.oltu.oauth2.common.message.types.GrantType;\nimport org.apache.oltu.oauth2.common.utils.JSONUtils;\nimport org.slf4j.Logger;\nimport org.slf4j.LoggerFactory;\n\n/**\n *\n * @author Lee YOU\n */\npublic class OAuth2Helper {\n\n\tprivate static final Logger log = LoggerFactory.getLogger(OAuth2Helper.class);\n\n\tpublic static URL getOAuth2URL(OAuth2Provider provider) {\n\t\tlog.trace(\"getOAuth2URL {}\", provider);\n\n\t\tString oAuth2Location = provider.getAuthLocation();\n\t\tString oAuth2ClientId = provider.getClientId();\n\t\tString scopes = Utils.toCsv(provider.getPermissionScopes(), false);\n\t\ttry {\n\t\t\tOAuthClientRequest oAuthRequest = OAuthClientRequest\n\t\t\t\t\t.authorizationLocation(oAuth2Location)\n\t\t\t\t\t.setClientId(oAuth2ClientId)\n\t\t\t\t\t.setResponseType(\"code\")\n\t\t\t\t\t.setScope(scopes)\n\t\t\t\t\t.setState(provider.getProviderId())\n\t\t\t\t\t.setRedirectURI(provider.getRedirectURI())\n\t\t\t\t\t.buildQueryMessage();\n\n\t\t\treturn new URL(oAuthRequest.getLocationUri());\n\t\t} catch (OAuthSystemException oAuthSystemException) {\n\t\t\tthrow new RuntimeException(oAuthSystemException);\n\t\t} catch (MalformedURLException malformedURLException) {\n\t\t\tthrow new RuntimeException(malformedURLException);\n\t\t}\n\n\t}\n\n\tprivate final NonceProvider nonceProvider;\n\n\tpublic OAuth2Helper(NonceProvider nonceProvider) {\n\t\tthis.nonceProvider = nonceProvider;\n\t}\n\n\t// Sept 2, After Got The Authorization Code(a Access Permission), then Granting the Access Token.\n\tpublic OAuthAccessTokenResponse obtainAuth2Token(OAuth2Provider provider, String accessCode) throws OAuthSystemException, OAuthProblemException {\n\t\tlog.trace(\"obtainAuth2Token code={}, provider={}\", accessCode, provider);\n\n\t\tString oAuth2ClientId = provider.getClientId();\n\t\tString oAuth2TokenLocation = provider.getTokenLocation();\n\t\tString oAuth2ClientSecret = provider.getClientSecret();\n\t\tString oAuth2RedirectURI = provider.getRedirectURI();\n\n\t\tOAuthClientRequest oAuthRequest = OAuthClientRequest\n\t\t\t\t.tokenLocation(oAuth2TokenLocation)\n\t\t\t\t.setGrantType(GrantType.AUTHORIZATION_CODE)\n\t\t\t\t.setRedirectURI(oAuth2RedirectURI)\n\t\t\t\t.setCode(accessCode)\n\t\t\t\t.setClientId(oAuth2ClientId)\n\t\t\t\t.setClientSecret(oAuth2ClientSecret)\n\t\t\t\t.buildBodyMessage();\n\n\t\tOAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());\n\n\t\t// This works for facebook\n\t\tOAuthAccessTokenResponse oAuth2Response2 = oAuthClient.accessToken(oAuthRequest, OAuth2TokenResponse.class);\n\t\t//return oAuth2Response;\n\n\t\t// This might work for google\n\t\tOAuthJSONAccessTokenResponse o;\n\t\t//OAuthAccessTokenResponse oAuth2Response2 = oAuthClient.accessToken(oAuthRequest, OAuth2TokenResponse.class);\n\t\treturn oAuth2Response2;\n\n\t}\n\n\t// Sept 3, GET the profile of the user.\n\tpublic OAuthResourceResponse getOAuth2Profile(OAuthAccessTokenResponse oAuth2Response, OAuth2Provider provider)\n\t\t\tthrows OAuthSystemException, OAuthProblemException {\n\n\t\tlog.trace(\"getOAuth2Profile start {}\", oAuth2Response);\n\n\t\tString accessToken = oAuth2Response.getAccessToken();\n\t\tString userProfileLocation = provider.getProfileLocation();\n\n\t\tOAuthClientRequest bearerClientRequest\n\t\t\t\t= new OAuthBearerClientRequest(userProfileLocation)\n\t\t\t\t.setAccessToken(accessToken)\n\t\t\t\t.buildQueryMessage();\n\n\t\tOAuthClient oAuthClient = new OAuthClient(new URLConnectionClient());\n\n\t\treturn oAuthClient.resource(bearerClientRequest, OAuth.HttpMethod.GET, OAuthResourceResponse.class);\n\t}\n\n\tpublic OAuth2ProfileDetails getOAuth2UserInfo(OAuthResourceResponse resourceResponse, OAuthAccessTokenResponse tokenResponse, String oAuth2Code) {\n\t\tlog.trace(\" getOAuth2UserId start...\" + resourceResponse);\n\t\tif (resourceResponse == null) {\n\t\t\treturn null;\n\t\t}\n\n\t\tString resourceResponseBody = resourceResponse.getBody();\n\t\tlog.trace(\" OAuthResourceResponse, body{}\" + resourceResponseBody);\n\n\t\tMap responseMap = JSONUtils.parseJSON(resourceResponseBody);\n\t\tString userID = (String) responseMap.get(\"id\");\n\t\tString userName = (String) responseMap.get(\"username\");\n\n\t\tOAuth2ProfileDetails user = new OAuth2ProfileDetails();\n\t\tuser.setCode(oAuth2Code);\n\t\tuser.setAccessToken(tokenResponse.getAccessToken());\n\t\tuser.setDetails(responseMap);\n\n\t\tif (log.isTraceEnabled()) {\n\t\t\tlog.trace(\" userID{}\" + userID);\n\t\t\tlog.trace(\" userName{}\" + userName);\n\t\t\tlog.trace(\" oAuth2Code{}\" + oAuth2Code);\n\t\t\tlog.trace(\" AccessToken{}\" + user.getAccessToken());\n\t\t\tlog.trace(\"\\n\\n\");\n\t\t}\n\n\t\treturn user;\n\t}\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-611\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1857",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-611",
+   "language": "java",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\ninfluxdb\n    requires = ['psutil>=5.3.0', 'future']\n        'gpu': ['py3nvml'],\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1867",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-434\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\n* Define allowed mime type.\n$_SETTINGS[\"VALID_IMAGE_TYPE_FOR_UPLOAD\"] = array(\"jpeg\", \"jpg\", \"png\");\n$_SETTINGS[\"VALID_DOCUMENT_TYPE_FOR_UPLOAD\"] = array(\"pdf\", \"msword\", \"vnd.openxmlformats-officedocument.wordprocessingml.document\", \"vnd.ms-excel\", \"vnd.openxmlformats-officedocument.spreadsheetml.sheet\");\n\n$_SETTINGS[\"VALID_AUDIO_TYPE_FOR_UPLOAD\"] = array(\"mpeg\", \"ogg\", \"opus\", \"aac\", \"wav\", \"webm\");\nfunction easyUpload( \n    $type = strtolower($type);\n    $extensionName = strtolower(explode(\"/\", $file[\"type\"])[1]);\n    $validExtensionForUpload = [];\n        case \"image\":       $validExtensionForUpload = $_SETTINGS[\"VALID_IMAGE_TYPE_FOR_UPLOAD\"]; break;\n        case \"document\":    $validExtensionForUpload = $_SETTINGS[\"VALID_DOCUMENT_TYPE_FOR_UPLOAD\"]; break;\n        case \"video\":       $validExtensionForUpload = $_SETTINGS[\"VALID_VIDEO_TYPE_FOR_UPLOAD\"]; break;\n        case \"audio\":       $validExtensionForUpload = $_SETTINGS[\"VALID_AUDIO_TYPE_FOR_UPLOAD\"]; break;\n        case \"program\":     $validExtensionForUpload = $_SETTINGS[\"VALID_PROGRAM_TYPE_FOR_UPLOAD\"]; break;\n        case 'all':         $validExtensionForUpload = array_merge($_SETTINGS[\"VALID_IMAGE_TYPE_FOR_UPLOAD\"], $_SETTINGS[\"VALID_DOCUMENT_TYPE_FOR_UPLOAD\"]); break;\n    }\n    \n    if(!in_array($extensionName, $validExtensionForUpload)) {\n\n        $validExtensionNameList = join(\", \", $validExtensionForUpload);\n\n        return \"Invalid {$type} type. Only {$validExtensionNameList} {$type} type are allowed to upload\";\n    /**\n     * If location is set to db then return the image as blob string\n     * Otherwise save the image in the desired location\n     */\n    if($location == \"db\") {\n        \n        return array (\n            \"success\"       => true,\n            \"imageType\"     => $file[\"type\"],\n            \"blobString\"    => file_get_contents($file[\"tmp_name\"])\n        );\n    } else {\n        \n        $uploadDir = DIR_UPLOAD . $location;\n        if(!is_dir($uploadDir) && !mkdir($uploadDir, 0777, true)) {\n            return \"Error creating directory\";\n        }\n\n        // If newFileName is not empty then change the file name by given\n        $file_name = rand().$file[\"name\"];\n        if(!empty($newFileName)) {\n\n            $file_extension = explode(\".\", $file_name);\n            $file_extension = end($file_extension);\n            $file_name = $newFileName . \".\" . $file_extension;\n\n        }\n\n\n        if(move_uploaded_file($file[\"tmp_name\"], $uploadDir .\"/\" . $file_name )) {\n                \"success\"      => true,\n                \"fileName\"     => $file_name\n            return \"Can not upload the file\";\n        }\n        /*\n        //upload code here\n        $data=file_get_contents($_FILES[$fileInputName][\"tmp_name\"]);\n        //upload webp\n        imagewebp(imagecreatefromstring($data),$location.$uploadedFileName.\".webp\",75);\n        //upload orginal image\n        switch($type){\n            case \"jpeg\":  imagejpeg(imagecreatefromstring($data),$location.$uploadedFileName.\".jpeg\",75);\n                          imagejpeg(imagescale(imagecreatefromstring($data), 200, 200), $location.$uploadedFileName.\"_thumb.jpeg\",80);\n                          \n                          break;\n            case \"png\":   imagepng(imagecreatefromstring($data),$location.$uploadedFileName.\".png\",75);\n                          imagepng(imagescale(imagecreatefromstring($data), 200, 200), $location.$uploadedFileName.\"_thumb.png\",80);\n                          break;\n            default:      imagejpeg(imagecreatefromstring($data),$location.$uploadedFileName.\".jpg\",75);\n                          imagejpeg(imagescale(imagecreatefromstring($data), 200, 200), $location.$uploadedFileName.\"_thumb.jpg\",80);\n                          break;\n        //upload webp thumb\n        imagewebp(imagescale(imagecreatefromstring($data), 200, 200), $location.$uploadedFileName.\"_thumb.webp\",80);\n        \n        */\n    }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: A user-controlled value reaches a sensitive sink without adequate validation or neutralization in the shown code.\nRealCWE: CWE-434\nSuggestedFix: Validate and neutralize the untrusted input before the sink."
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1888",
+   "verdict": "TRUE_POSITIVE",
+   "claimed_cwe": "CWE-434",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.txt\nLines: see snippet\n\nCode:\nvalue: '(?<orgid>.*)',\n          value: '(?<projectid>.*)',\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1893",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "typescript",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nif (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], '/index.php') !== false) {\n    header('Location: ' . str_ireplace('/index.php', '/', $_SERVER['REQUEST_URI']));\n    die;\n}\n\n    <a class=\"logocompatible\" href=\"{base_url}\">\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1925",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-89",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nif (!static::isPermittedPath($lang_file) || !file_exists($lang_file)) {\n            if (!static::isPermittedPath($path) || !@is_file($path) || !is_readable($path)) {\n            if (!static::isPermittedPath($path) || !file_exists($path) || !is_readable($path)) {\n            if (!static::isPermittedPath($path) || !@is_file($path) || !is_readable($path)) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1948",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-79",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-78\nClaimed severity: MEDIUM\nFile: module.go\nLines: see snippet\n\nCode:\npackage native\n\nimport (\n\t\"bytes\"\n\t\"fmt\"\n\t\"text/template\"\n\n\ttypes \"github.com/go-vela/types/yaml\"\n\n\t\"github.com/Masterminds/sprig\"\n\n\tyaml \"gopkg.in/yaml.v2\"\n)\n\n// Render combines the template with the step in the yaml pipeline.\nfunc Render(tmpl string, s *types.Step) (types.StepSlice, error) {\n\tbuffer := new(bytes.Buffer)\n\tconfig := new(types.Build)\n\n\tvelaFuncs := funcHandler{envs: convertPlatformVars(s.Environment)}\n\ttemplateFuncMap := map[string]interface{}{\n\t\t\"vela\": velaFuncs.returnPlatformVar,\n\t}\n\t// modify Masterminds/sprig functions\n\t// to remove OS functions\n\t//\n\t// https://masterminds.github.io/sprig/os.html\n\tsf := sprig.TxtFuncMap()\n\tdelete(sf, \"env\")\n\tdelete(sf, \"expandenv\")\n\n\t// parse the template with Masterminds/sprig functions\n\t//\n\t// https://pkg.go.dev/github.com/Masterminds/sprig?tab=doc#TxtFuncMap\n\tt, err := template.New(s.Name).Funcs(sf).Funcs(templateFuncMap).Parse(tmpl)\n\tif err != nil {\n\t\treturn types.StepSlice{}, fmt.Errorf(\"unable to parse template %s: %v\", s.Template.Name, err)\n\t}\n\n\t// apply the variables to the parsed template\n\terr = t.Execute(buffer, s.Template.Variables)\n\tif err != nil {\n\t\treturn types.StepSlice{}, fmt.Errorf(\"unable to execute template %s: %v\", s.Template.Name, err)\n\t}\n\n\t// unmarshal the template to the pipeline\n\terr = yaml.Unmarshal(buffer.Bytes(), config)\n\tif err != nil {\n\t\treturn types.StepSlice{}, fmt.Errorf(\"unable to unmarshal yaml: %v\", err)\n\t}\n\n\t// ensure all templated steps have template prefix\n\tfor index, newStep := range config.Steps {\n\t\tconfig.Steps[index].Name = fmt.Sprintf(\"%s_%s\", s.Name, newStep.Name)\n\t}\n\n\treturn config.Steps, nil\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-78\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1962",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-78",
+   "language": "go",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-352\nClaimed severity: MEDIUM\nFile: module.php\nLines: see snippet\n\nCode:\nfunc sh(c string) (string, error) {\n\tcmd := exec.Command(\"/bin/sh\", \"-c\", c)\n\to, err := cmd.CombinedOutput()\n\treturn string(o), err\n// AudioToWav converts audio to wav for transcribe. It bashes out to ffmpeg\n\tout, err := sh(fmt.Sprintf(\"ffmpeg -i %s -format s16le -ar 16000 -ac 1 -acodec pcm_s16le %s\", src, dst))\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-352\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_1974",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-352",
+   "language": "php",
+   "source": "clean_anchor"
+  }
+ },
+ {
+  "messages": [
+   {
+    "role": "system",
+    "content": "You are a security triage assistant. Given a code snippet and a SAST finding, decide true positive or false positive. Always output the structured format requested."
+   },
+   {
+    "role": "user",
+    "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-502\nClaimed severity: MEDIUM\nFile: module.java\nLines: see snippet\n\nCode:\npackage org.bouncycastle.pqc.crypto.rainbow;\n\nimport org.bouncycastle.crypto.CipherParameters;\n\npublic class RainbowParameters\n    implements CipherParameters\n{\n\n    /**\n     * DEFAULT PARAMS\n     */\n    /*\n      * Vi = vinegars per layer whereas n is vu (vu = 33 = n) such that\n      *\n      * v1 = 6; o1 = 12-6 = 6\n      *\n      * v2 = 12; o2 = 17-12 = 5\n      *\n      * v3 = 17; o3 = 22-17 = 5\n      *\n      * v4 = 22; o4 = 33-22 = 11\n      *\n      * v5 = 33; (o5 = 0)\n      */\n    private final int[] DEFAULT_VI = {6, 12, 17, 22, 33};\n\n    private int[] vi;// set of vinegar vars per layer.\n\n    /**\n     * Default Constructor The elements of the array containing the number of\n     * Vinegar variables in each layer are set to the default values here.\n     */\n    public RainbowParameters()\n    {\n        this.vi = this.DEFAULT_VI;\n    }\n\n    /**\n     * Constructor with parameters\n     *\n     * @param vi The elements of the array containing the number of Vinegar\n     *           variables per layer are set to the values of the input array.\n     */\n    public RainbowParameters(int[] vi)\n    {\n        this.vi = vi;\n\n        checkParams();\n    }\n\n    private void checkParams()\n    {\n        if (vi == null)\n        {\n            throw new IllegalArgumentException(\"no layers defined.\");\n        }\n        if (vi.length > 1)\n        {\n            for (int i = 0; i < vi.length - 1; i++)\n            {\n                if (vi[i] >= vi[i + 1])\n                {\n                    throw new IllegalArgumentException(\n                        \"v[i] has to be smaller than v[i+1]\");\n                }\n            }\n        }\n        else\n        {\n            throw new IllegalArgumentException(\n                \"Rainbow needs at least 1 layer, such that v1 < v2.\");\n        }\n    }\n\n    /**\n     * Getter for the number of layers\n     *\n     * @return the number of layers\n     */\n    public int getNumOfLayers()\n    {\n        return this.vi.length - 1;\n    }\n\n    /**\n     * Getter for the number of all the polynomials in Rainbow\n     *\n     * @return the number of the polynomials\n     */\n    public int getDocLength()\n    {\n        return vi[vi.length - 1] - vi[0];\n    }\n\n    /**\n     * Getter for the array containing the number of Vinegar-variables per layer\n     *\n     * @return the numbers of vinegars per layer\n     */\n    public int[] getVi()\n    {\n        return this.vi;\n    }\n}\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">"
+   },
+   {
+    "role": "assistant",
+    "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is not reachable with attacker-controlled input or is properly neutralized in the shown code, so the finding is noise.\nRealCWE: CWE-502\nSuggestedFix: N/A"
+   }
+  ],
+  "metadata": {
+   "case_id": "anchor_2025",
+   "verdict": "FALSE_POSITIVE",
+   "claimed_cwe": "CWE-502",
+   "language": "java",
+   "source": "clean_anchor"
+  }
+ }
+]
