@@ -1,0 +1,2129 @@
+{
+  "rows": [
+    {
+      "case_id": "crossvul-pair-103_vuln",
+      "pair_id": "crossvul-pair-103",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-103_safe",
+      "pair_id": "crossvul-pair-103",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1034_vuln",
+      "pair_id": "crossvul-pair-1034",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1034_safe",
+      "pair_id": "crossvul-pair-1034",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1072_vuln",
+      "pair_id": "crossvul-pair-1072",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1072_safe",
+      "pair_id": "crossvul-pair-1072",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-108_vuln",
+      "pair_id": "crossvul-pair-108",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-108_safe",
+      "pair_id": "crossvul-pair-108",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1091_vuln",
+      "pair_id": "crossvul-pair-1091",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1091_safe",
+      "pair_id": "crossvul-pair-1091",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1126_vuln",
+      "pair_id": "crossvul-pair-1126",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1126_safe",
+      "pair_id": "crossvul-pair-1126",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1136_vuln",
+      "pair_id": "crossvul-pair-1136",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1136_safe",
+      "pair_id": "crossvul-pair-1136",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1139_vuln",
+      "pair_id": "crossvul-pair-1139",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1139_safe",
+      "pair_id": "crossvul-pair-1139",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1145_vuln",
+      "pair_id": "crossvul-pair-1145",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1145_safe",
+      "pair_id": "crossvul-pair-1145",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1146_vuln",
+      "pair_id": "crossvul-pair-1146",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1146_safe",
+      "pair_id": "crossvul-pair-1146",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1147_vuln",
+      "pair_id": "crossvul-pair-1147",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1147_safe",
+      "pair_id": "crossvul-pair-1147",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1149_vuln",
+      "pair_id": "crossvul-pair-1149",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1149_safe",
+      "pair_id": "crossvul-pair-1149",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1151_vuln",
+      "pair_id": "crossvul-pair-1151",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1151_safe",
+      "pair_id": "crossvul-pair-1151",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1157_vuln",
+      "pair_id": "crossvul-pair-1157",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1157_safe",
+      "pair_id": "crossvul-pair-1157",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1159_vuln",
+      "pair_id": "crossvul-pair-1159",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1159_safe",
+      "pair_id": "crossvul-pair-1159",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1165_vuln",
+      "pair_id": "crossvul-pair-1165",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1165_safe",
+      "pair_id": "crossvul-pair-1165",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1208_vuln",
+      "pair_id": "crossvul-pair-1208",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1208_safe",
+      "pair_id": "crossvul-pair-1208",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1225_vuln",
+      "pair_id": "crossvul-pair-1225",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1225_safe",
+      "pair_id": "crossvul-pair-1225",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1292_vuln",
+      "pair_id": "crossvul-pair-1292",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1292_safe",
+      "pair_id": "crossvul-pair-1292",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1294_vuln",
+      "pair_id": "crossvul-pair-1294",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1294_safe",
+      "pair_id": "crossvul-pair-1294",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1308_vuln",
+      "pair_id": "crossvul-pair-1308",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1308_safe",
+      "pair_id": "crossvul-pair-1308",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1344_vuln",
+      "pair_id": "crossvul-pair-1344",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1344_safe",
+      "pair_id": "crossvul-pair-1344",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1345_vuln",
+      "pair_id": "crossvul-pair-1345",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1345_safe",
+      "pair_id": "crossvul-pair-1345",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1347_vuln",
+      "pair_id": "crossvul-pair-1347",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1347_safe",
+      "pair_id": "crossvul-pair-1347",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1348_vuln",
+      "pair_id": "crossvul-pair-1348",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1348_safe",
+      "pair_id": "crossvul-pair-1348",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-137_vuln",
+      "pair_id": "crossvul-pair-137",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-137_safe",
+      "pair_id": "crossvul-pair-137",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1393_vuln",
+      "pair_id": "crossvul-pair-1393",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1393_safe",
+      "pair_id": "crossvul-pair-1393",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1440_vuln",
+      "pair_id": "crossvul-pair-1440",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1440_safe",
+      "pair_id": "crossvul-pair-1440",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1480_vuln",
+      "pair_id": "crossvul-pair-1480",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1480_safe",
+      "pair_id": "crossvul-pair-1480",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1541_vuln",
+      "pair_id": "crossvul-pair-1541",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1541_safe",
+      "pair_id": "crossvul-pair-1541",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1556_vuln",
+      "pair_id": "crossvul-pair-1556",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1556_safe",
+      "pair_id": "crossvul-pair-1556",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1557_vuln",
+      "pair_id": "crossvul-pair-1557",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1557_safe",
+      "pair_id": "crossvul-pair-1557",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-165_vuln",
+      "pair_id": "crossvul-pair-165",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-165_safe",
+      "pair_id": "crossvul-pair-165",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1676_vuln",
+      "pair_id": "crossvul-pair-1676",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1676_safe",
+      "pair_id": "crossvul-pair-1676",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1689_vuln",
+      "pair_id": "crossvul-pair-1689",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1689_safe",
+      "pair_id": "crossvul-pair-1689",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1690_vuln",
+      "pair_id": "crossvul-pair-1690",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1690_safe",
+      "pair_id": "crossvul-pair-1690",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1691_vuln",
+      "pair_id": "crossvul-pair-1691",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1691_safe",
+      "pair_id": "crossvul-pair-1691",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-173_vuln",
+      "pair_id": "crossvul-pair-173",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-173_safe",
+      "pair_id": "crossvul-pair-173",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1735_vuln",
+      "pair_id": "crossvul-pair-1735",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1735_safe",
+      "pair_id": "crossvul-pair-1735",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1759_vuln",
+      "pair_id": "crossvul-pair-1759",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1759_safe",
+      "pair_id": "crossvul-pair-1759",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1873_vuln",
+      "pair_id": "crossvul-pair-1873",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1873_safe",
+      "pair_id": "crossvul-pair-1873",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1879_vuln",
+      "pair_id": "crossvul-pair-1879",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1879_safe",
+      "pair_id": "crossvul-pair-1879",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1921_vuln",
+      "pair_id": "crossvul-pair-1921",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1921_safe",
+      "pair_id": "crossvul-pair-1921",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1945_vuln",
+      "pair_id": "crossvul-pair-1945",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1945_safe",
+      "pair_id": "crossvul-pair-1945",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1958_vuln",
+      "pair_id": "crossvul-pair-1958",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1958_safe",
+      "pair_id": "crossvul-pair-1958",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-1966_vuln",
+      "pair_id": "crossvul-pair-1966",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1966_safe",
+      "pair_id": "crossvul-pair-1966",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1977_vuln",
+      "pair_id": "crossvul-pair-1977",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-1977_safe",
+      "pair_id": "crossvul-pair-1977",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2049_vuln",
+      "pair_id": "crossvul-pair-2049",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2049_safe",
+      "pair_id": "crossvul-pair-2049",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2053_vuln",
+      "pair_id": "crossvul-pair-2053",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2053_safe",
+      "pair_id": "crossvul-pair-2053",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2055_vuln",
+      "pair_id": "crossvul-pair-2055",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2055_safe",
+      "pair_id": "crossvul-pair-2055",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2066_vuln",
+      "pair_id": "crossvul-pair-2066",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2066_safe",
+      "pair_id": "crossvul-pair-2066",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2088_vuln",
+      "pair_id": "crossvul-pair-2088",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2088_safe",
+      "pair_id": "crossvul-pair-2088",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2092_vuln",
+      "pair_id": "crossvul-pair-2092",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2092_safe",
+      "pair_id": "crossvul-pair-2092",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2113_vuln",
+      "pair_id": "crossvul-pair-2113",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2113_safe",
+      "pair_id": "crossvul-pair-2113",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2178_vuln",
+      "pair_id": "crossvul-pair-2178",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2178_safe",
+      "pair_id": "crossvul-pair-2178",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2186_vuln",
+      "pair_id": "crossvul-pair-2186",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2186_safe",
+      "pair_id": "crossvul-pair-2186",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2196_vuln",
+      "pair_id": "crossvul-pair-2196",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2196_safe",
+      "pair_id": "crossvul-pair-2196",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2228_vuln",
+      "pair_id": "crossvul-pair-2228",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2228_safe",
+      "pair_id": "crossvul-pair-2228",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-223_vuln",
+      "pair_id": "crossvul-pair-223",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-223_safe",
+      "pair_id": "crossvul-pair-223",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2230_vuln",
+      "pair_id": "crossvul-pair-2230",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2230_safe",
+      "pair_id": "crossvul-pair-2230",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-224_vuln",
+      "pair_id": "crossvul-pair-224",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-224_safe",
+      "pair_id": "crossvul-pair-224",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2267_vuln",
+      "pair_id": "crossvul-pair-2267",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2267_safe",
+      "pair_id": "crossvul-pair-2267",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2280_vuln",
+      "pair_id": "crossvul-pair-2280",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2280_safe",
+      "pair_id": "crossvul-pair-2280",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2318_vuln",
+      "pair_id": "crossvul-pair-2318",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2318_safe",
+      "pair_id": "crossvul-pair-2318",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2329_vuln",
+      "pair_id": "crossvul-pair-2329",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2329_safe",
+      "pair_id": "crossvul-pair-2329",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2361_vuln",
+      "pair_id": "crossvul-pair-2361",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2361_safe",
+      "pair_id": "crossvul-pair-2361",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2367_vuln",
+      "pair_id": "crossvul-pair-2367",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2367_safe",
+      "pair_id": "crossvul-pair-2367",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2368_vuln",
+      "pair_id": "crossvul-pair-2368",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2368_safe",
+      "pair_id": "crossvul-pair-2368",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2451_vuln",
+      "pair_id": "crossvul-pair-2451",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2451_safe",
+      "pair_id": "crossvul-pair-2451",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2470_vuln",
+      "pair_id": "crossvul-pair-2470",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2470_safe",
+      "pair_id": "crossvul-pair-2470",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2495_vuln",
+      "pair_id": "crossvul-pair-2495",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2495_safe",
+      "pair_id": "crossvul-pair-2495",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2516_vuln",
+      "pair_id": "crossvul-pair-2516",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2516_safe",
+      "pair_id": "crossvul-pair-2516",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2653_vuln",
+      "pair_id": "crossvul-pair-2653",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2653_safe",
+      "pair_id": "crossvul-pair-2653",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2772_vuln",
+      "pair_id": "crossvul-pair-2772",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2772_safe",
+      "pair_id": "crossvul-pair-2772",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2805_vuln",
+      "pair_id": "crossvul-pair-2805",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2805_safe",
+      "pair_id": "crossvul-pair-2805",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2817_vuln",
+      "pair_id": "crossvul-pair-2817",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2817_safe",
+      "pair_id": "crossvul-pair-2817",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2821_vuln",
+      "pair_id": "crossvul-pair-2821",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2821_safe",
+      "pair_id": "crossvul-pair-2821",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2827_vuln",
+      "pair_id": "crossvul-pair-2827",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2827_safe",
+      "pair_id": "crossvul-pair-2827",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2844_vuln",
+      "pair_id": "crossvul-pair-2844",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2844_safe",
+      "pair_id": "crossvul-pair-2844",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2849_vuln",
+      "pair_id": "crossvul-pair-2849",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2849_safe",
+      "pair_id": "crossvul-pair-2849",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2857_vuln",
+      "pair_id": "crossvul-pair-2857",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2857_safe",
+      "pair_id": "crossvul-pair-2857",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2860_vuln",
+      "pair_id": "crossvul-pair-2860",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2860_safe",
+      "pair_id": "crossvul-pair-2860",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2873_vuln",
+      "pair_id": "crossvul-pair-2873",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2873_safe",
+      "pair_id": "crossvul-pair-2873",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2904_vuln",
+      "pair_id": "crossvul-pair-2904",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2904_safe",
+      "pair_id": "crossvul-pair-2904",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2926_vuln",
+      "pair_id": "crossvul-pair-2926",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2926_safe",
+      "pair_id": "crossvul-pair-2926",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2954_vuln",
+      "pair_id": "crossvul-pair-2954",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2954_safe",
+      "pair_id": "crossvul-pair-2954",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2961_vuln",
+      "pair_id": "crossvul-pair-2961",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2961_safe",
+      "pair_id": "crossvul-pair-2961",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2962_vuln",
+      "pair_id": "crossvul-pair-2962",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2962_safe",
+      "pair_id": "crossvul-pair-2962",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2971_vuln",
+      "pair_id": "crossvul-pair-2971",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2971_safe",
+      "pair_id": "crossvul-pair-2971",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-2979_vuln",
+      "pair_id": "crossvul-pair-2979",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-2979_safe",
+      "pair_id": "crossvul-pair-2979",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3034_vuln",
+      "pair_id": "crossvul-pair-3034",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3034_safe",
+      "pair_id": "crossvul-pair-3034",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3064_vuln",
+      "pair_id": "crossvul-pair-3064",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3064_safe",
+      "pair_id": "crossvul-pair-3064",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3096_vuln",
+      "pair_id": "crossvul-pair-3096",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3096_safe",
+      "pair_id": "crossvul-pair-3096",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3101_vuln",
+      "pair_id": "crossvul-pair-3101",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3101_safe",
+      "pair_id": "crossvul-pair-3101",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3113_vuln",
+      "pair_id": "crossvul-pair-3113",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3113_safe",
+      "pair_id": "crossvul-pair-3113",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3138_vuln",
+      "pair_id": "crossvul-pair-3138",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3138_safe",
+      "pair_id": "crossvul-pair-3138",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3139_vuln",
+      "pair_id": "crossvul-pair-3139",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3139_safe",
+      "pair_id": "crossvul-pair-3139",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3235_vuln",
+      "pair_id": "crossvul-pair-3235",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3235_safe",
+      "pair_id": "crossvul-pair-3235",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3354_vuln",
+      "pair_id": "crossvul-pair-3354",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3354_safe",
+      "pair_id": "crossvul-pair-3354",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3494_vuln",
+      "pair_id": "crossvul-pair-3494",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3494_safe",
+      "pair_id": "crossvul-pair-3494",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3506_vuln",
+      "pair_id": "crossvul-pair-3506",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3506_safe",
+      "pair_id": "crossvul-pair-3506",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3544_vuln",
+      "pair_id": "crossvul-pair-3544",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3544_safe",
+      "pair_id": "crossvul-pair-3544",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3545_vuln",
+      "pair_id": "crossvul-pair-3545",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3545_safe",
+      "pair_id": "crossvul-pair-3545",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3608_vuln",
+      "pair_id": "crossvul-pair-3608",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3608_safe",
+      "pair_id": "crossvul-pair-3608",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3613_vuln",
+      "pair_id": "crossvul-pair-3613",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3613_safe",
+      "pair_id": "crossvul-pair-3613",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3623_vuln",
+      "pair_id": "crossvul-pair-3623",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3623_safe",
+      "pair_id": "crossvul-pair-3623",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3625_vuln",
+      "pair_id": "crossvul-pair-3625",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3625_safe",
+      "pair_id": "crossvul-pair-3625",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3642_vuln",
+      "pair_id": "crossvul-pair-3642",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3642_safe",
+      "pair_id": "crossvul-pair-3642",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3700_vuln",
+      "pair_id": "crossvul-pair-3700",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3700_safe",
+      "pair_id": "crossvul-pair-3700",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3729_vuln",
+      "pair_id": "crossvul-pair-3729",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3729_safe",
+      "pair_id": "crossvul-pair-3729",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3798_vuln",
+      "pair_id": "crossvul-pair-3798",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3798_safe",
+      "pair_id": "crossvul-pair-3798",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3811_vuln",
+      "pair_id": "crossvul-pair-3811",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3811_safe",
+      "pair_id": "crossvul-pair-3811",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3816_vuln",
+      "pair_id": "crossvul-pair-3816",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3816_safe",
+      "pair_id": "crossvul-pair-3816",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3879_vuln",
+      "pair_id": "crossvul-pair-3879",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3879_safe",
+      "pair_id": "crossvul-pair-3879",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-3899_vuln",
+      "pair_id": "crossvul-pair-3899",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-3899_safe",
+      "pair_id": "crossvul-pair-3899",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4024_vuln",
+      "pair_id": "crossvul-pair-4024",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4024_safe",
+      "pair_id": "crossvul-pair-4024",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4068_vuln",
+      "pair_id": "crossvul-pair-4068",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4068_safe",
+      "pair_id": "crossvul-pair-4068",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4097_vuln",
+      "pair_id": "crossvul-pair-4097",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4097_safe",
+      "pair_id": "crossvul-pair-4097",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4133_vuln",
+      "pair_id": "crossvul-pair-4133",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4133_safe",
+      "pair_id": "crossvul-pair-4133",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-416_vuln",
+      "pair_id": "crossvul-pair-416",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-416_safe",
+      "pair_id": "crossvul-pair-416",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4180_vuln",
+      "pair_id": "crossvul-pair-4180",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4180_safe",
+      "pair_id": "crossvul-pair-4180",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4275_vuln",
+      "pair_id": "crossvul-pair-4275",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4275_safe",
+      "pair_id": "crossvul-pair-4275",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4361_vuln",
+      "pair_id": "crossvul-pair-4361",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4361_safe",
+      "pair_id": "crossvul-pair-4361",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4363_vuln",
+      "pair_id": "crossvul-pair-4363",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4363_safe",
+      "pair_id": "crossvul-pair-4363",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4398_vuln",
+      "pair_id": "crossvul-pair-4398",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4398_safe",
+      "pair_id": "crossvul-pair-4398",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-447_vuln",
+      "pair_id": "crossvul-pair-447",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-447_safe",
+      "pair_id": "crossvul-pair-447",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4471_vuln",
+      "pair_id": "crossvul-pair-4471",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4471_safe",
+      "pair_id": "crossvul-pair-4471",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4482_vuln",
+      "pair_id": "crossvul-pair-4482",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4482_safe",
+      "pair_id": "crossvul-pair-4482",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4513_vuln",
+      "pair_id": "crossvul-pair-4513",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4513_safe",
+      "pair_id": "crossvul-pair-4513",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4601_vuln",
+      "pair_id": "crossvul-pair-4601",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4601_safe",
+      "pair_id": "crossvul-pair-4601",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4610_vuln",
+      "pair_id": "crossvul-pair-4610",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4610_safe",
+      "pair_id": "crossvul-pair-4610",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4651_vuln",
+      "pair_id": "crossvul-pair-4651",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-4651_safe",
+      "pair_id": "crossvul-pair-4651",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4832_vuln",
+      "pair_id": "crossvul-pair-4832",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-4832_safe",
+      "pair_id": "crossvul-pair-4832",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-490_vuln",
+      "pair_id": "crossvul-pair-490",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-490_safe",
+      "pair_id": "crossvul-pair-490",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-495_vuln",
+      "pair_id": "crossvul-pair-495",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-495_safe",
+      "pair_id": "crossvul-pair-495",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-498_vuln",
+      "pair_id": "crossvul-pair-498",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-498_safe",
+      "pair_id": "crossvul-pair-498",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-5398_vuln",
+      "pair_id": "crossvul-pair-5398",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-5398_safe",
+      "pair_id": "crossvul-pair-5398",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-5407_vuln",
+      "pair_id": "crossvul-pair-5407",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5407_safe",
+      "pair_id": "crossvul-pair-5407",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5525_vuln",
+      "pair_id": "crossvul-pair-5525",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5525_safe",
+      "pair_id": "crossvul-pair-5525",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-553_vuln",
+      "pair_id": "crossvul-pair-553",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-553_safe",
+      "pair_id": "crossvul-pair-553",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-5547_vuln",
+      "pair_id": "crossvul-pair-5547",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5547_safe",
+      "pair_id": "crossvul-pair-5547",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5552_vuln",
+      "pair_id": "crossvul-pair-5552",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5552_safe",
+      "pair_id": "crossvul-pair-5552",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5584_vuln",
+      "pair_id": "crossvul-pair-5584",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-5584_safe",
+      "pair_id": "crossvul-pair-5584",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-57_vuln",
+      "pair_id": "crossvul-pair-57",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-57_safe",
+      "pair_id": "crossvul-pair-57",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5706_vuln",
+      "pair_id": "crossvul-pair-5706",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5706_safe",
+      "pair_id": "crossvul-pair-5706",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5724_vuln",
+      "pair_id": "crossvul-pair-5724",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5724_safe",
+      "pair_id": "crossvul-pair-5724",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5811_vuln",
+      "pair_id": "crossvul-pair-5811",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-5811_safe",
+      "pair_id": "crossvul-pair-5811",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-663_vuln",
+      "pair_id": "crossvul-pair-663",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-663_safe",
+      "pair_id": "crossvul-pair-663",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-775_vuln",
+      "pair_id": "crossvul-pair-775",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-775_safe",
+      "pair_id": "crossvul-pair-775",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "crossvul-pair-783_vuln",
+      "pair_id": "crossvul-pair-783",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-783_safe",
+      "pair_id": "crossvul-pair-783",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-889_vuln",
+      "pair_id": "crossvul-pair-889",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "crossvul-pair-889_safe",
+      "pair_id": "crossvul-pair-889",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    }
+  ],
+  "summary": {
+    "n": 302,
+    "accuracy": 0.5860927152317881,
+    "dr": 0.32450331125827814,
+    "spec": 0.847682119205298,
+    "discrimination": 0.2052980132450331,
+    "n_pairs": 151,
+    "both_tp": 18,
+    "both_fp": 97,
+    "inverted": 5
+  }
+}
