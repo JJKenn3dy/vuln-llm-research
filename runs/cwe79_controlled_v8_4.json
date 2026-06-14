@@ -1,0 +1,255 @@
+{
+  "rows": [
+    {
+      "pair_id": "php_echo",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_echo",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "php_printf",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_printf",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "php_attr",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_attr",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "php_comment",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_comment",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "js_innerhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_innerhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_dompurify",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_dompurify",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "js_docwrite",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_docwrite",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "js_insertadjacent",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_insertadjacent",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "react_dangerously",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "react_dangerously",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "handlebars",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "handlebars",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "ejs",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "ejs",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jinja_safe",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jinja_safe",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "flask_markup",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "flask_markup",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "express_send",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "express_send",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "vue_vhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "vue_vhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jquery_html",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jquery_html",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jsp_out",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "jsp_out",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "angular_innerhtml",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "angular_innerhtml",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_setcookie_reflect",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "php_setcookie_reflect",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "pair_id": "js_template_literal",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "pair_id": "js_template_literal",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    }
+  ],
+  "summary": {
+    "n": 40,
+    "accuracy": 0.75,
+    "dr": 0.95,
+    "spec": 0.55,
+    "discrimination": 0.55,
+    "n_pairs": 20,
+    "both_tp": 8,
+    "both_fp": 0,
+    "inverted": 1
+  }
+}
