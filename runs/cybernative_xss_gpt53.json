@@ -1,0 +1,267 @@
+{
+  "rows": [
+    {
+      "case_id": "cn_xss_000_vuln",
+      "pair_id": "cn_xss_000",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_000_safe",
+      "pair_id": "cn_xss_000",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_001_vuln",
+      "pair_id": "cn_xss_001",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_001_safe",
+      "pair_id": "cn_xss_001",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_002_vuln",
+      "pair_id": "cn_xss_002",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_002_safe",
+      "pair_id": "cn_xss_002",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_003_vuln",
+      "pair_id": "cn_xss_003",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_003_safe",
+      "pair_id": "cn_xss_003",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_004_vuln",
+      "pair_id": "cn_xss_004",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_004_safe",
+      "pair_id": "cn_xss_004",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_005_vuln",
+      "pair_id": "cn_xss_005",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_005_safe",
+      "pair_id": "cn_xss_005",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_006_vuln",
+      "pair_id": "cn_xss_006",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_006_safe",
+      "pair_id": "cn_xss_006",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_007_vuln",
+      "pair_id": "cn_xss_007",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_007_safe",
+      "pair_id": "cn_xss_007",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_008_vuln",
+      "pair_id": "cn_xss_008",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_008_safe",
+      "pair_id": "cn_xss_008",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_009_vuln",
+      "pair_id": "cn_xss_009",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_009_safe",
+      "pair_id": "cn_xss_009",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_010_vuln",
+      "pair_id": "cn_xss_010",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_010_safe",
+      "pair_id": "cn_xss_010",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_011_vuln",
+      "pair_id": "cn_xss_011",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_011_safe",
+      "pair_id": "cn_xss_011",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_012_vuln",
+      "pair_id": "cn_xss_012",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_012_safe",
+      "pair_id": "cn_xss_012",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_013_vuln",
+      "pair_id": "cn_xss_013",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_013_safe",
+      "pair_id": "cn_xss_013",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_014_vuln",
+      "pair_id": "cn_xss_014",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_014_safe",
+      "pair_id": "cn_xss_014",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_015_vuln",
+      "pair_id": "cn_xss_015",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_015_safe",
+      "pair_id": "cn_xss_015",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_016_vuln",
+      "pair_id": "cn_xss_016",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_016_safe",
+      "pair_id": "cn_xss_016",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    },
+    {
+      "case_id": "cn_xss_017_vuln",
+      "pair_id": "cn_xss_017",
+      "variant": "vuln",
+      "gold": "TP",
+      "pred": "TP"
+    },
+    {
+      "case_id": "cn_xss_017_safe",
+      "pair_id": "cn_xss_017",
+      "variant": "safe",
+      "gold": "FP",
+      "pred": "FP"
+    }
+  ],
+  "summary": {
+    "n": 36,
+    "accuracy": 0.9722222222222222,
+    "dr": 0.9444444444444444,
+    "spec": 1.0,
+    "discrimination": 0.9444444444444444,
+    "n_pairs": 18,
+    "both_tp": 0,
+    "both_fp": 1,
+    "inverted": 0
+  }
+}

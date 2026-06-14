@@ -1,0 +1,29 @@
+{
+  "n_cases": 300,
+  "n_pairs": 150,
+  "cwe_mix": {
+    "CWE-79": 300
+  },
+  "lang_mix": {
+    "c#": 46,
+    "javascript": 166,
+    "ruby": 34,
+    "php": 38,
+    "python": 2,
+    "kotlin": 6,
+    "go": 2,
+    "java": 4,
+    "swift": 2
+  },
+  "dropped": {
+    "wrong_cwe": 4413,
+    "garbage": 22,
+    "dup": 2,
+    "weak_fix_encodeuri": 69,
+    "empty_or_identical": 0
+  },
+  "with_reasoning": true,
+  "cwes": [
+    "CWE-79"
+  ]
+}

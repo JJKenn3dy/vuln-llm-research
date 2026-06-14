@@ -68,6 +68,9 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--report-to", default="none", choices=["none", "wandb", "tensorboard"])
     p.add_argument("--wandb-project", default="vuln-llm")
     p.add_argument("--wandb-run-name", default=None)
+    p.add_argument("--init-adapter", default=None,
+                   help="If set, continue-train FROM this existing LoRA adapter instead of "
+                        "a fresh one (preserves the source model's behavior, adds new signal)")
     p.add_argument("--hf-repo", default=None, help="If set, push adapter here on finish")
     p.add_argument("--hf-subfolder", default=None)
     p.add_argument("--hf-private", action="store_true", default=True)
@@ -93,15 +96,20 @@ def main() -> None:
     )
     model.config.use_cache = False
 
-    lora_config = LoraConfig(
-        r=args.lora_r,
-        lora_alpha=args.lora_alpha,
-        target_modules=args.target_modules,
-        lora_dropout=args.lora_dropout,
-        bias="none",
-        task_type="CAUSAL_LM",
-    )
-    model = get_peft_model(model, lora_config)
+    if args.init_adapter:
+        from peft import PeftModel
+        print(f"==> Continue-training FROM adapter: {args.init_adapter}")
+        model = PeftModel.from_pretrained(model, args.init_adapter, is_trainable=True)
+    else:
+        lora_config = LoraConfig(
+            r=args.lora_r,
+            lora_alpha=args.lora_alpha,
+            target_modules=args.target_modules,
+            lora_dropout=args.lora_dropout,
+            bias="none",
+            task_type="CAUSAL_LM",
+        )
+        model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
     model.enable_input_require_grads()
 
