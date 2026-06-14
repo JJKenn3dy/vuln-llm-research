@@ -1,19 +1,18 @@
 {
-  "n_cases": 300,
-  "n_pairs": 150,
+  "n_cases": 270,
+  "n_pairs": 135,
   "cwe_mix": {
-    "CWE-79": 300
+    "CWE-79": 270
   },
   "lang_mix": {
-    "c#": 46,
-    "javascript": 166,
-    "ruby": 34,
-    "php": 38,
+    "c#": 42,
+    "javascript": 158,
+    "ruby": 26,
+    "php": 32,
     "python": 2,
     "kotlin": 6,
     "go": 2,
-    "java": 4,
-    "swift": 2
+    "java": 2
   },
   "dropped": {
     "wrong_cwe": 4413,

@@ -154,8 +154,18 @@ def main():
                 "claimed_cwe": cwe, "real_cwe": cwe, "verdict": verdict,
                 "language": lang, "tool": "semgrep", "source": "cybernative"}})
 
-    (OUTDIR / "train.json").write_text(json.dumps(cases, ensure_ascii=False, indent=1), encoding="utf-8")
+    # train/val split by pair_id (last 10% of pairs -> val), keeps both
+    # variants of a pair on the same side. Deterministic (sorted), no RNG.
+    pair_ids = sorted({c["metadata"]["pair_id"] for c in cases})
+    n_val = max(2, len(pair_ids) // 10)
+    val_ids = set(pair_ids[-n_val:])
+    train_cases = [c for c in cases if c["metadata"]["pair_id"] not in val_ids]
+    val_cases = [c for c in cases if c["metadata"]["pair_id"] in val_ids]
+    (OUTDIR / "train.json").write_text(json.dumps(train_cases, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUTDIR / "val.json").write_text(json.dumps(val_cases, ensure_ascii=False, indent=1), encoding="utf-8")
+    cases = train_cases  # downstream meta reflects train
     npairs = len({c["metadata"]["pair_id"] for c in cases})
+    print(f"split: {len(train_cases)} train / {len(val_cases)} val cases (val pairs={n_val})")
     meta = {
         "n_cases": len(cases), "n_pairs": npairs,
         "cwe_mix": dict(Counter(c["metadata"]["claimed_cwe"] for c in cases)),

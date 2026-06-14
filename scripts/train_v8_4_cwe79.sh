@@ -29,7 +29,7 @@ cd "$REPO"
 
 python -m src.train.train_qlora \
     --train-file "$TRAIN" \
-    --val-file data/eval/cwe79_controlled_pairs.json \
+    --val-file data/train/cwe_web_cybernative/val.json \
     --output-dir "$OUT" \
     --init-adapter "$INIT" \
     --epochs 3 \
