@@ -1,0 +1,31 @@
+{
+  "source": "exp5_dual_train.json",
+  "teachers": "gpt-5.5+glm-5.2 (AGREE-only)",
+  "unique_tp": 48,
+  "unique_fp": 160,
+  "train_n": 304,
+  "train_dist": {
+    "TRUE_POSITIVE": 144,
+    "FALSE_POSITIVE": 160
+  },
+  "val_n": 28,
+  "val_dist": {
+    "TRUE_POSITIVE": 8,
+    "FALSE_POSITIVE": 20
+  },
+  "tp_oversample": 3,
+  "train_cwe": {
+    "CWE-79": 100,
+    "CWE-89": 89,
+    "CWE-22": 41,
+    "CWE-352": 22,
+    "CWE-94": 12,
+    "CWE-78": 12,
+    "CWE-434": 9,
+    "CWE-502": 5,
+    "CWE-611": 5,
+    "CWE-918": 5,
+    "CWE-798": 3,
+    "CWE-787": 1
+  }
+}

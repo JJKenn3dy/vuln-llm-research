@@ -1,0 +1,906 @@
+[
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-78\nClaimed severity: HIGH\nFile: app/email_logs/email_logs.php\nLines: see snippet\n\nCode:\ncase 'download':\n\t\t\t\tif (permission_exists('email_log_download')) {\n\t\t\t\t\t$obj = new email_logs;\n\t\t\t\t\t$obj->download($emails);\n\t\t\t\t\tmessage::add($text['message-download_failed'],'negative',7000); //download failed, set message\n\t\t\t\t}\n\t\t\t\tbreak;\n\tif (permission_exists('email_log_download') && $result) {\n\t\techo button::create(['type'=>'button','label'=>$text['button-download'],'icon'=>$_SESSION['theme']['button_icon_download'],'onclick'=>\"list_action_set('download'); list_form_submit('form_list');\"]);\n\t}\n\tif (permission_exists('email_log_download') || permission_exists('email_log_resend') || permission_exists('email_log_delete')) {\n\t\t\tif (permission_exists('email_log_download') || permission_exists('email_log_resend') || permission_exists('email_log_delete')) {\n\t\t\tif (permission_exists('email_log_download')) {\n\t\t\t\techo button::create(['type'=>'button','title'=>$text['button-download'],'icon'=>$_SESSION['theme']['button_icon_download'],'onclick'=>\"list_self_check('checkbox_\".$x.\"'); list_action_set('download'); list_form_submit('form_list')\"]);\n\t\t\t}\n\t\t/**\n\t\t * download records\n\t\t */\n\t\tpublic function download($records) {\n\t\t\tif (permission_exists($this->permission_prefix.'download')) {\n\n\t\t\t\t//add multi-lingual support\n\t\t\t\t\t$language = new text;\n\t\t\t\t\t$text = $language->get();\n\n\t\t\t\t//validate the token\n\t\t\t\t\t$token = new token;\n\t\t\t\t\tif (!$token->validate('/app/email_logs/email_logs.php')) {\n\t\t\t\t\t\tmessage::add($text['message-invalid_token'],'negative');\n\t\t\t\t\t\theader('Location: '.$this->list_page);\n\t\t\t\t\t\texit;\n\t\t\t\t\t}\n\n\t\t\t\t//download multiple records (eventually zip individual emails together)\n\t\t\t\t\tif (is_array($records) && @sizeof($records) != 0) {\n\n\t\t\t\t\t\t//retrieve checked records\n\t\t\t\t\t\t\tforeach($records as $x => $record) {\n\t\t\t\t\t\t\t\tif ($record['checked'] == 'true' && is_uuid($record['uuid'])) {\n\t\t\t\t\t\t\t\t\t$uuids[] = $record['uuid'];\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t//download emails\n\t\t\t\t\t\t\tif (is_array($uuids) && @sizeof($uuids) != 0) {\n\t\t\t\t\t\t\t\tforeach ($uuids as $x => $uuid) {\n\n\t\t\t\t\t\t\t\t\t//get email details\n\t\t\t\t\t\t\t\t\t\t$sql = \"select call_uuid, sent_date, type, email from v_email_logs \";\n\t\t\t\t\t\t\t\t\t\t$sql .= \"where email_log_uuid = :email_log_uuid \";\n\t\t\t\t\t\t\t\t\t\t$parameters['email_log_uuid'] = $uuid;\n\t\t\t\t\t\t\t\t\t\t$database = new database;\n\t\t\t\t\t\t\t\t\t\t$row = $database->select($sql, $parameters, 'row');\n\t\t\t\t\t\t\t\t\t\tif (is_array($row) && @sizeof($row) != 0 && is_uuid($row['call_uuid'])) {\n\n\t\t\t\t\t\t\t\t\t\t\t//santize filename components\n\t\t\t\t\t\t\t\t\t\t\t\t$sent_date = str_replace('-','', $row['sent_date']);\n\t\t\t\t\t\t\t\t\t\t\t\t$sent_date = str_replace(':','', $sent_date);\n\t\t\t\t\t\t\t\t\t\t\t\t$sent_date = str_replace(' ','_', $sent_date);\n\t\t\t\t\t\t\t\t\t\t\t\t$type = strtolower($row['type']);\n\t\t\t\t\t\t\t\t\t\t\t\t$email_filename = $sent_date.'_'.$type.'_'.$row['call_uuid'].'.eml';\n\n\t\t\t\t\t\t\t\t\t\t\t//single email\n\t\t\t\t\t\t\t\t\t\t\t\tif (@sizeof($uuids) == 1) {\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t//set headers\n\t\t\t\t\t\t\t\t\t\t\t\t\t\theader(\"Content-Type: message/rfc822\");\n\t\t\t\t\t\t\t\t\t\t\t\t\t\theader('Content-Disposition: attachment; filename=\"'.$email_filename.'\"');\n\t\t\t\t\t\t\t\t\t\t\t\t\t\theader(\"Cache-Control: no-cache, must-revalidate\"); // HTTP/1.1\n\t\t\t\t\t\t\t\t\t\t\t\t\t\theader(\"Expires: Sat, 26 Jul 1997 05:00:00 GMT\"); // Date in the past\n\t\t\t\t\t\t\t\t\t\t\t\t\t\theader(\"Content-Length: \".strlen($row['email']));\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t//output content\n\t\t\t\t\t\t\t\t\t\t\t\t\t\techo $row['email'];\n\t\t\t\t\t\t\t\t\t\t\t\t\t\texit;\n\t\t\t\t\t\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t\t\t\t\t//multiple emails\n\t\t\t\t\t\t\t\t\t\t\t\telse {\n\t\t\t\t\t\t\t\t\t\t\t\t\tif (is_dir($_SESSION['server']['temp']['dir'])) {\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tif (file_put_contents($_SESSION['server']['temp']['dir'].'/'.$email_filename, $row['email'])) {\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t$email_files[] = $_SESSION['server']['temp']['dir'].'/'.$email_filename;\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\tunset($sql, $parameters, $row);\n\t\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t\t//download compressed file\n\t\t\t\t\t\t\t\tif (@sizeof($email_files) != 0) {\n\n\t\t\t\t\t\t\t\t\t//define compressed file name\n\t\t\t\t\t\t\t\t\t\t$compressed_filename = 'emails_'.date('Ymd_His').'.zip';\n\n\t\t\t\t\t\t\t\t\t//compress email files\n\t\t\t\t\t\t\t\t\t\t$command = 'zip -mj '.$_SESSION['server']['temp']['dir'].'/'.$compressed_filename.' '.implode(' ', $email_files).' 2>&1';\n\t\t\t\t\t\t\t\t\t\texec($command, $response, $restore_errlevel);\n\t\t\t\t\t\t\t\t\t\tunset($command);\n\n\t\t\t\t\t\t\t\t\t//push download\n\t\t\t\t\t\t\t\t\t\tif (file_exists($_SESSION['server']['temp']['dir'].'/'.$compressed_filename)) {\n\n\t\t\t\t\t\t\t\t\t\t\t//open file\n\t\t\t\t\t\t\t\t\t\t\t\tsession_cache_limiter('public');\n\t\t\t\t\t\t\t\t\t\t\t\t$fd = fopen($_SESSION['server']['temp']['dir'].'/'.$compressed_filename, 'rb');\n\n\t\t\t\t\t\t\t\t\t\t\t//set headers\n\t\t\t\t\t\t\t\t\t\t\t\theader(\"Content-Type: application/zip\");\n\t\t\t\t\t\t\t\t\t\t\t\theader('Content-Disposition: attachment; filename=\"'.$compressed_filename.'\"');\n\t\t\t\t\t\t\t\t\t\t\t\theader(\"Cache-Control: no-cache, must-revalidate\"); // HTTP/1.1\n\t\t\t\t\t\t\t\t\t\t\t\theader(\"Expires: Sat, 26 Jul 1997 05:00:00 GMT\"); // Date in the past\n\t\t\t\t\t\t\t\t\t\t\t\theader(\"Content-Length: \".filesize($_SESSION['server']['temp']['dir'].'/'.$compressed_filename));\n\n\t\t\t\t\t\t\t\t\t\t\t//output file content\n\t\t\t\t\t\t\t\t\t\t\t\tob_clean();\n\t\t\t\t\t\t\t\t\t\t\t\tfpassthru($fd);\n\t\t\t\t\t\t\t\t\t\t\t\tfclose($fd);\n\n\t\t\t\t\t\t\t\t\t\t\t//remove compressed file\n\t\t\t\t\t\t\t\t\t\t\t\t@unlink($_SESSION['server']['temp']['dir'].'/'.$compressed_filename);\n\t\t\t\t\t\t\t\t\t\t\t\texit;\n\n\t\t\t\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t\t}\n\n\t\t\t\t\t\t\t}\n\n\t\t\t\t\t}\n\n\t\t\t}\n\n\t\t} //method\n\n?>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: MEDIUM\nReasoning: The code constructs a shell command string by concatenating `$_SESSION['server']['temp']['dir']`, a generated `$compressed_filename`, and the contents of the `$email_files` array, then passes it to `exec()`. The `$email_files` array entries are built from `$email_filename`, which incorporates `$row['type']` from the database. While `$sent_date` is sanitized (dashes, colons, spaces stripped) and `$row['call_uuid']` is validated via `is_uuid()`, the `$type` value is only lowercased with `strtolower()` and never escaped for shell metacharacters. If the `type` field in `v_email_logs` contains characters such as `;`, `|`, backticks, or `$()`, an attacker could inject arbitrary shell commands into the `exec()` call. Even though this data originates from the database rather than direct user input, the lack of proper shell escaping before passing to `exec()` constitutes a genuine command injection vulnerability.\nRealCWE: CWE-78\nSuggestedFix: Use `escapeshellarg()` on each file path before adding it to the `$email_files` array, and use `escapeshellcmd()` or `escapeshellarg()` on the temp directory path and compressed filename as well. Alternatively, replace the `exec('zip ...')` call with PHP's `ZipArchive` class, which avoids invoking a shell entirely and eliminates the command injection surface. For example: `$zip = new ZipArchive(); $zip->open($output_path, ZipArchive::CREATE); foreach ($email_files as $file) { $zip->addFile($file, basename($file)); } $zip->close();`"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-28055",
+      "project_id": "fusionpbx/fusionpbx",
+      "claimed_cwe": "CWE-78",
+      "real_cwe": "CWE-78",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "bandit",
+      "file_path": "app/email_logs/email_logs.php",
+      "code_hash": "1448d0b1ab96",
+      "source": "cvefixes_v8_2",
+      "severity": "HIGH",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: CHANGELOG.md\nLines: see snippet\n\nCode:\n// Clean cleans up given path and returns a relative path that goes straight down.\n\t\tpath   string\n\t\texpVal string\n\t\t\tpath:   \"../../../readme.txt\",\n\t\t\texpVal: \"readme.txt\",\n\t\t\tpath:   \"a/../../../readme.txt\",\n\t\t\texpVal: \"readme.txt\",\n\t\t\tpath:   \"/../a/b/../c/../readme.txt\",\n\t\t\texpVal: \"a/readme.txt\",\n\t\t\tpath:   \"/a/readme.txt\",\n\t\t\texpVal: \"a/readme.txt\",\n\t\t\tpath:   \"/\",\n\t\t\texpVal: \"\",\n\t\t\tpath:   \"/a/b/c/readme.txt\",\n\t\t\texpVal: \"a/b/c/readme.txt\",\n\t\tt.Run(\"\", func(t *testing.T) {\n\t\t\tassert.Equal(t, test.expVal, Clean(test.path))\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The provided code snippet is from a CHANGELOG.md file and contains unit test cases for a path sanitization function called `Clean`. The test cases explicitly verify that the function neutralizes path traversal sequences (e.g., converting \"../../../readme.txt\" to \"readme.txt\"), demonstrating mitigation rather than a vulnerability. Static analysis tools often flag test files or documentation that mention unsafe patterns, leading to false positives.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-1992",
+      "project_id": "gogs/gogs",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "go",
+      "tool": "snyk-code",
+      "file_path": "CHANGELOG.md",
+      "code_hash": "d1ab9a2070cb",
+      "source": "cvefixes_v8_2",
+      "severity": "MEDIUM",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-22\nClaimed severity: nan\nFile: mindsdb/api/http/namespaces/file.py\nLines: see snippet\n\nCode:\nfrom mindsdb.api.http.utils import http_error\n                    f.extractall(temp_dir_path)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The code calls `tarfile.extractall(temp_dir_path)` without any sanitization or validation of the tar file members. Tar archives can contain entries with filenames using \"..\" or absolute paths, allowing an attacker to write files outside of `temp_dir_path`. This is a known path traversal vulnerability (TarSlip), matching CWE-22.\nRealCWE: CWE-22\nSuggestedFix: Replace the direct `extractall` call with a safe extraction routine that iterates over `f.getmembers()` and validates each member's name, rejecting entries with absolute paths or \"..\" components (e.g., using `os.path.commonpath` or a helper like `tarfile.is_within_dir`), then extract each validated member individually with `f.extract(member, temp_dir_path)`."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-30620",
+      "project_id": "mindsdb/mindsdb",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "python",
+      "tool": "semgrep",
+      "file_path": "mindsdb/api/http/namespaces/file.py",
+      "code_hash": "39268d685dac",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: lib/plan/newest_tcversions.php\nLines: see snippet\n\nCode:\n$args->tproject_id = $_SESSION['testprojectID'];\n    \n    $args->id = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged snippet merely assigns user-supplied input from `$_REQUEST['id']` to a local property `$args->id` after an `isset` check. There is no SQL query construction, concatenation, or execution shown in this code, so there is no demonstrable SQL injection (CWE-89) vulnerability here. Static analysis tools sometimes flag such assignments as \"tainted input\" without proving it reaches a dangerous sink; without evidence of an unsafe SQL usage downstream, this finding is noise based on the provided snippet.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2019-20107",
+      "project_id": "TestLinkOpenSourceTRMS/testlink-code",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "sonarqube",
+      "file_path": "lib/plan/newest_tcversions.php",
+      "code_hash": "3a6a76fd4422",
+      "source": "cvefixes_v8_2",
+      "severity": "MEDIUM",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-352\nClaimed severity: nan\nFile: .changeset/happy-pots-move.md\nLines: see snippet\n\nCode:\nstrings.Contains(path, \".git\"+string(os.PathSeparator)) ||\n\t\tstrings.Contains(path, \".git.\"+string(os.PathSeparator))\n\t\"path/filepath\"\n\t\t{path: filepath.Join(\".\", \".git\"), wantVal: true},\n\t\t{path: filepath.Join(\".\", \".git\", \"\"), wantVal: true},\n\t\t{path: filepath.Join(\".\", \".git\", \"hooks\", \"pre-commit\"), wantVal: true},\n\t\t{path: filepath.Join(\".git\", \"hooks\"), wantVal: true},\n\t\t{path: filepath.Join(\"dir\", \".git\"), wantVal: true},\n\n\t\t{path: filepath.Join(\".\", \".git.\"), wantVal: true},\n\t\t{path: filepath.Join(\".\", \".git.\", \"\"), wantVal: true},\n\t\t{path: filepath.Join(\".\", \".git.\", \"hooks\", \"pre-commit\"), wantVal: true},\n\t\t{path: filepath.Join(\".git.\", \"hooks\"), wantVal: true},\n\t\t{path: filepath.Join(\"dir\", \".git.\"), wantVal: true},\n\n\t\t{path: filepath.Join(\".gitignore\"), wantVal: false},\n\t\t{path: filepath.Join(\"dir\", \".gitkeep\"), wantVal: false},\n\t\tt.Run(\"\", func(t *testing.T) {\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code is clearly a set of test cases for a path-validation utility function that checks whether a given filesystem path contains a `.git` directory component. There is no HTTP request handling, no state-changing operation, no session management, and no web framework involvement — nothing that could constitute a CSRF (CWE-352) vulnerability. The SAST tool appears to have misidentified test data as application logic, likely due to pattern matching on the `.md` file extension or the string contents rather than understanding the actual semantics of the code.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-29008",
+      "project_id": "sveltejs/kit",
+      "claimed_cwe": "CWE-352",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "javascript",
+      "tool": "codeql",
+      "file_path": ".changeset/happy-pots-move.md",
+      "code_hash": "b86ba626dc26",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-22\nClaimed severity: MEDIUM\nFile: nova/tests/test_virt.py\nLines: see snippet\n\nCode:\ndef _inject_file_into_fs(fs, path, contents):\n    absolute_path = os.path.join(fs, path.lstrip('/'))\n    utils.execute('tee', absolute_path, process_input=contents,\n          run_as_root=True)\n    metadata_path = os.path.join(fs, \"meta.js\")\n\n    utils.execute('tee', metadata_path,\n                  process_input=jsonutils.dumps(metadata), run_as_root=True)\n    sshdir = os.path.join(fs, 'root', '.ssh')\n    keyfile = os.path.join(sshdir, 'authorized_keys')\n    key_data = [\n    ]\n    utils.execute('tee', '-a', keyfile,\n                  process_input=''.join(key_data), run_as_root=True)\n    netdir = os.path.join(os.path.join(fs, 'etc'), 'network')\n    netfile = os.path.join(netdir, 'interfaces')\n    utils.execute('tee', netfile, process_input=net, run_as_root=True)\n    utils.execute('cp', os.path.join(fs, 'etc', 'passwd'), tmp_passwd,\n                  run_as_root=True)\n    utils.execute('cp', os.path.join(fs, 'etc', 'shadow'), tmp_shadow,\n                  run_as_root=True)\n    utils.execute('cp', tmp_passwd, os.path.join(fs, 'etc', 'passwd'),\n                  run_as_root=True)\n    utils.execute('cp', tmp_shadow, os.path.join(fs, 'etc', 'shadow'),\n                  run_as_root=True)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: This code resides in a test file (`nova/tests/test_virt.py`), meaning it is part of the test suite rather than production code that handles untrusted input. The `path` parameter is supplied by test code itself, not by external users, so there is no realistic path traversal exposure. Additionally, `path.lstrip('/')` removes leading slashes to keep the path within the `fs` root, and the surrounding usage (`utils.execute('tee', ...)`) is typical for injecting files into a guest filesystem image during testing. While `..` sequences in `path` could theoretically escape, the function is not exposed as a security boundary, making this SAST finding noise.\nRealCWE: same as claimed\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2012-3360",
+      "project_id": "openstack/nova",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "python",
+      "tool": "sonarqube",
+      "file_path": "nova/tests/test_virt.py",
+      "code_hash": "dcfe5b5184b0",
+      "source": "cvefixes_v8_2",
+      "severity": "MEDIUM",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-79\nClaimed severity: nan\nFile: include/class.osticket.php\nLines: see snippet\n\nCode:\nif ($this->fields['have_error']) {\n            echo \"<td>\" . __('RSS feeds found');\n            echo \"</td><td>\";\n            $this->showDiscoveredFeeds();\n            echo \"</td>\\n\";\n        } else {\n            echo \"<td colspan='2'>&nbsp;</td>\";\n        }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: MEDIUM\nReasoning: The provided code snippet only returns server variables (`$_SERVER['PATH_INFO']` or `$_SERVER['ORIG_PATH_INFO']`) and does not output them directly to the HTML page. Without a clear output sink or rendering context in the snippet, there is no evidence of Cross-Site Scripting (CWE-79) occurring at this exact location. The actual vulnerability, if any, would depend on how the returned value is handled by the calling code.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-1318",
+      "project_id": "osticket/osticket",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "snyk-code",
+      "file_path": "include/class.osticket.php",
+      "code_hash": "b08cde0656b8",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-79\nClaimed severity: nan\nFile: web/src/components/SearchBar.tsx\nLines: see snippet\n\nCode:\n}, [locationStore.getState().query.text]);\nconst escapeRegExp = (str: string): string => {\n  return str.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\");\n};\n  keyword = escapeRegExp(keyword);\n  wrap.innerHTML = html;\n  const parsedContent = marked(matchResult[1], [], [Link]);\n  const parsedContent = marked(matchResult[1], [], [Link]);\n  const parsedContent = marked(matchResult[1], [], [Link]);\n  const parsedContent = marked(matchResult[1], [], [InlineCode, BoldEmphasis, Emphasis, Bold]);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: MEDIUM\nReasoning: The code uses `marked()` to parse markdown into HTML and then assigns the result (or a derivative of it) to `wrap.innerHTML`. The `marked` library does not sanitize raw HTML by default, meaning any HTML tags or event handlers embedded in the input (e.g., `matchResult[1]`) will be rendered directly into the DOM. The `escapeRegExp` helper only escapes regex special characters, which is irrelevant to HTML/XSS protection. Without an additional sanitization layer such as DOMPurify before setting `innerHTML`, this is a genuine stored/reflected XSS vulnerability (CWE-79) if `matchResult[1]` originates from user-controlled or untrusted input.\nRealCWE: CWE-79\nSuggestedFix: Sanitize the HTML output from `marked` before assigning it to `innerHTML` using a library like DOMPurify, e.g., `wrap.innerHTML = DOMPurify.sanitize(parsedContent);`. Additionally, consider configuring `marked` with sanitization options or disabling raw HTML passthrough (`marked.setOptions({ sanitize: true })` for older versions, or using a post-processing sanitizer for newer versions). Alternatively, avoid `innerHTML` entirely and use safe DOM APIs to insert text content where possible."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-4694",
+      "project_id": "usememos/memos",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "typescript",
+      "tool": "semgrep",
+      "file_path": "web/src/components/SearchBar.tsx",
+      "code_hash": "e510e10a5ce1",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: nan\nFile: databaseAccessFunctions.js\nLines: see snippet\n\nCode:\nfunction selectAdult(username, connection)\n\tvar strQuery = \"SELECT * FROM adult WHERE username= '\" +connection.escape(username)+\"'\";\n\t\t\t\ttemp= rows[0];\n\t\t\t\ttemp.password=\"\";\n\t\t\t\t{console.log(\"SelectAdult \\n\"+rows[0]+\"\\n\");}\n\t\t\t\t\n\t\t\t\treturn temp;\nfunction validateAdult(username, password, connection)\n\tvar strQuery = \"SELECT * FROM adult WHERE username= '\" +connection.escape(username)+\"'\" +\"AND password= '\"\n\t+ hashPassword(password)+\"'\";\n\t\t\t\t\n\t\t\t\t{console.log(\"validateAdult \\n\"+rows[0]+\"\\n\");}\n\t\t\t\t\nfunction insertAdult(firstName, lastName, username, password, packNumber, \n\t\tleaderType, rankType, phoneNumber, connection)\n\tvar temp= selectAdult(username, connection);\n\tif(temp.databaseObject.adult_id<1)\n\t{\n\t\treturn temp;\n\t}\n\tvar strQuery = \"INSERT INTO adult VALUES('\"+firstName+\"', '\"+lastName+\"', '\"+\n\tusername + \"', '\" +hashPassword(password) + \"', '\" + packNumber+\"', '\"+\n\tleaderType +\"', '\"+ rankType+\"', '\"+phoneNumber+ \"', 'NULL')\";\n\t\t\t\ttemp= new Adult(row[0]);\n\t\t\t\t{console.log(\"insertAdult \\n\"+rows[0]+\"\\n\");}\n\t\t\t\t\n\t\t\t\treturn addScoutsToParent(temp);\n\tvar strQuery = \"UPDATE adult SET first_name=\"+firstName+\", last_name=\"+lastName+\", username=\"+\n\tusername + \", password=\" +hashPassword(password) + \", pack_number=\" + packNumber+\", leader_type=\"+\n\tleaderType +\", rank_type=\"+ rankType+\", phone_number=\"+phoneNumber+ \"WHERE adult_id=\"+id;\n\t\t\t\t\n\tvar strQuery = \"INSERT INTO achievement  VALUES('\"+name+\"', '\" +  description + \"', '\" + categoryID\n\t+\"', '\"+ numElectives+ \"', 'NULL')\";\n\tvar strQuery = \"INSERT INTO category VALUES('\"+name+\"', '\" +  description + \"', '\" \n\t+ rankID+\"', '\"+numAchievments+ \"', 'NULL')\";\n\tvar strQuery = \"INSERT INTO rank  VALUES('\"+name+\"', '\" +  description + \"', 'NULL')\";\n\tvar strQuery = \"INSERT INTO record  VALUES('\"+recordRankType+\"', '\" +  \n\tdateDone + \"', '\" +requirementID+\"', '\"+scoutID+\"', 'NULL')\";\n\tvar strQuery = \"INSERT INTO requirement VALUES('\"+name+\"', '\" +  description + \n\t\"', '\" + achievementID+\"', '\"+reqElec+ \"', 'NULL')\";\n\tvar strQuery = \"INSERT INTO scout VALUES('\"+firstName+\"', '\" +lastName+\"', '\"+\n\tbirthDate + \"', '\" + packNumber + \"', '\"+ rankType+\"', '\"+parentID+\", \"+leaderID+\"', 'NULL')\";\n\t\t rankType, parentID, leaderID, scoutID, connection)\n\tvar strQuery = \"UPDATE scout SET first_name=\"+firstName+\", last_name=\"+lastName+\", birth_date=\"+\n\t + \", pack_number=\" + + \", rank_type=\" + packNumber+\", parent_id=\"+\n\tleaderType +\", leader_id=\"+ rankType+\" WHERE scout_id=\"+id;\n\tvar strQuery = \"SELECT * FROM scout WHERE parent_id= '\" +adult.rowID+\"'\";\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The code constructs multiple SQL queries via string concatenation using unescaped user-supplied parameters (e.g., firstName, lastName, username, password, packNumber, leaderType, rankType, phoneNumber, name, description, categoryID, etc.) in functions such as insertAdult, various INSERT statements, and UPDATE statements. Although selectAdult and validateAdult attempt to escape the username with connection.escape(), the majority of the other queries do not use parameterized queries or escaping, making them vulnerable to SQL injection.\nRealCWE: CWE-89\nSuggestedFix: Replace all string-concatenated SQL queries with parameterized queries/prepared statements using placeholders (e.g., connection.query(\"INSERT INTO adult VALUES(?, ?, ?, ?, ?, ?, ?, ?, NULL)\", [firstName, lastName, username, hashPassword(password), packNumber, leaderType, rankType, phoneNumber])). Ensure all user inputs are passed as bound parameters rather than concatenated into the query string, and validate/sanitize inputs appropriately."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2014-125046",
+      "project_id": "Seiji42/cub-scout-tracker",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "snyk-code",
+      "file_path": "databaseAccessFunctions.js",
+      "code_hash": "af1dc22c972c",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-79\nClaimed severity: LOW\nFile: galette/composer.json\nLines: see snippet\n\nCode:\n\"symfony/polyfill-php80\": \"^1.23\"\n    \"content-hash\": \"abdb30cee5eeb0dad05c159a1c10880d\",\n * Copyright © 2019-2020 The Galette Team\n * @copyright 2019-2020 The Galette Team\n * @copyright 2019-2020 The Galette Team\n                        $ptype->name,\n                        $ptype->name,\n                        $ptype->name,\n                        $ptype->name,\n            'short_label'   => $this->short,\n            'long_label'    => $this->long\n                            $this->_description = $value;\n                            {_T string=\"%s field\" pattern=\"/%s/\" replace=$entry.name}\n                        <span class=\"sr-only\">{_T string=\"Edit '%s' field\" pattern=\"/%s/\" replace=$entry.name}</span>\n                        <span class=\"sr-only\">{_T string=\"Delete '%s' field\" pattern=\"/%s/\" replace=$entry.name}</span>\n                                        {_T string=\"%s title\" pattern=\"/%s/\" replace=$title->short}\n                            <td class=\"left\" data-title=\"{_T string=\"Short form\"}\">{$title->short}</td>\n                            <td class=\"left\" data-title=\"{_T string=\"Long form\"}\">{$title->long}</td>\n                                    <span class=\"sr-only\">{_T string=\"Edit '%s' title\" pattern=\"/%s/\" replace=$title->short}</span>\n                                    <span class=\"sr-only\">{_T string=\"Delete '%s' title\" pattern=\"/%s/\" replace=$title->short}</span>\n                    <td class=\"{$cclass} nowrap\" data-title=\"{_T string=\"Description\"}\">{$transaction->description}</td>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: MEDIUM\nReasoning: The SAST tool claims the vulnerable file is `galette/composer.json`, but the code snippet clearly contains Smarty template syntax (e.g., `{$transaction->description}`, `{_T string=\"...\"}`). This severe mismatch indicates the scanner has misidentified the file context or language, rendering the analysis unreliable. Furthermore, modern Smarty templates typically auto-escape variables by default, mitigating cross-site scripting (XSS) risks for standard variable outputs like `{$title->short}`. Since the tool fails to correctly identify the file type and likely lacks the necessary context about the template engine's escaping mechanisms, this is a false positive.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2021-41261",
+      "project_id": "galette/galette",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "sonarqube",
+      "file_path": "galette/composer.json",
+      "code_hash": "0c14efbee567",
+      "source": "cvefixes_v8_2",
+      "severity": "LOW",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-79\nClaimed severity: nan\nFile: composer.json\nLines: see snippet\n\nCode:\n\"ext-xmlwriter\": \"*\"\n    \"content-hash\": \"0411bf4e5e79e9aceafffbde9cbbe148\",\n        'answer' => $answer,\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The code snippet shows a custom helper method `cleanUpContent` that explicitly instantiates an HTML sanitizer (`HtmlSanitizer\\Sanitizer`) and uses it to sanitize the `$content` string before returning it. This is a standard defensive measure against Cross-Site Scripting (CWE-79). The SAST tool likely flagged it because it could not recognize the third-party sanitizer as a valid sanitization function or mistakenly identified the manipulation of HTML strings as a potential injection sink.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-2999",
+      "project_id": "thorsten/phpmyfaq",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "snyk-code",
+      "file_path": "composer.json",
+      "code_hash": "b203dd219abc",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-79\nClaimed severity: LOW\nFile: docs/NEWS\nLines: see snippet\n\nCode:\nVersion 2.1 ()\n            $data['print_DIRECTORY_CREATED'] = sprintf(DIRECTORY_CREATED, $serendipity['POST']['name']);\n$serendipity['version'] = '2.1-beta2';\n                    <input id=\"category_name\" pattern=\"{if $new}^(?!({foreach $categories as $cat}{$cat.category_name}|{/foreach})$).*{else}^(?!({foreach $categories as $cat}{if $this_cat.category_name != $cat.category_name}{$cat.category_name}{/if}|{/foreach})$).*{/if}\" name=\"serendipity[cat][name]\" type=\"text\" value=\"{$this_cat.category_name|default:\"\"|escape}\" title=\"Categoryname\">\n                        <option value=\"{$cat.categoryid}\"{if $this_cat.parentid == $cat.categoryid} selected{/if}>{for $i=1 to $cat.depth}&nbsp{/for} {$cat.category_name}</option>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The SAST tool is analyzing a documentation file (`docs/NEWS`), which contains code snippets pasted as text rather than executable source code. Since this is not actual compiled or interpreted code, the alleged Cross-Site Scripting (XSS) vulnerability cannot be triggered, making this a false positive caused by the tool scanning plain text as if it were a live template.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2016-9681",
+      "project_id": "s9y/Serendipity",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "sonarqube",
+      "file_path": "docs/NEWS",
+      "code_hash": "71423acaaaef",
+      "source": "cvefixes_v8_2",
+      "severity": "LOW",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-94\nClaimed severity: nan\nFile: packages/nuxt/src/app/components/nuxt-root.vue\nLines: see snippet\n\nCode:\nconst SingleRenderer = process.dev && process.server && url.startsWith('/__nuxt_component_test__/') && defineAsyncComponent(() => import('#build/test-component-wrapper.mjs')\nexport default (url:string) => defineComponent({\n      `export const devPagesDir = ${ctx.nuxt.options.dev ? JSON.stringify(ctx.nuxt.options.dir.pages) : 'null'}`\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code involves string interpolation to generate code, but it does not inject untrusted user input. The value being interpolated is sanitized using `JSON.stringify`, which safely escapes strings and prevents code injection. Additionally, the dynamic import is based on a static path string, not user input. The context appears to be build-time or development-only configuration within the Nuxt framework, where the variables used are internal framework options rather than externally controlled data.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-3224",
+      "project_id": "nuxt/nuxt",
+      "claimed_cwe": "CWE-94",
+      "real_cwe": "CWE-94",
+      "verdict": "TRUE_POSITIVE",
+      "language": "typescript",
+      "tool": "codeql",
+      "file_path": "packages/nuxt/src/app/components/nuxt-root.vue",
+      "code_hash": "257d51e7bca3",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: nan\nFile: api/Model/AuthModel.php\nLines: see snippet\n\nCode:\nif command == \"copy\":\n                # destination already there? error...\n                if _verifyFileExists(target, destination) or _verifyFolderExists(\n                    target, destination\n                ):\n                    abort(409, description=\"File or folder does already exist\")\n\n                if is_file:\n                    fileManager.copy_file(target, filename, destination)\n                else:\n                    fileManager.copy_folder(target, filename, destination)\n\n            elif command == \"move\":\n                with Permissions.FILES_DELETE.require(403):\n                    if _isBusy(target, filename):\n                        abort(\n                            409,\n                            description=\"Trying to move a file or folder that is currently in use\",\n                        )\n\n                    # destination already there AND not ourselves (= display rename)? error...\n                    if (\n                        _verifyFileExists(target, destination)\n                        or _verifyFolderExists(target, destination)\n                    ) and sanitized_destination != filename:\n                    # deselect the file if it's currently selected\n                    currentOrigin, currentFilename = _getCurrentFile()\n                    if currentFilename is not None and filename == currentFilename:\n                        printer.unselect_file()\n\n                        fileManager.move_file(target, filename, destination)\n                        fileManager.move_folder(target, filename, destination)\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The SAST tool claims this code is vulnerable to SQL injection (CWE-89), but the snippet contains no SQL queries or database interaction whatsoever. The code performs file system operations (copy/move files and folders) using a `fileManager` object. While there could potentially be path traversal concerns depending on how `target`, `filename`, and `destination` are sanitized, that is not the claimed vulnerability. The claimed CWE-89 is clearly not applicable here.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-1545",
+      "project_id": "nilsteampassnet/teampass",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "snyk-code",
+      "file_path": "api/Model/AuthModel.php",
+      "code_hash": "bd421f6b3f11",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-434\nClaimed severity: nan\nFile: phpmyfaq/src/phpMyFAQ/Category/CategoryImage.php\nLines: see snippet\n\nCode:\n// name of the screenshot without the Cypress suffixes for test failures\n  const snapshotName = screenshotConfig.name.replace(/ \\(attempt [0-9]+\\)/, '')\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: MEDIUM\nReasoning: The code checks getimagesize() on the uploaded file, but the conditional logic is inverted: when getimagesize() returns false (indicating the file is not a valid image), the code proceeds to move_uploaded_file() and accepts the upload. This means non-image files (including potentially executable scripts) are stored in the upload directory, while valid images would be rejected. This constitutes an unrestricted file upload vulnerability (CWE-434), assuming the filename and upload directory are web-accessible and the server may execute or serve such files.\nRealCWE: CWE-434\nSuggestedFix: Invert the conditional logic so that uploads are only accepted when getimagesize() returns a valid result, and reject non-image files. For example: if (false !== getimagesize($this->uploadedFile['tmp_name'])) { return move_uploaded_file(...); } else { return false; }. Additionally, validate file extensions and MIME types, store uploads outside the web root, and prevent execution of uploaded files via server configuration."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-5227",
+      "project_id": "thorsten/phpmyfaq",
+      "claimed_cwe": "CWE-434",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "phpmyfaq/src/phpMyFAQ/Category/CategoryImage.php",
+      "code_hash": "b2ba9d0a4625",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-79\nClaimed severity: MEDIUM\nFile: web/edit/db/index.php\nLines: see snippet\n\nCode:\n<span id=\"generate-csr\"> / <a class=\"generate\" target=\"_blank\" href=\"/generate/ssl/?domain=<?=$v_hostname?>\"><?=_('Generate CSR');?></a></span>\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The variable `$v_hostname` is emitted directly into an HTML href attribute via the PHP short echo tag `<?=$v_hostname?>` without any HTML encoding or escaping. If `$v_hostname` contains user-controlled or untrusted data (e.g., a hostname submitted by a user that wasn't strictly validated), an attacker could inject characters such as a double quote to break out of the attribute and inject arbitrary HTML or JavaScript, leading to reflected or stored cross-site scripting (XSS). Even if the value is expected to be a hostname, relying on implicit assumptions without explicit encoding is unsafe, so the SAST finding is valid.\nRealCWE: CWE-79\nSuggestedFix: Apply proper HTML encoding to the variable before output, e.g., `href=\"/generate/ssl/?domain=<?=htmlspecialchars($v_hostname, ENT_QUOTES, 'UTF-8')?>\"` to prevent attribute breakout and XSS. Additionally, ensure `$v_hostname` is validated against a strict hostname pattern on input."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-0986",
+      "project_id": "hestiacp/hestiacp",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "codeql",
+      "file_path": "web/edit/db/index.php",
+      "code_hash": "22129aa48535",
+      "source": "cvefixes_v8_2",
+      "severity": "MEDIUM",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-79\nClaimed severity: LOW\nFile: src/public/app/widgets/dialogs/export.js\nLines: see snippet\n\nCode:\nconst noteTitle = await treeService.getNoteTitle(noteId);\n\n        this.$noteTitle.html(noteTitle);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The code uses jQuery's `.html()` method to insert the `noteTitle` variable into the DOM. The `.html()` method parses and executes any HTML tags within the provided string. If the note title is user-controlled and not properly sanitized before being returned by `treeService.getNoteTitle()`, a malicious user could inject script tags or event handlers (e.g., `<img src=x onerror=alert(1)>`) into the title, leading to Cross-Site Scripting (XSS) when the dialog is rendered.\nRealCWE: CWE-79\nSuggestedFix: Use `.text()` instead of `.html()` to treat the inserted value as plain text rather than HTML. For example, change `this.$noteTitle.html(noteTitle);` to `this.$noteTitle.text(noteTitle);`. Alternatively, sanitize the `noteTitle` string before injecting it."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-2365",
+      "project_id": "zadam/trilium",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "sonarqube",
+      "file_path": "src/public/app/widgets/dialogs/export.js",
+      "code_hash": "30886b3cc659",
+      "source": "cvefixes_v8_2",
+      "severity": "LOW",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-79\nClaimed severity: nan\nFile: phpmyfaq/contact.php\nLines: see snippet\n\nCode:\n'privacyURL' => $faqConfig->get('main.privacyURL'),\n            $faqConfig->get('main.privacyURL'),\n            $faqConfig->get('main.privacyURL'),\n        'privacyURL' => $faqConfig->get('main.privacyURL'),\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged snippet only contains byte slice variable declarations with hardcoded string literals (e.g., \"/\", \"http\", \"GMT\") and performs no output rendering, HTML generation, or user-input handling. There is no path where untrusted data reaches an HTML/HTTP response context that would enable cross-site scripting, so the CWE-79 claim is unsupported.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-1882",
+      "project_id": "thorsten/phpmyfaq",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "snyk-code",
+      "file_path": "phpmyfaq/contact.php",
+      "code_hash": "831cfcfc8d34",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-918\nClaimed severity: nan\nFile: app/controllers/discourse_jira/issues_controller.rb\nLines: see snippet\n\nCode:\nparams.require(:issue_key)\n      issue_key = params[:issue_key]\n      raise Discourse::InvalidParameters.new(:issue_key) if issue_key.include?(\"/\")\n\n        response = Api.get(\"issue/#{issue_key}\")\n              issue_key: issue_key,\n              issue_url: URI.join(SiteSetting.discourse_jira_url, \"browse/#{issue_key}\").to_s,\n        post.jira_issue_key = issue_key\n  class InvalidURI < StandardError\n  end\n      FinalDestination::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == \"https\") do |http|\n    rescue FinalDestination::SSRFDetector::DisallowedIpError => e\n      Discourse.warn_exception(e, message: \"SSRF detected\", env: { url: uri.to_s })\n      raise InvalidURI\n    rescue SocketError, Timeout::Error\n      raise InvalidURI\n      make_request(endpoint) { |uri, headers| FinalDestination::HTTP::Get.new(uri, headers) }\n        request = FinalDestination::HTTP::Post.new(uri, headers)\n    it \"raises error for internal hosts\" do\n      WebMock.enable!(except: [:final_destination])\n      FinalDestination::SSRFDetector.stubs(:lookup_ips).returns([\"192.168.1.1\"])\n      Discourse.expects(:warn_exception).with(\n        instance_of(FinalDestination::SSRFDetector::DisallowedIpError),\n        message: \"SSRF detected\",\n        env: {\n          url: \"https://jira.example.com/rest/api/2/serverInfo\",\n        },\n      )\n      expect { described_class.get_version! }.to raise_error(DiscourseJira::InvalidURI)\n    ensure\n      WebMock.enable!\n    end\n\n      FinalDestination::SSRFDetector.stubs(:lookup_ips).returns([\"1.2.3.4\"])\n    it \"requires issue key in correct format\" do\n      sign_in(admin)\n      post = Fabricate(:post)\n\n      post \"/jira/issues/attach.json\",\n           params: {\n             issue_key: \"../DIS/42\",\n             topic_id: post.topic_id,\n             post_number: post.post_number,\n           }\n\n      expect(response.status).to eq(400)\n      expect(response.parsed_body[\"errors\"][0]).to eq(\n        I18n.t(\"invalid_params\", message: \"issue_key\"),\n      )\n    end\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: MEDIUM\nReasoning: The code interpolates `params[:issue_key]` into an API path (`\"issue/#{params[:issue_key]}\"`), which is a user-controlled value. While this is a code smell and could potentially allow path traversal to access other Jira API endpoints, it does not clearly constitute CWE-918 (SSRF) because the request is directed to a fixed host (the configured Jira instance via `SiteSetting.discourse_jira_url`). There is no evidence that an attacker can redirect the HTTP request to an arbitrary external host through this parameter. Without seeing the full `Api.get` implementation, and given that the Jira URL is a server-side configured setting, the attack surface is limited to path manipulation within the Jira API rather than server-side requests to arbitrary destinations.\nRealCWE: same as claimed\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-44384",
+      "project_id": "discourse/discourse-jira",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "ruby",
+      "tool": "sonarqube",
+      "file_path": "app/controllers/discourse_jira/issues_controller.rb",
+      "code_hash": "9bd3d4525469",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "post_fix",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-918\nClaimed severity: nan\nFile: app/server/appsmith-interfaces/src/main/java/com/appsmith/external/helpers/restApiUtils/helpers/TriggerUtils.java\nLines: see snippet\n\nCode:\nimport java.net.InetAddress;\nimport java.net.UnknownHostException;\nimport static com.appsmith.external.helpers.restApiUtils.helpers.URIUtils.DISALLOWED_HOSTS;\n                        URI redirectUri;\n                            if (DISALLOWED_HOSTS.contains(redirectUri.getHost())\n                                    || DISALLOWED_HOSTS.contains(InetAddress.getByName(redirectUri.getHost()).getHostAddress())) {\n                                return Mono.error(new AppsmithPluginException(AppsmithPluginError.PLUGIN_EXECUTE_ARGUMENT_ERROR, \"Host not allowed.\"));\n                            }\n                        } catch (URISyntaxException | UnknownHostException e) {\nimport lombok.AccessLevel;\nimport org.apache.commons.lang3.StringUtils;\nimport java.net.InetAddress;\nimport java.net.UnknownHostException;\nimport java.util.Set;\n    public static final Set<String> DISALLOWED_HOSTS = Set.of(\n            \"169.254.169.254\",\n            \"metadata.google.internal\"\n    );\n                    if (encodeParamsToggle == true) {\n    public boolean isHostDisallowed(URI uri) throws UnknownHostException {\n        String host = uri.getHost();\n        return StringUtils.isEmpty(host) || DISALLOWED_HOSTS.contains(host)\n                || DISALLOWED_HOSTS.contains(InetAddress.getByName(host).getHostAddress());\n    }\n                .clientConnector(new ReactorClientHttpConnector(applyProxyIfConfigured(httpClient)));\n    private static HttpClient applyProxyIfConfigured(HttpClient httpClient) {\n        return httpClient;\nimport java.net.UnknownHostException;\nimport static com.external.utils.GraphQLDataTypeUtils.smartlyReplaceGraphQLQueryBodyPlaceholderWithValue;\nimport static com.external.utils.GraphQLPaginationUtils.updateVariablesWithPaginationValues;\n            try {\n                if (uriUtils.isHostDisallowed(uri)) {\n                    errorResult.setBody(AppsmithPluginError.PLUGIN_EXECUTE_ARGUMENT_ERROR.getMessage(\"Host not allowed.\"));\n                    errorResult.setRequest(actionExecutionRequest);\n                    return Mono.just(errorResult);\n                }\n            } catch (UnknownHostException e) {\n                errorResult.setBody(AppsmithPluginError.PLUGIN_EXECUTE_ARGUMENT_ERROR.getMessage(\"Unknown host.\"));\n                errorResult.setRequest(actionExecutionRequest);\n                return Mono.just(errorResult);\n            }\n\n            Set<String> hintMessages = new HashSet<String>();\nimport com.appsmith.external.helpers.restApiUtils.connections.APIConnection;\nimport com.appsmith.external.helpers.restApiUtils.helpers.RequestCaptureFilter;\nimport java.net.UnknownHostException;\n            Set<String> hintMessages = new HashSet();\n            try {\n                if (uriUtils.isHostDisallowed(uri)) {\n                    errorResult.setBody(AppsmithPluginError.PLUGIN_EXECUTE_ARGUMENT_ERROR.getMessage(\"Host not allowed.\"));\n                    errorResult.setRequest(actionExecutionRequest);\n                    return Mono.just(errorResult);\n                }\n            } catch (UnknownHostException e) {\n                errorResult.setBody(AppsmithPluginError.PLUGIN_EXECUTE_ARGUMENT_ERROR.getMessage(\"Unknown host.\"));\n                errorResult.setRequest(actionExecutionRequest);\n                return Mono.just(errorResult);\n            }\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: TRUE_POSITIVE\nConfidence: HIGH\nReasoning: The code attempts to mitigate Server-Side Request Forgery (SSRF) by using a blocklist (`DISALLOWED_HOSTS`) containing only two specific entries. A blocklist approach is highly insufficient for preventing SSRF because attackers can easily bypass it using alternative IP representations (like decimal or hex IP formats, 0.0.0.0, or IPv6 equivalents), other cloud provider metadata endpoints, or DNS rebinding attacks. Furthermore, resolving the host via `InetAddress.getByName()` without ensuring the resolved IP is checked immediately prior to the actual HTTP request introduces a Time-of-Check to Time-of-Use (TOCTOU) vulnerability (DNS rebinding). Therefore, this code remains vulnerable to SSRF.\nRealCWE: CWE-918\nSuggestedFix: Replace the blocklist approach with an allowlist of permitted domains and IP ranges where possible. If an allowlist is not feasible, ensure that the host is resolved to an IP address and validate that the IP address does not fall within private, loopback, or link-local ranges (e.g., 127.0.0.0/8, 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16, and IPv6 equivalents). Importantly, the actual HTTP client must use this verified IP address for the connection to prevent DNS rebinding attacks, rather than resolving the original hostname again."
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-4096",
+      "project_id": "appsmithorg/appsmith",
+      "claimed_cwe": "CWE-918",
+      "real_cwe": "CWE-918",
+      "verdict": "TRUE_POSITIVE",
+      "language": "java",
+      "tool": "semgrep",
+      "file_path": "app/server/appsmith-interfaces/src/main/java/com/appsmith/external/helpers/restApiUtils/helpers/TriggerUtils.java",
+      "code_hash": "8c30f907cb6a",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "TRUE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: codeql\nClaimed CWE: CWE-79\nClaimed severity: LOW\nFile: lhc_web/design/defaulttheme/tpl/lhfaq/embedcode.tpl.php\nLines: see snippet\n\nCode:\n<div class=\"row\">\n<div class=\"row\">\n        <select class=\"form-control\" id=\"LocaleID\">\n        <select class=\"form-control\" id=\"ThemeID\">\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The provided code snippet consists solely of static HTML markup (div and select elements with fixed id attributes). There is no PHP interpolation, echo statement, or dynamic variable output visible that could introduce untrusted data into the page context. Without any source of user-controlled input being rendered without proper escaping, this cannot be a Cross-Site Scripting (XSS) vulnerability as claimed by CWE-79.\nRealCWE: same as claimed\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2022-0394",
+      "project_id": "livehelperchat/livehelperchat",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "codeql",
+      "file_path": "lhc_web/design/defaulttheme/tpl/lhfaq/embedcode.tpl.php",
+      "code_hash": "05f602af79dd",
+      "source": "cvefixes_v8_2",
+      "severity": "LOW",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: bandit\nClaimed CWE: CWE-22\nClaimed severity: nan\nFile: nodeserver.js\nLines: see snippet\n\nCode:\nvar nowTemp = host.frondend + (request.url.replace('/', '') || host.baseTemp);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: MEDIUM\nReasoning: The snippet constructs a string by concatenating `host.frondend` with user-controlled `request.url`, but there is no visible filesystem sink (e.g., `fs.readFile`, `fs.writeFileSync`) that would make this a path traversal vulnerability (CWE-22). The variable name `frondend` (likely \"frontend\") suggests this is building a URL for HTTP forwarding or proxying rather than a local filesystem path. Additionally, bandit is a Python-only SAST tool, so it would not natively analyze this JavaScript code, raising further doubt about the finding's validity. Without evidence that `nowTemp` is passed to a file-access API, the claimed CWE-22 does not hold.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2020-36651",
+      "project_id": "youngerheart/nodeserver",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "CWE-22",
+      "verdict": "TRUE_POSITIVE",
+      "language": "javascript",
+      "tool": "bandit",
+      "file_path": "nodeserver.js",
+      "code_hash": "9c3932af2768",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-89\nClaimed severity: MEDIUM\nFile: CHANGELOG.md\nLines: see snippet\n\nCode:\n## [9.5.1] unreleased\n                     'glpi_networkports_networkports.networkports_id_2' => $DB->quoteName('glpi_networkports.id')\n               ['hourmin'   => ['<', $DB->quoteName('hourmax')]],\n               'hourmin'   => ['>', $DB->quoteName('hourmax')],\n      } else if (!preg_match(\"/^`.*?`$/\", $value)) { //`field` is valid only for mysql :/\n      } else if (DBmysql::isNameQuoted($value)) { //FIXME: database related\n         return $value;\n                        'LINK.networkports_id_2'   => $DB->quoteName('PORT_1.id')\n         ['`field`', '`field`'],\n      $it = $this->it->execute('foo', ['bar' => '`field`']);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged content is inside a CHANGELOG.md file, which is documentation describing past code changes rather than executable source code. Static analysis of markdown documentation frequently produces false positives because the tool parses code-like fragments out of context. The snippets shown involve `$DB->quoteName()` calls and quoted field names, but they are historical excerpts listed for human readers, not live SQL query construction paths that accept untrusted user input. Without a real code path where user-controlled data is concatenated into a SQL query, there is no SQL injection vulnerability here.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2020-15176",
+      "project_id": "glpi-project/glpi",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "php",
+      "tool": "sonarqube",
+      "file_path": "CHANGELOG.md",
+      "code_hash": "7752df9ee542",
+      "source": "cvefixes_v8_2",
+      "severity": "MEDIUM",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-22\nClaimed severity: nan\nFile: .changeset/tough-zoos-move.md\nLines: see snippet\n\nCode:\n$url = DynamicMetaHelper::sanitizeUrl($url);\n        return UrlHelper::absoluteUrlWithProtocol($url);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The code snippet deals with URL handling, not file system path operations, making CWE-22 (Path Traversal) inapplicable. The code explicitly calls a sanitization function (`DynamicMetaHelper::sanitizeUrl`) before passing the URL to `UrlHelper::absoluteUrlWithProtocol`, indicating that input sanitization is already being performed. Even if the sanitization were insufficient, the resulting vulnerability would relate to URL handling (e.g., open redirect or SSRF), not path traversal. There is no evidence of file path construction or file system access in this snippet.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2023-51449",
+      "project_id": "gradio-app/gradio",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "python",
+      "tool": "sonarqube",
+      "file_path": ".changeset/tough-zoos-move.md",
+      "code_hash": "1d5f89fcc08f",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-22\nClaimed severity: nan\nFile: brut.apktool/apktool-lib/src/main/java/brut/androlib/ApkBuilder.java\nLines: see snippet\n\nCode:\npublic function uninstall($templatename)\n        $templatename = Yii::app()->request->getPost('templatename');        \n            ['data' => ['image' =>  $previewTag]], \n        $sUninstallUrl = Yii::app()->getController()->createUrl('admin/themeoptions/sa/uninstall/', array(\"templatename\"=>$this->template_name));\n            data-href=\"'.$sUninstallUrl.'\"\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The snippet is PHP code that creates a URL using templatename as a query parameter via createUrl(). There is no file system access, path manipulation, or file operation visible in this snippet that would constitute path traversal. Additionally, the claimed file is a Java file (ApkBuilder.java) while the code is clearly PHP, indicating a misattribution or mismatch in the finding. Creating a URL with user-supplied input is not inherently a path traversal vulnerability unless that input is later used to construct file paths, which is not shown here.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2024-21633",
+      "project_id": "iBotPeaches/Apktool",
+      "claimed_cwe": "CWE-22",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "java",
+      "tool": "snyk-code",
+      "file_path": "brut.apktool/apktool-lib/src/main/java/brut/androlib/ApkBuilder.java",
+      "code_hash": "d87256ece29b",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: sonarqube\nClaimed CWE: CWE-79\nClaimed severity: nan\nFile: docs/release-notes.rst\nLines: see snippet\n\nCode:\n</dependency>\t\t\n\t\t\tresult = iacumosCatalog.readArtifact(userId, solutionId, version, props.getArtifactType().trim());\n\t\t\tresult = iacumosCatalog.readArtifact(userId, solutionId, version, props.getProtoArtifactType().trim());\n\t\t\tdscs.setSolutionId(solutionId);\n\t\t\t\t\tresults = solutionService.addNode(userId, solutionId, version, cid, node);\n\t\t\tresult = solutionService.readCompositeSolutionGraph(userId, solutionId, version);\n\t\t\tresult = solutionService.modifyNode(userId, solutionId, version, cid, nodeId, nodeName, ndata, fieldMap, databrokerMap, collatorMap, splitterMap);\n\t\t\tresult = solutionService.modifyLink(userId, cid, solutionId, version, linkId, linkName);\n\t\t\tboolean deleted = compositeServiceImpl.deleteCompositeSolution(userId, solutionId, version);\n\t\t\t\tboolean deletedNode = solutionService.deleteNode(userId, solutionId, version, cid, nodeId);\n\t\t\tresult = compositeServiceImpl.closeCompositeSolution(userId, solutionId, solutionVersion, cid);\n\t\t\tresult = compositeServiceImpl.clearCompositeSolution(userId, solutionId, solutionVersion, cid);\n\t\t\tresult = compositeServiceImpl.validateCompositeSolution(userId, solutionName, solutionId, version);\n\t\t\t\t\tlinkAdded = solutionService.addLink(userId, solutionId, version, linkName, linkId, sourceNodeName,\n\t\t\t\tboolean deletedLink = solutionService.deleteLink(userId, solutionId, version, cid, linkId);\n        \tsuccessErrorMessage = compositeServiceImpl.setProbeIndicator(userId, solutionId, version, cid,probeIndicator);\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code is a JavaScript test snippet (likely mislabeled as a docs file) that constructs a CompilerApi object, defines mock schema repository contents, and asserts values using Jest. There is no rendering of user-controlled input into HTML, no template interpolation that emits unsafe markup, and no web response context that would reflect unsanitized data to a browser. The strings involved are hardcoded test fixtures and assertions, so CWE-79 (Cross-Site Scripting) does not apply.\nRealCWE: same as claimed\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2018-25097",
+      "project_id": "acumos/design-studio",
+      "claimed_cwe": "CWE-79",
+      "real_cwe": "CWE-79",
+      "verdict": "TRUE_POSITIVE",
+      "language": "java",
+      "tool": "sonarqube",
+      "file_path": "docs/release-notes.rst",
+      "code_hash": "f6f1e243264f",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: semgrep\nClaimed CWE: CWE-89\nClaimed severity: nan\nFile: index.php\nLines: see snippet\n\nCode:\n// %s section\n        return sprintf($this->prepare(self::SECTION_CALL, $level), $id, $method, $id, $filters, $key);\n        // %s inverted section\n        return sprintf($this->prepare(self::INVERTED_SECTION, $level), $id, $method, $id, $filters, $this->walk($nodes, $level));\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged code uses `sprintf` to populate template placeholders (e.g., `SECTION_CALL`, `INVERTED_SECTION`) with variables like `$id`, `$method`, `$filters`, and `$key`. The terminology (`section`, `inverted section`, `walk`, `nodes`) strongly indicates this is a template engine (Mustache-like) generating rendered output, not constructing a SQL query. There is no database function, SQL keyword, or query execution visible in this snippet, so the CWE-89 (SQL Injection) claim is not supported by the available evidence.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2015-10070",
+      "project_id": "copperwall/twiddit",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "N/A",
+      "verdict": "FALSE_POSITIVE",
+      "language": "php",
+      "tool": "semgrep",
+      "file_path": "index.php",
+      "code_hash": "af460a6c603a",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "fp_source": "misclassified_cwe",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  },
+  {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are a security triage assistant. Given a code snippet and a SAST finding (alleged vulnerability), decide whether the finding is a true positive or a false positive. Always output plain text in the structured format requested."
+      },
+      {
+        "role": "user",
+        "content": "A static analysis tool flagged the following code as potentially vulnerable.\nDecide whether this finding is a true positive (real bug) or a false positive (noise).\n\nSAST tool: snyk-code\nClaimed CWE: CWE-89\nClaimed severity: nan\nFile: README.md\nLines: see snippet\n\nCode:\nsudo mysqladmin --defaults-file=/etc/mysql/debian.cnf create gotestdb\n    sudo mysql --defaults-file=/etc/mysql/debian.cnf -e \"GRANT ALL PRIVILEGES  ON gotestdb.*  TO 'go_user'@'localhost' IDENTIFIED BY 'mypassword'  WITH GRANT OPTION;\"\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'create table posts (title varchar(64) default null, start date default null);'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"hello\",\"2015-01-01\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"more\",\"2015-01-03\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -e 'insert into posts values(\"end\",\"2015-01-23\");'\n    mysql -p\"mypassword\" -u go_user gotestdb -B -e 'select * from posts;'\n. output in tables\n/* no Credentials management needed\nfunc getCredentials(request *http.Request) (userName string, password string) {\n\tif cookie, err := request.Cookie(\"Credentials\"); err == nil {\n\t\tif err = cookieHandler.Decode(\"Credentials\", cookie.Value, &cookieValue); err == nil {\n\treturn userName, password\nfunc setCredentials(userName string, pw string, w http.ResponseWriter) {\n\tif encoded, err := cookieHandler.Encode(\"Credentials\", value); err == nil {\n\t\t\tName:  \"Credentials\",\n\t\tName:   \"Credentials\",\n\t\tsetCredentials(user, pass, w)\n   <label for=\"user\">User name</label><input type=\"text\" id=\"user\" name=\"user\">\n   <label for=\"password\">Password</label><input type=\"password\" id=\"password\" name=\"password\">\nfunc dsn(user string, pw string, db string) string {\n * turn into generic functions\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tstatement, err := conn.Prepare(\"select * from ?\")\n\trows, err := statement.Query(table)\n\tuser, pw := getCredentials(r)\n\tconn, err := sql.Open(\"mysql\", dsn(user, pw, database))\n\tstatement, err := conn.Prepare(\"select * from ?\")\n\trows, err := statement.Query(table)\nvar host = \"localhost\"\nvar port = \"3306\"\n\tu, _ := getCredentials(r)\n\tif u != \"\" {\n\t\tfmt.Fprintln(w, \"<h1>\", u, \"</h1>\")\n\nOutput exactly these fields:\nVerdict: TRUE_POSITIVE or FALSE_POSITIVE\nConfidence: HIGH, MEDIUM, or LOW\nReasoning: <one paragraph explaining the decision>\nRealCWE: <CWE if TP and differs from claim, else same as claimed>\nSuggestedFix: <one paragraph if TP, else \"N/A\">\n"
+      },
+      {
+        "role": "assistant",
+        "content": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged content is in a README.md file, which is documentation rather than executable source code. SAST tools often incorrectly flag code samples within markdown files as if they were live vulnerabilities. Additionally, even if this were real Go source code, the snippet uses parameterized queries via `Prepare` and `Query`, which is the standard mitigation for SQL injection. While the specific query `select * from ?` is technically invalid SQL (placeholders cannot be used for table names), this does not constitute a genuine exploitable SQL injection vulnerability in a scanned markdown documentation file.\nRealCWE: N/A\nSuggestedFix: N/A"
+      }
+    ],
+    "metadata": {
+      "case_id": "CVE-2015-10044",
+      "project_id": "gophergala/sqldump",
+      "claimed_cwe": "CWE-89",
+      "real_cwe": "CWE-89",
+      "verdict": "TRUE_POSITIVE",
+      "language": "go",
+      "tool": "snyk-code",
+      "file_path": "README.md",
+      "code_hash": "e1c0f66a989b",
+      "source": "cvefixes_v8_2",
+      "severity": "nan",
+      "consensus_verdict": "FALSE_POSITIVE",
+      "reasoning_source": "glm-5.2",
+      "dual_teacher": "gpt-5.5+glm-5.2"
+    }
+  }
+]
