@@ -1,0 +1,16 @@
+{
+  "recipe": "GLM-solo relabel + CyberNative escaping pairs, TP oversample x2",
+  "unique_tp": 388,
+  "unique_fp": 803,
+  "train_n": 1579,
+  "train_dist": {
+    "FALSE_POSITIVE": 803,
+    "TRUE_POSITIVE": 776
+  },
+  "val_n": 30,
+  "val_dist": {
+    "FALSE_POSITIVE": 15,
+    "TRUE_POSITIVE": 15
+  },
+  "oversample": 2
+}
