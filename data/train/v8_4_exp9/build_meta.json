@@ -1,0 +1,16 @@
+{
+  "recipe": "consensus (236) + escaping pairs (270), TP oversampled to balance ~1:1",
+  "unique_tp": 176,
+  "unique_fp": 300,
+  "balance_target": "~1:1",
+  "train_n": 600,
+  "train_dist": {
+    "FALSE_POSITIVE": 300,
+    "TRUE_POSITIVE": 300
+  },
+  "val_n": 30,
+  "val_dist": {
+    "TRUE_POSITIVE": 15,
+    "FALSE_POSITIVE": 15
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "recipe": "exp5 dual-consensus (236) + CyberNative escaping pairs (270), NO oversample",
+  "sources": {
+    "exp5_consensus": 236,
+    "escaping_pairs": 270
+  },
+  "train_n": 476,
+  "train_dist": {
+    "FALSE_POSITIVE": 300,
+    "TRUE_POSITIVE": 176
+  },
+  "val_n": 30,
+  "val_dist": {
+    "FALSE_POSITIVE": 15,
+    "TRUE_POSITIVE": 15
+  }
+}
