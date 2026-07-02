@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "1591bc70:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Dev-only error overlay rendering framework-generated error payload (highlightedCode produced by the build tool's own highlighter) inside a shadow root; no attacker-controlled input reaches the innerHTML sinks in a realistic threat model."
+ },
+ {
+  "case_id": "11d32137:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec() builds the git pull command only from the ROOT constant with no user-controlled input, so there is no code/command injection vector for CWE-94 in the shown code."
+ },
+ {
+  "case_id": "95c50ada:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Unit test fixtures with dummy passwords and a sample bcrypt hash used to test isHashedPassword; these are not real credentials granting access to anything, so CWE-798 does not apply."
+ },
+ {
+  "case_id": "858c5987:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged innerHTML assignment is on a detached div inside a stripScripts sanitization helper in frontend form-summary code; no untrusted taint flow or dangerous DOM insertion of its output is shown, so the sink form alone does not make it exploitable."
+ },
+ {
+  "case_id": "58c309f3:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Cache read() derives the filename via generateFileLocation() from an internal cache key set by application code, with no evidence of user-controlled path components, so path traversal is not demonstrated."
+ },
+ {
+  "case_id": "95b4e32d:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Demo/sample script where the file path comes from the helper's getTemporaryFilename() and hardcoded template paths, with no external input, so there is no path traversal."
+ },
+ {
+  "case_id": "5e5c4b7d:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "path.join is used to build client-side URL strings from the internal baseHRef and hardcoded route constants like '/api/v1', not filesystem paths from user input, so CWE-22 is inapplicable."
+ },
+ {
+  "case_id": "c2bd4121:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Although $id_dependente is interpolated into the SQL string, it is trimmed and strictly validated with is_numeric() with a 400 exit otherwise, which blocks injection payloads; parameterization would be cleaner but the finding is not exploitable."
+ },
+ {
+  "case_id": "2c00a1df:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Pickle is used only to persist and reload the library's own local object-node mapping from a developer-specified persist_dir (trusted local storage), not to deserialize untrusted external data."
+ },
+ {
+  "case_id": "493c6e68:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "shell_exec of rrdtool restore in an admin CLI maintenance script makes no server-side HTTP request, so CWE-918 (SSRF) is inapplicable, and the file arguments come from operator-controlled CLI context rather than untrusted remote input."
+ }
+]

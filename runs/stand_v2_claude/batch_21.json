@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "d1d30227:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged lines only write the exception dump to the RACK_ERRORS server log stream (puts/flush), not into an HTML HTTP response, so no untrusted data reaches a browser rendering context in the shown code."
+ },
+ {
+  "case_id": "6f33768a:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The exec call runs a fixed command built only from the ROOT constant with no user-controlled input, so there is no code/command injection vector for CWE-94 in the shown snippet."
+ },
+ {
+  "case_id": "4611d05d:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "os/exec is imported for an admin-configured hook mechanism (Hook is an absolute path set in server config, not attacker input), and no untrusted data is evaluated as code, so CWE-94 does not apply."
+ },
+ {
+  "case_id": "6f33768a:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "There is no user-controlled URL fetch (no server-side request built from input), so CWE-918 SSRF is inapplicable; the real risk here is user-controlled require_once/class instantiation (local file inclusion / unsafe reflection), a different CWE than claimed."
+ },
+ {
+  "case_id": "50643467:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "csrf_exempt on REST API endpoints is the standard pattern for token/API-key authenticated APIs that are not cookie-session driven, so disabling CSRF protection here is intentional and not exploitable via cross-site request forgery."
+ },
+ {
+  "case_id": "191ea16c:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The innerHTML assignment only re-wraps content already present in the static docs DOM (dt.innerHTML from the page itself) with fixed markup; no untrusted external input is introduced, so there is no XSS."
+ },
+ {
+  "case_id": "1591bc70:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is an internal helper in a local CLI scaffolding tool where command and flags come from the tool's own code, not from remote attacker-controlled input, so spawn with shell:true is not an OS command injection here."
+ },
+ {
+  "case_id": "cbe3e8ff:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "The query concatenates $data['id_fiche'] directly into SQL (WHERE tag='...'), and id_fiche can arrive pre-set from raw user request data without sanitization or parameterization, making this a real SQL injection."
+ },
+ {
+  "case_id": "2aefef26:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "toast_push assigns msg to innerHTML, but the snippet shows no untrusted source flowing into msg (it is a UI helper called with app-controlled notification text), and a sink-shaped helper alone does not constitute a vulnerability."
+ },
+ {
+  "case_id": "0689fc82:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The innerHTML writes use static markup or the name of a file the user themselves selected for upload in their own browser session (at worst self-XSS), with server responses inserted via textContent or sanitized, so no practical stored/reflected XSS is shown."
+ }
+]

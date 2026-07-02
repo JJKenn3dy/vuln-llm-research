@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "57334302:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The read() path comes from generateFileLocation($key) with no evidence the cache key is attacker-controlled or that the location function passes raw input into the path; no traversal sequence reaches the filesystem call in the shown code (the riskier pattern here is unserialize, CWE-502, not CWE-22)."
+ },
+ {
+  "case_id": "0da687b7:CWE-78:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "gitCheckout() interpolates $branch directly into exec(\"git -C \".ROOT.\" checkout $branch\") without escapeshellarg, and branch names originate from an external source (request/GitHub API), allowing shell metacharacter injection and arbitrary command execution."
+ },
+ {
+  "case_id": "6894234b:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The snippet only builds a DI container and loads route collections from local controller directories; no user-controlled data is ever written into an HTML/JS response, so CWE-79 is inapplicable here."
+ },
+ {
+  "case_id": "72b4d8b7:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "urlGetParams() concatenates raw $_GET keys and values with no htmlspecialchars/urlencode for reflection into page URLs, combined with extract($_REQUEST) allowing arbitrary variable injection into the rendered page, giving unescaped user input paths into HTML output."
+ },
+ {
+  "case_id": "f555abf1:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "The renderer neutralizes only <script> tags (script-to-pre) but passes markdown-supplied tags and props straight through propsToData/h() with no filtering of event-handler attributes (onerror/onclick) or javascript: URLs, so untrusted markdown can still execute script."
+ },
+ {
+  "case_id": "14fa1aca:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a pure configuration interface declaring typed property getters; it produces no HTML output and handles no user input, so XSS cannot occur in this code."
+ },
+ {
+  "case_id": "11d32137:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "extract($_REQUEST) plus raw $_GET['idatendido'] concatenated into queries and page flow with zero sanitization or output encoding makes injection of attacker input into the response (and directly into SQL) trivially reachable; nothing in the file escapes user input before use."
+ },
+ {
+  "case_id": "d6820ba0:CWE-352:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "The apps management page performs state-changing operations (edit/delete/save app with arbitrary commands) via the web API with no CSRF token, hidden nonce, or same-origin defense anywhere in the template, and the UI relies on browser-attached credentials, so cross-site forged requests can modify apps."
+ },
+ {
+  "case_id": "e1561f14:CWE-94:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "runMigrations() only invokes the framework's own migration runner on internal plugin handles and formats error messages for a response; there is no eval/dynamic code construction from user input in the shown code, so CWE-94 does not apply."
+ },
+ {
+  "case_id": "d1d3b7a9:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "bundle_id is rejected by strict_package_check and instance_id by common_check before use, and the context is rendered through Django templates with default auto-escaping, so no unescaped user input reaches the HTML."
+ }
+]

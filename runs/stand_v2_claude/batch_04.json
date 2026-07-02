@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "72b4d8b7:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "$id_dependente is checked with is_numeric() and the request is rejected with 400 before the query, so only numeric values can reach the interpolated SQL, which is not injectable."
+ },
+ {
+  "case_id": "8a370214:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$almox comes straight from $_REQUEST and is concatenated into the mysqli query with no validation, casting, or parameterization, which is a classic SQL injection."
+ },
+ {
+  "case_id": "1c813937:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is the minified public @docsearch/js library bundle with no credentials or secrets of any kind, so CWE-798 (hardcoded credentials) does not apply."
+ },
+ {
+  "case_id": "c2b310d3:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The embedded keypairs live in a tlstest helper package explicitly meant only for tests (CN alt.test/localhost), a standard test-fixture pattern, not production credentials."
+ },
+ {
+  "case_id": "b33780d8:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The shell() helper in create-astro is invoked with developer-controlled commands and flags from the CLI scaffolder itself, not attacker-controlled input, so shell:true here is a style concern rather than an exploitable command injection."
+ },
+ {
+  "case_id": "107d4305:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The value is constrained by preg_match('/^[a-z0-9]*$/') and used only to include a local .php file under a fixed directory with is_file check, so no URL/request is made and CWE-918 (SSRF) is inapplicable."
+ },
+ {
+  "case_id": "0dac9e2f:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "load() evals the application's own local config file (not user input) and executes no OS command at all, so CWE-78 command injection does not apply to this code."
+ },
+ {
+  "case_id": "0dac9e2f:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() of $_POST['config'] is mitigated: PHP7+ path passes allowed_classes=false and the legacy path rewrites object tokens into __PHP_Incomplete_Class, blocking object injection gadgets."
+ },
+ {
+  "case_id": "734e15b7:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The ${{ inputs.* }} values come from a workflow_call of a reusable workflow (typed boolean/string supplied by trusted caller workflows in the repo), not from untrusted PR-controlled context, so there is no realistic command injection."
+ },
+ {
+  "case_id": "22329c46:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "In the shown code $version/$revision are only compared against whitelists via array_key_exists/version checks and never concatenated into any SQL statement, so no CWE-89 injection is evident."
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "10c74e10:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "requests.get(url) выполняется только после проверки url по allowlist WhitelistedRssUrl.objects.filter(url=url).exists(), то есть SSRF-запросы возможны лишь к явно вайтлистнутым URL."
+ },
+ {
+  "case_id": "35d37473:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Команда exec(\"git -C \".ROOT.\" pull\") строится только из константы ROOT без какого-либо пользовательского ввода, поэтому инъекция кода/команды (CWE-94) в показанном фрагменте невозможна."
+ },
+ {
+  "case_id": "b639fece:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Показанный код pickle_dump лишь сериализует объект (Pickler.dump), а десериализация недоверенных данных, составляющая суть CWE-502, здесь не выполняется (тело pickle_load не показано)."
+ },
+ {
+  "case_id": "c2f4afd5:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "__unserialize восстанавливает внутренне сериализованные параметры mass-action, и в показанном коде нет пути недоверенного пользовательского ввода к unserialize; сама форма синка без attacker-controlled данных не делает код уязвимым."
+ },
+ {
+  "case_id": "54f74b80:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Это dev/build-скрипт CPython с захардкоженными URL-шаблонами и фиксированными аргументами subprocess ('./configure', 'make'), никакого пользовательского пути или traversal-примитива (CWE-22) здесь нет."
+ },
+ {
+  "case_id": "e2603176:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "eval() выполняет содержимое локального конфигурационного файла приложения (доверенный, контролируемый администратором источник), OS-команды (CWE-78) не запускаются вовсе, а эксплуатация потребовала бы уже имеющейся записи в config-файл."
+ },
+ {
+  "case_id": "efd587a9:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "В показанном bootstrap-коде нет ни одного исходящего сетевого запроса (только локальные include/is_file/fpassthru), поэтому SSRF (CWE-918) неприменим."
+ },
+ {
+  "case_id": "31c8d3e4:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize вызывается с ['allowed_classes' => false] над конфигом из собственной БД в рамках миграции, что исключает object injection и делает CWE-502 неприменимым."
+ },
+ {
+  "case_id": "f1684882:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Показанный код лишь читает cursor.fetchall() и строит словарь ключей автодополнения из метаданных модели, конкатенации пользовательского ввода в SQL-запрос здесь нет."
+ },
+ {
+  "case_id": "ff00d75b:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$almox берётся напрямую из $_REQUEST и без кавычек, кастинга или параметризации интерполируется в SQL-строку (estoque.id_almoxarifado=$almox), это классическая SQL-инъекция."
+ }
+]

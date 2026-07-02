@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "0dac9e2f:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "CWE-918 (SSRF) неприменим: это локальный include, вход жёстко валидирован whitelist-регэкспом ^[a-z0-9]*$, что исключает traversal, URL-схемы и null-байты, плюс is_file ограничивает существующими локальными файлами."
+ },
+ {
+  "case_id": "8eb446f1:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize читает собственный кэш-файл, который этот же класс пишет через serialize по детерминированному пути; данные не приходят от пользователя, эксплуатация требует уже имеющейся записи в файловую систему."
+ },
+ {
+  "case_id": "e1561f14:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Debug-модуль десериализует собственные index.data/tag.data файлы, которые сам же сериализует и пишет в свой dataPath; источник данных внутренний, недостижимый для внешнего атакующего."
+ },
+ {
+  "case_id": "6894234b:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Хотя unserialize применяется к $_POST['config'], объектная инъекция закрыта: на PHP>=7 передаётся allowed_classes=>false, на старых версиях объекты переписываются в __PHP_Incomplete_Class, а результат используется только как whitelisted-строка языка."
+ },
+ {
+  "case_id": "82247d96:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "В показанном коде нет десериализации недоверенных данных: это monkey-patch загрузки переводов Babel из локальных каталогов плагинов, CWE-502 к этому фрагменту неприменим."
+ },
+ {
+  "case_id": "cd1cbfd3:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Захардкоженных учётных данных нет: все credential-переменные (basicAuth, myKey, myCert) инициализируются пустыми строками и заполняются из CLI-флагов/конфига, в коде только usage-текст и версия."
+ },
+ {
+  "case_id": "66e47a19:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Jinja2 без autoescape используется в офлайн-генераторе C-кода, пишущем в локальные файлы из доверенных шаблонов; HTML-контекста и пользовательского ввода в веб-ответ нет, XSS неприменим."
+ },
+ {
+  "case_id": "493c6e68:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize читает собственный кэш relationship-путей, который этот же метод пишет через serialize в install_dir; данные генерируются приложением, а не атакующим, эксплуатация требует уже полученной записи на диск."
+ },
+ {
+  "case_id": "2c00a1df:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Показанный код это конструктор SQLAlchemy-обёртки (инспекция схемы, whitelisting таблиц) без конкатенации пользовательского ввода в SQL; выполнение произвольного SQL это заявленное назначение класса, а не инъекция в данном фрагменте."
+ },
+ {
+  "case_id": "63037fb7:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Захардкоженная RSA-пара лежит в RSpec-тестовом файле как фикстура для проверки контроллера API-ключей; это не production-секрет и не даёт доступа ни к какой системе."
+ }
+]

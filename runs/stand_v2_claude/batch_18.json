@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "0af67dd5:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Path is built by generateFileLocation() from an internal cache key; no user-controlled path component or traversal evidence in the shown code."
+ },
+ {
+  "case_id": "e4311d83:CWE-352:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "websocket.Upgrader with CheckOrigin unconditionally returning true while auth token is taken from cookies enables cross-site WebSocket hijacking (CSRF-class attack on the terminal endpoint)."
+ },
+ {
+  "case_id": "cbe3e8ff:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize is called with allowed_classes=false on PHP7+ and a regex workaround neutralizing object payloads on older PHP, so object injection is mitigated."
+ },
+ {
+  "case_id": "8308f98c:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged code is matplotlib plotting logic in a local benchmark script with no SQL queries at all; CWE-89 is inapplicable."
+ },
+ {
+  "case_id": "e05d9d7f:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Filenames come from the storage disk listing (allFiles()) in an admin CLI command, not from user input, so no path traversal is possible."
+ },
+ {
+  "case_id": "92e5e452:CWE-79:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Arbitrary JSON (chat/LLM-derived content) is rendered into raw HTML via v-html with no visible escaping or sanitization anywhere in the component, allowing script injection."
+ },
+ {
+  "case_id": "782080f7:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize reads a local cache file that the application itself serialized and wrote; the data is not attacker-controlled, a standard trusted-cache pattern."
+ },
+ {
+  "case_id": "c49ceae7:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The bootstrap code only loads .env files and sets environment variables; it performs no outbound requests, so SSRF (CWE-918) is inapplicable."
+ },
+ {
+  "case_id": "119330c5:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize operates on cache files written by the framework itself and the result is strictly structure-validated; no untrusted deserialization source."
+ },
+ {
+  "case_id": "cb7f5e2b:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The code is genuinely risky (user-controlled dynamic require/class instantiation, CWE-470/98 unsafe reflection since htmlspecialchars does not block ../), but there is no server-side request, so the claimed CWE-918 SSRF does not apply."
+ }
+]

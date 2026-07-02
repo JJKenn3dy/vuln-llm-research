@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "d358e680:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec() runs a fixed command 'git -C '.ROOT.' pull' where ROOT is a server-side constant, no user-controlled data reaches the command, so no code injection under CWE-94."
+ },
+ {
+  "case_id": "e330447b:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "skip_forgery_protection is legitimate here: this is a machine-to-machine API controller authenticated via HTTP message signatures and content digests (validate_signature!/validate_content_digest!), not cookie sessions, so CSRF does not apply."
+ },
+ {
+  "case_id": "69b6e054:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "execSync builds a pnpm publish command in a CI-only release script from developer/CI-controlled packageName, tag and branch values, not attacker-controlled input, so there is no realistic OS command injection."
+ },
+ {
+  "case_id": "493c6e68:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Every dynamic component of the exec() command (path, recipient, title) is wrapped in escapeshellarg(), which neutralizes shell metacharacters, so no command/code injection is possible."
+ },
+ {
+  "case_id": "72cae416:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "getAbsolutePath resolves package paths in a Storybook build config with hardcoded developer-supplied values at build time, no untrusted input, so path traversal is not applicable."
+ },
+ {
+  "case_id": "c2bd4121:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The innerHTML write goes into a preview iframe using the same user's own builder form field value (self-contained admin/builder preview), no untrusted third-party data flows to the sink, making this self-preview rendering rather than exploitable stored/reflected XSS."
+ },
+ {
+  "case_id": "f1233c30:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads a local cache file that the same class previously wrote via serialize(); the data is application-generated, not attacker-supplied, so unsafe deserialization of untrusted data is not demonstrated."
+ },
+ {
+  "case_id": "0af67dd5:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "file_get_contents('php://input') reads the local request body stream, not an attacker-controlled URL, so SSRF (CWE-918) is inapplicable; the code has other access-control smells but not the claimed CWE."
+ },
+ {
+  "case_id": "f2513077:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The cilium-bugtool snippet only defines CLI flags and predefined diagnostic commands executed by an operator-run debug tool; no external input is evaluated as code, so CWE-94 code injection does not apply."
+ },
+ {
+  "case_id": "c0c2d2ad:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged code only iterates cursor.fetchall() results and builds nested dicts from Django model metadata; no SQL string is constructed from user input in this snippet, so no SQL injection."
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "ef1f9f4e:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "CWE-918 (SSRF) неприменим: никакого исходящего запроса нет, require_once с http-обёрткой блокируется file_exists и дефолтным allow_url_include=Off; реальный риск кода — локальный file inclusion / динамическая инстанциация класса (CWE-98/470), а не SSRF."
+ },
+ {
+  "case_id": "cc77ed70:CWE-611:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "xml.etree.ElementTree в современном Python не резолвит внешние сущности (XXE не воспроизводится), а показанный фрагмент вообще только обходит уже распарсенное дерево без вызова parse."
+ },
+ {
+  "case_id": "c2f4afd5:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "CLI-only скрипт (жёсткий exit при не-cli SAPI): путь берётся из argv администратора, читается локальный zip через file_get_contents, никакого сетевого запроса по недоверенному URL нет — SSRF неприменим."
+ },
+ {
+  "case_id": "1ac0d070:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize читает кэш-файлы, которые это же приложение само создало через serialize в write(); данные не подконтрольны атакующему, эксплуатация требует уже имеющейся записи на диск — типовой доверенный кэш."
+ },
+ {
+  "case_id": "1f40a88b:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "db.Exec выполняет DDL-запросы (drop/create/add column), сгенерированные из моделей ORM, в CLI-команде syncdb; идентификаторы приходят из кода разработчика, недоверенного пользовательского ввода в SQL нет."
+ },
+ {
+  "case_id": "0ae0365e:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "innerHTML используется на отсоединённом div только для парсинга и вырезания цитаты из уже отрендеренного/санитизированного тела письма; фрагмент не вводит нового XSS-синка (реальный рендер и санитизация происходят выше по конвейеру EspoCRM)."
+ },
+ {
+  "case_id": "cd2a2e21:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Перед extractall каждый member явно санитизируется: абсолютные пути переводятся в относительные, ../ вырезается и есть realpath-проверка с sys.exit при выходе за пределы cwd — path traversal по именам смягчён."
+ },
+ {
+  "case_id": "cdb8e846:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Идентичный apoio/control.php код: SSRF (CWE-918) неприменим — исходящих запросов нет, file_exists не работает с http-обёртками; реальная проблема кода — включение локального файла по имени из запроса (CWE-98), но не заявленный CWE."
+ },
+ {
+  "case_id": "69ec57ce:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Bootstrap-код Cockpit только вычисляет маршруты и пути из REQUEST_URI/SCRIPT_NAME и включает локальные файлы после realpath-проверок; никакого server-side запроса по данным пользователя нет, синк SSRF отсутствует."
+ },
+ {
+  "case_id": "09affa8a:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Дубликат Cache.php: десериализуются только собственные кэш-файлы, записанные serialize'ом того же класса, вход атакующего в unserialize не попадает без отдельной write-примитивы."
+ }
+]

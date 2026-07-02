@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "e330447b:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "html_safe применяется к I18n-строке, где интерполируется existing_domain_block.domain — доменное имя из БД, прошедшее нормализацию/валидацию формата домена, и контекст admin-only; реального вектора инъекции HTML нет."
+ },
+ {
+  "case_id": "7062666a:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "YAML.safe_load безопасен, а интерполяция в backticks (rg_search_count) получает внутренние имена настроек в admin/CLI rake-контексте, не attacker-controlled ввод, и это в любом случае был бы CWE-78, а не заявленный CWE-94."
+ },
+ {
+  "case_id": "14c1d093:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "innerHTML получает glossaryItem.body из статического доверенного glossary.json (собранного при билде); URL-параметр пользователя лишь выбирает ключ словаря, а title выводится через textContent, так что управляемый пользователем HTML в DOM не попадает."
+ },
+ {
+  "case_id": "c49ceae7:CWE-502:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Публичный метод вызывает нативный unserialize($sData) без allowed_classes на сериализованных настройках datatable, которые сохраняются как пользовательские префы и подконтрольны аутентифицированному пользователю — классическая PHP object injection без какой-либо митигации в коде."
+ },
+ {
+  "case_id": "e6bfae09:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] без всякой валидации конкатенируется прямо в SQL-запрос (estoque.id_almoxarifado=$almox) — прямая SQL-инъекция."
+ },
+ {
+  "case_id": "0af67dd5:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Перед интерполяцией в SQL $id_dependente проверяется через is_numeric с выходом по ошибке, что исключает нечисловой payload — инъекция здесь невозможна."
+ },
+ {
+  "case_id": "af4a46b3:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Показанный фрагмент — регистрация роутов и middleware REST API реестра; никакого рендера пользовательского ввода в HTML нет, заявленный CWE-79 к этому коду неприменим."
+ },
+ {
+  "case_id": "895aa7dd:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "sp.check_call(cmd, shell=True) находится в dev-таск-раннере (tasks.py), где cmd задаётся самим разработчиком в коде, а не приходит от внешнего пользователя — нет attacker-controlled источника."
+ },
+ {
+  "case_id": "6894234b:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Если $data['id_fiche'] уже задан в raw-вводе (POST), он используется как есть и конкатенируется в запрос WHERE tag='...' без экранирования — генерация через genere_nom_wiki происходит только когда поле не задано, так что инъекция достижима."
+ },
+ {
+  "case_id": "44a531a6:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize читает локальный кэш-файл, который это же приложение само записало через serialize; данные не приходят от пользователя, и без возможности записи в файлы кэша объектная инъекция недостижима."
+ }
+]

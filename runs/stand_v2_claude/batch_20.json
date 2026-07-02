@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "44a531a6:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "No server-side request is made anywhere in this code, so CWE-918 (SSRF) is inapplicable; the real weakness is user-controlled require/class instantiation (unsafe reflection / file inclusion, CWE-470/CWE-98), a different class than claimed."
+ },
+ {
+  "case_id": "8308f98c:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "subprocess.run(shell=True) is fed only from CLI argparse arguments and an env var of a local developer benchmark script, so the person invoking it already has shell access and there is no untrusted input boundary."
+ },
+ {
+  "case_id": "e4311d83:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "runCommand executes the admin-configured plugin command from CMPServerInitConstants.PluginConfig via exec.CommandContext with an argument vector (no shell), so no untrusted input is evaluated as code and CWE-94 does not apply."
+ },
+ {
+  "case_id": "5e5c4b7d:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is the standard kubectl-style CLI plugin dispatch: it only runs argocd-prefixed binaries found on the local user's PATH (rejecting relative-path exec.ErrDot), executing software the user installed themselves, which is not code injection."
+ },
+ {
+  "case_id": "7d0df8c9:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads a cache file that the same class previously wrote via serialize(), so the data is application-generated and locally trusted, not attacker-controlled input; without an attacker write path to the cache directory this is not exploitable deserialization."
+ },
+ {
+  "case_id": "82247d96:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The command passed to shell=True comes from the admin-authored event configuration (the code explicitly trusts admin config and intentionally allows shell semantics), so in the shown code there is no untrusted input reaching the shell."
+ },
+ {
+  "case_id": "420b88e7:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Same self-written cache pattern: the file content being unserialized was produced by the class's own serialize() call, so the deserialized data is trusted local application state rather than attacker-controlled input."
+ },
+ {
+  "case_id": "8cef54ea:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a build-time script whose path inputs are the repository's own source file list (src/*.ts entrypoints), not external user input, so there is no untrusted data reaching path.resolve/writeFileSync and no path traversal exposure."
+ },
+ {
+  "case_id": "7465f785:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Duplicate of the same Cache.php read(): unserialize operates on a cache file the application itself serialized and wrote, so absent an attacker-controlled write to the cache location the CWE-502 finding is noise."
+ },
+ {
+  "case_id": "f1233c30:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] is concatenated directly into the SQL WHERE clause with no casting, escaping, or parameterization, giving a textbook SQL injection reachable by any request parameter."
+ }
+]

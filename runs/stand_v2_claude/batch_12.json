@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "be0de1ab:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The response is served with Content-Type text/yaml (not text/html), so the browser will not render it as HTML and reflected script execution is not possible in this handler."
+ },
+ {
+  "case_id": "d2316c99:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The file path comes from an internal generateFileLocation($key) helper on an app-controlled cache key, with no visible user-controlled path segments or traversal sequences reaching the filesystem call."
+ },
+ {
+  "case_id": "8eb446f1:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Same cache code: the filename is derived by the class's own generateFileLocation from an internal cache key, showing no attacker-controlled path input, so path traversal is not demonstrated."
+ },
+ {
+  "case_id": "4ab43c37:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The pickle usage here is for the application's own persistence files in a developer-chosen persist_dir (trusted local storage the app itself wrote), not deserialization of untrusted external input, and the shown snippet does not even contain a pickle.load call."
+ },
+ {
+  "case_id": "465db27c:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged cProfile lines are just __doc__ attribute assignments in the stdlib profiler; there is no deserialization of any data at all, so CWE-502 is inapplicable."
+ },
+ {
+  "case_id": "28a0bf51:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a test/screenshot dev tool where path.join uses keys from the tool's own test-case data and CLI options, not untrusted external input, so no exploitable path traversal exists."
+ },
+ {
+  "case_id": "ff00d75b:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads a cache file that the same class serialized and wrote itself; without an attacker able to write into the cache directory there is no untrusted-data deserialization."
+ },
+ {
+  "case_id": "9b1cf069:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "reply.send(req.body) in this Fastify benchmark echoes a JSON-parsed body back as application/json, which browsers do not render as HTML, so reflected XSS does not apply."
+ },
+ {
+  "case_id": "895aa7dd:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This nbgrader preprocessor uses jinja2 to instantiate test code in notebooks, a non-web templating context with no HTML response to a browser, so CWE-79 (XSS) is inapplicable here."
+ },
+ {
+  "case_id": "fa1c1325:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged lines are vendored minified Algolia docsearch library code containing no credentials at all, so the hardcoded-credentials claim is noise on third-party helper functions."
+ }
+]

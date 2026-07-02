@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "4afb9a06:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec() runs a fully static command built from the ROOT constant with no user-controlled input, so there is no code/command injection path."
+ },
+ {
+  "case_id": "fd093b88:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The migration file path is built from internal constants (DirPath, current DB version) behind an admin permission check, with no user-controlled data reaching the include/execute call."
+ },
+ {
+  "case_id": "1ac0d070:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The exec'd git pull command is a constant string using the ROOT define; no external input flows into the shell command, so CWE-94 does not apply."
+ },
+ {
+  "case_id": "a2fce2d4:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "innerHTML is used on a detached container purely to parse and split quote parts of already-received email content; the flagged code performs DOM restructuring, not rendering of unsanitized user input into the page."
+ },
+ {
+  "case_id": "0ab53172:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Same static exec(\"git -C \".ROOT.\" pull\") call with no attacker-controlled data in the command, so no code injection exists in the shown code."
+ },
+ {
+  "case_id": "fa1c1325:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is minified third-party vendor library code (@docsearch/js) bundled in docs static assets; the flagged constructs are generic helpers, not a sink receiving untrusted input."
+ },
+ {
+  "case_id": "3ac1cd02:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "shell=True is used with an installer-internal dirname (installation prefix) in an uninstall helper running locally with the user's own privileges, not attacker-controlled input crossing a trust boundary."
+ },
+ {
+  "case_id": "5a1cd3ff:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] is concatenated directly into the SQL WHERE clause with no casting, escaping, or parameterization, a textbook SQL injection."
+ },
+ {
+  "case_id": "5a1cd3ff:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads a local cache file that the same class writes via serialize(); the data is application-generated, not user-supplied, so no realistic deserialization-of-untrusted-data path is shown."
+ },
+ {
+  "case_id": "7b273ad9:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged lines only rescue an exception and write its dump to the rack.errors log stream; no HTML response with unescaped user input is produced in the shown code."
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "cd2a2e21:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Показанный код только формирует timestamp-строку и объявляет Enum, никакой десериализации недоверенных данных (pickle/yaml.load и т.п.) в снippете нет, CWE-502 неприменим."
+ },
+ {
+  "case_id": "fd6b6b59:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "broadcastMessage приходит из серверного конфига, задаваемого администратором инстанса (который тут же по дизайну может eval'ить произвольный JS), это доверенный источник и намеренный рендер markdown-в-HTML, а не XSS от недоверенного пользователя."
+ },
+ {
+  "case_id": "e8cb6944:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "purge() работает с hostname/prefix из внутренних данных LibreNMS (имена устройств из БД), glob ограничен маской *.rrd внутри rrd-каталога, и в показанном коде нет пути для внешнего недоверенного ввода."
+ },
+ {
+  "case_id": "69ec57ce:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Бэктики выполняют константную команду `tput cols` без какой-либо подстановки пользовательских данных, инъекция кода невозможна."
+ },
+ {
+  "case_id": "ffd59e7d:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "В снippете только строковые replace и argparse, десериализации нет; это CLI-конвертер, где пользователь сам подаёт собственный файл, доверительная граница не пересекается."
+ },
+ {
+  "case_id": "14c1d093:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Скрипт сборки CPython использует захардкоженные URL-шаблоны и фиксированные аргументы subprocess, никакого недоверенного пути или traversal здесь нет."
+ },
+ {
+  "case_id": "f1233c30:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Ключи кэша задаются кодом приложения, а не внешним пользователем, и в показанном фрагменте нет свидетельств, что $key достижим из недоверенного ввода, так что path traversal не подтверждается."
+ },
+ {
+  "case_id": "c2f4afd5:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "runSql выполняет DDL-запросы, сгенерированные самим механизмом rebuild схемы (внутренний доверенный источник), пользовательский ввод в $queries не попадает, это не SQL-инъекция."
+ },
+ {
+  "case_id": "38269415:CWE-79:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "contextId берётся напрямую из query-параметра URL и подставляется в HTML/script-контекст через JSON.stringify, который не экранирует '<', поэтому значение вида '</script><script>...' даёт reflected XSS на странице оркестратора."
+ },
+ {
+  "case_id": "add78bb1:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec выполняет команду из константы ROOT без пользовательского ввода, инъекции кода/команды в показанном фрагменте нет (редиректы с параметрами — отдельная тема, не CWE-94)."
+ }
+]

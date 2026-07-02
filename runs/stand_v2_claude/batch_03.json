@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "a2fce2d4:CWE-502:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Nested unrestricted unserialize($data['searchParams']) inside __unserialize enables PHP object injection and defeats any allowed_classes restriction applied to the outer deserialization, a known gadget-amplification flaw."
+ },
+ {
+  "case_id": "f5c4022a:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "deep_merge! of permitted params into a subscription-settings hash never evaluates or executes anything, so CWE-94 code injection is inapplicable to this code."
+ },
+ {
+  "case_id": "48bb1865:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec_cmd is an internal helper that runs commands by design; no user-controlled input reaches it in the shown code, so shell=True alone (sink form) does not make it CWE-78."
+ },
+ {
+  "case_id": "6f33768a:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize reads local cache files that the same class previously wrote via serialize; the data source is application-controlled, not attacker-controlled, so no deserialization of untrusted data."
+ },
+ {
+  "case_id": "f5c4022a:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Rails auto-escapes interpolated values (name, unblock_url) in _html-suffixed I18n keys, so the html_safe flash renders escaped content in an admin-only view; no XSS."
+ },
+ {
+  "case_id": "420b88e7:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] is concatenated directly into the SQL WHERE clause with no parameterization, casting, or escaping — classic SQL injection."
+ },
+ {
+  "case_id": "06f879ce:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The hardcoded otp_secret lives in config/environments/test.rb, used only for the wiped test-suite environment (VAPID keys are even generated randomly), so no production credential is exposed."
+ },
+ {
+  "case_id": "ef1f9f4e:CWE-94:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "The backtick string `uri: {$gatewayPagamento['endPoint']}` is PHP's shell-execution operator, so DB-sourced endpoint content is executed as a shell command (real bug, effectively CWE-78 command execution)."
+ },
+ {
+  "case_id": "06f879ce:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The show action is a read-only GET rendering CSS with no state change, so CSRF protection is irrelevant despite inheriting ActionController::Base without forgery protection."
+ },
+ {
+  "case_id": "add78bb1:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The cache key passed to generateFileLocation comes from internal application code, with no user-controlled path segments visible, so no path traversal is demonstrated."
+ }
+]

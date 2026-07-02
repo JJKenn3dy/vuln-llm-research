@@ -1,0 +1,12 @@
+[
+ {"case_id": "31c8d3e4:CWE-22:false_positive", "verdict": "FALSE_POSITIVE", "reason": "Glob pattern and cwd come from developer-controlled build configuration in webpack tooling, no untrusted input reaches path resolution."},
+ {"case_id": "ba85f072:CWE-79:false_positive", "verdict": "FALSE_POSITIVE", "reason": "All text is passed through Convert.string_to_html_entities before being assigned to innerHTML, so embedded HTML is escaped and cannot execute."},
+ {"case_id": "ef1f9f4e:CWE-22:false_positive", "verdict": "FALSE_POSITIVE", "reason": "The cache file path is built via generateFileLocation($key) inside an internal cache class with no visible untrusted input flowing into the path in the shown code."},
+ {"case_id": "7a885d2d:CWE-22:false_positive", "verdict": "FALSE_POSITIVE", "reason": "Identical cache code: path derived by generateFileLocation from an application-supplied key, no demonstrated attacker-controlled traversal in the snippet."},
+ {"case_id": "c9ba7b08:CWE-798:false_positive", "verdict": "FALSE_POSITIVE", "reason": "The snippet is a plain module constructor with no credentials, secrets, or keys anywhere, so hardcoded-credentials claim is inapplicable."},
+ {"case_id": "cecec6e9:CWE-352:false_positive", "verdict": "FALSE_POSITIVE", "reason": "csrf_exempt on REST API endpoints authenticated via API-key header is idiomatic; browser-based CSRF cannot supply the required auth header, so CWE-352 does not apply."},
+ {"case_id": "782080f7:CWE-89:false_positive", "verdict": "TRUE_POSITIVE", "reason": "$_REQUEST['almox'] is concatenated directly into the SQL string without any validation, casting, or parameterization, a classic exploitable SQL injection."},
+ {"case_id": "175964b1:CWE-94:false_positive", "verdict": "FALSE_POSITIVE", "reason": "ffmpeg commands come from server configuration and the path is substituted as a discrete argv element via exec.Command without a shell, so no code/command injection is possible."},
+ {"case_id": "c2bd4121:CWE-918:false_positive", "verdict": "FALSE_POSITIVE", "reason": "The code performs no outbound HTTP/network requests so SSRF (CWE-918) is inapplicable; its real weaknesses (dynamic local include/dispatch) belong to different CWEs."},
+ {"case_id": "3ac1cd02:CWE-611:false_positive", "verdict": "FALSE_POSITIVE", "reason": "Python ElementTree does not resolve external entities by default and the parsed XML is a build-generated distribution file, not attacker-controlled, so XXE does not apply."}
+]

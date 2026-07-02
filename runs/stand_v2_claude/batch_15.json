@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "f147fe4e:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Vendored Bootstrap tooltip/template code with built-in defenses: html defaults to false (textContent path), _maybeSanitize applies sanitizeHtml with allowList when html is enabled, and sanitize/allowList/sanitizeFn are protected attributes; no untrusted data reaches innerHTML unsanitized in the shown code."
+ },
+ {
+  "case_id": "14c1d093:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "CPython stdlib cProfile.py contains only imports and thin wrappers around profile._Utils; there is no deserialization of untrusted data anywhere in the snippet, so CWE-502 is inapplicable."
+ },
+ {
+  "case_id": "add78bb1:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "No server-side request is made from user-controlled input (file_get_contents reads the fixed php://input stream), so the claimed CWE-918 SSRF is inapplicable; the code does have a separate concern (user-controlled dynamic require/class dispatch, CWE-470/98 territory), but not the flagged SSRF."
+ },
+ {
+  "case_id": "82c410b7:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The exec command is built solely from the ROOT constant with no user input ('git -C '.ROOT.' pull'), and the remote file_get_contents uses a hardcoded URL, so there is no injectable code/command path for CWE-94 in the shown snippet."
+ },
+ {
+  "case_id": "493c6e68:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "purge() builds the path through the internal $this->name() helper constrained to '*.rrd' files under the rrd directory, hostname comes from internal device records with an emptiness guard, and no untrusted traversal input is evident in the shown code."
+ },
+ {
+  "case_id": "766f9f07:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The map-builder preview injects the user's own form field into an iframe preview they control (self-XSS at worst) with no attacker-controlled data path, and getCode() explicitly escapes < and > before rendering."
+ },
+ {
+  "case_id": "064290f4:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The untrusted value (metadataValue) is passed via a parameterized placeholder; only the table name and metadataKey, which are developer-defined internal identifiers rather than user input, are interpolated, so no realistic injection path is shown."
+ },
+ {
+  "case_id": "20025122:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is Astro's dev-only error overlay: innerHTML receives the fixed overlay template and highlightedCode produced by the dev server's own syntax highlighter, while error name/message/cause go through text()/textContent, so no attacker-controlled HTML reaches a victim."
+ },
+ {
+  "case_id": "14c1d093:CWE-611:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "ET.parse (xml.etree) does not resolve external entities by default, and the parsed .sccd file is a local trusted artifact of the CPython Windows build tooling, so CWE-611 does not apply."
+ },
+ {
+  "case_id": "116d1763:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "A build-time code generator rendering Jinja2 templates of C structs into source files has no web/HTML output context or untrusted input, so missing autoescape is irrelevant and CWE-79 is inapplicable."
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "7a885d2d:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec() runs a fixed command built only from the ROOT constant, no user-controlled data reaches the command string, so CWE-94 code injection does not apply."
+ },
+ {
+  "case_id": "e259a7ee:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is multer's DiskStorage where destination and filename come from library callbacks (random names by default), not raw user input, so path.join here is not a traversal sink in the shown code."
+ },
+ {
+  "case_id": "35d37473:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The cache file path is produced by generateFileLocation() from an application-supplied cache key, with no user-controlled path segments shown, so no path traversal is evidenced."
+ },
+ {
+  "case_id": "e3109dbb:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "content_tag HTML-escapes attribute values, so props.to_json placed in a data attribute is properly encoded and not an XSS in this code."
+ },
+ {
+  "case_id": "63037fb7:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The code only renders error pages and redirects with no state-changing action or CSRF-protection bypass, so CWE-352 is inapplicable."
+ },
+ {
+  "case_id": "d137a063:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Keys and certificates are loaded from disk or freshly generated with crypto/rand; there are no hard-coded credentials anywhere in the snippet."
+ },
+ {
+  "case_id": "70e79f28:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The shell=True subprocess.call interpolates trash_dir derived from sys.executable, an internal installation path not attacker-controlled, so no command injection."
+ },
+ {
+  "case_id": "7062666a:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This error-handling/rendering code performs no state-changing operation and does not disable CSRF protection, so the CSRF claim is noise."
+ },
+ {
+  "case_id": "efd587a9:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The backtick execution runs the constant command `tput cols` with no user input, so neither code injection nor command injection is possible here."
+ },
+ {
+  "case_id": "cdb8e846:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] is concatenated unsanitized into the SQL string passed to mysqli_query, a classic exploitable SQL injection."
+ }
+]

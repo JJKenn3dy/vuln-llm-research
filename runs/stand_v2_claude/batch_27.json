@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "0ab52dda:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Output is emitted via json_encode with an explicit Content-type: application/json header, so DB values are never rendered in an HTML context and no XSS sink exists in this snippet."
+ },
+ {
+  "case_id": "38269415:CWE-22:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is an auto-generated TypeScript declaration file with static compile-time import type references only; there is no runtime file access or user-controlled path, so CWE-22 is inapplicable."
+ },
+ {
+  "case_id": "e05d9d7f:CWE-918:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The logSQL method performs no outbound HTTP/network request at all (it only formats and logs SQL and runs a local DB EXPLAIN with the original bindings), so SSRF (CWE-918) is inapplicable."
+ },
+ {
+  "case_id": "ed66270d:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a PHPUnit test that asserts the HTML writer renders a malicious hyperlink payload as inert cell text; test code with a fixed fixture and no untrusted input reaching a browser is not itself an XSS vulnerability."
+ },
+ {
+  "case_id": "ef1f9f4e:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "User-controlled $descricao (from extract($_REQUEST)) is stored and echoed back via json_encode without a Content-Type: application/json header, so the response defaults to text/html and json_encode does not escape angle brackets, allowing script injection when the endpoint is loaded directly."
+ },
+ {
+  "case_id": "cdb8e846:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "listar() echoes DB rows (user-populated fields) and even raw PDOException objects via json_encode with no application/json Content-Type header and no HTML escaping, so the text/html default response can render stored markup, enabling XSS."
+ },
+ {
+  "case_id": "e5c9c1fe:CWE-352:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is the CSRF protection middleware itself: unsafe methods always reach verifyToken(realToken, sentToken) and a tampered or missing cookie token fails verification, so the snippet implements rather than lacks CSRF defense."
+ },
+ {
+  "case_id": "f147fe4e:CWE-22:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The method parses an already-opened file handle passed in by the caller and never constructs a filesystem path from user input, so there is no traversal sink in the shown code."
+ },
+ {
+  "case_id": "1739e158:CWE-89:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Raw $_POST['cor'] is concatenated directly into an INSERT statement executed via $pdo->query with no parameterization or escaping, a textbook SQL injection."
+ },
+ {
+  "case_id": "f0f76a8f:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a pure configuration interface with property getters and no output rendering or HTML sink whatsoever, so CWE-79 is inapplicable."
+ }
+]

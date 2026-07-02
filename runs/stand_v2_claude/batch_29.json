@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "be0de1ab:CWE-22:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "User-controlled pointer.OId flows into getLFSObjectPath and then blobStore.Upload with no visible format validation or traversal check, allowing attacker-influenced object paths."
+ },
+ {
+  "case_id": "35d37473:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "No user-controlled data is echoed into HTML in the shown code: $msg is a static string, $_POST['dados'] is assigned but never output, and only constants like WWW are echoed, so no CWE-79 sink with tainted input exists here."
+ },
+ {
+  "case_id": "48bb1865:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "User-controlled user.bio is converted with markdown.markdown(), which passes raw HTML through unsanitized, and the result is rendered in the profile template, enabling stored XSS."
+ },
+ {
+  "case_id": "bf32364b:CWE-502:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "torch.load without weights_only is a deserialization sink, but the model paths are operator-supplied local checkpoints of the application itself with no attacker-controlled data flow shown, so the sink form alone does not make this exploitable."
+ },
+ {
+  "case_id": "782080f7:CWE-79:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The shown code outputs only static messages and hardcoded asset paths; no request-derived data reaches an HTML output, so there is no XSS in the flagged region (the injection risks present are SQL-related, not CWE-79)."
+ },
+ {
+  "case_id": "858c5987:CWE-434:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged snippet is only WordPress plugin singleton bootstrapping with no file upload handling at all, so CWE-434 (unrestricted upload) is inapplicable to this code."
+ },
+ {
+  "case_id": "e2603176:CWE-79:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "Raw $_GET parameters (icon, color) are parsed and their attacker-controlled content is embedded unescaped into HTML exception messages via $th->getMessage(), and other GET params (template, iconfield) flow into rendered arguments without sanitization, enabling reflected XSS."
+ },
+ {
+  "case_id": "83b159ee:CWE-22:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "root.resolve(container).resolve(key) uses the request-supplied blob key without any normalization or '..' rejection before Files.newInputStream, allowing path traversal outside the container root."
+ },
+ {
+  "case_id": "95b4e32d:CWE-918:true_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged region contains only property declarations and getters/setters with no code that fetches URLs or makes network requests, so no SSRF sink exists in the shown snippet."
+ },
+ {
+  "case_id": "7465f785:CWE-89:true_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_POST['raca'] is concatenated directly into an INSERT statement executed via $pdo->query with no parameterization or escaping, a textbook SQL injection."
+ }
+]

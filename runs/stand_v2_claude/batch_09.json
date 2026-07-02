@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "7a885d2d:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads a local cache file that the same class previously wrote via serialize(); the data is application-generated, not attacker-controlled, so CWE-502 does not apply absent a separate file-write primitive."
+ },
+ {
+  "case_id": "63037fb7:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "No eval/code-generation sink exists: YAML.safe_load is the safe parser, and the backtick rg call is developer rake tooling whose term argument is internal site-setting names, so claimed CWE-94 code injection is inapplicable."
+ },
+ {
+  "case_id": "31c8d3e4:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The hardcoded 'p@ss1w0rd' string in _hashCheck() is a dummy value used purely to equalize response timing against user enumeration, not a real credential granting access."
+ },
+ {
+  "case_id": "0709f5d9:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec('command -v ...') concatenates only an admin-controlled config path and hardcoded tool binary names for a diagnostics check; no user-controlled input reaches the shell and no code injection is possible."
+ },
+ {
+  "case_id": "15bdccf7:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The ad fields are passed through _native.sanitize() before template substitution and originate from the configured ad-network API rather than arbitrary user input, so this innerHTML templating is not an exploitable XSS in the shown code."
+ },
+ {
+  "case_id": "33d71763:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The handler writes server-side merged swagger JSON built from fixed local file paths; no request-derived data is reflected into the response, so there is no XSS vector."
+ },
+ {
+  "case_id": "420b88e7:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Nothing in the code issues a server-side HTTP request, so claimed CWE-918 SSRF is inapplicable; the dynamic controller dispatch is a different concern (unsafe reflection, CWE-470-style), not the flagged vulnerability."
+ },
+ {
+  "case_id": "58c309f3:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Identical Cache.php snippet: unserialize() consumes the class's own serialize()-written local cache file, trusted application data rather than attacker-supplied input, so CWE-502 is not exploitable here."
+ },
+ {
+  "case_id": "18ce5c27:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is the standard kubectl-style CLI plugin mechanism: it executes argocd-prefixed binaries the local user already has on PATH, running with that user's own privileges, so there is no injection of untrusted code."
+ },
+ {
+  "case_id": "fd6b6b59:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The composite action's inputs are supplied by trusted calling workflows in the same repository (secrets and static deploy parameters), not attacker-controlled event data, so the ${{ }} interpolation is not an exploitable command injection."
+ }
+]

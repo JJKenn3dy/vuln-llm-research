@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "45695edc:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "$id_dependente is validated with is_numeric() and the request is rejected before the query, so a numeric-only value interpolated into the SQL cannot break out of the expression."
+ },
+ {
+  "case_id": "0709f5d9:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The hardcoded bcrypt hash is the standard Laravel test-factory default password used only to seed fake users in tests, not a production credential."
+ },
+ {
+  "case_id": "9edbd9a5:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "When id_fiche arrives already set in the raw POST data it bypasses genere_nom_wiki and is concatenated unescaped into the SELECT ... WHERE tag='...' query, allowing SQL injection."
+ },
+ {
+  "case_id": "9edbd9a5:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "load() only eval()s the application's own local config file (requires pre-existing file-write access) and involves no OS command execution, so CWE-78 does not apply to this code."
+ },
+ {
+  "case_id": "4edad4dc:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is read-only error-page/redirect rendering with no state-changing action, so a CSRF (CWE-352) claim is inapplicable."
+ },
+ {
+  "case_id": "e05d9d7f:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The exec('command -v ...') argument is built only from the admin-set binary_path config value and hardcoded tool binary names, with no attacker-controlled input reaching the shell."
+ },
+ {
+  "case_id": "f35910cb:CWE-94:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "The PHP backtick operator in `uri: {$gatewayPagamento['endPoint']}` actually executes a shell command with the DB-stored endpoint interpolated, an unintended dynamic shell execution (command/code injection) rather than a string literal."
+ },
+ {
+  "case_id": "72cae416:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "All dynamic values go through textContent or href on server-set attributes while innerHTML only receives hardcoded constants, so no attacker-controlled data is rendered as HTML."
+ },
+ {
+  "case_id": "ecf18913:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is build-time webpack tooling that globs and requires local developer config files with no external or user-supplied path input, so path traversal is inapplicable."
+ },
+ {
+  "case_id": "be0de1ab:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The git wrapper uses exec.CommandContext with an argument slice (no shell interpretation), validates Action against an alphanumeric regex, and documents a -- separator for user-controlled args, so no code/command injection exists."
+ }
+]

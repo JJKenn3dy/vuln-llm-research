@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "14c1d093:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The workflow interpolates only typed workflow_call inputs (boolean free-threading, runner-label os) controlled by sibling workflows in the same repo, with no untrusted github.event data reaching a run step, so there is no realistic command injection."
+ },
+ {
+  "case_id": "fd093b88:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() is applied to cache values the application itself previously serialized and urlencoded into its own Redis instance, so no attacker-controlled data crosses the deserialization boundary in the shown code."
+ },
+ {
+  "case_id": "1359a530:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a vendored minified copy of the Algolia docsearch library containing generic object/array helpers, with no user-input-to-DOM sink demonstrating an XSS in the flagged lines."
+ },
+ {
+  "case_id": "43e12c3d:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "run_console is a deliberate command-runner helper whose $command comes from internal installer callers, $path is derived from __DIR__, and no user-controlled source is shown flowing into it, so the sink shape alone does not make it a code-injection bug."
+ },
+ {
+  "case_id": "e8cb6944:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Every dynamic component of the exec() command line (path, recipient, message title) is wrapped in escapeshellarg(), which neutralizes shell metacharacters and prevents injection."
+ },
+ {
+  "case_id": "54f74b80:CWE-611:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "xml.etree.ElementTree does not resolve external entities by default and the parsed .sccd file is a trusted local build artifact of CPython's packaging tooling, so XXE is not applicable."
+ },
+ {
+  "case_id": "a1dbce2e:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The function only builds a URL string from local filesystem/SCRIPT_NAME inspection and never issues any server-side request, so CWE-918 (SSRF) simply does not apply to this code."
+ },
+ {
+  "case_id": "1da81885:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The flagged lines are minified vendor library boilerplate (Algolia docsearch helpers) with no credentials, keys, or secrets hardcoded anywhere in the shown snippet."
+ },
+ {
+  "case_id": "cd1cbfd3:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "exec.Command with an argument slice never invokes a shell so no code/command injection beyond the intended, explicitly documented (#nosec, 'intended behaviour') command-execution feature of this tool is possible here."
+ },
+ {
+  "case_id": "0ab53172:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() reads cache files that the same class wrote via serialize() to app-controlled paths, so absent any shown attacker write access to the cache directory there is no untrusted deserialization."
+ }
+]

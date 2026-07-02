@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "119330c5:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "innerHTML строится из innerText строк роутов дев-тулбара CodeIgniter, источник — определённые разработчиком маршруты, а не attacker-controlled ввод, и тулбар работает только в debug-режиме."
+ },
+ {
+  "case_id": "493c6e68:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Это Laravel test/seed factory с bcrypt-хэшем слова 'password' для фейковых пользователей; тестовая фикстура, а не production-креденшел, CWE-798 неприменим."
+ },
+ {
+  "case_id": "6894234b:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "deleteFolder — внутренний хелпер composer-скриптов, путь приходит от собственного кода при сборке, внешнего пользовательского ввода в $path не показано, traversal-вектора нет."
+ },
+ {
+  "case_id": "d2316c99:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Значение поля builder вставляется в iframe предпросмотра собственного ввода того же пользователя (self-preview в админ-билдере), персистентности и cross-user вектора нет, а getCode() экранирует < и >."
+ },
+ {
+  "case_id": "f8661ef9:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "JSX (hono/jsx) автоэкранирует интерполяции, а единственный dangerouslySetInnerHTML получает вывод shiki-хайлайтера, который сам HTML-экранирует подсвечиваемый код."
+ },
+ {
+  "case_id": "0ab53172:CWE-89:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "$_REQUEST['almox'] конкатенируется в SQL-запрос без параметризации, кастинга или экранирования — классическая SQL-инъекция через estoque.id_almoxarifado=$almox."
+ },
+ {
+  "case_id": "8c2ea232:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Это генератор парсеров lrama (ERB-шаблоны пишут C-код в файл при сборке), вывод не попадает в HTML/браузер, контекст XSS отсутствует."
+ },
+ {
+  "case_id": "c49ceae7:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "highlight.js экранирует весь подсвечиваемый текст и значения атрибутов функцией k() (& < > → entities) перед сборкой HTML, инъекции сырого ввода нет."
+ },
+ {
+  "case_id": "18ce5c27:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "path.join(baseHRef, '/api/v1') строит клиентский URL из констант в браузерном коде, файловой системы и пользовательского ввода нет, CWE-22 неприменим."
+ },
+ {
+  "case_id": "f35910cb:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Код не делает исходящих HTTP-запросов, так что SSRF (CWE-918) неприменим; реальный риск здесь другой — LFI/инстанцирование класса из $_REQUEST (htmlspecialchars не блокирует ../), но это не заявленный CWE."
+ }
+]

@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "50643467:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The snippet is an HTTP method-checking decorator with no HTML rendering or reflection of user input into a response body, so CWE-79 (XSS) is inapplicable to this code."
+ },
+ {
+  "case_id": "8308f98c:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The only innerHTML assignment uses the static constant gUsageMsg, while chat content is appended via an element-creation helper taking a text string, so no untrusted data reaches an HTML-interpreting sink in the shown code."
+ },
+ {
+  "case_id": "a1dd529a:CWE-94:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The exec call runs a fixed command built only from the ROOT constant with no user-controlled data interpolated, so there is no code/command injection of the claimed CWE-94 kind in the shown code."
+ },
+ {
+  "case_id": "53d08d80:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a CLI command rendering a YAML template via text/template to stdout or a local file, not serving HTML to a browser, so XSS (CWE-79) does not apply."
+ },
+ {
+  "case_id": "a2fce2d4:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The execSync commands in this Gruntfile interpolate only hardcoded developer-defined file lists and package version in a local build script, with no external or attacker-controlled input reaching the shell."
+ },
+ {
+  "case_id": "a2fce2d4:CWE-918:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a CLI-only admin script that reads a local zip file path from argv supplied by a trusted operator; there is no server-side request built from untrusted input, so CWE-918 (SSRF) is inapplicable."
+ },
+ {
+  "case_id": "7062666a:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The innerHTML assignment only concatenates iconHTML output for the hardcoded names 'pause' and 'play' from a trusted helper, with no user-controlled data flowing into the sink."
+ },
+ {
+  "case_id": "22329c46:CWE-502:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "unredislize blindly calls unserialize without allowed_classes on any cached value and the 'unserialize if we can' fallback shows raw strings are stored unserialized, so a user-influenced cached string containing a serialized payload enables PHP object injection."
+ },
+ {
+  "case_id": "5a1cd3ff:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The cache key is passed through generateFileLocation and there is no evidence in the shown code that $key is user-controlled or reaches the filesystem path unsanitized, so no concrete path traversal is demonstrated."
+ },
+ {
+  "case_id": "4611d05d:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The shown excerpt contains only imports, constants, and page struct definitions with no filesystem path construction from user input, so no path traversal exists in the flagged code."
+ }
+]

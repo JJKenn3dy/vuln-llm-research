@@ -1,0 +1,52 @@
+[
+ {
+  "case_id": "6f33768a:CWE-22:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The cache filename comes from generateFileLocation($key) inside an internal cache class with no evidence of user-controlled path segments or traversal sequences reaching the filesystem call."
+ },
+ {
+  "case_id": "adfba44e:CWE-502:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "unserialize() operates on cache files the same class previously wrote via serialize(), so the deserialized data is self-generated rather than untrusted external input."
+ },
+ {
+  "case_id": "cc77ed70:CWE-798:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The snippet is the minified vendor @docsearch/js library with no credentials, keys, or secrets present anywhere in the flagged code."
+ },
+ {
+  "case_id": "4ab43c37:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is unmodified minified vendor library code (docsearch UI helpers and polyfills) with no application-level flow of untrusted data into an HTML sink shown."
+ },
+ {
+  "case_id": "d137a063:CWE-79:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This is a Go guest agent serving raw config values over the /dev/incus vsock API to programmatic clients, not rendering HTML in a browser, so reflected XSS does not apply."
+ },
+ {
+  "case_id": "a2fce2d4:CWE-89:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "runSql executes internally generated schema migration DDL from the DBAL schema manager, not user-supplied input, so there is no injection of untrusted data into SQL."
+ },
+ {
+  "case_id": "d1d3b7a9:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "The command is executed as an argument list without shell=True so no shell metacharacter injection is possible, and passing arbitrary adb subcommands to the analysis device is the intended, authenticated and permission-gated functionality."
+ },
+ {
+  "case_id": "cd1cbfd3:CWE-79:false_positive",
+  "verdict": "TRUE_POSITIVE",
+  "reason": "output.innerHTML = message['content'] injects WebSocket-delivered content (user-originated clipboard/CLI data broadcast by the server) into the DOM without any escaping, a classic DOM XSS sink with attacker-influenceable input."
+ },
+ {
+  "case_id": "69b6e054:CWE-352:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "This example server only serves static HTML for GET requests with no cookies, sessions, or state-changing endpoints, so CSRF is inapplicable."
+ },
+ {
+  "case_id": "20025122:CWE-78:false_positive",
+  "verdict": "FALSE_POSITIVE",
+  "reason": "Although spawn uses shell:true with string interpolation, this is a local CLI scaffolding helper whose command and flags come from the tool's own code, with no remote or untrusted input crossing a trust boundary."
+ }
+]
