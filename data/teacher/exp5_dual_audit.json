@@ -1,0 +1,29 @@
+{
+  "teachers": [
+    "openai/gpt-5.5",
+    "z-ai/glm-5.2"
+  ],
+  "pool": "data/train/triage_v8_3_clean/train_dedup_balanced.json",
+  "n_requested": 450,
+  "n_done": 277,
+  "spent_usd": 4.0152,
+  "n_agree": 236,
+  "n_quarantine": 41,
+  "agreement_rate": 0.852,
+  "consensus_label_dist": {
+    "FALSE_POSITIVE": 180,
+    "TRUE_POSITIVE": 56
+  },
+  "disagree_by_cwe": {
+    "CWE-89": 7,
+    "CWE-79": 14,
+    "CWE-22": 7,
+    "CWE-352": 5,
+    "CWE-94": 2,
+    "CWE-78": 3,
+    "CWE-502": 1,
+    "CWE-434": 1,
+    "CWE-918": 1
+  },
+  "vs_pool_flip_rate": 0.3559
+}

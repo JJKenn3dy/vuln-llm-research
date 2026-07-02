@@ -1,0 +1,28 @@
+{
+  "model": "z-ai/glm-5.2",
+  "provider_pin": {
+    "order": [
+      "DeepInfra"
+    ],
+    "quantizations": [
+      "fp4"
+    ],
+    "allow_fallbacks": true
+  },
+  "providers_used": {
+    "DeepInfra": 814,
+    "Wafer": 128,
+    "Decart": 14,
+    "Inceptron": 12,
+    "WandB": 1
+  },
+  "n_done": 969,
+  "n_labeled": 951,
+  "parse_fail": 18,
+  "spent_usd": 1.855,
+  "verdict_dist": {
+    "TRUE_POSITIVE": 268,
+    "FALSE_POSITIVE": 683
+  },
+  "vs_pool_flip_rate": 0.3596
+}

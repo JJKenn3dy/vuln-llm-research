@@ -1,0 +1,86 @@
+[
+  {
+    "n": 0,
+    "case_id": "mined79_crossvul-pair-1034_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 1,
+    "case_id": "mined79_crossvul-pair-1145_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 2,
+    "case_id": "mined79_crossvul-pair-1292_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 3,
+    "case_id": "mined79_crossvul-pair-173_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 4,
+    "case_id": "mined79_crossvul-pair-2196_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 5,
+    "case_id": "mined79_crossvul-pair-2821_safe",
+    "label": "FALSE_POSITIVE",
+    "source": "mined_train",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged output is escaped/encoded before reaching the sink in the shown code, so the finding is noise.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 6,
+    "case_id": "ra_crossvul-pair-1126_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 7,
+    "case_id": "ra_crossvul-pair-1690_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+  },
+  {
+    "n": 8,
+    "case_id": "ra_crossvul-pair-2088_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 9,
+    "case_id": "ra_crossvul-pair-2451_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-79\nSuggestedFix: N/A"
+  },
+  {
+    "n": 10,
+    "case_id": "ra_crossvul-pair-3544_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-89\nSuggestedFix: N/A"
+  },
+  {
+    "n": 11,
+    "case_id": "ra_crossvul-pair-4180_FA",
+    "label": "FALSE_POSITIVE",
+    "source": "real_anchor_scaled",
+    "existing_reasoning": "Verdict: FALSE_POSITIVE\nConfidence: HIGH\nReasoning: The flagged construct is neutralized or not reachable with attacker input in the shown code.\nRealCWE: CWE-22\nSuggestedFix: N/A"
+  }
+]
