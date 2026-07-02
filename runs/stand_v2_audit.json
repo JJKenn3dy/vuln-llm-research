@@ -1,0 +1,45 @@
+{
+ "judges": [
+  "claude-fable-5-subagent (subscription, $0)",
+  "google/gemini-3.1-pro-preview (openrouter)"
+ ],
+ "pool": "data/exam/exam_a_in_scope_300.json",
+ "n_pool": 300,
+ "n_both_judged": 300,
+ "n_consensus": 205,
+ "n_quarantine": 95,
+ "agreement_rate": 0.6833,
+ "consensus_dist": {
+  "FALSE_POSITIVE": 177,
+  "TRUE_POSITIVE": 28
+ },
+ "flips_vs_sb": 36,
+ "flip_rate_vs_sb": 0.1756,
+ "opus_crosscheck": {
+  "n": 27,
+  "claude_opus_agree": 24
+ },
+ "top_projects": [
+  [
+   "https://github.com/LabRedesCefetRJ/WeGIA",
+   56
+  ],
+  [
+   "https://github.com/python/cpython",
+   9
+  ],
+  [
+   "https://github.com/run-llama/llama_index",
+   8
+  ],
+  [
+   "https://github.com/YesWiki/yeswiki",
+   8
+  ],
+  [
+   "https://github.com/espocrm/espocrm",
+   7
+  ]
+ ],
+ "n_projects": 63
+}
