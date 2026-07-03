@@ -1,0 +1,33 @@
+{
+  "n_total": 205,
+  "TP": 17,
+  "FN": 11,
+  "TN": 169,
+  "FP": 8,
+  "PARSE_FAIL": 0,
+  "detection_rate": 0.6071428571428571,
+  "false_alarm_rate": 0.04519774011299435,
+  "precision": 0.68,
+  "recall": 0.6071428571428571,
+  "f1": 0.6415094339622641,
+  "balanced_accuracy": 0.7809725585149314,
+  "mcc": 0.5897300985155399,
+  "parse_fail_rate": 0.0,
+  "per_claimed_cwe_count": {
+    "CWE-79": 45,
+    "CWE-22": 34,
+    "CWE-94": 30,
+    "CWE-89": 26,
+    "CWE-502": 24,
+    "CWE-798": 17,
+    "CWE-918": 10,
+    "CWE-78": 9,
+    "CWE-352": 8,
+    "CWE-611": 1,
+    "CWE-434": 1
+  },
+  "per_claimed_cwe_cwe_match": {
+    "CWE-79": 3,
+    "CWE-78": 1
+  }
+}

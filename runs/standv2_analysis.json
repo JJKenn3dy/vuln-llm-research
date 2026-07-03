@@ -1,0 +1,107 @@
+{
+ "n_eval": 205,
+ "models": {
+  "exp5": {
+   "n": 205,
+   "parse_fail": 0,
+   "strict(pf_as_wrong)": {
+    "mcc": 0.4943,
+    "dr": 0.6071,
+    "far": 0.0847,
+    "tp": 17,
+    "fn": 11,
+    "tn": 162,
+    "fp": 15
+   },
+   "legacy(pf_excluded)": {
+    "mcc": 0.4943,
+    "dr": 0.6071,
+    "far": 0.0847,
+    "tp": 17,
+    "fn": 11,
+    "tn": 162,
+    "fp": 15
+   },
+   "mcc_strict_ci95_cluster": [
+    0.0645,
+    0.6824
+   ]
+  },
+  "exp4": {
+   "n": 205,
+   "parse_fail": 0,
+   "strict(pf_as_wrong)": {
+    "mcc": 0.5897,
+    "dr": 0.6071,
+    "far": 0.0452,
+    "tp": 17,
+    "fn": 11,
+    "tn": 169,
+    "fp": 8
+   },
+   "legacy(pf_excluded)": {
+    "mcc": 0.5897,
+    "dr": 0.6071,
+    "far": 0.0452,
+    "tp": 17,
+    "fn": 11,
+    "tn": 169,
+    "fp": 8
+   },
+   "mcc_strict_ci95_cluster": [
+    0.1093,
+    0.8082
+   ]
+  },
+  "v8_3_1": {
+   "n": 205,
+   "parse_fail": 0,
+   "strict(pf_as_wrong)": {
+    "mcc": 0.4283,
+    "dr": 0.7143,
+    "far": 0.1751,
+    "tp": 20,
+    "fn": 8,
+    "tn": 146,
+    "fp": 31
+   },
+   "legacy(pf_excluded)": {
+    "mcc": 0.4283,
+    "dr": 0.7143,
+    "far": 0.1751,
+    "tp": 20,
+    "fn": 8,
+    "tn": 146,
+    "fp": 31
+   },
+   "mcc_strict_ci95_cluster": [
+    0.0362,
+    0.6752
+   ]
+  }
+ },
+ "pairwise": {
+  "exp5_vs_exp4": {
+   "n_paired": 205,
+   "dmcc_point": -0.0954,
+   "dmcc_ci95_cluster": [
+    -0.2828,
+    0.1663
+   ],
+   "exp5_only_correct": 9,
+   "exp4_only_correct": 16,
+   "sign_test_p": 0.2295
+  },
+  "exp5_vs_v8_3_1": {
+   "n_paired": 205,
+   "dmcc_point": 0.066,
+   "dmcc_ci95_cluster": [
+    -0.0871,
+    0.2167
+   ],
+   "exp5_only_correct": 25,
+   "v8_3_1_only_correct": 12,
+   "sign_test_p": 0.047
+  }
+ }
+}
